@@ -410,6 +410,47 @@ class Grid
     }
 
     /**
+     * Generado a amno con posibles errores
+     * @param $currentPage
+     * @param $totalPages
+     * @param $baseUrl
+     * @return string
+     */
+    function render_Pagination($currentPage, $totalPages, $baseUrl)
+    {
+        $links = '';
+
+        // Botón Previous
+        $prevClass = ($currentPage <= 1) ? ' disabled' : '';
+        $links .= '
+        <li class="page-item' . $prevClass . '">
+            <a class="page-link" href="' . $baseUrl . '&page=' . ($currentPage - 1) . '" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>';
+
+        // Páginas numeradas
+        for ($i = 1; $i <= $totalPages; $i++) {
+            $activeClass = ($currentPage == $i) ? ' active' : '';
+            $links .= '
+            <li class="page-item' . $activeClass . '">
+                <a class="page-link" href="' . $baseUrl . '&page=' . $i . '">' . $i . '</a>
+            </li>';
+        }
+
+        // Botón Next
+        $nextClass = ($currentPage >= $totalPages) ? ' disabled' : '';
+        $links .= '
+        <li class="page-item' . $nextClass . '">
+            <a class="page-link" href="' . $baseUrl . '&page=' . ($currentPage + 1) . '" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>';
+
+        return $links;
+    }
+
+    /**
      * Renderiza una fila de la tabla. Cada celda de la fila se renderiza con el método render_Cell.
      * @param $row
      * @return string

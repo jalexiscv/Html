@@ -13,15 +13,17 @@ class Cards
     private $id;
     private $class;
     private $header;
+    private $headerTitle;
+    private $headerSubtitle;
     private $body;
     private $footer;
     private $image;
     private $imagePosition;
-    private $title;
-    private $subtitle;
+    private $contentTitle;
+    private $contentSubtitle;
     private $text;
     private $buttons;
-    private $headerButtons; 
+    private $headerButtons;
     private $horizontal;
     private $attributes;
 
@@ -34,13 +36,19 @@ class Cards
     {
         $this->id = $this->get_Attribute($attributes, 'id', 'card-' . uniqid());
         $this->class = $this->get_Attribute($attributes, 'class', 'card');
-        $this->header = $this->get_Attribute($attributes, 'header', '');
+        $this->header = '';
+        // Values
+        $header_title = $this->get_Attribute($attributes, 'header-title', '');
+        $header_title_class = $this->get_Attribute($attributes, 'header-title-class', 'card-title');
+        // Setters
+        $this->headerTitle = array("content" => $header_title, "attributes" => array("class" => $header_title_class));
+        $this->headerSubtitle = $this->get_Attribute($attributes, 'header-subtitle', '');
         $this->body = $this->get_Attribute($attributes, 'body', '');
         $this->footer = $this->get_Attribute($attributes, 'footer', '');
         $this->image = $this->get_Attribute($attributes, 'image', '');
-        $this->imagePosition = $this->get_Attribute($attributes, 'imagePosition', 'top'); // top, bottom, overlay
-        $this->title = $this->get_Attribute($attributes, 'title', '');
-        $this->subtitle = $this->get_Attribute($attributes, 'subtitle', '');
+        $this->imagePosition = $this->get_Attribute($attributes, 'imagePosition', 'top');
+        $this->contentTitle = '';
+        $this->contentSubtitle = '';
         $this->text = $this->get_Attribute($attributes, 'text', '');
         $this->horizontal = $this->get_Attribute($attributes, 'horizontal', false);
         $this->buttons = [];
@@ -49,15 +57,53 @@ class Cards
     }
 
     /**
-     * Establece el título de la tarjeta
+     * Establece el título del header de la tarjeta
      *
-     * @param string $title Título de la tarjeta
+     * @param string $title Título del header
      * @param array $attributes Atributos adicionales para el título
      * @return self
      */
-    public function set_Title($title, $attributes = []): self
+    public function set_HeaderTitle($title, $attributes = []): self
     {
-        $this->title = [
+        if (empty($title)) {
+            return $this;
+        }
+        $this->headerTitle = ['content' => $title, 'attributes' => $attributes];
+        return $this;
+    }
+
+    /**
+     * Establece el subtítulo del header de la tarjeta
+     *
+     * @param string $subtitle Subtítulo del header
+     * @param array $attributes Atributos adicionales para el subtítulo
+     * @return self
+     */
+    public function set_HeaderSubtitle($subtitle, $attributes = []): self
+    {
+        if (empty($subtitle)) {
+            return $this;
+        }
+        $this->headerSubtitle = [
+            'content' => $subtitle,
+            'attributes' => $attributes
+        ];
+        return $this;
+    }
+
+    /**
+     * Establece el título del contenido de la tarjeta
+     *
+     * @param string $title Título del contenido
+     * @param array $attributes Atributos adicionales para el título
+     * @return self
+     */
+    public function set_ContentTitle($title, $attributes = []): self
+    {
+        if (empty($title)) {
+            return $this;
+        }
+        $this->contentTitle = [
             'content' => $title,
             'attributes' => $attributes
         ];
@@ -65,15 +111,18 @@ class Cards
     }
 
     /**
-     * Establece el subtítulo de la tarjeta
+     * Establece el subtítulo del contenido de la tarjeta
      *
-     * @param string $subtitle Subtítulo de la tarjeta
+     * @param string $subtitle Subtítulo del contenido
      * @param array $attributes Atributos adicionales para el subtítulo
      * @return self
      */
-    public function set_Subtitle($subtitle, $attributes = []): self
+    public function set_ContentSubtitle($subtitle, $attributes = []): self
     {
-        $this->subtitle = [
+        if (empty($subtitle)) {
+            return $this;
+        }
+        $this->contentSubtitle = [
             'content' => $subtitle,
             'attributes' => $attributes
         ];
@@ -121,10 +170,13 @@ class Cards
      */
     public function set_Header($header, $attributes = []): self
     {
-        $this->header = [
-            'content' => $header,
-            'attributes' => array_merge(['class' => 'card-header'], $attributes)
-        ];
+        $this->header = '';
+        if (!empty($header)) {
+            $this->header = [
+                'content' => $header,
+                'attributes' => array_merge(['class' => 'card-header'], $attributes)
+            ];
+        }
         return $this;
     }
 
@@ -160,26 +212,6 @@ class Cards
     }
 
     /**
-     * Agrega un botón a la tarjeta
-     *
-     * @param string $label Etiqueta del botón
-     * @param array $attributes Atributos del botón
-     * @return self
-     */
-    public function add_Button($label, $attributes = []): self
-    {
-        $default_attributes = [
-            'class' => 'btn btn-primary',
-            'type' => 'button'
-        ];
-        $this->buttons[] = [
-            'label' => $label,
-            'attributes' => array_merge($default_attributes, $attributes)
-        ];
-        return $this;
-    }
-
-    /**
      * Agrega un botón al encabezado de la tarjeta
      *
      * @param string $label Etiqueta del botón
@@ -189,12 +221,29 @@ class Cards
     public function add_HeaderButton($label, $attributes = []): self
     {
         $default_attributes = [
-            'class' => 'btn btn-sm btn-primary float-end ms-1',
-            'type' => 'button'
+            'class' => 'btn btn-sm bg-toolbar-primary border-toolbar-primary',
+            'type' => 'button',
+            'target' => '_self'
         ];
         $this->headerButtons[] = [
             'label' => $label,
             'attributes' => array_merge($default_attributes, $attributes)
+        ];
+        return ($this);
+    }
+
+    /**
+     * Agrega un botón a la tarjeta
+     *
+     * @param string $label Etiqueta del botón
+     * @param array $attributes Atributos del botón
+     * @return self
+     */
+    public function add_Button($label, $attributes = []): self
+    {
+        $this->buttons[] = [
+            'label' => $label,
+            'attributes' => $attributes
         ];
         return $this;
     }
@@ -213,6 +262,41 @@ class Cards
     }
 
     /**
+     * Renderiza los botones del encabezado
+     *
+     * @return string HTML de los botones
+     */
+    private function render_HeaderButtons(): string
+    {
+        if (empty($this->headerButtons)) {
+            return '';
+        }
+
+        $buttons = '';
+        $buttons_default_class = 'btn btn-sm bg-toolbar-primary border-toolbar-primary';
+        foreach ($this->headerButtons as $button) {
+            if (!empty($button['attributes']['href'])) {
+                $buttons .= Html::get_A([
+                    'content' => @$button['label'],
+                    'class' => @$button['attributes']['class'],
+                    'type' => @$button['attributes']['type'],
+                    'target' => @$button['attributes']['target'],
+                    'href' => @$button['attributes']['href'],
+                    'test' => "prueba-link",
+                ]);
+            } else {
+                $buttons .= Html::get_Button([
+                    'content' => @$button['label'],
+                    'class' => !empty($button['attributes']['class']) ?? $buttons_default_class,
+                    'type' => @$button['attributes']['type'],
+                    'test' => "prueba-button",
+                ]);
+            }
+        }
+        return $buttons;
+    }
+
+    /**
      * Renderiza los botones de la tarjeta
      *
      * @return string HTML de los botones
@@ -225,28 +309,6 @@ class Cards
 
         $buttons = '';
         foreach ($this->buttons as $button) {
-            $buttons .= Html::get_Button([
-                'content' => $button['label'],
-                'class' => $button['attributes']['class'],
-                'type' => $button['attributes']['type']
-            ]);
-        }
-        return $buttons;
-    }
-
-    /**
-     * Renderiza los botones del encabezado
-     *
-     * @return string HTML de los botones
-     */
-    private function render_HeaderButtons(): string
-    {
-        if (empty($this->headerButtons)) {
-            return '';
-        }
-
-        $buttons = '';
-        foreach ($this->headerButtons as $button) {
             $buttons .= Html::get_Button([
                 'content' => $button['label'],
                 'class' => $button['attributes']['class'],
@@ -283,26 +345,26 @@ class Cards
     {
         $body = '';
 
-        // Título
-        if (!empty($this->title)) {
+        // Título del contenido
+        if (!empty($this->contentTitle)) {
             $titleAttrs = array_merge(
                 ['class' => 'card-title'],
-                $this->title['attributes'] ?? []
+                $this->contentTitle['attributes'] ?? []
             );
             $body .= Html::get_H1([
-                'content' => $this->title['content'],
+                'content' => $this->contentTitle['content'],
                 'class' => $titleAttrs['class']
             ]);
         }
 
-        // Subtítulo
-        if (!empty($this->subtitle)) {
+        // Subtítulo del contenido
+        if (!empty($this->contentSubtitle)) {
             $subtitleAttrs = array_merge(
                 ['class' => 'card-subtitle mb-2 text-muted'],
-                $this->subtitle['attributes'] ?? []
+                $this->contentSubtitle['attributes'] ?? []
             );
             $body .= Html::get_H1([
-                'content' => $this->subtitle['content'],
+                'content' => $this->contentSubtitle['content'],
                 'class' => $subtitleAttrs['class']
             ]);
         }
@@ -327,6 +389,37 @@ class Cards
     }
 
     /**
+     * Renderiza el título del header
+     * @param $content
+     * @return string
+     */
+    private function render_HeaderTitle(): string
+    {
+        if (!empty($this->headerTitle['content'])) {
+            $h5 = HtmlTag::tag('h5');
+            $h5->attr('class', "card-title mb-0");
+            $h5->content($this->headerTitle['content']);
+            return ($h5);
+        }
+        return ("");
+    }
+
+    private function render_HeaderToolbar(): string
+    {
+        $rhb = $this->render_HeaderButtons();
+        $group = HtmlTag::tag('div');
+        $group->attr('class', "btn-group mx-0");
+        $group->attr("rol", "group");
+        $group->content($rhb);
+        $toolbar = HtmlTag::tag('div');
+        $toolbar->attr('class', "btn-toolbar");
+        $toolbar->attr("rol", "toolbar");
+        $toolbar->content($group);
+        return ($toolbar);
+    }
+
+
+    /**
      * Convierte la tarjeta a HTML
      *
      * @return string
@@ -336,12 +429,38 @@ class Cards
         $content = '';
 
         // Header
-        if (!empty($this->header)) {
-            $headerContent = $this->header['content'] . $this->render_HeaderButtons();
-            $content .= Html::get_Div([
-                'content' => $headerContent,
-                'class' => $this->header['attributes']['class']
-            ]);
+        if (!empty($this->headerTitle)) {
+            $headerContent = '';
+            if (!empty($this->header['content'])) {
+                $headerContent = $this->header['content'];
+            }
+
+            // Agregar título del header si existe
+            $headerContent = $this->render_HeaderTitle();
+
+            /**
+             * // Agregar subtítulo del header si existe
+             * if (!empty($this->headerSubtitle)) {
+             * $subtitleAttrs = array_merge(
+             * ['class' => 'card-header-subtitle'],
+             * $this->headerSubtitle['attributes'] ?? []
+             * );
+             * $headerContent .= Html::get_H1([
+             * 'content' => $this->headerSubtitle['content'],
+             * 'class' => $subtitleAttrs['class']
+             * ]);
+             * }
+             * **/
+
+            $headerTitle = $this->render_HeaderTitle();
+            $headerToolbar = $this->render_HeaderToolbar();
+            // Header de la card con título y toolbar
+            $contentHeader = HtmlTag::tag('div');
+            $contentHeader->attr('class', "d-flex justify-content-between align-items-center");
+            $contentHeader->content(array($headerTitle, $headerToolbar));
+            // Agregar botones del header
+            $headerClass = $this->header['attributes']['class'] ?? 'card-header px-2';
+            $content .= Html::get_Div(['content' => $contentHeader, 'class' => $headerClass]);
         }
 
         // Imagen superior

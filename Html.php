@@ -131,7 +131,11 @@ class Html
         $href = self::_get_Attribute($args, "href", "#", false);
         $content = self::_get_Attribute($args, "content", "", false);
         $a = HtmlTag::tag('a');
-        $a->attr('href', $href);
+        foreach ($args as $key => $value) {
+            if ($key !== 'content') {
+                $a->attr($key, $value);
+            }
+        }
         $a->content($content);
         return ($a->render());
     }
