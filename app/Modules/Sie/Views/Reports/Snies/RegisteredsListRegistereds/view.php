@@ -4,7 +4,7 @@ $mprograms = model('App\Modules\Sie\Models\Sie_Programs');
 $programs = $mprograms->get_SelectData();
 
 
-$periodos = ['2025A', '2024B', '2024A'];
+$periodos = PERIODS;
 
 $resultados = null; // Inicializa $resultados
 

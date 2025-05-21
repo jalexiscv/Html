@@ -61,6 +61,7 @@ return [
     "WEB_MODULE_TITLE" => "Web",
     "WORKFLOW_MODULE_TITLE" => "Flujo de Trabajo",
     "PROJECT_MODULE_TITLE" => "Proyectos",
+    "MAINTENANCE_MODULE_TITLE" => "Mantenimientos",
 ];
 
 ?>

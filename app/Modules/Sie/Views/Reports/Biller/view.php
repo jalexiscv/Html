@@ -3,14 +3,11 @@ $mprograms = model('App\Modules\Sie\Models\Sie_Programs');
 
 $programs = $mprograms->get_SelectData();
 
-
-$periodos = PERIODS;
-
 $resultados = null; // Inicializa $resultados
 
 $modal = true;
-if (isset($_GET['period']) && isset($_GET['program'])) {
-    $period = $_GET['period'];
+if (isset($_GET['program'])) {
+    $period = "2025A";
     $program = $_GET['program'];
     $modal = false;
 }
