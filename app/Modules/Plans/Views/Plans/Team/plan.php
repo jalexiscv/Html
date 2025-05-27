@@ -20,18 +20,18 @@ $mfields = model('App\Modules\Plans\Models\Plans_Users_Fields');
 //[var]-----------------------------------------------------------------------------------------------------------------
 // $oid Recibe  "Plan"
 $plan = $mplans->getPlan($oid);
-$process = $mprocess->get_Process($plan['manager']);
+$process = $mprocess->get_Process(@$plan['manager']);
 //print_r($process);
 //exit();
-$profile = $mfields->get_Profile($process['responsible']);
-
+$profile = $mfields->get_Profile(@$process['responsible']);
 
 $f = service("forms", array("lang" => "Plans_Plans."));
-$r["manager"] = $f->get_Value("manager", $plan['manager']);
-$r["manager_process_name"] = $process['name'];
-$r["manager_user"] = $profile['name'];
-$r["manager_subprocess"] = $f->get_Value("manager_subprocess", $plan['manager_subprocess']);
-$r["manager_position"] = $f->get_Value("manager_position", $plan['manager_position']);
+
+$r["manager"] = $f->get_Value("manager", @$plan['manager']);
+$r["manager_process_name"] = @$process['name'];
+$r["manager_user"] = @$profile['name'];
+$r["manager_subprocess"] = $f->get_Value("manager_subprocess", @$plan['manager_subprocess']);
+$r["manager_position"] = $f->get_Value("manager_position", @$plan['manager_position']);
 $back = "/plans/plans/view/{$oid}";
 $row = $model->where('plan', $oid)->first();
 
@@ -39,9 +39,8 @@ $positions = array(
     array("value" => "", "label" => "- [ Seleccione uno ]"),
 );
 
-
 $subprocess = array(array("value" => "", "label" => "- [ Seleccione uno ]"));
-$dsubprocess = $msubprocess->get_SelectDataWithPosition($process['process']);
+$dsubprocess = $msubprocess->get_SelectDataWithPosition(@$process['process']);
 $list_subprocess = array_merge($subprocess, $dsubprocess);
 
 //array_push($subprocess, $dsubprocess);

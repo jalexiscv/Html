@@ -2,8 +2,8 @@
 
 /**
  * █ ---------------------------------------------------------------------------------------------------------------------
- * █ ░FRAMEWORK                                  2024-02-03 16:17:48
- * █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Plans\Views\Plans\Editor\index.php]
+ * █ ░FRAMEWORK                                  2025-05-21 21:55:10
+ * █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Firewall\Views\Livetraffic\List\index.php]
  * █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
  * █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
  * █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
@@ -17,61 +17,41 @@
  * █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
  * █ ---------------------------------------------------------------------------------------------------------------------
  * █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
- * █ @link https://www.codehiggs.com
- * █ @Version 1.5.0 @since PHP 7, PHP 8
- * █ ---------------------------------------------------------------------------------------------------------------------
- * █ Datos recibidos desde el controlador - @ModuleController
- * █ ---------------------------------------------------------------------------------------------------------------------
- * █ @var object $parent
- * █ @var object $authentication
- * █ @var object $request
- * █ @var object $dates
- * █ @var string $component
- * █ @var string $view
- * █ @var string $oid
- * █ @var string $views
- * █ @var string $prefix
- * █ @var array $data
+ * █ @link https://www.higgs.com.co
+ * █ @Version 1.5.1 @since PHP 8,PHP 9
  * █ ---------------------------------------------------------------------------------------------------------------------
  **/
 //[vars]----------------------------------------------------------------------------------------------------------------
+/**
+ * @var object $authentication Authentication service from the ModuleController.
+ * @var object $bootstrap Instance of the Bootstrap class from the ModuleController.
+ * @var string $component Complete URI to the requested component.
+ * @var object $dates Date service from the ModuleController.
+ * @var string $oid String representing the object received, usually an object/data to be viewed, transferred from the ModuleController.
+ * @var object $parent Represents the ModuleController.
+ * @var object $request Request service from the ModuleController.
+ * @var object $strings String service from the ModuleController.
+ * @var string $view String passed to the view defined in the viewer for evaluation.
+ * @var string $viewer Complete URI to the view responsible for evaluating each requested view.
+ * @var string $views Complete URI to the module views.
+ **/
 $data = $parent->get_Array();
-$data['model'] = model("App\Modules\Plans\Models\Plans_Plans");
-$data['permissions'] = array('singular' => 'plans-plans-view', "plural" => 'plans-plans-view-all');
-$singular = $authentication->has_Permission($data['permissions']['singular']);
+$data['permissions'] = array('singular' => false, "plural" => 'firewall-livetraffic-view-all');
 $plural = $authentication->has_Permission($data['permissions']['plural']);
-$author = $data['model']->get_Authority($oid, safe_get_user());
-$authority = ($singular && $author) ? true : false;
 $submited = $request->getPost("submited");
 $breadcrumb = $component . '\breadcrumb';
 $validator = $component . '\validator';
-$plan = $component . '\plan';
-$status = $component . '\status';
+$table = $component . '\grid';
 $deny = $component . '\deny';
-$right = $component . '\right';
 //[build]---------------------------------------------------------------------------------------------------------------
-if ($plural || $authority) {
+if ($plural) {
     if (!empty($submited)) {
-        $json = array(
-            'breadcrumb' => view($breadcrumb, $data),
-            'main' => view($validator, $data),
-            'right' => view($right, $data),
-        );
+        $json = array('breadcrumb' => view($breadcrumb, $data), 'main' => view($validator, $data), 'right' => "");
     } else {
-        $plan = view($plan, $data);
-        $status = view($status, $data);
-        $json = array(
-            'breadcrumb' => view($breadcrumb, $data),
-            'main' => $plan . $status,
-            'right' => view($right, $data)
-        );
+        $json = array('breadcrumb' => view($breadcrumb, $data), 'main' => view($table, $data), 'right' => "");
     }
 } else {
-    $json = array(
-        'breadcrumb' => view($breadcrumb, $data),
-        'main' => view($deny, $data),
-        'right' => ""
-    );
+    $json = array('breadcrumb' => view($breadcrumb, $data), 'main' => view($deny, $data), 'right' => "");
 }
 echo(json_encode($json));
 ?>

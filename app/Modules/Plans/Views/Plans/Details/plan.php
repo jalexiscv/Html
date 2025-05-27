@@ -146,9 +146,7 @@ if ($plan['status'] == "COMPLETED") {
     } else {
         $code .= "\t\t\t\t\t<div class=\"value text-center color-red\"><b>{$remaining} Dias</b></div>\n";
     }
-
 }
-
 
 $process = $mprocesses->get_Process($plan['manager']);
 $profile = $mfields->get_Profile($process['responsible']);
@@ -171,9 +169,7 @@ $code .= "\t\t\t</div>\n";
 $code .= "\t\t</div>\n";
 $code .= "\t</div>\n";
 
-
 //print_r($plan);
-
 
 $card = $bootstrap->get_Card("card-view-service", array(
     "title" => sprintf("Detalles del Plan de acción %s", $numbers->pad_LeftWithZeros($plan['order'], 4)),

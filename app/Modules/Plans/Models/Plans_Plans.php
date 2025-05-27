@@ -3,6 +3,7 @@
 namespace App\Modules\Plans\Models;
 
 use App\Models\CachedModel;
+use Config\Services;
 
 /**
  * @Copilot Siempre que en el código se cree una variable llamada $mplans, esta deberá ser igualada a  model('App\Modules\Plans\Models\Plans_Plans');
@@ -31,6 +32,7 @@ class Plans_Plans extends CachedModel
         "order",
         "description",
         "formulation",
+        "score",
         "value",
         "start",
         "end",
@@ -79,7 +81,7 @@ class Plans_Plans extends CachedModel
      */
     private function exec_Migrate(): void
     {
-        $migrations = \Config\Services::migrations();
+        $migrations = Services::migrations();
         try {
             $migrations->setNamespace('App\Modules\Plans');// Set the namespace for the current module
             $migrations->latest();// Run the migrations for the current module

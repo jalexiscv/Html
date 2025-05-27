@@ -2,11 +2,11 @@
 
 /**
  * █ ---------------------------------------------------------------------------------------------------------------------
- * █ ░FRAMEWORK                                  2024-02-03 16:17:48
- * █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Plans\Views\Plans\Editor\index.php]
- * █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ * █ ░FRAMEWORK                                                                    2024-02-12 10:12:28
+ * █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Sie\Home\breadcrumb.php]
+ * █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2024 - CloudEngine S.A.S., Inc. <admin@cgine.com>
  * █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
- * █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ * █                                                                                         consulte la LICENCIA archivo que se distribuyó con este código fuente.
  * █ ---------------------------------------------------------------------------------------------------------------------
  * █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
  * █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
@@ -22,56 +22,30 @@
  * █ ---------------------------------------------------------------------------------------------------------------------
  * █ Datos recibidos desde el controlador - @ModuleController
  * █ ---------------------------------------------------------------------------------------------------------------------
- * █ @var object $parent
- * █ @var object $authentication
- * █ @var object $request
- * █ @var object $dates
- * █ @var string $component
- * █ @var string $view
- * █ @var string $oid
- * █ @var string $views
- * █ @var string $prefix
- * █ @var array $data
+ * █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
  * █ ---------------------------------------------------------------------------------------------------------------------
  **/
+
 //[vars]----------------------------------------------------------------------------------------------------------------
+/** @var object $parent */
+/** @var string $component */
+/** @var string $view */
+/** @var object $authentication */
+/** @var object $request */
 $data = $parent->get_Array();
-$data['model'] = model("App\Modules\Plans\Models\Plans_Plans");
-$data['permissions'] = array('singular' => 'plans-plans-view', "plural" => 'plans-plans-view-all');
+$data['permissions'] = array('singular' => "sie-settings-access");
 $singular = $authentication->has_Permission($data['permissions']['singular']);
-$plural = $authentication->has_Permission($data['permissions']['plural']);
-$author = $data['model']->get_Authority($oid, safe_get_user());
-$authority = ($singular && $author) ? true : false;
 $submited = $request->getPost("submited");
 $breadcrumb = $component . '\breadcrumb';
 $validator = $component . '\validator';
-$plan = $component . '\plan';
-$status = $component . '\status';
+$home = $component . '\view';
 $deny = $component . '\deny';
-$right = $component . '\right';
 //[build]---------------------------------------------------------------------------------------------------------------
-if ($plural || $authority) {
-    if (!empty($submited)) {
-        $json = array(
-            'breadcrumb' => view($breadcrumb, $data),
-            'main' => view($validator, $data),
-            'right' => view($right, $data),
-        );
-    } else {
-        $plan = view($plan, $data);
-        $status = view($status, $data);
-        $json = array(
-            'breadcrumb' => view($breadcrumb, $data),
-            'main' => $plan . $status,
-            'right' => view($right, $data)
-        );
-    }
-} else {
-    $json = array(
-        'breadcrumb' => view($breadcrumb, $data),
-        'main' => view($deny, $data),
-        'right' => ""
-    );
-}
+$json = array(
+    'breadcrumb' => view($breadcrumb, $data),
+    'main' => view($home, $data),
+    'right' => get_sie_count_users() . get_sie_count_teachers(),
+    "main_template" => "c0",
+);
 echo(json_encode($json));
 ?>
