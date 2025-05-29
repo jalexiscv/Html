@@ -1,28 +1,110 @@
 <?php
+
+use setasign\Fpdi\Fpdi;
+
 require_once(APPPATH . 'ThirdParty/FPDF/fpdf.php');
 require_once(APPPATH . 'ThirdParty/FPDI/autoload.php');
 require_once(APPPATH . 'ThirdParty/Barcode/autoload.php');
 require_once(APPPATH . 'ThirdParty/GS1/autoload.php');
 require_once(APPPATH . 'ThirdParty/Bacon/autoload.php');
 
-class CursoPDF extends \setasign\Fpdi\Fpdi
+class CursoPDF extends Fpdi
 {
     // Encabezado
     function Header()
     {
-        // Logo (si existe)
-        if (file_exists('logo.png')) {
-            $this->Image('logo.png', 10, 8, 30);
-            $this->SetX(45); // Mover a la derecha del logo
-        } else {
-            $this->SetX(10); // Sin logo, empezar desde el borde
+        // Establecer márgenes
+        $this->SetMargins(10, 10, 10);
+
+        // Ancho de página utilizable
+        $page_width = $this->GetPageWidth() - 20; // 20 = margen izquierdo + margen derecho
+
+        // Ancho de columnas
+        $logo_width = 40; // Ancho para el logo
+        $info_width = $page_width - $logo_width; // Resto para la información
+
+        // Altura de filas
+        $row1_height = 10; // Primera fila - Título institución
+        $row2_height = 10; // Segunda fila - Título documento
+        $row3_height = 8;  // Tercera fila - Información adicional
+        $total_height = $row1_height + $row2_height + $row3_height;
+
+        // Posición inicial
+        $x_start = 10;
+        $y_start = 10;
+
+        // ----- PRIMERA PARTE: LOGO (ocupa 3 filas de altura) -----
+
+        // Crear caja para el logo (a la izquierda, ocupa las 3 filas)
+        $this->Rect($x_start, $y_start, $logo_width, $total_height);
+
+        // Insertar logo
+        $logo_url = get_logo("logo_landscape");
+        if (!empty($logo_url)) {
+            // Crear directorio temporal si no existe
+            $temp_dir = WRITEPATH . 'temp/';
+            if (!is_dir($temp_dir)) {
+                mkdir($temp_dir, 0777, true);
+            }
+
+            // Nombre de archivo temporal para la imagen
+            $temp_file = $temp_dir . 'temp_logo_' . md5($logo_url) . '.png';
+
+            // Intentar descargar la imagen si el archivo no existe
+            if (!file_exists($temp_file)) {
+                $image_data = @file_get_contents($logo_url);
+                if ($image_data !== false) {
+                    file_put_contents($temp_file, $image_data);
+                }
+            }
+
+            // Insertar la imagen si se pudo descargar
+            if (file_exists($temp_file)) {
+                // Calcular posición centrada para el logo
+                $this->Image($temp_file, $x_start + 2, $y_start + 9, $logo_width - 4, 0);
+            }
         }
 
-        // Título del documento
-        $titulo = mb_convert_encoding('INFORMACIÓN DEL CURSO', 'ISO-8859-1', 'UTF-8');
-        $this->SetFont('Arial', 'B', 15);
-        $this->Cell(0, 10, $titulo, 0, 1, 'C');
-        $this->Ln(5); // Espacio después del título
+        // ----- SEGUNDA PARTE: INFORMACIÓN (en 3 filas) -----
+
+        // Fila 1: Nombre institución
+        $this->Rect($x_start + $logo_width, $y_start, $info_width, $row1_height);
+        $this->SetFont('Arial', 'B', 12);
+        $this->SetXY($x_start + $logo_width, $y_start);
+        $institucion = mb_convert_encoding('Utedé - Unidad Técnica para el Desarrollo Profesional', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($info_width, $row1_height, $institucion, 0, 1, 'C');
+
+        // Fila 2: Título del documento
+        $this->Rect($x_start + $logo_width, $y_start + $row1_height, $info_width, $row2_height);
+        $this->SetFont('Arial', 'B', 11);
+        $this->SetXY($x_start + $logo_width, $y_start + $row1_height);
+        $titulo_doc = mb_convert_encoding('INFORMACIÓN DEL CURSO', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($info_width, $row2_height, $titulo_doc, 0, 1, 'C');
+
+        // Fila 3: Información adicional (dividida en 3 columnas)
+        $info_col_width = $info_width / 3;
+
+        // Columna 1 de info: Código
+        $this->Rect($x_start + $logo_width, $y_start + $row1_height + $row2_height, $info_col_width, $row3_height);
+        $this->SetFont('Arial', '', 8);
+        $this->SetXY($x_start + $logo_width, $y_start + $row1_height + $row2_height);
+        $codigo = mb_convert_encoding('Código: DO-FO-060', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($info_col_width, $row3_height, $codigo, 0, 0, 'C');
+
+        // Columna 2 de info: Versión
+        $this->Rect($x_start + $logo_width + $info_col_width, $y_start + $row1_height + $row2_height, $info_col_width, $row3_height);
+        $this->SetXY($x_start + $logo_width + $info_col_width, $y_start + $row1_height + $row2_height);
+        $version = mb_convert_encoding('Versión: 0.2', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($info_col_width, $row3_height, $version, 0, 0, 'C');
+
+        // Columna 3 de info: Fecha y página
+        $this->Rect($x_start + $logo_width + ($info_col_width * 2), $y_start + $row1_height + $row2_height, $info_col_width, $row3_height);
+        $this->SetXY($x_start + $logo_width + ($info_col_width * 2), $y_start + $row1_height + $row2_height);
+        $fecha_pagina = mb_convert_encoding('Página ' . $this->PageNo() . ' de {nb}', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($info_col_width, $row3_height, $fecha_pagina, 0, 0, 'C');
+
+        // Establecer posición Y para el contenido que sigue
+        $this->SetY($y_start + $total_height + 10);
     }
 
     // Pie de página
@@ -76,6 +158,10 @@ class CursoPDF extends \setasign\Fpdi\Fpdi
         $r["agreement_institution"] = "";
         $r["agreement_group"] = "";
 
+        // Fecha y hora de generación del reporte
+        $this->SetFont('Arial', 'I', 9);
+        $fecha_hora_generacion = mb_convert_encoding('Fecha y hora de generación: ' . date('d/m/Y H:i:s'), 'ISO-8859-1', 'UTF-8');
+        $this->Cell(0, 8, $fecha_hora_generacion, 0, 1, 'R');
 
         $this->SetFont('Arial', 'B', 12);
         $this->Cell(0, 10, 'Datos del Curso', 0, 1, 'L');
@@ -229,7 +315,7 @@ class CursoPDF extends \setasign\Fpdi\Fpdi
 
                     $estudiantes[] =
                         [
-                            'identificacion' => $execution['execution'],
+                            'identificacion' => $identification_number,
                             'progress' => @$progress['progress'],
                             'nombre' => $fullname,
                             'c1' => $c1,
@@ -274,14 +360,14 @@ class CursoPDF extends \setasign\Fpdi\Fpdi
         $anchoCelda = 15; // Ancho estándar para celdas numéricas
 
         // Fila de encabezados
-        $this->Cell(8, 10, '#', 1, 0, 'C', true);
-        $this->Cell(29, 10, mb_convert_encoding('Progreso', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C', true);
-        $this->Cell(29, 10, mb_convert_encoding('Identificación', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C', true);
-        $this->Cell(65, 10, 'Nombre', 1, 0, 'C', true);
-        $this->Cell($anchoCelda, 10, 'C1', 1, 0, 'C', true);
-        $this->Cell($anchoCelda, 10, 'C2', 1, 0, 'C', true);
-        $this->Cell($anchoCelda, 10, 'C3', 1, 0, 'C', true);
-        $this->Cell($anchoCelda, 10, 'T', 1, 1, 'C', true);
+        $this->Cell(8, 5, '#', 1, 0, 'C', true);
+        $this->Cell(29, 5, mb_convert_encoding('Progreso', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C', true);
+        $this->Cell(29, 5, mb_convert_encoding('Identificación', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C', true);
+        $this->Cell(65, 5, 'Nombre', 1, 0, 'C', true);
+        $this->Cell($anchoCelda, 5, 'C1', 1, 0, 'C', true);
+        $this->Cell($anchoCelda, 5, 'C2', 1, 0, 'C', true);
+        $this->Cell($anchoCelda, 5, 'C3', 1, 0, 'C', true);
+        $this->Cell($anchoCelda, 5, 'T', 1, 1, 'C', true);
 
         // Datos de estudiantes
         $this->SetFont('Arial', '', 8);
@@ -290,14 +376,14 @@ class CursoPDF extends \setasign\Fpdi\Fpdi
 
         $contador = 1;
         foreach ($estudiantes as $estudiante) {
-            $this->Cell(8, 7, $contador, 1, 0, 'C', $fill);
-            $this->Cell(29, 7, $estudiante['progress'], 1, 0, 'C', $fill);
-            $this->Cell(29, 7, $estudiante['identificacion'], 1, 0, 'C', $fill);
-            $this->Cell(65, 7, mb_convert_encoding($estudiante['nombre'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'L', $fill);
-            $this->Cell($anchoCelda, 7, $estudiante['c1'], 1, 0, 'C', $fill);
-            $this->Cell($anchoCelda, 7, $estudiante['c2'], 1, 0, 'C', $fill);
-            $this->Cell($anchoCelda, 7, $estudiante['c3'], 1, 0, 'C', $fill);
-            $this->Cell($anchoCelda, 7, $estudiante['total'], 1, 1, 'C', $fill);
+            $this->Cell(8, 5, $contador, 1, 0, 'C', $fill);
+            $this->Cell(29, 5, $estudiante['progress'], 1, 0, 'C', $fill);
+            $this->Cell(29, 5, $estudiante['identificacion'], 1, 0, 'C', $fill);
+            $this->Cell(65, 5, mb_convert_encoding($estudiante['nombre'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'L', $fill);
+            $this->Cell($anchoCelda, 5, $estudiante['c1'], 1, 0, 'C', $fill);
+            $this->Cell($anchoCelda, 5, $estudiante['c2'], 1, 0, 'C', $fill);
+            $this->Cell($anchoCelda, 5, $estudiante['c3'], 1, 0, 'C', $fill);
+            $this->Cell($anchoCelda, 5, $estudiante['total'], 1, 1, 'C', $fill);
 
             $contador++;
             $fill = !$fill; // Alternar el color de fondo
@@ -313,6 +399,91 @@ class CursoPDF extends \setasign\Fpdi\Fpdi
         $this->Cell(0, 7, 'Observaciones:', 0, 1, 'L');
         $this->SetFont('Arial', '', 10);
         $this->MultiCell(0, 7, mb_convert_encoding($texto, 'ISO-8859-1', 'UTF-8'), 0, 'L');
+        $this->Ln(10);
+    }
+
+    // Función para agregar sección de firmas
+    function firmas()
+    {
+        // Calcular posición para la tabla de firmas
+        $page_width = $this->GetPageWidth() - 20; // 20 = margen izquierdo + margen derecho
+        $firma_width = $page_width / 3; // Tres columnas de igual ancho
+
+        // Altura de las filas
+        $espacio_firma = 25; // Espacio para la firma
+        $espacio_texto = 8;  // Espacio para el texto
+
+        // Posición inicial
+        $x_start = 10;
+        $this->Ln(10); // Espacio antes de la sección de firmas
+
+        // Línea separadora antes de la sección de firmas
+        $this->Line(10, $this->GetY(), 200, $this->GetY());
+        $this->Ln(10);
+
+        // Título de la sección
+        $this->SetFont('Arial', 'B', 10);
+        $this->Cell(0, 8, mb_convert_encoding('VALIDACIÓN DEL REPORTE', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+        $this->Ln(5);
+
+        // Celdas para firma
+        $y_firma = $this->GetY();
+
+        // Columna 1: Firma del docente
+        $this->Rect($x_start, $y_firma, $firma_width, $espacio_firma);
+
+        // Columna 2: Firma del coordinador
+        $this->Rect($x_start + $firma_width, $y_firma, $firma_width, $espacio_firma);
+
+        // Columna 3: Firma del registro académico
+        $this->Rect($x_start + ($firma_width * 2), $y_firma, $firma_width, $espacio_firma);
+
+        // Avanzar después del espacio para firma
+        $this->SetY($y_firma + $espacio_firma);
+
+        // Textos debajo de las firmas
+        $this->SetFont('Arial', 'B', 9);
+
+        // Texto para firma del docente
+        $this->Rect($x_start, $this->GetY(), $firma_width, $espacio_texto);
+        $this->SetXY($x_start, $this->GetY());
+        $texto_docente = mb_convert_encoding('FIRMA DEL DOCENTE', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($firma_width, $espacio_texto, $texto_docente, 0, 0, 'C');
+
+        // Texto para firma del coordinador
+        $this->Rect($x_start + $firma_width, $this->GetY(), $firma_width, $espacio_texto);
+        $this->SetXY($x_start + $firma_width, $this->GetY());
+        $texto_coordinador = mb_convert_encoding('FIRMA DEL COORDINADOR', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($firma_width, $espacio_texto, $texto_coordinador, 0, 0, 'C');
+
+        // Texto para firma del registro académico
+        $this->Rect($x_start + ($firma_width * 2), $this->GetY(), $firma_width, $espacio_texto);
+        $this->SetXY($x_start + ($firma_width * 2), $this->GetY());
+        $texto_registro = mb_convert_encoding('FIRMA REGISTRO ACADÉMICO', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($firma_width, $espacio_texto, $texto_registro, 0, 1, 'C');
+
+        // Espacios para nombres
+        $this->SetFont('Arial', '', 9);
+
+        // Espacio para nombre del docente
+        $this->Rect($x_start, $this->GetY(), $firma_width, $espacio_texto);
+        $this->SetXY($x_start, $this->GetY());
+        $nombre_docente = mb_convert_encoding('Nombre: ___________________________', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($firma_width, $espacio_texto, $nombre_docente, 0, 0, 'C');
+
+        // Espacio para nombre del coordinador
+        $this->Rect($x_start + $firma_width, $this->GetY(), $firma_width, $espacio_texto);
+        $this->SetXY($x_start + $firma_width, $this->GetY());
+        $nombre_coordinador = mb_convert_encoding('Nombre: ___________________________', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($firma_width, $espacio_texto, $nombre_coordinador, 0, 0, 'C');
+
+        // Espacio para nombre del responsable de registro
+        $this->Rect($x_start + ($firma_width * 2), $this->GetY(), $firma_width, $espacio_texto);
+        $this->SetXY($x_start + ($firma_width * 2), $this->GetY());
+        $nombre_registro = mb_convert_encoding('Nombre: ___________________________', 'ISO-8859-1', 'UTF-8');
+        $this->Cell($firma_width, $espacio_texto, $nombre_registro, 0, 1, 'C');
+
+        $this->Ln(5);
     }
 }
 
@@ -331,6 +502,8 @@ $pdf->infoCurso($oid);
 $pdf->tablaEstudiantes($oid);
 // Agregar observaciones
 $pdf->observaciones('Este curso ha sido evaluado de acuerdo con los criterios establecidos en el programa académico. Las notas C1, C2 y C3 corresponden a los cortes evaluativos del semestre, y T es la nota total calculada según los porcentajes asignados.');
+// Agregar sección de firmas
+$pdf->firmas();
 
 // Verificar si es una solicitud de visualización o descarga
 if (isset($_GET['descargar']) && $_GET['descargar'] == 1) {

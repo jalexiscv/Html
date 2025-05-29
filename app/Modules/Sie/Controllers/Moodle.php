@@ -13,7 +13,7 @@ class Moodle extends ModuleController
     public function __construct()
     {
         parent::__construct();
-        $this->prefix = 'sie-modules';
+        $this->prefix = 'sie-moodle';
         $this->module = 'App\Modules\Sie';
         $this->views = $this->module . '\Views';
         $this->viewer = $this->views . '\index';
@@ -88,6 +88,18 @@ class Moodle extends ModuleController
             echo("Opcion de cursos no valida");
         }
     }
+
+    public function synchronization(string $oid)
+    {
+
+        $this->oid = $oid;
+        $this->prefix = "{$this->prefix}-synchronization";
+        $this->component = $this->views . '\Moodle\Users\Synchronization';
+        return (view($this->viewer, $this->get_Array()));
+    }
+
+
+
 
 
 }

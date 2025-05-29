@@ -69,21 +69,20 @@ $options[] = array(
 );
 
 
-/**
- * $options[] = array(
- * "id" => "lgi-2fa",
- * "type" => "button",
- * "href" => "/plans/plans/risks/{$oid}",
- * "image" => "/themes/assets/images/icons/line_settings.svg",
- * "alt" => "Risk",
- * "title" => "Riesgos",
- * "timestamp" => "now",
- * );
- * **/
-
 $code = "";
 
 $r = $plan;
+
+if ($r["module"] == "iso9001") {
+    $mactivities = model('App\Modules\Iso9001\Models\Iso9001_Activities');
+    $activity = $mactivities->getActivity($r["activity"]);
+    $score = @$activity["score"] . " ";
+    $criteria = @$activity["criteria"] . " ";
+    $description = @$activity["description"] . " ";
+    $evaluation = @$activity["evaluation"] . " ";
+    $back = "/iso9001/activities/home/" . @$activity["category"];
+}
+
 
 $f->fields["plan"] = $f->get_FieldView("plan", array("value" => $r["plan"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
 $f->fields["module"] = $f->get_FieldView("module", array("value" => $r["module"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
