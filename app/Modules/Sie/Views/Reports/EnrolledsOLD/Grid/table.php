@@ -2,22 +2,22 @@
 /** @var int $page viene de grid.php */
 /** @var model $mexecutions */
 /** @var model $mprogress */
-/** @var model $mstatuses */
-/** @var model $mregistrations */
-/** @var model $mprograms */
-/** @var model $magreements */
-/** @var model $minstitutions */
-/** @var model $mcities */
-/** @var model $mdiscounteds */
-/** @var model $mfields */
-/** @var string $program */
-/** @var string $period */
-/** @var string $status */
-/** @var int $limit */
-/** @var int $offset */
 
-$program = !empty($program) ? $program : "";
-$statuses = $mstatuses->get_Details($program, $period, $status, $limit, $offset);
+
+if (!empty($program) && $program != "ALL") {
+    $statuses = $mstatuses
+        ->where("period", $period)
+        ->where("reference", $status)
+        ->where("program", $program)
+        ->limit($limit, $offset)
+        ->find();
+} else {
+    $statuses = $mstatuses
+        ->where("period", $period)
+        ->where("reference", $status)
+        ->limit($limit, $offset)
+        ->find();
+}
 
 $code = "";
 
@@ -55,51 +55,52 @@ $code .= "\t\t class=\"table table-striped table-hover\" \n ";
 $code .= "\t\t border=\"1\">\n";
 $code .= "<thead>";
 $code .= "<tr>\n";
-$code .= "<th class='text-center ' title=\"{$n["CONSECUTIVO"]}\" >#</th>\n";
-$code .= "<th class='text-center' title=\"{$n["AÑO"]}\">AÑO</th>\n";
-$code .= "<th class='text-center' title=\"{$n["SEMESTRE"]}\">SEMESTRE</th>\n";
-$code .= "<th class='text-center' title=\"\">Jornada</th>\n";
-$code .= "<th class='text-center' title=\"{$n["ID_TIPO_DOCUMENTO"]}\">ID_TIPO_DOCUMENTO</th>\n";
-$code .= "<th class='text-center' title=\"{$n["NUM_DOCUMENTO"]}\">NUM_DOCUMENTO</th>\n";
-$code .= "<th class='text-center' title=\"Nombres\">Nombre</th>\n";
-$code .= "<th class='text-center' title=\"Apellidos\">Apellidos</th>\n";
+$code .= "<th class='text-center ' title=\"\">#</th>\n";
+$code .= "<th class='text-center' title=\"\">AÑO</th>\n";
+$code .= "<th class='text-center' title=\"\">SEMESTRE</th>\n";
+$code .= "<th class='text-center' title=\"\">ID_TIPO_DOCUMENTO</th>\n";
+$code .= "<th class='text-center' title=\"\">NUM_DOCUMENTO</th>\n";
+$code .= "<th class='text-center' title=\"\">CODIGO_ESTUDIANTE</th>\n";
+$code .= "<th class='text-center' title=\"\">PRO_CONSECUTIVO</th>\n";
+$code .= "<th class='text-center' title=\"\">ID_MUNICIPIO</th>\n";
+$code .= "<th class='text-center' title=\"\">FECHA_NACIMIENTO</th>\n";
 
-$code .= "<th class='text-center' title=\"Sexo\">Sexo</th>\n";
-$code .= "<th class='text-center' title=\"Nacimiento\">Nacimiento</th>\n";
-$code .= "<th class='text-center' title=\"Estrato\">Estrato</th>\n";
+$code .= "<th class='text-center' title=\"\">ID_PAIS_NACIMIENTO</th>\n";
+$code .= "<th class='text-center' title=\"\">ID_MUNICIPIO_NACIMIENTO</th>\n";
+$code .= "<th class='text-center' title=\"\">ID_ZONA_RESIDENCIA</th>\n";
+$code .= "<th class='text-center' title=\"\">ID_ESTRATO</th>\n";
+$code .= "<th class='text-center' title=\"\">ES_REINTEGRO_ESTD_ANTED_DE1998</th>\n";
 
-$code .= "<th class='text-center' title=\"Email\">Correo Electrónico</th>\n";
-$code .= "<th class='text-center' title=\"Teléfono\">Teléfono</th>\n";
-
-$code .= "<th class='text-center' title=\"Programa\">Programa</th>\n";
-$code .= "<th class='text-center' title=\"Ciclo\">Ciclo</th>\n";
-$code .= "<th class='text-center' title=\"Momento\">Momento</th>\n";
-$code .= "<th class='text-center' title=\"Convenio\">Convenio</th>\n";
+$code .= "<th class='text-center' title=\"\">AÑO_PRIMER_CURSO</th>\n";
+$code .= "<th class='text-center' title=\"\">SEMESTRE_PRIMER_CURSO</th>\n";
+$code .= "<th class='text-center' title=\"\">VALOR_NETO_MATRICULA</th>\n";
+$code .= "<th class='text-center' title=\"\">TELEFONO_CONTACTO</th>\n";
+$code .= "<th class='text-center' title=\"\">EMAIL_PERSONAL</th>\n";
 
 
-$code .= "<th class='text-center' title=\"{$n["PRO_CONSECUTIVO"]}\">PRO_CONSECUTIVO</th>\n";
-$code .= "<th class='text-center' title=\"{$n["ID_MUNICIPIO"]}\">ID_MUNICIPIO</th>\n";
-$code .= "<th class='text-center' title=\"{$n["ID_VALIDACION_REQUISITO"]}\">ID_VALIDACION_REQUISITO</th>\n";
-$code .= "<th class='text-center' title=\"{$n["CRED_ACAD_PROGRAMA_RC"]}\">CRED_ACAD_PROGRAMA_RC</th>\n";
-$code .= "<th class='text-center bg-danger' title=\"{$n["CREDIT_ACADEM_ACUMU_SEM_ANTE"]}\">CREDIT_ACADEM_ACUMU_SEM_ANTE</th>\n";
-$code .= "<th class='text-center' title=\"{$n["CREDIT_ACAD_A_MATRIC_REGU_SEM"]}\">CREDIT_ACAD_A_MATRIC_REGU_SEM</th>\n";
-$code .= "<th class='text-center' title=\"{$n["VALOR_BRUTO_DERECHOS_MATRICULA"]}\">VALOR_BRUTO_DERECHOS_MATRICULA</th>\n";
-$code .= "<th class='text-center' title=\"{$n["APOYO_GOB_NAC_DESCUENTO_VOTAC"]}\">APOYO_GOB_NAC_DESCUENTO_VOTAC</th>\n";
-$code .= "<th class='text-center' title=\"{$n["APOYO_GOBERNAC_PROGR_PERMANENT"]}\">APOYO_GOBERNAC_PROGR_PERMANENT</th>\n";
-$code .= "<th class='text-center' title=\"{$n["APOYO_ALCALDIA_PROGR_PERMANENT"]}\">APOYO_ALCALDIA_PROGR_PERMANENT</th>\n";
-$code .= "<th class='text-center' title=\"{$n["DESCUENT_RECURRENTES_DE_LA_IES"]}\" >DESCUENT_RECURRENTES_DE_LA_IES</th>\n";
-$code .= "<th class='text-center' title=\"{$n["OTROS_APOYOS_A_LA_MATRICULA"]}\">OTROS_APOYOS_A_LA_MATRICULA</th>\n";
-$code .= "<th class='text-center' title=\"{$n["VALOR_NETO_DERECHOS_MATRICULA"]}\">VALOR_NETO_DERECHOS_MATRICULA</th>\n";
-$code .= "<th class='text-center' title=\"{$n["APOYO_ADICIONAL_GOBERNACIONES"]}\">APOYO_ADICIONAL_GOBERNACIONES</th>\n";
-$code .= "<th class='text-center' title=\"{$n["APOYO_ADICIONAL_ALCALDIAS"]}\">APOYO_ADICIONAL_ALCALDIAS</th>\n";
-$code .= "<th class='text-center' title=\"{$n["DESCUENTOS_ADICIONALES_IES"]}\">DESCUENTOS_ADICIONALES_IES</th>\n";
-$code .= "<th class='text-center' title=\"{$n["OTROS_APOYOS_ADICIONALES"]}\">OTROS_APOYOS_ADICIONALES</th>\n";
-$code .= "<th class='text-center' title=\"{$n["VAL_NETO_DER_MAT_A_CARGO_EST"]}\">VAL_NETO_DER_MAT_A_CARGO_EST</th>\n";
-$code .= "<th class='text-center' title=\"{$n["VALOR_BRUTO_DERECHOS_COMPLEMEN"]}\">VALOR_BRUTO_DERECHOS_COMPLEMEN</th>\n";
-$code .= "<th class='text-center' title=\"{$n["VALOR_NETO_DERECHOS_COMPLEMENT"]}\">VALOR_NETO_DERECHOS_COMPLEMENT</th>\n";
-$code .= "<th class='text-center' title=\"{$n["CAUSA_NO_ACCESO"]}\">CAUSA_NO_ACCESO</th>\n";
-$code .= "<th class='text-center' title=\"Estado\">Estado</th>\n";
-$code .= "<th class='text-center' title=\"Autor\">Autor</th>\n";
+/**
+* $code .= "<th class='text-center' title=\"{$n["ID_VALIDACION_REQUISITO"]}\">ID_VALIDACION_REQUISITO</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["CRED_ACAD_PROGRAMA_RC"]}\">CRED_ACAD_PROGRAMA_RC</th>\n";
+* $code .= "<th class='text-center bg-danger' title=\"{$n["CREDIT_ACADEM_ACUMU_SEM_ANTE"]}\">CREDIT_ACADEM_ACUMU_SEM_ANTE</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["CREDIT_ACAD_A_MATRIC_REGU_SEM"]}\">CREDIT_ACAD_A_MATRIC_REGU_SEM</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["VALOR_BRUTO_DERECHOS_MATRICULA"]}\">VALOR_BRUTO_DERECHOS_MATRICULA</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["APOYO_GOB_NAC_DESCUENTO_VOTAC"]}\">APOYO_GOB_NAC_DESCUENTO_VOTAC</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["APOYO_GOBERNAC_PROGR_PERMANENT"]}\">APOYO_GOBERNAC_PROGR_PERMANENT</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["APOYO_ALCALDIA_PROGR_PERMANENT"]}\">APOYO_ALCALDIA_PROGR_PERMANENT</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["DESCUENT_RECURRENTES_DE_LA_IES"]}\" >DESCUENT_RECURRENTES_DE_LA_IES</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["OTROS_APOYOS_A_LA_MATRICULA"]}\">OTROS_APOYOS_A_LA_MATRICULA</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["VALOR_NETO_DERECHOS_MATRICULA"]}\">VALOR_NETO_DERECHOS_MATRICULA</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["APOYO_ADICIONAL_GOBERNACIONES"]}\">APOYO_ADICIONAL_GOBERNACIONES</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["APOYO_ADICIONAL_ALCALDIAS"]}\">APOYO_ADICIONAL_ALCALDIAS</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["DESCUENTOS_ADICIONALES_IES"]}\">DESCUENTOS_ADICIONALES_IES</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["OTROS_APOYOS_ADICIONALES"]}\">OTROS_APOYOS_ADICIONALES</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["VAL_NETO_DER_MAT_A_CARGO_EST"]}\">VAL_NETO_DER_MAT_A_CARGO_EST</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["VALOR_BRUTO_DERECHOS_COMPLEMEN"]}\">VALOR_BRUTO_DERECHOS_COMPLEMEN</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["VALOR_NETO_DERECHOS_COMPLEMENT"]}\">VALOR_NETO_DERECHOS_COMPLEMENT</th>\n";
+* $code .= "<th class='text-center' title=\"{$n["CAUSA_NO_ACCESO"]}\">CAUSA_NO_ACCESO</th>\n";
+* $code .= "<th class='text-center' title=\"Estado\">Estado</th>\n";
+* $code .= "<th class='text-center' title=\"Autor\">Autor</th>\n";
+ * **/
 $code .= "</tr>\n";
 
 
@@ -130,9 +131,8 @@ foreach ($statuses as $status) {
     }
     $program = $mprograms->getProgram($status['program']);
     $age = $dates->get_Age(@$registration['birth_date']);
-
-    $year = safe_substr(@$status['period'], 0, 4);
-    $period = safe_substr(@$status['period'], 4, 1);
+    $year = safe_substr(@$registration['period'], 0, 4);
+    $period = safe_substr(@$registration['period'], 4, 1);
 
     $eps = @$registration['eps'];
     foreach (LIST_EPS as $deps) {
@@ -161,22 +161,22 @@ foreach ($statuses as $status) {
     $previus_period = "2024A";
 
     /**
-     * $registration_registration= @$registration['registration'];
-     * if(!empty($registration_registration)){
-     * $previus_credits_earned = $mexecutions->get_EarnCreditsByPeriodByRegistration($previus_period, $registration_registration);
-     * $previus_credits_registred = $mprogress->get_RegistredCreditsByPeriodByRegistration($previus_period, $registration_registration);
-     * if (!empty($previus_credits_earned)) {
-     * foreach ($previus_credits_earned as $previus_credits) {
-     * if ($previus_credits['status'] == "APPROVED") {
-     * $credit_academ_acumu_sem_ante += $previus_credits['credits'];
-     * }
-     * }
-     * foreach ($previus_credits_registred as $previus_credits) {
-     * $credit_academ_acumu_sem_ante += $previus_credits['credits'];
-     * }
-     * }
-     * }
-     * **/
+    $registration_registration= @$registration['registration'];
+    if(!empty($registration_registration)){
+    $previus_credits_earned = $mexecutions->get_EarnCreditsByPeriodByRegistration($previus_period, $registration_registration);
+    $previus_credits_registred = $mprogress->get_RegistredCreditsByPeriodByRegistration($previus_period, $registration_registration);
+    if (!empty($previus_credits_earned)) {
+    foreach ($previus_credits_earned as $previus_credits) {
+    if ($previus_credits['status'] == "APPROVED") {
+    $credit_academ_acumu_sem_ante += $previus_credits['credits'];
+    }
+    }
+    foreach ($previus_credits_registred as $previus_credits) {
+    $credit_academ_acumu_sem_ante += $previus_credits['credits'];
+            }
+        }
+    }
+    **/
 
 
     $credit_acad_a_matric_regu_sem = 17;
@@ -209,7 +209,7 @@ foreach ($statuses as $status) {
     $registration_identification_type_ = @$registration['identification_type'];
     $registration_identification_number = @$registration['identification_number'];
     $registration_snies_id_validation_requisite = @$registration['snies_id_validation_requisite'];
-    if (empty($registration_snies_id_validation_requisite)) {
+    if (empty($registration_snies_id_validation_requisite)){
         $registration_snies_id_validation_requisite = "NA";
     }
 
@@ -229,85 +229,106 @@ foreach ($statuses as $status) {
             $registration_journey = @$ljourney["label"];
         }
     }
-    $cycle = "?";
-    $moment = "?";
-    $laststatus = $mstatuses
-        ->where("registration", $registration_registration)
-        ->where("period", "2025A")
-        ->groupStart()
-        ->where("reference", "ENROLLED")
-        ->orWhere("reference", "ENROLLED-OLD")
-        ->orWhere("reference", "ENROLLED-EXT")
-        ->groupEnd()
-        ->first();
-    $cycle = @$laststatus['cycle'];
-    $moment = @$laststatus['moment'];
-    $agreement = "PRINCIPAL";
-    if (!empty($registration['agreement'])) {
-        $qagreement = $magreements->get_Agreement($registration['agreement']);
-        $agreement = $qagreement['name'];
+
+    $registration_birth_date = @$registration['birth_date'];
+
+    $ID_PAIS_NACIMIENTO = @$registration['birth_country'];
+
+    if ($ID_PAIS_NACIMIENTO == "CO") {
+        $ID_PAIS_NACIMIENTO = "170";
+    } elseif ($ID_PAIS_NACIMIENTO == "VE") {
+        $ID_PAIS_NACIMIENTO = "862";
+    } elseif ($ID_PAIS_NACIMIENTO == "EC") {
+        $ID_PAIS_NACIMIENTO = "218";
     }
+
+    $ID_MUNICIPIO_NACIMIENTO = @$registration['birth_city'];
+    $ID_ZONA_RESIDENCIA = (@$registration['area'] == "RURAL") ? "2" : "1";
+    $ID_ESTRATO = @$registration['stratum'];
+    $ES_REINTEGRO_ESTD_ANTED_DE1998 = "N";
+
+    $ANNO_PRIMER_CURSO = "";
+    $SEMESTRE_PRIMER_CURSO = "";
+
+    $VALOR_NETO_MATRICULA = !empty(@$program["value"]) ? @$program["value"] : 0;
+    $program_value = $VALOR_NETO_MATRICULA;
+
+    $TELEFONO_CONTACTO = @$registration['phone'];
+    $EMAIL_PERSONAL=@$registration['email_address'];
+
     //[build]-----------------------------------------------------------------------------------------------------------
     $code .= "<tr class=\"{$class}\">";
     $code .= "    <td><a href=\"/sie/students/view/{$registration_registration}\" target='\_blank\"'>{$count}</td>";
     $code .= "    <td class='text-center text-nowrap'>{$year}</td>";
     $code .= "    <td class='text-center text-nowrap'>" . (($period == "A") ? "1" : "2") . "</td>";
-    $code .= "    <td class='text-center text-nowrap'>{$registration_journey}</td>";
+    //$code .= "    <td class='text-center text-nowrap'>{$registration_journey}</td>";
     $code .= "    <td class='text-center text-nowrap'>{$registration_identification_type_}</td>";
     $code .= "    <td class='text-left text-nowrap'><a href=\"/sie/students/view/{$registration_registration}\" target='\_blank\"'>{$registration_identification_number}</td>";
-    //$code .= "    <td class='text-center text-nowrap'>{$registration_identification_number}</td>";
-    $code .= "    <td class='text-left text-nowrap'>{$registration_nombres}</td>";
-    $code .= "    <td class='text-left text-nowrap'>{$registration_apellidos}</td>";
-    $code .= "    <td class='text-center text-nowrap'>{$gender}</td>";
-    $code .= "    <td class='text-center text-nowrap'>{$birth_date}</td>";
-    $code .= "    <td class='text-center text-nowrap'>{$stratum}</td>";
-    $code .= "    <td class='text-left text-nowrap'>{$registration_email}</td>";
-    $code .= "    <td class='text-left text-nowrap'>{$registration_phone}</td>";
-    $code .= "    <td class='text-left text-nowrap'>{$program['name']}</td>";
-    $code .= "    <td class='text-left text-nowrap'>{$cycle}</td>";
-    $code .= "    <td class='text-left text-nowrap'>{$moment}</td>";
-    $code .= "    <td class='text-left text-nowrap'>{$agreement}</td>";
+    $code .= "    <td class='text-center text-nowrap'>{$registration_identification_number}</td>";
     $code .= "    <td class='text-center text-nowrap'>" . @$program['snies'] . "</td>";
     $code .= "    <td class='text-center text-nowrap'>76111</td>";
-    $code .= "    <td class='text-center text-nowrap'>{$registration_snies_id_validation_requisite}</td>";
-    $code .= "    <td class='text-center text-nowrap'>" . @$program['credits'] . "</td>";
-    if (intval($credit_academ_acumu_sem_ante) != 0) {
-        $code .= "    <td class='text-center text-nowrap bg-gradient-gray-200'><a href=\"/sie/students/view/{$registration_registration}\" target='\_blank\"'>{$credit_academ_acumu_sem_ante}</a></td>";
-    } else {
-        $code .= "    <td class='text-center text-nowrap bg-gradient-gray-200'>{$credit_academ_acumu_sem_ante}</td>";
-    }
-    $code .= "    <td class='text-center text-nowrap'>{$credit_acad_a_matric_regu_sem}</td>";
-    if ($valor_bruto_derechos_matricula <= 0) {
-        $code .= "    <td class='text-end bg-danger'>{$valor_bruto_derechos_matricula} " . "</td>";
-    } else {
-        $code .= "    <td class='text-end'>{$valor_bruto_derechos_matricula} " . "</td>";
-    }
-    $code .= "    <td class='text-end'>{$apoyo_gob_nac_descuento_votac}</td>";
-    $code .= "    <td class='text-end'>{$apoyo_gobernac_progr_permanent}</td>";
-    $code .= "    <td class='text-end'>{$apoyo_alcaldia_progr_permanent}</td>";
-    $code .= "    <td class='text-end'>{$descuent_recurrentes_de_la_ies}</td>";
-    $code .= "    <td class='text-end'>{$otros_apoyos_a_la_matricula}</td>";
-    if ($valor_neto_derechos_matricula < 0) {
-        $code .= "    <td class='text-end bg-danger'>{$valor_neto_derechos_matricula}</td>";
-    } else {
-        $code .= "    <td class='text-end'>{$valor_neto_derechos_matricula}</td>";
-    }
-    $code .= "    <td class='text-end'>{$apoyo_adicional_gobernaciones}</td>";
-    $code .= "    <td class='text-end'>{$apoyo_adicional_alcaldias}</td>";
-    $code .= "    <td class='text-end'>{$descuentos_adicionales_ies}</td>";
-    $code .= "    <td class='text-end'>{$otros_apoyos_adicionales}</td>";
-    if ($val_neto_der_mat_a_cargo_est < 0) {
-        $code .= "    <td class='text-end bg-danger'>{$val_neto_der_mat_a_cargo_est}</td>";
-    } else {
-        $code .= "    <td class='text-end'>{$val_neto_der_mat_a_cargo_est}</td>";
-    }
-    $code .= "    <td class='text-end'>{$valor_bruto_derechos_complemen}</td>";
-    $code .= "    <td class='text-end'>{$valor_neto_derechos_complement}</td>";
-    $code .= "    <td class='text-end'>{$causa_no_acceso}</td>";
-    $code .= "    <td class='text-center text-nowrap'>{$status['reference']}</td>";
+    $code .= "    <td class='text-center text-nowrap'>{$registration_birth_date}</td>";
 
-    $author = $mfields->get_Profile($status['author']);
-    $code .= "    <td class='text-center text-nowrap'>" . $author['name'] . "</td>";
+    $code .= "    <td class='text-center text-nowrap'>{$ID_PAIS_NACIMIENTO}</td>";
+    $code .= "    <td class='text-center text-nowrap'>{$ID_MUNICIPIO_NACIMIENTO}</td>";
+    $code .= "    <td class='text-center text-nowrap'>{$ID_ZONA_RESIDENCIA}</td>";
+    $code .= "    <td class='text-center text-nowrap'>{$ID_ESTRATO}</td>";
+    $code .= "    <td class='text-center text-nowrap'>{$ES_REINTEGRO_ESTD_ANTED_DE1998}</td>";
+
+    $code .= "    <td class='text-center text-nowrap'>{$ANNO_PRIMER_CURSO}</td>";
+    $code .= "    <td class='text-center text-nowrap'>{$SEMESTRE_PRIMER_CURSO}</td>";
+    $code .= "    <td class='text-center text-nowrap'>{$program_value} " . @$registration["value"] . "</td>";
+    $code .= "    <td class='text-center text-nowrap'>{$TELEFONO_CONTACTO}</td>";
+    $code .= "    <td class='text-left text-nowrap'>{$EMAIL_PERSONAL}</td>";
+
+
+
+
+/**
+ *
+*
+* $code .= "    <td class='text-center text-nowrap'>{$registration_snies_id_validation_requisite}</td>";
+    * $code .= "    <td class='text-center text-nowrap'>" . @$program['credits'] . "</td>";
+ *
+ * if(intval($credit_academ_acumu_sem_ante)!=0){
+ * $code .= "    <td class='text-center text-nowrap bg-gradient-gray-200'><a href=\"/sie/students/view/{$registration_registration}\" target='\_blank\"'>{$credit_academ_acumu_sem_ante}</a></td>";
+    * }else {
+        * $code .= "    <td class='text-center text-nowrap bg-gradient-gray-200'>{$credit_academ_acumu_sem_ante}</td>";
+    * }
+    * $code .= "    <td class='text-center text-nowrap'>{$credit_acad_a_matric_regu_sem}</td>";
+    * if ($valor_bruto_derechos_matricula <= 0) {
+        * $code .= "    <td class='text-end bg-danger'>{$valor_bruto_derechos_matricula} " . "</td>";
+    * } else {
+        * $code .= "    <td class='text-end'>{$valor_bruto_derechos_matricula} " . "</td>";
+    * }
+ *
+* $code .= "    <td class='text-end'>{$apoyo_gob_nac_descuento_votac}</td>";
+    * $code .= "    <td class='text-end'>{$apoyo_gobernac_progr_permanent}</td>";
+    * $code .= "    <td class='text-end'>{$apoyo_alcaldia_progr_permanent}</td>";
+    * $code .= "    <td class='text-end'>{$descuent_recurrentes_de_la_ies}</td>";
+    * $code .= "    <td class='text-end'>{$otros_apoyos_a_la_matricula}</td>";
+    * if ($valor_neto_derechos_matricula < 0) {
+        * $code .= "    <td class='text-end bg-danger'>{$valor_neto_derechos_matricula}</td>";
+    * } else {
+        * $code .= "    <td class='text-end'>{$valor_neto_derechos_matricula}</td>";
+    * }
+    * $code .= "    <td class='text-end'>{$apoyo_adicional_gobernaciones}</td>";
+    * $code .= "    <td class='text-end'>{$apoyo_adicional_alcaldias}</td>";
+    * $code .= "    <td class='text-end'>{$descuentos_adicionales_ies}</td>";
+    * $code .= "    <td class='text-end'>{$otros_apoyos_adicionales}</td>";
+    * if ($val_neto_der_mat_a_cargo_est < 0) {
+        * $code .= "    <td class='text-end bg-danger'>{$val_neto_der_mat_a_cargo_est}</td>";
+    * } else {
+        * $code .= "    <td class='text-end'>{$val_neto_der_mat_a_cargo_est}</td>";
+    * }
+    * $code .= "    <td class='text-end'>{$valor_bruto_derechos_complemen}</td>";
+    * $code .= "    <td class='text-end'>{$valor_neto_derechos_complement}</td>";
+    * $code .= "    <td class='text-end'>{$causa_no_acceso}</td>";
+    * $code .= "    <td class='text-center text-nowrap'>{$status['reference']}</td>";
+ *
+* $author = $mfields->get_Profile($status['author']);
+    * $code .= "    <td class='text-center text-nowrap'>" . $author['name'] . "</td>";
+ * **/
     $code .= "</tr>";
 }
 $code .= "</table>";
