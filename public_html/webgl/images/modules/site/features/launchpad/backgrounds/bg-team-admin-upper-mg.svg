@@ -1,0 +1,45 @@
+<!--
+  - /***
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  -  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  -  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  -  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  -  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  -  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  -  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  -  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  -  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  -  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  -  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  -  ** █ @link https://www.codehiggs.com
+  -  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ Datos recibidos desde el controlador - @ModuleController
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ***/
+  -->
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" height="769" viewBox="0 0 1009 769" width="1009"
+     xmlns="http://www.w3.org/2000/svg">
+    <filter id="a" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="768.083" width="1008.11"
+            x=".53125" y=".728027">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape"/>
+        <feGaussianBlur result="effect1_foregroundBlur" stdDeviation="75"/>
+    </filter>
+    <linearGradient id="b" gradientUnits="userSpaceOnUse" x1="390" x2="774.818" y1="157" y2="851.413">
+        <stop offset="0" stop-color="#804eda" stop-opacity=".63"/>
+        <stop offset="1" stop-color="#2188ff" stop-opacity=".74"/>
+    </linearGradient>
+    <g filter="url(#a)">
+        <path d="m155.935 237.364c58.065-53.364 642.065-151.3906 642.065-24.364 0 127.026 141 393.791-7 404-113.122 7.803-419-4.974-419-132 0-127.027-262-205.42-216.065-247.636z"
+              fill="url(#b)" fill-opacity=".1"/>
+    </g>
+</svg>

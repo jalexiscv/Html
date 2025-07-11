@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Reloj Analógico de 13 Horas</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .clock {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border: 5px solid #333;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .number {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+        }
+
+        .hand {
+            position: absolute;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translateX(-50%);
+            background: black;
+        }
+
+        .hour {
+            width: 6px;
+            height: 80px;
+            bottom: 50%;
+        }
+
+        .minute {
+            width: 4px;
+            height: 120px;
+            bottom: 50%;
+        }
+
+        .second {
+            width: 2px;
+            height: 140px;
+            bottom: 50%;
+            background: red;
+        }
+
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 10px;
+            height: 10px;
+            background: black;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Posiciones de los números */
+        .number1 {
+            top: 10%;
+            left: 50%;
+        }
+
+        .number2 {
+            top: 20%;
+            left: 80%;
+        }
+
+        .number3 {
+            top: 50%;
+            left: 90%;
+        }
+
+        .number4 {
+            top: 80%;
+            left: 80%;
+        }
+
+        .number5 {
+            top: 90%;
+            left: 50%;
+        }
+
+        .number6 {
+            top: 80%;
+            left: 20%;
+        }
+
+        .number7 {
+            top: 50%;
+            left: 10%;
+        }
+
+        .number8 {
+            top: 20%;
+            left: 20%;
+        }
+
+        .number9 {
+            top: 5%;
+            left: 32%;
+        }
+
+        .number10 {
+            top: 5%;
+            left: 68%;
+        }
+
+        .number11 {
+            top: 20%;
+            left: 20%;
+        }
+
+        .number12 {
+            top: 20%;
+            left: 68%;
+        }
+
+        .number13 {
+            top: 10%;
+            left: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="clock">
+    <div class="number number1">1</div>
+    <div class="number number2">2</div>
+    <div class="number number3">3</div>
+    <div class="number number4">4</div>
+    <div class="number number5">5</div>
+    <div class="number number6">6</div>
+    <div class="number number7">7</div>
+    <div class="number number8">8</div>
+    <div class="number number9">9</div>
+    <div class="number number10">10</div>
+    <div class="number number11">11</div>
+    <div class="number number12">12</div>
+    <div class="number number13">13</div>
+    <div class="hand hour" id="hour"></div>
+    <div class="hand minute" id="minute"></div>
+    <div class="hand second" id="second"></div>
+    <div class="center"></div>
+</div>
+<script>
+    function setClock() {
+        const now = new Date();
+        const seconds = now.getSeconds();
+        const minutes = now.getMinutes();
+        const hours = now.getHours() % 13;
+
+        const secondDegree = (seconds / 60) * 360;
+        const minuteDegree = (minutes / 60) * 360;
+        const hourDegree = ((hours + minutes / 60) / 13) * 360;
+
+        document.getElementById('second').style.transform = `translateX(-50%) rotate(${secondDegree}deg)`;
+        document.getElementById('minute').style.transform = `translateX(-50%) rotate(${minuteDegree}deg)`;
+        document.getElementById('hour').style.transform = `translateX(-50%) rotate(${hourDegree}deg)`;
+    }
+
+    setInterval(setClock, 1000);
+    setClock(); // Initial call to set the clock immediately
+</script>
+</body>
+</html>

@@ -80,7 +80,6 @@ $card = $bootstrap->get_Card("card-view-service", array(
 echo($card);
 ?>
 <script>
-
     const field_subprocess = document.getElementById("<?php echo($f->get_fid());?>_manager_subprocess");
     const field_position = document.getElementById("<?php echo($f->get_fid());?>_manager_position");
     field_subprocess.addEventListener("change", function () {

@@ -1,0 +1,168 @@
+/*
+ * **
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+ *  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+ *  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ *  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+ *  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+ *  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+ *  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+ *  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+ *  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+ *  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+ *  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+ *  ** █ @link https://www.codehiggs.com
+ *  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ Datos recibidos desde el controlador - @ModuleController
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  **
+ */
+
+/* Theme Name: 2019 Torres Digital® 🇧🇷
+
+    Author: Torres Digital® | Sites → Lojas Virtuais e e-Commerce
+    Author URI: https://www.facebook.com/torresdigital/
+
+    Description: Somos uma Agência Gaúcha que trabalha com Desenvolvimento Web voltado para todos os Nichos do Mercado tais como os de insumos, commodities, pequenos, médios e grandes Lojistas que desejam alcançar mais Clientes através do e-Commerce: Sites, Aplicativos, Lojas Virtuais, Marketplaces, WordPress e Woocommerce, integrados com os Principais Cartões e Soluções de Pagamentos do Brasil e do Mundo; tais como Cielo, CyberSource, PagSeguro, Stripe, Vindi, MasterCard, Visa, American Express, outros.
+
+        www.torresdigital.tk * Menos é mais.
+
+    Version: 2.0 *//* 15 de Junho de 2019 - 00h:04m:41s
+
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+This theme is licensed under the GPL. Use it to make something cool, have fun, and share what you’ve learned with others.  */
+
+/*All Begin*/
+.cm-s-2019-torres-digital-theme.CodeMirror {
+    background: /* #2D223F*/ #251C36;
+    color: #fff;
+}
+
+.cm-s-2019-torres-digital-theme div.CodeMirror-selected {
+    background: #2D2D2D;
+}
+
+.cm-s-2019-torres-digital-theme .CodeMirror-line::selection, .cm-s-2019-torres-digital-theme .CodeMirror-line > span::selection, .cm-s-2019-torres-digital-theme .CodeMirror-line > span > span::selection {
+    background: rgba(45, 45, 45, 0.99);
+}
+
+.cm-s-2019-torres-digital-theme .CodeMirror-line::-moz-selection, .cm-s-2019-torres-digital-theme .CodeMirror-line > span::-moz-selection, .cm-s-2019-torres-digital-theme .CodeMirror-line > span > span::-moz-selection {
+    background: rgba(45, 45, 45, 0.99);
+}
+
+.cm-s-2019-torres-digital-theme .CodeMirror-gutters {
+    background: #090412;
+    border-right: 3px solid #442E46;
+}
+
+.cm-s-2019-torres-digital-theme .CodeMirror-guttermarker {
+    color: #0f0;
+}
+
+.cm-s-2019-torres-digital-theme .CodeMirror-guttermarker-subtle {
+    color: white;
+}
+
+.cm-s-2019-torres-digital-theme .CodeMirror-linenumber {
+    color: #FFFFFF;
+}
+
+.cm-s-2019-torres-digital-theme .CodeMirror-cursor {
+    border-left: 1px solid #00FF00;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-keyword {
+    color: #ADFF2F;
+    font-weight: bold;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-atom {
+    color: #49E6FF;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-number {
+    color: /*#FFB94F*/ /*#E7FB40*/ #FDE231;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-def {
+    color: #15E4D7;
+    font-weight: bold;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-variable {
+    color: #FFF700;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-variable-2 {
+    color: #220060;
+    background-color: #ffab00;
+    padding: 0 8px;
+    border-radius: 30px;
+    margin: 0 2px;
+    font-weight: 600;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-variable-3 {
+    color: #96F;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-property {
+    color: #F8019E;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-operator {
+    color: #999;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-comment {
+    color: #d5d5d5;
+    font-weight: 600;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-string {
+    color: #F8019E;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-meta {
+    color: #F1FD31;
+    font-weight: bold;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-qualifier {
+    color: #FFF700;
+    font-weight: 600;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-builtin {
+    color: #F8A901;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-bracket {
+    color: #cc7;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-tag {
+    color: #FFBD40;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-attribute {
+    color: #FFF700;
+}
+
+.cm-s-2019-torres-digital-theme span.cm-error {
+    color: #FF0000;
+}
+
+.cm-s-2019-torres-digital-theme .CodeMirror-activeline-background {
+    background: #040;
+}

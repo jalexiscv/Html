@@ -163,7 +163,10 @@ foreach ($statuses as $status) {
     $stratum = @$status['stratum'];
 
     $status_email = @$status['email_address'];
-    $status_phone = @$status['phone_number'] . "  " . @$status['mobile'];
+
+    $status_phone = @$status['phone'];
+    $status_mobile = @$status['mobile'];
+
     $status_textual_journey = safe_strtoupper(get_sie_textual_journey(@$status['journey']));
     $status_textual_status = safe_strtoupper(get_sie_textual_status(@$status['reference']));
     $author = $mfields->get_Profile($status['author']);
@@ -193,7 +196,7 @@ foreach ($statuses as $status) {
     $code .= "    <td class='text-center text-nowrap'>{$stratum}</td>";
     $code .= "    <td class='text-left text-nowrap'>{$status_email}</td>";
     $code .= "    <td class='text-left text-nowrap'>{$status_phone}</td>";
-    $code .= "    <td class='text-left text-nowrap'>{$status['mobile']}</td>";
+    $code .= "    <td class='text-left text-nowrap'>{$status_mobile}</td>";
     $code .= "    <td class='text-center text-nowrap'>{$status_textual_status}</td>";
     $code .= "    <td class='text-start text-nowrap'>{$status_status_author}</td>";
     $code .= "    <td class='text-start text-nowrap'>{$status['created']}</td>";

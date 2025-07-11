@@ -28,55 +28,62 @@ $dates = service('dates');
 $strings = service('strings');
 $authentication = service('authentication');
 //[services]------------------------------------------------------------------------------------------------------------
-$model = model("App\Modules\Sie\Models\Sie_Settings");
+$msettings = model('App\Modules\Sie\Models\Sie_Settings');
 //[Process]-----------------------------------------------------------------------------
 $f = service("forms", array("lang" => "Sie_Settings."));
+
 $d = array(
     "setting" => "G-S",
 );
 
 
 //[Elements]-----------------------------------------------------------------------------
-$row = $model->find($d["setting"]);
 $l["back"] = $f->get_Value("back");
 $l["edit"] = "/sie/settings/edit/{$d["setting"]}";
 $asuccess = "sie/settings-edit-success-message.mp3";
 $anoexist = "sie/settings-edit-noexist-message.mp3";
 //[build]---------------------------------------------------------------------------------------------------------------
-if (is_array($row)) {
-    $edit1 = $model->update($d['setting'], array(
-        "setting" => "G-S",
-        "name" => "G-S",
-        "value" => $f->get_Value("status_graduations"),
-        "date" => safe_get_date(),
-        "time" => safe_get_time(),
-        "author" => safe_get_user(),
-    ));
 
-    $c = $bootstrap->get_Card("success", array(
-        "class" => "card-success",
-        "icon" => "fa-duotone fa-triangle-exclamation",
-        "title" => lang("Sie_Settings.edit-success-title"),
-        "text-class" => "text-center",
-        "text" => lang("Sie_Settings.edit-success-message"),
-        "footer-continue" => $l["back"],
-        "footer-class" => "text-center",
-        "voice" => $asuccess,
-    ));
-} else {
-    $create = $model->insert($d);
-    //echo($model->getLastQuery()->getQuery());
-    $c = $bootstrap->get_Card("warning", array(
-        "class" => "card-warning",
-        "icon" => "fa-duotone fa-triangle-exclamation",
-        "title" => lang("Sie_Settings.edit-noexist-title"),
-        "text-class" => "text-center",
-        "text" => sprintf(lang("Sie_Settings.edit-noexist-message"), $d['setting']),
-        "footer-continue" => $l["back"],
-        "footer-class" => "text-center",
-        "voice" => $anoexist,
-    ));
-}
+
+$edit1 = $msettings->upsert(array(
+    "setting" => "G-S",
+    "name" => "G-S",
+    "value" => $f->get_Value("status_graduations"),
+    "date" => safe_get_date(),
+    "time" => safe_get_time(),
+    "author" => safe_get_user(),
+));
+
+
+$edit2 = $msettings->upsert(array(
+    "setting" => "G-M-E",
+    "name" => "G-M-E",
+    "value" => $f->get_Value("graduations_message_enabled_value"),
+    "date" => safe_get_date(),
+    "time" => safe_get_time(),
+    "author" => safe_get_user(),
+));
+
+$edit3 = $msettings->upsert(array(
+    "setting" => "G-M-D",
+    "name" => "G-M-D",
+    "value" => $f->get_Value("graduations_message_disabled_value"),
+    "date" => safe_get_date(),
+    "time" => safe_get_time(),
+    "author" => safe_get_user(),
+));
+
+$c = $bootstrap->get_Card("success", array(
+    "class" => "card-success",
+    "icon" => "fa-duotone fa-triangle-exclamation",
+    "title" => lang("Sie_Settings.edit-success-title"),
+    "text-class" => "text-center",
+    "text" => lang("Sie_Settings.edit-success-message"),
+    "footer-continue" => $l["back"],
+    "footer-class" => "text-center",
+    "voice" => $asuccess,
+));
+
 echo($c);
 cache()->clean();
 ?>

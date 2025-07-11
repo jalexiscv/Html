@@ -94,7 +94,7 @@ $f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["edit"] . $f->fi
 //[build]---------------------------------------------------------------------------------------------------------------
 $bootstrap = service("bootstrap");
 $card = $bootstrap->get_Card2("card-view-service", array(
-    "header-title" => lang("Sie_Settings.view-title"),
+    "header-title" => lang("Sie_Settings.graduations-edit-title"),
     "header-back" => $back,
     "content" => $f,
 ));

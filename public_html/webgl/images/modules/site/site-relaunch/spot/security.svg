@@ -1,0 +1,58 @@
+<!--
+  - /***
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  -  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  -  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  -  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  -  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  -  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  -  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  -  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  -  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  -  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  -  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  -  ** █ @link https://www.codehiggs.com
+  -  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ Datos recibidos desde el controlador - @ModuleController
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ***/
+  -->
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438.01 339.98">
+    <defs>
+        <style>.cls-1{fill:none;stroke:#05264c;stroke-width:.68px;stroke-miterlimit:10}.cls-5{fill:#68cc66}</style>
+    </defs>
+    <g id="Layer_2" data-name="Layer 2">
+        <g id="Layer_1-2" data-name="Layer 1">
+            <path class="cls-1"
+                  d="M140.5 5.16c5.61 5.61-1.46 12.68 4.15 18.29S157.34 22 163 27.61s-1.46 12.68 4.15 18.29 12.69-1.46 18.3 4.16-1.46 12.69 4.16 18.3"/>
+            <circle cx="181.47" cy="270.82" r="7.2" stroke-width="2" stroke="#79b8ff" stroke-miterlimit="10"
+                    fill="none"/>
+            <path stroke="#2088ff" stroke-width="2" stroke-miterlimit="10" fill="none"
+                  d="M23.41 1H8.57L1.16 13.85 8.57 26.7h14.84l7.42-12.85L23.41 1z"/>
+            <path d="M154.68 135.49v39.21q-1.83 23.22-18.69 37.42t-26.93 14.61q-10.06-.41-26.94-14.61t-18.68-37.43v-39.2l45.62-13zm-32.59 58.66l-7.43-18.23a3.89 3.89 0 0 1 1.63-3.87 13.28 13.28 0 0 0 4.28-4.53 11.88 11.88 0 0 0 1.53-6 13.16 13.16 0 0 0-4-9.22 12.94 12.94 0 0 0-9.16-3.82 12.7 12.7 0 0 0-9.16 3.82 13 13 0 0 0-3.78 9.26 11.88 11.88 0 0 0 1.53 6 13.28 13.28 0 0 0 4.28 4.53 3.89 3.89 0 0 1 1.63 3.87L96 194.14z"
+                  fill="#fdaeb7"/>
+            <circle class="cls-1" cx="189.76" cy="164.22" r="14.33"/>
+            <path class="cls-1" d="M175.43 164.22h-46.14v14.33M139.17 164.22v7.17M149.05 164.22v10.37"/>
+            <path class="cls-5"
+                  d="M406.76 78.9l-89 42.41a5.28 5.28 0 0 1-2.58.5l-72.4-4.22a22.24 22.24 0 0 0-18.66 8.31l-23.87 29.84a18.11 18.11 0 0 0-.4 22.11L218 202.27a17.63 17.63 0 0 0 16.59 7l12.29-1.71a10.09 10.09 0 0 0 8.65-9 22.09 22.09 0 0 0-2.73-12.93l-.9-1.63a5.28 5.28 0 0 1 5.11-7.84l23.48 2.27a38.78 38.78 0 0 0 20.05-3.43L438 111.24"/>
+            <path d="M251.5 168.37c-6.42-6.25-13-9.83-22.09-10.2a53.46 53.46 0 0 0-32.85 9.83 18.07 18.07 0 0 0 3.54 9.85l18.12 24.43a17.63 17.63 0 0 0 16.59 7l12.29-1.71a10.09 10.09 0 0 0 8.65-9 22.09 22.09 0 0 0-2.75-13.02l-.88-1.57a5.28 5.28 0 0 1 5.11-7.84l2.72.26c-2.66-2.96-5.95-5.62-8.45-8.03z"
+                  fill="#53a451"/>
+            <path class="cls-5"
+                  d="M257.23 142.73l-47.14 11s-22.22 4-20.2 14.81c2.61 13.9 36.36 5.39 36.36 5.39l17.75-3.6s3.21 5.21 22.49 6.72"/>
+            <path class="cls-1" d="M200.69 176.14c10.76 1.51 25.56-2.22 25.56-2.22l17.75-3.59s3.21 5.21 22.49 6.72"/>
+            <path d="M257.23 142.73l-47.14 11a54.38 54.38 0 0 0-10.79 3.34" fill="#2b66cf" stroke-miterlimit="10"
+                  stroke="#05264c" stroke-width=".68"/>
+            <path class="cls-1"
+                  d="M225.19 185l7.13 11.18s5.7 7.84 2.11 11.95M237.19 183.17l7.13 11.18s5.7 7.84 2.11 11.95M119.99 310.85h28.79v28.79h-28.79z"/>
+        </g>
+    </g>
+</svg>

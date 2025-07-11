@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Reloj Analógico de 13 Horas</title>
+    <style>
+        #clockContainer {
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+            border-radius: 50%;
+            position: relative;
+            margin: 50px auto;
+        }
+
+        .clockHand {
+            position: absolute;
+            transform-origin: bottom center;
+            left: 50%;
+            bottom: 50%;
+        }
+
+        #hourHand {
+            width: 6px;
+            height: 80px;
+            background: black;
+        }
+
+        #minuteHand {
+            width: 4px;
+            height: 110px;
+            background: blue;
+        }
+
+        #secondHand {
+            width: 2px;
+            height: 130px;
+            background: red;
+        }
+
+        .hourMark {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="clockContainer">
+    <div class="clockHand" id="hourHand"></div>
+    <div class="clockHand" id="minuteHand"></div>
+    <div class="clockHand" id="secondHand"></div>
+</div>
+
+<script>
+    function setupClock() {
+        const clockContainer = document.getElementById('clockContainer');
+
+        // Crear marcadores de horas
+        for (let i = 1; i <= 13; i++) {
+            const hourMark = document.createElement('div');
+            hourMark.className = 'hourMark';
+            hourMark.style.transform = `rotate(${i * 360 / 13}deg)`;
+            hourMark.innerHTML = `<span style="display:inline-block; transform:rotate(-${i * 360 / 13}deg)">${i}</span>`;
+            clockContainer.appendChild(hourMark);
+        }
+    }
+
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours() % 13;
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+
+        const hourDeg = (hours + minutes / 60) * (360 / 13);
+        const minuteDeg = (minutes + seconds / 60) * 6;
+        const secondDeg = seconds * 6;
+
+        document.getElementById('hourHand').style.transform = `rotate(${hourDeg}deg)`;
+        document.getElementById('minuteHand').style.transform = `rotate(${minuteDeg}deg)`;
+        document.getElementById('secondHand').style.transform = `rotate(${secondDeg}deg)`;
+    }
+
+    setupClock();
+    setInterval(updateClock, 1000);
+    updateClock(); // Actualizar inmediatamente al cargar
+</script>
+</body>
+</html>

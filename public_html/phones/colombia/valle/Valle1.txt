@@ -1,0 +1,12 @@
+573042008512:100005733009568:Audriiana:Kendall:female:Los Angeles, California:Los Angeles, California::Los Angeles, California:12/13/2018 12:00:00 AM::
+573042008507:100035470260908:Danna:Mejia:female:Barranquilla:Barranquilla:::5/1/2019 12:00:00 AM::
+573042008495:100027851776688:Emiro:Cardenas:male:::::1/1/0001 12:00:00 AM::
+573042008488:100028158123227:Mayerli:Vargas:female:::::1/1/0001 12:00:00 AM::
+573042008480:100009901380018:Yeison:Solano:male:::::4/17/2019 12:00:00 AM::
+573042008479:100007768839544:Robins:Puello:male:Cartagena, Colombia:Cartagena, Colombia::Self-Employed:5/3/2019 12:00:00 AM::
+573042008471:826724285:Cristian:Becerra:male:Medellín, Antioquia:Riosucio, Caldas:Single:jabonerias hada:5/1/2019 12:00:00 AM::
+573042008439:100033185474235:Beni:Vallesta:female:::::1/1/0001 12:00:00 AM::
+573042008432:100000897563977:Carlos:Coronado::::::4/15/2019 12:00:00 AM::05/19/1996
+573042008431:100035532738953:Vale:Heredia:female:::::1/1/0001 12:00:00 AM::
+573042008416:100001202052182:Lorey Tatiana:Vergara Davila:female:::::4/28/2019 12:00:00 AM::
+573042008412:100023916792762:Maryi Dayan:Velasquez Payares:female:::::1/1/0001 12:00:00 AM::

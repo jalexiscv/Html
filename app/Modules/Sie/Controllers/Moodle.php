@@ -31,7 +31,7 @@ class Moodle extends ModuleController
     {
         $this->oid = $rnd;
         $this->prefix = "{$this->prefix}-home";
-        $this->component = $this->views . '\Modules\Home';
+        $this->component = $this->views . '\Moodle\Home';
         return (view($this->viewer, $this->get_Array()));
     }
 
@@ -39,7 +39,7 @@ class Moodle extends ModuleController
     {
         $this->oid = $oid;
         $this->prefix = "{$this->prefix}-view";
-        $this->component = $this->views . '\Modules\View';
+        $this->component = $this->views . '\Moodle\View';
         return (view($this->viewer, $this->get_Array()));
     }
 
@@ -47,7 +47,7 @@ class Moodle extends ModuleController
     {
         $this->oid = $rnd;
         $this->prefix = "{$this->prefix}-list";
-        $this->component = $this->views . '\Modules\List';
+        $this->component = $this->views . '\Moodle\List';
         return (view($this->viewer, $this->get_Array()));
     }
 
@@ -55,7 +55,7 @@ class Moodle extends ModuleController
     {
         $this->oid = $rnd;
         $this->prefix = "{$this->prefix}-create";
-        $this->component = $this->views . '\Modules\Create';
+        $this->component = $this->views . '\Moodle\Create';
         return (view($this->viewer, $this->get_Array()));
     }
 
@@ -63,7 +63,7 @@ class Moodle extends ModuleController
     {
         $this->oid = $oid;
         $this->prefix = "{$this->prefix}-edit";
-        $this->component = $this->views . '\Modules\Edit';
+        $this->component = $this->views . '\Moodle\Edit';
         return (view($this->viewer, $this->get_Array()));
     }
 
@@ -71,10 +71,9 @@ class Moodle extends ModuleController
     {
         $this->oid = $oid;
         $this->prefix = "{$this->prefix}-delete";
-        $this->component = $this->views . '\Modules\Delete';
+        $this->component = $this->views . '\Moodle\Delete';
         return (view($this->viewer, $this->get_Array()));
     }
-
 
     public function courses($option)
     {
@@ -84,14 +83,40 @@ class Moodle extends ModuleController
             echo(view('App\Modules\Sie\Views\Moodle\Courses\Create\index'));
         } elseif ($option == "clone") {
             echo(view('App\Modules\Sie\Views\Moodle\Courses\Clone\index'));
+        } elseif ($option == "delete") {
+            echo(view('App\Modules\Sie\Views\Moodle\Courses\Delete\index'));
+        }elseif($option=="synchronization"){
+            echo(view('App\Modules\Sie\Views\Moodle\Courses\Synchronization\index'));
         } else {
             echo("Opcion de cursos no valida");
         }
     }
 
+    public function users($option)
+    {
+        if ($option == "list") {
+            echo(view('App\Modules\Sie\Views\Moodle\Users\List\index'));
+        } elseif ($option == "create") {
+            echo(view('App\Modules\Sie\Views\Moodle\Users\Create\index'));
+        } elseif ($option == "edit") {
+            echo(view('App\Modules\Sie\Views\Moodle\Users\Edit\index'));
+        } elseif ($option == "delete") {
+            echo(view('App\Modules\Sie\Views\Moodle\Users\Delete\index'));
+        } elseif ($option == "asign") {
+            echo(view('App\Modules\Sie\Views\Moodle\Users\Asign\index'));
+        }elseif($option=="synchronization"){
+            echo(view('App\Modules\Sie\Views\Moodle\Users\Synchronization\index'));
+        } else {
+            echo("Opcion de cursos no valida");
+        }
+    }
+
+
+
+
+
     public function synchronization(string $oid)
     {
-
         $this->oid = $oid;
         $this->prefix = "{$this->prefix}-synchronization";
         $this->component = $this->views . '\Moodle\Users\Synchronization';

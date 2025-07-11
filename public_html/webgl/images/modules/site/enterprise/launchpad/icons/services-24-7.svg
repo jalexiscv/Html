@@ -1,0 +1,58 @@
+<!--
+  - /***
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  -  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  -  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  -  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  -  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  -  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  -  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  -  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  -  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  -  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  -  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  -  ** █ @link https://www.codehiggs.com
+  -  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ Datos recibidos desde el controlador - @ModuleController
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ***/
+  -->
+
+<svg width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.219 46.103l.789.646C17.236 50.119 22.705 52 28.08 52a23.853 23.853 0 0018.467-8.756C49.978 39.048 52 33.6 52 27.649c0-4.52-1.473-9.106-3.995-12.896M43.78 9.897l-.788-.645C38.764 5.882 33.295 4 27.918 4a23.853 23.853 0 00-18.467 8.757c-3.43 4.196-5.45 9.644-5.45 15.594 0 4.52 1.472 9.107 3.995 12.896"
+          stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+    <path d="M39 11h6V5M11 51v-6h6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="28" cy="28" r="16" fill="#fff" fill-opacity=".5"/>
+    <g opacity=".5" fill="#6F57FF">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M18.652 37.034A9.503 9.503 0 0127.5 31c4.291 0 7.918 2.845 9.096 6.752A12.95 12.95 0 0128 41c-3.67 0-6.984-1.52-9.348-3.966z"/>
+        <circle cx="28" cy="26" r="7"/>
+    </g>
+    <g filter="url(#filter0_d)" fill="#fff">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M21.333 28.667c.669.003.665-.296.667-.667.003-.972-.003-3.086 0-4-.005-.376-.045-.658-.667-.667-1.411 0-2.666 1.194-2.666 2.667 0 1.473 1.255 2.667 2.666 2.667zM34.666 28.667c-.668.003-.664-.296-.666-.667-.003-.972.003-3.086 0-4 .004-.376.045-.658.666-.667 1.412 0 2.667 1.194 2.667 2.667 0 1.473-1.255 2.667-2.667 2.667z"
+              stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M28.34 33.993l.041.999-.042-1zM28 35c.128 0 .255-.003.381-.008l-.083-1.998A6.993 6.993 0 0128 33v2zm.381-.008a9.005 9.005 0 008.258-6.46l-1.92-.561a7.005 7.005 0 01-6.421 5.023l.083 1.998zm8.255-11.533A9.003 9.003 0 0028 17v2a7.004 7.004 0 016.717 5.022l1.919-.563zM28 17a9.004 9.004 0 00-8.657 6.53l1.924.548A7.003 7.003 0 0128 19v-2z"/>
+    </g>
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M27 33.85c0-.47.38-.85.85-.85h1.172c.54 0 .978.438.978.977v.523a1.5 1.5 0 01-3 0v-.65z" fill="#fff"/>
+    <defs>
+        <filter id="filter0_d" x="16.666" y="17" width="21.667" height="19" filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+            <feOffset dx="-1" dy="1"/>
+            <feColorMatrix values="0 0 0 0 0.105882 0 0 0 0 0.121569 0 0 0 0 0.137255 0 0 0 0.05 0"/>
+            <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
+            <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+        </filter>
+    </defs>
+</svg>

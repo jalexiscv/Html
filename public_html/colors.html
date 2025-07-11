@@ -1,0 +1,105 @@
+<!--
+  ~ /***
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  ~  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  ~  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  ~  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  ~  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  ~  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  ~  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  ~  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  ~  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  ~  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  ~  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  ~  ** █ @link https://www.codehiggs.com
+  ~  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ Datos recibidos desde el controlador - @ModuleController
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ***/
+  -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Personalización de Tema Oscuro</title>
+    <style id="dynamicStyles"></style>
+    <link href="/themes/assets/libraries/bootstrap/5.3.3/css/bootstrap.css?v=1.8.81719908148" rel="stylesheet">
+</head>
+<body>
+<div id="colorPicker">
+    <h2>Personalización de Tema Oscuro</h2>
+    <div id="colorInputs"></div>
+</div>
+<div id="preview">
+    <h3>Vista previa</h3>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Título de la tarjeta</h5>
+            <p class="card-text">Este es un ejemplo de texto en una tarjeta.</p>
+            <a class="btn btn-primary" href="#">Botón de ejemplo</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const colors = {
+        '--bs-body-color': '#bdc1c6',
+        '--bs-body-bg': '#202124',
+        '--bs-emphasis-color': '#e8eaed',
+        '--bs-primary-text-emphasis': '#8ab4f8',
+        '--bs-secondary-text-emphasis': '#a8c7fa',
+        '--bs-success-text-emphasis': '#81c995',
+        '--bs-danger-text-emphasis': '#f28b82',
+        '--bs-card-bg': '#292a2d',
+        '--bs-card-border-color': '#5f6368',
+        '--bs-link-color': '#8ab4f8'
+    };
+
+    function createColorInputs() {
+        const container = document.getElementById('colorInputs');
+        for (const [key, value] of Object.entries(colors)) {
+            const div = document.createElement('div');
+            div.innerHTML = `
+                    <label for="${key}">${key}:</label>
+                    <input type="color" id="${key}" value="${value}">
+                `;
+            container.appendChild(div);
+
+            document.getElementById(key).addEventListener('input', updateColor);
+        }
+    }
+
+    function updateColor(e) {
+        const key = e.target.id;
+        const value = e.target.value;
+        colors[key] = value;
+        updateStyles();
+    }
+
+    function updateStyles() {
+        let styleString = '[data-bs-theme="dark"] {\n';
+        for (const [key, value] of Object.entries(colors)) {
+            styleString += `    ${key}: ${value};\n`;
+        }
+        styleString += '}';
+        document.getElementById('dynamicStyles').textContent = styleString;
+    }
+
+    createColorInputs();
+    updateStyles();
+
+    // Aplicar el tema oscuro al cuerpo del documento
+    document.body.setAttribute('data-bs-theme', 'dark');
+</script>
+</body>
+</html>

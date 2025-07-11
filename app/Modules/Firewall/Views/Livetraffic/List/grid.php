@@ -43,6 +43,7 @@ $search = !empty($request->getVar("search")) ? $request->getVar("search") : "";
 $field = !empty($request->getVar("field")) ? $request->getVar("field") : "";
 $limit = !empty($request->getVar("limit")) ? $request->getVar("limit") : 10;
 $fields = array(
+    "general" => lang("App.General"),
     //"traffic" => lang("App.traffic"),
     //"ip" => lang("App.ip"),
     //"useragent" => lang("App.useragent"),
@@ -66,7 +67,9 @@ $fields = array(
     //"deleted_at" => lang("App.deleted_at"),
 );
 //[build]--------------------------------------------------------------------------------------------------------------
-$conditions = array();
+$conditions = array(
+    'ip LIKE' => "%{$search}%",
+);
 //$mlivetraffic->clear_AllCache();
 $rows = $mlivetraffic->getCachedSearch($conditions, $limit, $offset, "traffic DESC");
 $total = $mlivetraffic->getCountAllResults($conditions);
@@ -97,7 +100,7 @@ $bgrid->set_Headers(array(
     array("content" => lang("App.Date"), "class" => "text-center	align-middle"),
     array("content" => lang("App.Time"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.uniquev"), "class" => "text-center	align-middle"),
-    //array("content" => lang("App.author"), "class" => "text-center	align-middle"),
+    array("content" => lang("App.User"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.created_at"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.updated_at"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.deleted_at"), "class" => "text-center	align-middle"),
@@ -143,7 +146,7 @@ foreach ($rows["data"] as $row) {
                 array("content" => $row['date'], "class" => "text-left align-middle"),
                 array("content" => $row['time'], "class" => "text-left align-middle"),
                 //array("content" => $row['uniquev'], "class" => "text-left align-middle"),
-                //array("content" => $row['author'], "class" => "text-left align-middle"),
+                array("content" => $row['author'], "class" => "text-left align-middle"),
                 //array("content" => $row['created_at'], "class" => "text-left align-middle"),
                 //array("content" => $row['updated_at'], "class" => "text-left align-middle"),
                 //array("content" => $row['deleted_at'], "class" => "text-left align-middle"),

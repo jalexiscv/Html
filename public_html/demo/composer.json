@@ -1,0 +1,16 @@
+{
+  "name": "Aurora/Aurora",
+  "type": "project",
+  "description": "Inteligencia Artificial",
+  "homepage": "https://cgine.com",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.0",
+    "ext-curl": "*",
+    "ext-intl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "ext-sqlite3": "*",
+    "orhanerday/open-ai": "*"
+  }
+}

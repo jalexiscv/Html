@@ -1,6 +1,6 @@
 <?php
 // Configuración inicial para la API de Moodle
-$token = 'a99cf98a32a7bc899e0e9c45e4f50b8f'; // Deberías gestionar esto de forma más segura
+$token = 'd9551c4aa62771d4a38d74b1e885b13d'; // Deberías gestionar esto de forma más segura
 $domainName = 'https://campus2025b.utede.edu.co';
 $functionName = 'core_course_create_courses';
 $restformat = 'json';

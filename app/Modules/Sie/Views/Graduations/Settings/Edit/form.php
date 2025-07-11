@@ -87,11 +87,11 @@ $f->fields["status_graduations_value"] = $f->get_FieldSelect("status_graduations
 
 $f->fields["graduations_message_enabled_code"] = $f->get_FieldText("setting", array("value" => $graduations_message_enabled_code, "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
 $f->fields["graduations_message_enabled_name"] = $f->get_FieldText("name", array("value" => $graduations_message_enabled_label, "proportion" => "col-md-8 col-sm-12 col-12", "readonly" => true));
-$f->fields["graduations_message_enabled_value"] = $f->get_FieldCKEditor("graduations_message_enabled", array("value" => $graduations_message_enabled_value, "proportion" => "col-12"));
+$f->fields["graduations_message_enabled_value"] = $f->get_FieldCKEditor("graduations_message_enabled_value", array("value" => $graduations_message_enabled_value, "proportion" => "col-12"));
 
 $f->fields["graduations_message_disabled_code"] = $f->get_FieldText("setting", array("value" => $graduations_message_disabled_code, "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
 $f->fields["graduations_message_disabled_name"] = $f->get_FieldText("name", array("value" => $graduations_message_disabled_label, "proportion" => "col-md-8 col-sm-12 col-12", "readonly" => true));
-$f->fields["graduations_message_disabled_value"] = $f->get_FieldCKEditor("graduations_message_disabled", array("value" => $graduations_message_disabled_value, "proportion" => "col-12"));
+$f->fields["graduations_message_disabled_value"] = $f->get_FieldCKEditor("graduations_message_disabled_value", array("value" => $graduations_message_disabled_value, "proportion" => "col-12"));
 
 $f->fields["date"] = $f->get_FieldText("date", array("value" => $r["date"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
 $f->fields["time"] = $f->get_FieldText("time", array("value" => $r["time"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
@@ -102,7 +102,7 @@ $f->fields["submit"] = $f->get_Submit("submit", array("value" => lang("App.Edit"
 $f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["status_graduations_setting"] . $f->fields["status_graduations_name"] . $f->fields["status_graduations_value"])));
 $f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["graduations_message_enabled_code"] . $f->fields["graduations_message_enabled_name"])));
 $f->groups["g4"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["graduations_message_enabled_value"])));
-$f->groups["g5"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["graduations_message_disabled_code"] . $f->fields["graduations_message_disabled_name"] . $f->fields["graduations_message_disabled_value"])));
+$f->groups["g5"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["graduations_message_disabled_code"] . $f->fields["graduations_message_disabled_name"])));
 $f->groups["g6"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["graduations_message_disabled_value"])));
 
 //[buttons]-------------------------------------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ $f->groups["gy"] = $f->get_GroupSeparator();
 $f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["submit"] . $f->fields["cancel"]));
 //[build]---------------------------------------------------------------------------------------------------------------
 $card = $bootstrap->get_Card2("create", array(
-    "header-title" => lang("Sie_Settings.edit-title"),
+    "header-title" => lang("Sie_Settings.graduations-edit-title"),
     "content" => $f,
     "header-back" => $back
 ));

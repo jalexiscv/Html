@@ -1,0 +1,140 @@
+/*
+ * **
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+ *  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+ *  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ *  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+ *  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+ *  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+ *  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+ *  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+ *  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+ *  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+ *  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+ *  ** █ @link https://www.codehiggs.com
+ *  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ Datos recibidos desde el controlador - @ModuleController
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  **
+ */
+
+/* Additional file types */
+.ext-c:before, .ext-h:before {
+    background-position: -48px 0 !important;
+}
+
+.ext-cpp:before, .ext-ino:before {
+    background-position: -64px 0 !important;
+}
+
+.ext-cs:before {
+    background-position: -80px 0 !important;
+}
+
+.ext-coffee:before {
+    background-position: -96px 0 !important;
+}
+
+.ext-css:before {
+    background-position: -112px 0 !important;
+}
+
+.ext-erl:before {
+    background-position: -128px 0 !important;
+}
+
+.ext-gif:before {
+    background-position: -144px 0 !important;
+}
+
+.ext-go:before {
+    background-position: -160px 0 !important;
+}
+
+.ext-htm:before, .ext-html:before {
+    background-position: -176px 0 !important;
+}
+
+.ext-jpg:before, .ext-jpeg:before {
+    background-position: -192px 0 !important;
+}
+
+.ext-java:before {
+    background-position: -208px 0 !important;
+}
+
+.ext-js:before, .ext-json:before {
+    background-position: -224px 0 !important;
+}
+
+.ext-jl:before {
+    background-position: -240px 0 !important;
+}
+
+.ext-less:before {
+    background-position: -256px 0 !important;
+}
+
+.ext-lua:before {
+    background-position: -272px 0 !important;
+}
+
+.ext-md:before {
+    background-position: -288px 0 !important;
+}
+
+.ext-pl:before {
+    background-position: -304px 0 !important;
+}
+
+.ext-php:before {
+    background-position: -320px 0 !important;
+}
+
+.ext-png:before {
+    background-position: -336px 0 !important;
+}
+
+.ext-py:before, .ext-mpy:before {
+    background-position: -352px 0 !important;
+}
+
+.ext-rb:before, .ext-ruby:before {
+    background-position: -368px 0 !important;
+}
+
+.ext-scss:before {
+    background-position: -384px 0 !important;
+}
+
+.ext-sql:before {
+    background-position: -400px 0 !important;
+}
+
+.ext-txt:before {
+    background-position: -416px 0 !important;
+}
+
+.ext-ts:before {
+    background-position: -432px 0 !important;
+}
+
+.ext-xml:before {
+    background-position: -448px 0 !important;
+}
+
+.ext-yaml:before {
+    background-position: -464px 0 !important;
+}
+
+.ext-zip:before {
+    background-position: -480px 0 !important;
+}

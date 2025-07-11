@@ -26,7 +26,7 @@ $mprogress = model("App\Modules\Sie\Models\Sie_Progress");
 //[Data]----------------------------------------------------------------------------------------------------------------
 $period = $_GET['period'];
 $program = $_GET['program'];
-$status = $_GET['status'];
+//$status = $_GET['status'];
 $limit = 3000; // Registros por página
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;

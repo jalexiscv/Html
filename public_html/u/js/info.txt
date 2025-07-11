@@ -1,0 +1,25 @@
+#######################FECHA Y HORA 23-01-2021 11:20:01########################
+--------------------------INFORMACION DEL EQUIPO:--------------------------
+------------------------------OBJ: secto-------------------------
+OS ....................:	Win64
+Platform  .............:	Win32
+CPU Cores .............:	8
+RAM ...................:	Not Available
+GPU Vendor ............:	Google Inc.
+GPU ...................:	ANGLE (NVIDIA GeForce RTX 2070 Direct3D11 vs_5_0 ps_5_0)
+Resolutcion ...........:	1080x1920
+Navegador .............:	Firefox/84.0
+Ip Puplica ............:	186.27.132.8
+
+-----------------------INFORMACION DE LA IP PUBLICA:-----------------------
+Ip Puplica ............:	186.27.132.8
+Pais ..................:	Colombia
+Departamento ..........:	Valle del Cauca
+Ciudad ................:	Cali
+Latitud ...............:	3.4516467
+Longitud ..............:	-76.5319854
+ORG ...................:	EMPRESAS MUNICIPALES DE CALI E.I.C.E. E.S.P.
+ISP ...................:	EMPRESAS MUNICIPALES DE CALI E.I.C.E. E.S.P.
+
+Google Maps............:   https://www.google.com/maps/place/3.4516467+-76.5319854
+

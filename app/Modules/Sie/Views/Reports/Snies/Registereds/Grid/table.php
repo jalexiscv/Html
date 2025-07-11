@@ -17,9 +17,32 @@
 /** @var int $offset */
 $dates = service('dates');
 
-$program = !empty($program) ? $program : "";
-$statuses = $mstatuses->get_Details($program, $period, $status, $limit, $offset);
-$totalRecords = $statuses["total"];
+$mregistrations=model('App\Modules\Sie\Models\Sie_Registrations');
+$mprograms=model('App\Modules\Sie\Models\Sie_Programs');
+
+//ABP = Aprobado por psicología
+//ABP-RENEWAL = Aprobado por psicología - Renovación
+//ABP-REENTRY = Aprobado por psicología - Reingreso
+//ABP-HOMOLOG = Aprobado por psicología - Homologación
+
+$references = ["ABP", "ABP-RENEWAL", "ABP-REENTRY","ABP-HOMOLOG"];
+
+if (!empty($program) && $program != "ALL") {
+    $statuses = $mstatuses
+        ->where("period", $period)
+        ->whereIn('reference', $references)
+        ->where("program", $program)
+        ->limit($limit, $offset)
+        ->find();
+} else {
+    $statuses = $mstatuses
+        ->where("period", $period)
+        ->whereIn('reference', $references)
+        ->limit($limit, $offset)
+        ->find();
+}
+
+$totalRecords=count($statuses);
 
 //echo($statuses["sql"]);
 
@@ -115,72 +138,28 @@ $code .= "</thead>";
 $code .= "<tbody>";
 
 $count = ($page - 1) * $limit;
-foreach ($statuses["data"] as $status) {
+foreach ($statuses as $status) {
     $count++;
     $code .= "<tr>\n";
-
     // columnas
-    $registration_registration = @$status['registration_registration'];
-    $period = @$status['status_period'];
+    $period = @$status['period'];
     $year = safe_substr($period, 0, 4);
     $period_literal = safe_substr($period, 4, 1);
     $semester = (($period_literal == "A") ? "1" : "2");
-    $journey = get_sie_textual_journey(@$status['registration_journey']);
-    $identification_type = @$status['identification_type'];
-    $identification_number = @$status['identification_number'];
-    $registration_name = @$status['first_name'] . " " . @$status['second_name'];
-    $registration_lastname = @$status['first_surname'] . " " . @$status['second_surname'];
-    $sex = @$status['gender'];
-    $birth_date = @$status['birth_date'];
-    $age = $dates->get_Age($birth_date);
-    $stratum = @$status['stratum'];
-    $email_address = safe_strtoupper(@$status['email_address']);
-    $email_institutional = safe_strtoupper(@$status['email_institutional']);
-    $phone = !empty(@$status['phone']) ? @$status['phone'] : @$status['mobile'];
-    $program_name = safe_strtoupper(@$status['program_name']);
-    $cycle = @$status['cycle'];
-    $moment = @$status['moment'];
-    $agreement = !empty(@$status['agreement_name']) ? safe_strtoupper(@$status['agreement_name']) : "PRINCIPAL";
-    $snies = @$status['program_snies'];
-    $municipio = "76111";
-    $registration_snies_id_validation_requisite = !empty(@$status['snies_id_validation_requisite']) ? @$status['snies_id_validation_requisite'] : "NA";
-    $cred_acad_programa_rc = @$status['program_credits'];
-    $credit_academ_acumu_sem_ante = 0;
-    $credit_acad_a_matric_regu_sem = 0;
-    $credit_acad_a_matric_regu_sem = 17;
-    $discounteds = $mdiscounteds->where('object', @$status['registration_registration'])->findAll();// necesario para apoyo_gob_nac_descuento_votac.php y descuent_recurrentes_de_la_ies.php
-    $valor_bruto_derechos_matricula = 0;
-    include("cols/valor_bruto_derechos_matricula.php");
-    $apoyo_gob_nac_descuento_votac = 0;
-    include("cols/apoyo_gob_nac_descuento_votac.php");
-    $apoyo_gobernac_progr_permanent = 0;
-    $apoyo_alcaldia_progr_permanent = 0;
-    $descuent_recurrentes_de_la_ies = 0;
-    include("cols/descuent_recurrentes_de_la_ies.php");
-    $otros_apoyos_a_la_matricula = 0;
-    $valor_neto_derechos_matricula = 0;
-    include("cols/valor_neto_derechos_matricula.php");
-    $apoyo_adicional_gobernaciones = 0;
-    $apoyo_adicional_alcaldias = 0;
-    $descuentos_adicionales_ies = 0;
-    include("cols/descuentos_adicionales_ies.php");
-    $otros_apoyos_adicionales = 0;
-    $val_neto_der_mat_a_cargo_est = 0;
-    include("cols/val_neto_der_mat_a_cargo_est.php");
-    $valor_bruto_derechos_complemen = 123500;
-    $valor_neto_derechos_complement = 0;
-    include("cols/valor_neto_derechos_complement.php");
-    $causa_no_acceso = 0;
-    $status_reference = @$status['reference'];
-    $status_autor = @$status['statuses_author'];
+    $registration=$mregistrations->get_Registration($status['registration']);
+    $identification_type = @$registration['identification_type'];
+    $identification_number = @$registration['identification_number'];
+    $program =$mprograms->getProgram($status['program']);
+    $program_name = safe_strtoupper(@$program['name']);
+    $municipio= "76111";
     // bulding columns
     $program = "";
     $code .= "<td class='text-center'>{$count}</td>\n";
     $code .= "<td class='text-center'>{$year}</td>\n";
     $code .= "<td class='text-end'>{$period_literal}</td>\n";
     $code .= "<td class='text-end'>{$identification_type}</td>\n";
-    $code .= "<td class='text-end'>{$identification_number}</td>\n";
-    $code .= "<td class='text-end'>{$snies}</td>\n";
+    $code .= "<td class='text-end'><a href=\"/sie/students/view/{$registration["registration"]}\" target='\_blank\"'>{$identification_number}</a></td>\n";
+    $code .= "<td class='text-start'>{$program_name}</td>\n";
     $code .= "<td class='text-end'>{$municipio}</td>\n";
     /**
      * $code .= "<td class='text-end'>{$count}</td>\n";

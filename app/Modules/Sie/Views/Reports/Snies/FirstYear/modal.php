@@ -4,7 +4,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="myModalLabel">Selecciona Periodo y Programa</h1>
+                    <h1 class="modal-title fs-5" id="myModalLabel">Reporte de primer curso</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -27,17 +27,12 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="status" class="form-label">Estado</label>
-                            <select class="form-select" id="status" name="status" required>
-                                <option value="REGISTERED">Registrado / Preinscrito</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="option" class="form-label">Opciones</label>
-                            <select class="form-select" id="option" name="option" required>
-                                <option value="VIEW">Visualizar</option>
-                                <!--<option value="DOWNLOAD">Descargar</option>//-->
-                            </select>
+                            <div class="mb-3">
+                                <div class="alert alert-primary" role="alert">
+                                    Este reporte solo incluye estudiantes en los estados <b>Matriculado</b> y <b>Matriculado Antigulo</b>,
+                                        que esten en <b>I Ciclo</b>, <b>V Ciclo</b> y <b>VII Ciclo</b>.
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Consultar</button>
                     </form>

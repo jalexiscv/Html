@@ -1,0 +1,63 @@
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+
+    <title>Auth Vainilla JS</title>
+
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+    <script>
+        // Import the functions you need from the SDKs you need
+        //import { initializeApp } from "firebase/app";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA28y9jEygLbQxF2w5ZCotJrTq7EvxzrIw",
+            authDomain: "ansssible.firebaseapp.com",
+            databaseURL: "https://ansssible.firebaseio.com",
+            projectId: "ansssible",
+            storageBucket: "ansssible.appspot.com",
+            messagingSenderId: "775423592976",
+            appId: "1:775423592976:web:bae7c8136086b92457d895"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand" id="nombreUsuario">Chat</span>
+        <div id="botones"></div>
+    </nav>
+
+
+    <main class="mt-2 px-2" id="contenidoWeb" style="height: 80vh; overflow-y: scroll;"></main>
+
+    <form class="input-group mb-3 fixed-bottom container d-none" id='formulario'>
+        <input aria-label="Recipient's username" class="form-control" id="texto" placeholder="Ingrese mensaje"
+               type="text">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Enviar</button>
+        </div>
+    </form>
+
+
+</div>
+
+<script src="firebase.js"></script>
+</body>
+</html>

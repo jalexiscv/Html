@@ -29,6 +29,7 @@ return [
     "label_date" => "Fecha",
     "label_time" => "Hora",
     "label_author" => "Autor",
+    "label_status_graduations"=>"Estado de postulaciones",
     "placeholder_setting" => "Código",
     "placeholder_name" => "Nombre",
     "placeholder_value" => "Valor",
@@ -92,6 +93,8 @@ return [
     "label_graduations_message_disabled" => "Mensaje deshabilitado",
     "help_graduations_message_enabled" => "Obligatorio: Mensaje que veran los usuarios al acceder al formulario activo de graduaciones",
     "help_graduations_message_disabled" => "Obligatorio: Mensaje que veran los usuarios al acceder al formulario deshabilitado de graduaciones",
+    // Graduations
+    "graduations-edit-title" => "Estado del componente de postulaciones",
 ];
 
 ?>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Avatar Falante</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<div>
+</div>
+<button id="falar">🎙 Iniciar Captura</button>
+<div id="languageSelectors">
+    <button class="langButton selecao" data-lang="en"><img alt="Bandeira dos Estados Unidos" src="img/usa.png"></button>
+    <button class="langButton" data-lang="es-ES"><img alt="Bandeira da Espanha" src="img/spain.png"></button>
+    <button class="langButton" data-lang="fr-FR"><img alt="Bandeira da França" src="img/france.png"></button>
+</div>
+<select hidden id="vozSelector"></select>
+<label for="destino">Tradutor</label>
+<select id="destino"></select>
+<p id="custo">Custo GPT : 0</p>
+<div id="statusGravacao" style="color: red; display: none;">Capturando a voz...</div>
+<div class="container">
+
+    <div class="avatar">
+        <video autoplay height="480" id="video" muted width="640"></video>
+    </div>
+    <div id="translatedText"></div>
+    <div id="transcription"></div>
+
+</div>
+
+
+<script src="js/AvatarTradutor.js?v2"></script>
+
+</body>
+
+</html>

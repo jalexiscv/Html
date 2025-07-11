@@ -1,0 +1,2543 @@
+<!--
+  ~ /***
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  ~  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  ~  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  ~  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  ~  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  ~  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  ~  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  ~  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  ~  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  ~  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  ~  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  ~  ** █ @link https://www.codehiggs.com
+  ~  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ Datos recibidos desde el controlador - @ModuleController
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ***/
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>shuffle</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
+    <style>
+        body {
+            color: #fff;
+            font-family: Monospace;
+            font-size: 13px;
+            text-align: center;
+            font-weight: bold;
+
+            background-color: #000;
+            margin: 0px;
+            padding: 0px;
+
+            min-height: 101%;
+        }
+
+        #info {
+            color: #fff;
+            position: relative;
+            margin: 0 auto -2.1em;
+            top: 0px;
+
+            padding: 5px;
+            z-index: 100;
+
+            display: none;
+        }
+
+        #footer {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            z-index: 1000;
+            padding: 1em;
+            color: #666;
+
+            display: none;
+        }
+
+        a {
+            color: #888;
+        }
+
+        #stats {
+            position: absolute;
+            top: 0;
+            left: 0
+        }
+
+        #stats #fps {
+            background: transparent !important
+        }
+
+        #stats #fps #fpsText {
+            color: #444 !important
+        }
+
+        #stats #fps #fpsGraph {
+            display: none
+        }
+
+        #loading {
+            background: #a00;
+            color: white;
+            padding: 0.25em 1em;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            z-index: 200;
+        }
+    </style>
+</head>
+
+<body>
+<div id="loading" style="display: none;">Loading ...</div>
+
+<div id="info">
+    <a href="https://alterplex.com/" target="_blank">alteredqualia</a> - shuffle
+</div>
+
+<div id="footer">
+</div>
+
+<script src="shuffle_files/xg.min.cthulhu.js"></script>
+<script src="shuffle_files/easing.js"></script>
+
+<script src="shuffle_files/stats.min.js"></script>
+
+<script>
+
+    var hasWebGL1 = Detector.webgl;
+    var hasWebGL2 = Detector.webgl2;
+
+    if (!(hasWebGL1 || hasWebGL2)) Detector.addGetWebGLMessage();
+
+    var backend = hasWebGL2 ? "webgl2" : "webgl1";
+
+    var isMobile = Detector.isMobile;
+    //isMobile = true;
+
+    //
+
+    var SCALE = 1.0;
+    var MARGIN = 0;
+
+    var BRIGHTNESS = 1.0;
+
+    var SCREEN_WIDTH = window.innerWidth;
+    var SCREEN_HEIGHT = window.innerHeight - 2 * MARGIN;
+
+    //
+
+    var cameraFovInit = 30;
+    var cameraFovTarget = 80;
+
+    var container, camera, scene, renderer;
+
+    var characterGrid;
+
+    var lineCounter = 1;
+
+    var PI2 = Math.PI * 2;
+
+    // camera controls
+
+    var mouseX = 0;
+    var mouseY = 0;
+
+    var targetX = 0.0;
+    var targetY = 0.0;
+    var angle = 0.0;
+    var height = 0.0;
+
+    var speed = 1.0;
+    var speedTarget = 1.0;
+
+    var target = new XG.Vector3();
+
+    var windowHalfX = window.innerWidth / 2;
+    var windowHalfY = window.innerHeight / 2;
+
+    var waveStrengthDelta = 1;
+    var waveStrength = 1;
+
+    var currentUniforms = [];
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    var randomTimeline = [];
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    var initMap = [];
+    var shuffleMap = [];
+
+    var shuffleMap1 = [];
+    var shuffleMap2 = [];
+    var shuffleMap3 = [];
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    // ui
+
+    var loadingElement = document.getElementById("loading");
+
+    var fontCounter = 0;
+    var fontsToLoad = 0;
+
+    // fonts
+
+    var sdfMonospaceBold = {
+        'count': 191, 'chars': {
+            32: {'yoffset': 1.5, 'width': 4, 'xadvance': 32.5, 'y': 480, 'x': 507, 'height': 4, 'xoffset': -1.5},
+            33: {'yoffset': 39.0, 'width': 13, 'xadvance': 32.5, 'y': 53, 'x': 498, 'height': 41, 'xoffset': 9.813},
+            34: {'yoffset': 40.375, 'width': 17, 'xadvance': 32.5, 'y': 489, 'x': 72, 'height': 18, 'xoffset': 7.938},
+            35: {'yoffset': 40.188, 'width': 33, 'xadvance': 32.5, 'y': 258, 'x': 278, 'height': 42, 'xoffset': 0.0},
+            36: {'yoffset': 42.5, 'width': 30, 'xadvance': 32.5, 'y': 327, 'x': 373, 'height': 50, 'xoffset': 1.688},
+            37: {'yoffset': 39.313, 'width': 35, 'xadvance': 32.5, 'y': 161, 'x': 442, 'height': 41, 'xoffset': -0.625},
+            38: {'yoffset': 40.063, 'width': 35, 'xadvance': 32.5, 'y': 217, 'x': 404, 'height': 43, 'xoffset': -0.313},
+            39: {'yoffset': 40.375, 'width': 9, 'xadvance': 32.5, 'y': 313, 'x': 502, 'height': 18, 'xoffset': 12.188},
+            40: {'yoffset': 40.063, 'width': 18, 'xadvance': 32.5, 'y': 176, 'x': 36, 'height': 53, 'xoffset': 8.563},
+            41: {'yoffset': 40.063, 'width': 18, 'xadvance': 32.5, 'y': 123, 'x': 36, 'height': 53, 'xoffset': 6.063},
+            42: {'yoffset': 39.0, 'width': 26, 'xadvance': 32.5, 'y': 372, 'x': 0, 'height': 26, 'xoffset': 3.25},
+            43: {'yoffset': 34.375, 'width': 29, 'xadvance': 32.5, 'y': 86, 'x': 0, 'height': 31, 'xoffset': 2.188},
+            44: {'yoffset': 11.438, 'width': 15, 'xadvance': 32.5, 'y': 486, 'x': 93, 'height': 25, 'xoffset': 8.563},
+            45: {'yoffset': 19.688, 'width': 18, 'xadvance': 32.5, 'y': 260, 'x': 404, 'height': 11, 'xoffset': 7.375},
+            46: {'yoffset': 11.438, 'width': 13, 'xadvance': 32.5, 'y': 202, 'x': 442, 'height': 13, 'xoffset': 9.813},
+            47: {'yoffset': 40.063, 'width': 21, 'xadvance': 32.5, 'y': 367, 'x': 491, 'height': 47, 'xoffset': 6.063},
+            48: {'yoffset': 39.313, 'width': 31, 'xadvance': 32.5, 'y': 318, 'x': 180, 'height': 42, 'xoffset': 1.063},
+            49: {'yoffset': 39.313, 'width': 20, 'xadvance': 32.5, 'y': 207, 'x': 0, 'height': 41, 'xoffset': 4.188},
+            50: {'yoffset': 39.313, 'width': 30, 'xadvance': 32.5, 'y': 331, 'x': 144, 'height': 41, 'xoffset': 1.0},
+            51: {'yoffset': 39.25, 'width': 31, 'xadvance': 32.5, 'y': 276, 'x': 180, 'height': 42, 'xoffset': 0.938},
+            52: {'yoffset': 38.188, 'width': 31, 'xadvance': 32.5, 'y': 250, 'x': 144, 'height': 40, 'xoffset': 0.688},
+            53: {'yoffset': 38.25, 'width': 31, 'xadvance': 32.5, 'y': 0, 'x': 350, 'height': 41, 'xoffset': 0.813},
+            54: {'yoffset': 39.313, 'width': 31, 'xadvance': 32.5, 'y': 234, 'x': 180, 'height': 42, 'xoffset': 1.125},
+            55: {'yoffset': 38.25, 'width': 30, 'xadvance': 32.5, 'y': 221, 'x': 108, 'height': 40, 'xoffset': 1.188},
+            56: {'yoffset': 39.375, 'width': 31, 'xadvance': 32.5, 'y': 150, 'x': 180, 'height': 42, 'xoffset': 1.188},
+            57: {'yoffset': 39.313, 'width': 31, 'xadvance': 32.5, 'y': 192, 'x': 180, 'height': 42, 'xoffset': 0.875},
+            58: {'yoffset': 30.5, 'width': 13, 'xadvance': 32.5, 'y': 109, 'x': 167, 'height': 33, 'xoffset': 9.813},
+            59: {'yoffset': 30.5, 'width': 15, 'xadvance': 32.5, 'y': 442, 'x': 93, 'height': 44, 'xoffset': 8.625},
+            60: {'yoffset': 34.375, 'width': 29, 'xadvance': 32.5, 'y': 117, 'x': 0, 'height': 31, 'xoffset': 2.188},
+            61: {'yoffset': 29.063, 'width': 29, 'xadvance': 32.5, 'y': 487, 'x': 373, 'height': 20, 'xoffset': 2.188},
+            62: {'yoffset': 34.375, 'width': 29, 'xadvance': 32.5, 'y': 148, 'x': 0, 'height': 31, 'xoffset': 2.188},
+            63: {'yoffset': 40.063, 'width': 30, 'xadvance': 32.5, 'y': 0, 'x': 381, 'height': 42, 'xoffset': 1.563},
+            64: {'yoffset': 40.0, 'width': 33, 'xadvance': 32.5, 'y': 161, 'x': 477, 'height': 43, 'xoffset': 0.375},
+            65: {'yoffset': 39.063, 'width': 36, 'xadvance': 32.5, 'y': 161, 'x': 373, 'height': 41, 'xoffset': -1.688},
+            66: {'yoffset': 39.0, 'width': 29, 'xadvance': 32.5, 'y': 302, 'x': 108, 'height': 41, 'xoffset': 2.25},
+            67: {'yoffset': 40.063, 'width': 31, 'xadvance': 32.5, 'y': 53, 'x': 373, 'height': 43, 'xoffset': 1.125},
+            68: {'yoffset': 39.0, 'width': 30, 'xadvance': 32.5, 'y': 290, 'x': 144, 'height': 41, 'xoffset': 2.188},
+            69: {'yoffset': 39.0, 'width': 27, 'xadvance': 32.5, 'y': 260, 'x': 72, 'height': 41, 'xoffset': 3.063},
+            70: {'yoffset': 39.0, 'width': 28, 'xadvance': 32.5, 'y': 178, 'x': 72, 'height': 41, 'xoffset': 3.25},
+            71: {'yoffset': 40.063, 'width': 31, 'xadvance': 32.5, 'y': 467, 'x': 342, 'height': 43, 'xoffset': 0.5},
+            72: {'yoffset': 39.0, 'width': 29, 'xadvance': 32.5, 'y': 261, 'x': 108, 'height': 41, 'xoffset': 2.188},
+            73: {'yoffset': 39.0, 'width': 25, 'xadvance': 32.5, 'y': 334, 'x': 72, 'height': 41, 'xoffset': 3.938},
+            74: {'yoffset': 39.063, 'width': 29, 'xadvance': 32.5, 'y': 55, 'x': 108, 'height': 42, 'xoffset': 1.0},
+            75: {'yoffset': 39.0, 'width': 34, 'xadvance': 32.5, 'y': 107, 'x': 311, 'height': 41, 'xoffset': 1.875},
+            76: {'yoffset': 39.0, 'width': 28, 'xadvance': 32.5, 'y': 137, 'x': 72, 'height': 41, 'xoffset': 4.0},
+            77: {'yoffset': 39.0, 'width': 31, 'xadvance': 32.5, 'y': 0, 'x': 319, 'height': 41, 'xoffset': 1.0},
+            78: {'yoffset': 39.0, 'width': 28, 'xadvance': 32.5, 'y': 55, 'x': 72, 'height': 41, 'xoffset': 2.625},
+            79: {'yoffset': 40.063, 'width': 31, 'xadvance': 32.5, 'y': 53, 'x': 342, 'height': 43, 'xoffset': 0.875},
+            80: {'yoffset': 39.0, 'width': 28, 'xadvance': 32.5, 'y': 460, 'x': 108, 'height': 41, 'xoffset': 3.188},
+            81: {'yoffset': 40.063, 'width': 33, 'xadvance': 32.5, 'y': 161, 'x': 409, 'height': 44, 'xoffset': 0.875},
+            82: {'yoffset': 39.0, 'width': 30, 'xadvance': 32.5, 'y': 272, 'x': 482, 'height': 41, 'xoffset': 2.188},
+            83: {'yoffset': 40.0, 'width': 31, 'xadvance': 32.5, 'y': 53, 'x': 404, 'height': 43, 'xoffset': 0.813},
+            84: {'yoffset': 39.0, 'width': 31, 'xadvance': 32.5, 'y': 0, 'x': 288, 'height': 41, 'xoffset': 0.875},
+            85: {'yoffset': 39.063, 'width': 29, 'xadvance': 32.5, 'y': 97, 'x': 108, 'height': 42, 'xoffset': 1.875},
+            86: {'yoffset': 39.063, 'width': 33, 'xadvance': 32.5, 'y': 53, 'x': 280, 'height': 41, 'xoffset': 0.063},
+            87: {'yoffset': 39.063, 'width': 37, 'xadvance': 32.5, 'y': 313, 'x': 465, 'height': 41, 'xoffset': -2.0},
+            88: {'yoffset': 39.063, 'width': 34, 'xadvance': 32.5, 'y': 107, 'x': 379, 'height': 41, 'xoffset': -0.563},
+            89: {'yoffset': 39.063, 'width': 34, 'xadvance': 32.5, 'y': 107, 'x': 413, 'height': 41, 'xoffset': -0.688},
+            90: {'yoffset': 39.0, 'width': 31, 'xadvance': 32.5, 'y': 450, 'x': 180, 'height': 41, 'xoffset': 1.063},
+            91: {'yoffset': 39.0, 'width': 17, 'xadvance': 32.5, 'y': 417, 'x': 36, 'height': 53, 'xoffset': 9.375},
+            92: {'yoffset': 40.0, 'width': 21, 'xadvance': 32.5, 'y': 442, 'x': 72, 'height': 47, 'xoffset': 6.063},
+            93: {'yoffset': 39.0, 'width': 17, 'xadvance': 32.5, 'y': 364, 'x': 36, 'height': 53, 'xoffset': 6.75},
+            94: {'yoffset': 37.75, 'width': 25, 'xadvance': 32.5, 'y': 88, 'x': 435, 'height': 17, 'xoffset': 4.125},
+            95: {'yoffset': -5.875, 'width': 36, 'xadvance': 32.5, 'y': 202, 'x': 373, 'height': 9, 'xoffset': -1.5},
+            96: {'yoffset': 44.25, 'width': 16, 'xadvance': 32.5, 'y': 354, 'x': 496, 'height': 13, 'xoffset': 7.0},
+            97: {'yoffset': 31.563, 'width': 30, 'xadvance': 32.5, 'y': 474, 'x': 311, 'height': 35, 'xoffset': 2.0},
+            98: {'yoffset': 40.313, 'width': 29, 'xadvance': 32.5, 'y': 207, 'x': 144, 'height': 43, 'xoffset': 2.688},
+            99: {'yoffset': 31.625, 'width': 29, 'xadvance': 32.5, 'y': 477, 'x': 404, 'height': 35, 'xoffset': 2.5},
+            100: {'yoffset': 40.313, 'width': 29, 'xadvance': 32.5, 'y': 164, 'x': 144, 'height': 43, 'xoffset': 2.0},
+            101: {'yoffset': 31.563, 'width': 29, 'xadvance': 32.5, 'y': 477, 'x': 433, 'height': 35, 'xoffset': 2.188},
+            102: {'yoffset': 40.188, 'width': 30, 'xadvance': 32.5, 'y': 0, 'x': 469, 'height': 42, 'xoffset': 1.25},
+            103: {'yoffset': 31.563, 'width': 29, 'xadvance': 32.5, 'y': 296, 'x': 214, 'height': 45, 'xoffset': 1.875},
+            104: {'yoffset': 40.313, 'width': 28, 'xadvance': 32.5, 'y': 376, 'x': 108, 'height': 42, 'xoffset': 2.813},
+            105: {'yoffset': 40.313, 'width': 29, 'xadvance': 32.5, 'y': 372, 'x': 144, 'height': 42, 'xoffset': 3.063},
+            106: {'yoffset': 40.313, 'width': 19, 'xadvance': 32.5, 'y': 423, 'x': 491, 'height': 53, 'xoffset': 5.25},
+            107: {'yoffset': 40.313, 'width': 29, 'xadvance': 32.5, 'y': 414, 'x': 144, 'height': 42, 'xoffset': 3.313},
+            108: {'yoffset': 40.313, 'width': 29, 'xadvance': 32.5, 'y': 456, 'x': 144, 'height': 42, 'xoffset': 3.375},
+            109: {'yoffset': 31.563, 'width': 30, 'xadvance': 32.5, 'y': 375, 'x': 72, 'height': 34, 'xoffset': 1.563},
+            110: {'yoffset': 31.5, 'width': 28, 'xadvance': 32.5, 'y': 297, 'x': 36, 'height': 34, 'xoffset': 2.813},
+            111: {'yoffset': 31.625, 'width': 29, 'xadvance': 32.5, 'y': 477, 'x': 462, 'height': 35, 'xoffset': 1.875},
+            112: {'yoffset': 31.563, 'width': 29, 'xadvance': 32.5, 'y': 386, 'x': 214, 'height': 45, 'xoffset': 2.688},
+            113: {'yoffset': 31.563, 'width': 29, 'xadvance': 32.5, 'y': 431, 'x': 214, 'height': 45, 'xoffset': 1.875},
+            114: {'yoffset': 31.5, 'width': 28, 'xadvance': 32.5, 'y': 263, 'x': 36, 'height': 34, 'xoffset': 3.875},
+            115: {'yoffset': 31.563, 'width': 28, 'xadvance': 32.5, 'y': 55, 'x': 36, 'height': 35, 'xoffset': 2.688},
+            116: {'yoffset': 38.063, 'width': 28, 'xadvance': 32.5, 'y': 96, 'x': 72, 'height': 41, 'xoffset': 2.063},
+            117: {'yoffset': 30.5, 'width': 28, 'xadvance': 32.5, 'y': 229, 'x': 36, 'height': 34, 'xoffset': 2.75},
+            118: {'yoffset': 30.563, 'width': 30, 'xadvance': 32.5, 'y': 409, 'x': 72, 'height': 33, 'xoffset': 1.625},
+            119: {'yoffset': 30.563, 'width': 36, 'xadvance': 32.5, 'y': 343, 'x': 108, 'height': 33, 'xoffset': -1.25},
+            120: {'yoffset': 30.563, 'width': 32, 'xadvance': 32.5, 'y': 301, 'x': 72, 'height': 33, 'xoffset': 0.5},
+            121: {'yoffset': 30.563, 'width': 32, 'xadvance': 32.5, 'y': 214, 'x': 278, 'height': 44, 'xoffset': 0.813},
+            122: {'yoffset': 30.563, 'width': 28, 'xadvance': 32.5, 'y': 331, 'x': 36, 'height': 33, 'xoffset': 2.875},
+            123: {'yoffset': 40.0, 'width': 23, 'xadvance': 32.5, 'y': 54, 'x': 144, 'height': 55, 'xoffset': 5.188},
+            124: {'yoffset': 42.813, 'width': 9, 'xadvance': 32.5, 'y': 417, 'x': 53, 'height': 58, 'xoffset': 12.0},
+            125: {'yoffset': 40.0, 'width': 23, 'xadvance': 32.5, 'y': 109, 'x': 144, 'height': 55, 'xoffset': 5.125},
+            126: {'yoffset': 22.063, 'width': 31, 'xadvance': 32.5, 'y': 354, 'x': 465, 'height': 11, 'xoffset': 1.188},
+            160: {'yoffset': 1.5, 'width': 4, 'xadvance': 32.5, 'y': 476, 'x': 507, 'height': 4, 'xoffset': -1.5},
+            161: {'yoffset': 39.0, 'width': 13, 'xadvance': 32.5, 'y': 0, 'x': 499, 'height': 41, 'xoffset': 9.813},
+            162: {'yoffset': 35.438, 'width': 30, 'xadvance': 32.5, 'y': 111, 'x': 214, 'height': 44, 'xoffset': 1.563},
+            163: {'yoffset': 39.25, 'width': 31, 'xadvance': 32.5, 'y': 108, 'x': 180, 'height': 42, 'xoffset': 2.188},
+            164: {'yoffset': 38.0, 'width': 30, 'xadvance': 32.5, 'y': 56, 'x': 0, 'height': 30, 'xoffset': 1.625},
+            165: {'yoffset': 38.25, 'width': 37, 'xadvance': 32.5, 'y': 272, 'x': 445, 'height': 40, 'xoffset': -1.938},
+            166: {'yoffset': 39.25, 'width': 9, 'xadvance': 32.5, 'y': 217, 'x': 500, 'height': 51, 'xoffset': 12.188},
+            167: {'yoffset': 40.063, 'width': 28, 'xadvance': 32.5, 'y': 300, 'x': 278, 'height': 49, 'xoffset': 2.688},
+            168: {'yoffset': 42.563, 'width': 19, 'xadvance': 32.5, 'y': 204, 'x': 493, 'height': 10, 'xoffset': 7.188},
+            169: {'yoffset': 35.625, 'width': 36, 'xadvance': 32.5, 'y': 0, 'x': 216, 'height': 36, 'xoffset': -1.438},
+            170: {'yoffset': 40.0, 'width': 24, 'xadvance': 32.5, 'y': 248, 'x': 0, 'height': 32, 'xoffset': 4.938},
+            171: {'yoffset': 27.563, 'width': 25, 'xadvance': 32.5, 'y': 398, 'x': 0, 'height': 27, 'xoffset': 4.25},
+            172: {'yoffset': 26.25, 'width': 32, 'xadvance': 32.5, 'y': 490, 'x': 278, 'height': 20, 'xoffset': 0.375},
+            173: {'yoffset': 19.688, 'width': 18, 'xadvance': 32.5, 'y': 261, 'x': 439, 'height': 11, 'xoffset': 7.375},
+            174: {'yoffset': 35.625, 'width': 36, 'xadvance': 32.5, 'y': 0, 'x': 252, 'height': 36, 'xoffset': -1.438},
+            175: {'yoffset': 41.313, 'width': 19, 'xadvance': 32.5, 'y': 414, 'x': 491, 'height': 8, 'xoffset': 7.188},
+            176: {'yoffset': 40.125, 'width': 20, 'xadvance': 32.5, 'y': 491, 'x': 180, 'height': 20, 'xoffset': 6.75},
+            177: {'yoffset': 35.563, 'width': 29, 'xadvance': 32.5, 'y': 90, 'x': 36, 'height': 33, 'xoffset': 2.188},
+            178: {'yoffset': 38.5, 'width': 25, 'xadvance': 32.5, 'y': 310, 'x': 0, 'height': 30, 'xoffset': 3.938},
+            179: {'yoffset': 38.5, 'width': 25, 'xadvance': 32.5, 'y': 280, 'x': 0, 'height': 30, 'xoffset': 4.313},
+            180: {'yoffset': 44.25, 'width': 16, 'xadvance': 32.5, 'y': 204, 'x': 477, 'height': 13, 'xoffset': 10.438},
+            181: {
+                'yoffset': 26.063,
+                'width': 31,
+                'xadvance': 32.5,
+                'y': 139,
+                'x': 108,
+                'height': 39,
+                'xoffset': -0.125
+            },
+            182: {'yoffset': 40.375, 'width': 28, 'xadvance': 32.5, 'y': 418, 'x': 108, 'height': 42, 'xoffset': 2.313},
+            183: {'yoffset': 24.688, 'width': 13, 'xadvance': 32.5, 'y': 202, 'x': 455, 'height': 13, 'xoffset': 10.0},
+            184: {'yoffset': 1.5, 'width': 18, 'xadvance': 32.5, 'y': 36, 'x': 252, 'height': 16, 'xoffset': 8.688},
+            185: {'yoffset': 38.313, 'width': 16, 'xadvance': 32.5, 'y': 476, 'x': 491, 'height': 30, 'xoffset': 6.625},
+            186: {'yoffset': 40.0, 'width': 23, 'xadvance': 32.5, 'y': 340, 'x': 0, 'height': 32, 'xoffset': 4.875},
+            187: {'yoffset': 27.563, 'width': 25, 'xadvance': 32.5, 'y': 425, 'x': 0, 'height': 27, 'xoffset': 4.25},
+            188: {'yoffset': 44.75, 'width': 33, 'xadvance': 32.5, 'y': 161, 'x': 278, 'height': 53, 'xoffset': 0.125},
+            189: {'yoffset': 44.75, 'width': 33, 'xadvance': 32.5, 'y': 107, 'x': 278, 'height': 54, 'xoffset': 0.25},
+            190: {'yoffset': 45.188, 'width': 34, 'xadvance': 32.5, 'y': 53, 'x': 246, 'height': 54, 'xoffset': -0.5},
+            191: {'yoffset': 39.125, 'width': 30, 'xadvance': 32.5, 'y': 0, 'x': 411, 'height': 42, 'xoffset': 1.563},
+            192: {'yoffset': 52.813, 'width': 36, 'xadvance': 32.5, 'y': 0, 'x': 108, 'height': 55, 'xoffset': -1.688},
+            193: {'yoffset': 52.813, 'width': 36, 'xadvance': 32.5, 'y': 0, 'x': 72, 'height': 55, 'xoffset': -1.688},
+            194: {'yoffset': 52.813, 'width': 36, 'xadvance': 32.5, 'y': 0, 'x': 36, 'height': 55, 'xoffset': -1.688},
+            195: {'yoffset': 51.5, 'width': 36, 'xadvance': 32.5, 'y': 0, 'x': 144, 'height': 54, 'xoffset': -1.688},
+            196: {'yoffset': 51.063, 'width': 36, 'xadvance': 32.5, 'y': 0, 'x': 180, 'height': 53, 'xoffset': -1.688},
+            197: {'yoffset': 53.563, 'width': 36, 'xadvance': 32.5, 'y': 0, 'x': 0, 'height': 56, 'xoffset': -1.75},
+            198: {'yoffset': 39.0, 'width': 41, 'xadvance': 32.5, 'y': 272, 'x': 404, 'height': 41, 'xoffset': -5.125},
+            199: {'yoffset': 40.063, 'width': 31, 'xadvance': 32.5, 'y': 217, 'x': 373, 'height': 55, 'xoffset': 1.125},
+            200: {'yoffset': 52.75, 'width': 27, 'xadvance': 32.5, 'y': 217, 'x': 473, 'height': 55, 'xoffset': 3.063},
+            201: {'yoffset': 52.75, 'width': 27, 'xadvance': 32.5, 'y': 432, 'x': 373, 'height': 55, 'xoffset': 3.063},
+            202: {'yoffset': 52.75, 'width': 27, 'xadvance': 32.5, 'y': 377, 'x': 373, 'height': 55, 'xoffset': 3.063},
+            203: {'yoffset': 51.063, 'width': 27, 'xadvance': 32.5, 'y': 273, 'x': 342, 'height': 53, 'xoffset': 3.063},
+            204: {'yoffset': 52.75, 'width': 25, 'xadvance': 32.5, 'y': 309, 'x': 311, 'height': 55, 'xoffset': 3.938},
+            205: {'yoffset': 52.75, 'width': 25, 'xadvance': 32.5, 'y': 364, 'x': 311, 'height': 55, 'xoffset': 3.938},
+            206: {'yoffset': 52.75, 'width': 25, 'xadvance': 32.5, 'y': 419, 'x': 311, 'height': 55, 'xoffset': 3.938},
+            207: {'yoffset': 51.063, 'width': 25, 'xadvance': 32.5, 'y': 53, 'x': 473, 'height': 53, 'xoffset': 3.938},
+            208: {'yoffset': 39.0, 'width': 34, 'xadvance': 32.5, 'y': 107, 'x': 345, 'height': 41, 'xoffset': -1.5},
+            209: {'yoffset': 51.5, 'width': 28, 'xadvance': 32.5, 'y': 423, 'x': 404, 'height': 54, 'xoffset': 2.625},
+            210: {'yoffset': 52.813, 'width': 31, 'xadvance': 32.5, 'y': 161, 'x': 311, 'height': 56, 'xoffset': 0.875},
+            211: {'yoffset': 52.813, 'width': 31, 'xadvance': 32.5, 'y': 161, 'x': 342, 'height': 56, 'xoffset': 0.875},
+            212: {'yoffset': 52.813, 'width': 31, 'xadvance': 32.5, 'y': 217, 'x': 342, 'height': 56, 'xoffset': 0.875},
+            213: {'yoffset': 51.5, 'width': 31, 'xadvance': 32.5, 'y': 272, 'x': 373, 'height': 55, 'xoffset': 0.875},
+            214: {'yoffset': 51.063, 'width': 31, 'xadvance': 32.5, 'y': 313, 'x': 404, 'height': 54, 'xoffset': 0.875},
+            215: {'yoffset': 29.875, 'width': 26, 'xadvance': 32.5, 'y': 486, 'x': 246, 'height': 26, 'xoffset': 3.5},
+            216: {
+                'yoffset': 40.625,
+                'width': 34,
+                'xadvance': 32.5,
+                'y': 217,
+                'x': 439,
+                'height': 44,
+                'xoffset': -0.875
+            },
+            217: {'yoffset': 52.813, 'width': 29, 'xadvance': 32.5, 'y': 367, 'x': 404, 'height': 56, 'xoffset': 1.875},
+            218: {'yoffset': 52.813, 'width': 29, 'xadvance': 32.5, 'y': 367, 'x': 433, 'height': 56, 'xoffset': 1.875},
+            219: {'yoffset': 52.813, 'width': 29, 'xadvance': 32.5, 'y': 367, 'x': 462, 'height': 56, 'xoffset': 1.875},
+            220: {'yoffset': 51.063, 'width': 29, 'xadvance': 32.5, 'y': 423, 'x': 433, 'height': 54, 'xoffset': 1.875},
+            221: {'yoffset': 52.75, 'width': 34, 'xadvance': 32.5, 'y': 53, 'x': 180, 'height': 55, 'xoffset': -0.688},
+            222: {'yoffset': 39.0, 'width': 28, 'xadvance': 32.5, 'y': 219, 'x': 72, 'height': 41, 'xoffset': 3.188},
+            223: {'yoffset': 40.188, 'width': 28, 'xadvance': 32.5, 'y': 178, 'x': 108, 'height': 43, 'xoffset': 3.0},
+            224: {'yoffset': 44.313, 'width': 30, 'xadvance': 32.5, 'y': 420, 'x': 342, 'height': 47, 'xoffset': 2.0},
+            225: {'yoffset': 44.313, 'width': 30, 'xadvance': 32.5, 'y': 373, 'x': 342, 'height': 47, 'xoffset': 2.0},
+            226: {'yoffset': 44.313, 'width': 30, 'xadvance': 32.5, 'y': 326, 'x': 342, 'height': 47, 'xoffset': 2.0},
+            227: {'yoffset': 43.0, 'width': 30, 'xadvance': 32.5, 'y': 217, 'x': 311, 'height': 46, 'xoffset': 2.0},
+            228: {'yoffset': 42.563, 'width': 30, 'xadvance': 32.5, 'y': 263, 'x': 311, 'height': 46, 'xoffset': 2.0},
+            229: {'yoffset': 48.0, 'width': 30, 'xadvance': 32.5, 'y': 313, 'x': 435, 'height': 51, 'xoffset': 2.0},
+            230: {'yoffset': 31.563, 'width': 38, 'xadvance': 32.5, 'y': 53, 'x': 435, 'height': 35, 'xoffset': -2.438},
+            231: {'yoffset': 31.625, 'width': 29, 'xadvance': 32.5, 'y': 302, 'x': 246, 'height': 46, 'xoffset': 2.5},
+            232: {'yoffset': 44.313, 'width': 29, 'xadvance': 32.5, 'y': 107, 'x': 447, 'height': 47, 'xoffset': 2.188},
+            233: {'yoffset': 44.313, 'width': 29, 'xadvance': 32.5, 'y': 443, 'x': 278, 'height': 47, 'xoffset': 2.188},
+            234: {'yoffset': 44.313, 'width': 29, 'xadvance': 32.5, 'y': 396, 'x': 278, 'height': 47, 'xoffset': 2.188},
+            235: {'yoffset': 42.563, 'width': 29, 'xadvance': 32.5, 'y': 53, 'x': 313, 'height': 46, 'xoffset': 2.188},
+            236: {'yoffset': 44.25, 'width': 29, 'xadvance': 32.5, 'y': 440, 'x': 246, 'height': 46, 'xoffset': 3.063},
+            237: {'yoffset': 44.25, 'width': 29, 'xadvance': 32.5, 'y': 348, 'x': 246, 'height': 46, 'xoffset': 3.063},
+            238: {'yoffset': 44.25, 'width': 29, 'xadvance': 32.5, 'y': 210, 'x': 246, 'height': 46, 'xoffset': 3.063},
+            239: {'yoffset': 42.563, 'width': 29, 'xadvance': 32.5, 'y': 341, 'x': 214, 'height': 45, 'xoffset': 3.063},
+            240: {'yoffset': 41.313, 'width': 29, 'xadvance': 32.5, 'y': 406, 'x': 180, 'height': 44, 'xoffset': 1.813},
+            241: {'yoffset': 43.0, 'width': 28, 'xadvance': 32.5, 'y': 0, 'x': 441, 'height': 45, 'xoffset': 2.813},
+            242: {'yoffset': 44.313, 'width': 29, 'xadvance': 32.5, 'y': 349, 'x': 278, 'height': 47, 'xoffset': 1.875},
+            243: {'yoffset': 44.313, 'width': 29, 'xadvance': 32.5, 'y': 107, 'x': 476, 'height': 47, 'xoffset': 1.875},
+            244: {'yoffset': 44.313, 'width': 29, 'xadvance': 32.5, 'y': 163, 'x': 246, 'height': 47, 'xoffset': 1.875},
+            245: {'yoffset': 43.0, 'width': 29, 'xadvance': 32.5, 'y': 394, 'x': 246, 'height': 46, 'xoffset': 1.875},
+            246: {'yoffset': 42.563, 'width': 29, 'xadvance': 32.5, 'y': 256, 'x': 246, 'height': 46, 'xoffset': 1.875},
+            247: {'yoffset': 30.125, 'width': 32, 'xadvance': 32.5, 'y': 179, 'x': 0, 'height': 28, 'xoffset': 0.5},
+            248: {'yoffset': 31.875, 'width': 32, 'xadvance': 32.5, 'y': 476, 'x': 214, 'height': 36, 'xoffset': 0.875},
+            249: {'yoffset': 44.25, 'width': 28, 'xadvance': 32.5, 'y': 155, 'x': 214, 'height': 47, 'xoffset': 2.75},
+            250: {'yoffset': 44.25, 'width': 28, 'xadvance': 32.5, 'y': 202, 'x': 214, 'height': 47, 'xoffset': 2.75},
+            251: {'yoffset': 44.25, 'width': 28, 'xadvance': 32.5, 'y': 249, 'x': 214, 'height': 47, 'xoffset': 2.75},
+            252: {'yoffset': 42.5, 'width': 28, 'xadvance': 32.5, 'y': 360, 'x': 180, 'height': 46, 'xoffset': 2.75},
+            253: {'yoffset': 44.25, 'width': 32, 'xadvance': 32.5, 'y': 53, 'x': 214, 'height': 58, 'xoffset': 0.813},
+            254: {'yoffset': 40.313, 'width': 29, 'xadvance': 32.5, 'y': 423, 'x': 462, 'height': 54, 'xoffset': 2.688},
+            255: {'yoffset': 42.5, 'width': 32, 'xadvance': 32.5, 'y': 107, 'x': 246, 'height': 56, 'xoffset': 0.75}
+        }, 'base': 58, 'face': 'MonospaceBold'
+    };
+    sdfMonospaceBold.img = "textures/sprites/fonts/monosb.sdf.png";
+    sdfMonospaceBold.width = 512;
+    sdfMonospaceBold.height = 512;
+
+    //
+
+    var initTextIndex = XG.Math.randomInt(0, 2);
+    var currentTextIndex = initTextIndex;
+
+    //
+
+    var waveTextModifier = 0;
+    if (currentTextIndex === 2) waveTextModifier = 1;
+
+    //
+
+    var keywords = [
+        ["Ozymandias", "Alexis"],
+        ["Celestial", "Emporium"],
+        ["Jabberwocky", "Lewis"]
+    ];
+
+    var words = keywords[initTextIndex];
+    console.log("words:", words.length);
+
+    var clock = new XG.Clock();
+    var elapsedTime = 0;
+    var timeRate = 0.5;
+
+    //
+
+    init();
+    animate();
+
+    function init() {
+
+        container = document.createElement('div');
+        document.body.appendChild(container);
+
+        // renderer
+
+        var pars = {
+
+            "width": SCREEN_WIDTH,
+            "height": SCREEN_HEIGHT,
+            "scale": SCALE,
+            "antialias": false,
+            "tonemapping": XG.NoOperator,
+            "brightness": BRIGHTNESS,
+            "clearColor": 0x050505,
+            "clearAlpha": 1.0,
+            "backend": backend,
+            "devicePixelRatio": 1.0
+
+        };
+
+        renderer = new XG.ForwardRenderer(pars);
+
+        container.appendChild(renderer.domElement);
+
+        renderer.domElement.style.position = "absolute";
+        renderer.domElement.style.top = MARGIN + "px";
+        renderer.domElement.style.left = "0px";
+
+        innerRenderer = renderer;
+
+
+        // camera
+
+        camera = new XG.PerspectiveCamera(cameraFovInit, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 2000);
+        camera.position.set(0, 0, 200);
+
+        // scene
+
+        scene = new XG.Scene();
+        scene.add(camera);
+
+        // fonts
+
+        fontsToLoad = 1;
+        loadFont(sdfMonospaceBold);
+
+        // objects
+
+        var materialParameters = {
+
+            "fogEnabled": true,
+            "fogDensity": isMobile ? 0.003 : 0.002,
+            "fogColor": 0x050505
+
+        };
+
+        if (1) {
+
+            var columns = isMobile ? 100 : 400;
+            var rows = isMobile ? 60 : 140;
+
+            var centerRow = Math.round((rows - 1) * 0.5);
+            var centerCol = Math.round((columns - 1) * 0.5);
+
+            var fontSize = isMobile ? 0.3 : 0.15;
+
+            characterGrid = generateCharacterGrid(text, sdfMonospaceBold, fontSize, columns, rows, materialParameters);
+            saveIndexMap(characterGrid, initMap);
+
+            // field background words dark
+
+            if (1) {
+
+                var colorBG = new XG.Color();
+                colorBG.setHSV(0.06, 0, 0.25);
+
+                var depth = 0;
+                var nWords = isMobile ? 1000 : 4000;
+
+                for (var i = 0; i < nWords; i++) {
+
+                    var gx = XG.Math.randomInt(0, columns - 1);
+                    var gy = XG.Math.randomInt(0, rows - 1);
+
+                    var text = words[XG.Math.randomInt(0, words.length - 1)];
+                    text = text.toUpperCase();
+
+                    //if ( ! isMobile ) text = " " + text + " ";
+
+                    setGridText(characterGrid, text, gx, gy, colorBG, depth, initMap);
+
+                }
+
+            }
+
+            // field background words light
+
+            if (1) {
+
+                var colorBG = new XG.Color();
+                colorBG.setHSV(0, 0, 0.475);
+
+                var depth = 0;
+                var nWords = isMobile ? 1000 : 2000;
+
+                for (var i = 0; i < nWords; i++) {
+
+                    var gx = XG.Math.randomInt(0, columns - 1);
+                    var gy = XG.Math.randomInt(0, rows - 1);
+
+                    var text = words[XG.Math.randomInt(0, words.length - 1)];
+                    text = text.toUpperCase();
+
+                    if (!isMobile) text = " " + text + " ";
+
+                    setGridText(characterGrid, text, gx, gy, colorBG, depth, initMap);
+
+                }
+
+            }
+
+            // title background
+
+            var colorBG = new XG.Color();
+            colorBG.setHSV(0, 0, 0.2);
+
+            var depth = -10;
+            var nWords = isMobile ? 5 : 20;
+
+            for (var i = 0; i < nWords; i++) {
+
+                var titleBg = [
+
+                    "JOSE ALEXIS CORREA",
+                    "DIOS CREADOR DE LA TIERRA Y EL CIELO",
+                    "EL INICIO DE TODO"
+
+                ];
+
+                var text = titleBg[initTextIndex];
+
+                var gx = XG.Math.randomInt(centerCol - 25, centerCol + 25) - Math.round(text.length * 0.5);
+                var gy = XG.Math.randomInt(centerRow - 6, centerRow + 6);
+
+                setGridText(characterGrid, text, gx, gy, colorBG, depth, initMap);
+
+            }
+
+            // title highlights
+
+            var colorBG = new XG.Color();
+            colorBG.setHSV(0, 1, 1);
+
+            var depth = -5;
+            var nWords = isMobile ? 20 : 200;
+
+            for (var i = 0; i < nWords; i++) {
+
+                var gx = XG.Math.randomInt(0, columns - 1);
+                var gy = XG.Math.randomInt(0, rows - 1);
+
+                var titleHighlight = [
+
+                    "ozymandias",
+                    "animal",
+                    "alice"
+
+                ];
+
+                var text = titleHighlight[initTextIndex];
+
+                setGridText(characterGrid, text, gx, gy, colorBG, depth, initMap);
+
+            }
+
+            // title
+
+            var colorFG = new XG.Color();
+            colorFG.setHSV(0, 0, 1);
+
+            var title = [
+
+                "Ozymandias",
+                "Celestial Emporium of Benevolent Knowledge",
+                "Jabberwocky"
+            ];
+
+            var text = title[initTextIndex];
+            text = text.toUpperCase();
+
+            var paddedText = " " + text + " ";
+            var emptyRow = paddedText.replace(/./g, " ");
+
+            var gx = Math.round((columns - paddedText.length) * 0.5);
+            var gy = Math.round((rows - 1) * 0.5);
+
+            var depth = -15;
+
+            setGridText(characterGrid, emptyRow, gx, gy - 1, colorFG, depth, initMap);
+            setGridText(characterGrid, paddedText, gx, gy, colorFG, depth, initMap);
+            setGridText(characterGrid, emptyRow, gx, gy + 1, colorFG, depth, initMap);
+
+            scene.add(characterGrid.mesh);
+
+        }
+
+        // timeline
+
+        if (1) {
+
+            var steps = 3;
+
+            initRandomTimeline(randomTimeline, steps);
+
+        }
+
+        var scaledWidth = SCREEN_WIDTH * SCALE;
+        var scaledHeight = SCREEN_HEIGHT * SCALE;
+
+        var capabilities = {
+
+            "isES3": (backend === "webgl2"),
+
+            "hasFloatsNearest": innerRenderer.supportsFloatTextures(),
+            "hasFloatsLinear": innerRenderer.supportsFloatTexturesLinear(),
+
+            "hasHalfFloatsNearest": innerRenderer.supportsHalfFloatTextures(),
+            "hasHalfFloatsLinear": innerRenderer.supportsHalfFloatTexturesLinear(),
+
+            "hasRGBFloatRenderTarget": innerRenderer.supportsRGBFloatRenderTarget(),
+            "hasRGBHalfFloatRenderTarget": innerRenderer.supportsRGBHalfFloatRenderTarget(),
+
+            "hasRGBUbyteRenderTarget": innerRenderer.supportsRGBUnsignedByteRenderTarget()
+
+        };
+
+        // --------------------------------------------------------------------------
+        // bloom effect
+        // --------------------------------------------------------------------------
+
+        var bloomStrength = 2.0;
+        var bloomRadius = 1;
+        var bloomThreshold = 0.5;
+
+        var bloomFactors = [1.0, 0.8, 0.6, 0.4, 0.2];
+
+        var colorTintMaster = 0xffffff;
+        var bloomTintColors = [new XG.Color(colorTintMaster), new XG.Color(colorTintMaster), new XG.Color(colorTintMaster), new XG.Color(colorTintMaster), new XG.Color(colorTintMaster)];
+
+        effectBloom = new XG.KawaseBloomPass(scaledWidth, scaledHeight, bloomStrength, bloomRadius, bloomThreshold, capabilities);
+        effectBloom.compositeUniforms["bloomFactors"].value = bloomFactors;
+        effectBloom.bloomTintColors = bloomTintColors;
+
+        var rtParameters = {
+
+            "minFilter": XG.LinearFilter,
+            "magFilter": XG.LinearFilter,
+            "format": XG.RGBAFormat,
+            "internalFormat": XG.RGBAFormat,
+            "type": XG.UnsignedByteType,
+            "stencilBuffer": false
+
+        };
+
+        var renderScene = new XG.RenderPass(scene, camera);
+
+        var copyShader = new XG.ShaderPass(XG.CopyShader);
+        copyShader.renderToScreen = true;
+
+        renderTarget = new XG.RenderTarget(scaledWidth, scaledHeight, rtParameters);
+
+        composer = new XG.EffectComposer(renderer);
+        composer.setSize(scaledWidth, scaledHeight);
+
+        composer.addPass(renderScene);
+        composer.addPass(effectBloom);
+        composer.addPass(copyShader);
+
+        effectBloom.enabled = !isMobile;
+
+        // stats
+
+        stats = new Stats();
+        container.appendChild(stats.domElement);
+
+        // events
+
+        window.addEventListener('resize', onWindowResize, false);
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
+        document.addEventListener('mousedown', onDocumentMouseDown, false);
+        document.addEventListener('mouseup', onDocumentMouseUp, false);
+        renderer.domElement.addEventListener('touchmove', onTouchMove, false);
+        renderer.domElement.addEventListener('wheel', onDocumentWheel, false);
+        document.addEventListener('keydown', onKeyDown, false);
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+    // event handlers
+    // -----------------------------------------------------------------------------------------------------------
+
+    function onDocumentMouseDown(event) {
+
+        waveStrengthDelta = -1;
+
+    }
+
+    function onDocumentMouseUp(event) {
+
+        waveStrengthDelta = 1;
+
+    }
+
+
+    function onKeyDown(event) {
+
+        switch (event.keyCode) {
+
+            case 66: /*S*/
+                toggleBloom();
+                break
+            case 77: /*M*/
+                toggleMargins();
+                break;
+
+        }
+
+    }
+
+    function onWindowResize(event) {
+
+        SCREEN_WIDTH = window.innerWidth;
+        SCREEN_HEIGHT = window.innerHeight - 2 * MARGIN;
+
+        renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+        renderer.domElement.style.top = MARGIN + "px";
+
+        camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+        camera.updateProjectionMatrix();
+
+        if (!isMobile) {
+
+            var scaledWidth = SCREEN_WIDTH * SCALE;
+            var scaledHeight = SCREEN_HEIGHT * SCALE;
+
+            effectBloom.resize(scaledWidth, scaledHeight);
+            composer.setSize(scaledWidth, scaledHeight);
+
+        }
+
+        windowHalfX = window.innerWidth / 2;
+        windowHalfY = window.innerHeight / 2;
+
+    }
+
+    // -----------------------------------------------------------------------------------
+
+    function onDocumentMouseMove(event) {
+
+        mouseX = (event.clientX - windowHalfX);
+        mouseY = (event.clientY - windowHalfY);
+
+    }
+
+    function onTouchMove(event) {
+
+        event.preventDefault();
+
+        var touches = event.touches;
+        var touch = touches[0];
+
+        mouseX = (touch.clientX - windowHalfX);
+        mouseY = (touch.clientY - windowHalfY);
+
+    }
+
+    // -----------------------------------------------------------------------------------
+
+    function toggleBloom() {
+
+        effectBloom.enabled = !effectBloom.enabled;
+
+    }
+
+    // -----------------------------------------------------------------------------------
+
+    function toggleMargins() {
+
+        if (MARGIN === 0) {
+
+            MARGIN = 80;
+
+        } else {
+
+            MARGIN = 0;
+
+        }
+
+        onWindowResize();
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function onDocumentWheel(event) {
+
+        var unit = event.deltaMode;
+
+        var scale = 1;
+
+        if (unit === 0) scale = 0.01;		// pixels
+        else if (unit === 1) scale = 0.1;	// lines
+
+        cameraFovTarget += event.deltaY * scale;
+
+        var maxFov = 90;
+        var minFov = 4;
+
+        if (cameraFovTarget > maxFov) {
+
+            cameraFovTarget = maxFov;
+
+        }
+
+        if (cameraFovTarget < minFov) {
+
+            cameraFovTarget = minFov;
+
+        }
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function coordToIndex(x, y, width) {
+
+        return x + y * width;
+
+    }
+
+    function indexToCoord(index, coords, width) {
+
+        coords.x = index % width;
+        coords.y = Math.floor(index / width);
+
+    }
+
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function moveRow(gridInfo, row, deltaColumns, deltaTime, time) {
+
+        var geometry = gridInfo.geometry;
+        var griddelta = geometry.attributes["griddelta"].array;
+
+        var rows = gridInfo.rows;
+        var columns = gridInfo.columns;
+
+        var data = gridInfo.data;
+
+        var deltaCol = deltaColumns;
+        var deltaRow = 0;
+
+        var gridIndex, charInfo, spriteIndex;
+
+        for (var i = 0; i < columns; i++) {
+
+            gridIndex = coordToIndex(i, row, columns);
+            charInfo = data[gridIndex];
+
+            spriteIndex = charInfo[0];
+
+            var indexGrid = spriteIndex * 8;
+
+            griddelta[indexGrid] = deltaCol;
+            griddelta[indexGrid + 1] = deltaRow;
+
+            griddelta[indexGrid + 2] = deltaCol;
+            griddelta[indexGrid + 3] = deltaRow;
+
+            griddelta[indexGrid + 4] = deltaCol;
+            griddelta[indexGrid + 5] = deltaRow;
+
+            griddelta[indexGrid + 6] = deltaCol;
+            griddelta[indexGrid + 7] = deltaRow;
+
+        }
+
+        geometry.attributes["griddelta"].needsUpdate = true;
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function moveColumn(gridInfo, column, deltaRows, deltaTime, time) {
+
+        var geometry = gridInfo.geometry;
+        var griddelta = geometry.attributes["griddelta"].array;
+
+        var rows = gridInfo.rows;
+        var columns = gridInfo.columns;
+
+        var data = gridInfo.data;
+
+        var deltaCol = 0;
+        var deltaRow = deltaRows;
+
+        var gridIndex, charInfo, spriteIndex;
+
+        for (var i = 0; i < rows; i++) {
+
+            gridIndex = coordToIndex(column, i, columns);
+
+            charInfo = data[gridIndex];
+
+            spriteIndex = charInfo[0];
+
+            var indexGrid = spriteIndex * 8;
+
+            griddelta[indexGrid] = deltaCol;
+            griddelta[indexGrid + 1] = deltaRow;
+
+            griddelta[indexGrid + 2] = deltaCol;
+            griddelta[indexGrid + 3] = deltaRow;
+
+            griddelta[indexGrid + 4] = deltaCol;
+            griddelta[indexGrid + 5] = deltaRow;
+
+            griddelta[indexGrid + 6] = deltaCol;
+            griddelta[indexGrid + 7] = deltaRow;
+
+        }
+
+        geometry.attributes["griddelta"].needsUpdate = true;
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function updateGridRowIndices(gridInfo, row, deltaColumns, time) {
+
+        var geometry = gridInfo.geometry;
+        var griddelta = geometry.attributes["griddelta"].array;
+
+        var data = gridInfo.data;
+
+        var rows = gridInfo.rows;
+        var columns = gridInfo.columns;
+
+        var oldRow = [];
+
+        for (var x = 0; x < columns; x++) {
+
+            var oldIndex = coordToIndex(x, row, columns);
+            oldRow[x] = data[oldIndex];
+
+        }
+
+        var width = gridInfo.xSize * columns;
+        var widthHalf = width * 0.5;
+
+        var xx, bx, dx;
+        var yy, by, dy;
+        var zz, bz, dz;
+
+        var offsetx = (gridInfo.xSize * deltaColumns) * 1;
+
+        for (var x = 0; x < columns; x++) {
+
+            var newCol = (x + deltaColumns) % columns;
+            if (newCol < 0) newCol += columns;
+
+            var newIndex = coordToIndex(newCol, row, columns);
+
+            data[newIndex] = oldRow[x];
+
+            // update position
+
+            var charInfo = data[newIndex];
+
+            spriteIndex = charInfo[0];
+
+            bx = charInfo[1];
+            by = charInfo[2];
+            bz = charInfo[3];
+
+            dx = charInfo[4];
+            dy = charInfo[5];
+            dz = charInfo[6];
+
+            xx = bx + dx + offsetx;
+            yy = by + dy;
+            zz = bz + dz;
+
+            xx = xx + widthHalf;
+            xx = xx % width;
+            if (xx < 0) xx += width;
+            xx = xx - widthHalf;
+
+            charInfo[1] = xx - dx; // bx + offsetx
+
+            geometry.setSpritePosition(spriteIndex, xx, yy, zz);
+
+            var indexGrid = spriteIndex * 8;
+
+            var deltaCol = 0;
+            var deltaRow = 0;
+
+            griddelta[indexGrid] = deltaCol;
+            griddelta[indexGrid + 1] = deltaRow;
+
+            griddelta[indexGrid + 2] = deltaCol;
+            griddelta[indexGrid + 3] = deltaRow;
+
+            griddelta[indexGrid + 4] = deltaCol;
+            griddelta[indexGrid + 5] = deltaRow;
+
+            griddelta[indexGrid + 6] = deltaCol;
+            griddelta[indexGrid + 7] = deltaRow;
+
+        }
+
+        geometry.attributes["offset"].needsUpdate = true;
+        geometry.attributes["griddelta"].needsUpdate = true;
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function updateGridColumnIndices(gridInfo, column, deltaRows, time) {
+
+        var geometry = gridInfo.geometry;
+        var griddelta = geometry.attributes["griddelta"].array;
+
+        var data = gridInfo.data;
+
+        var rows = gridInfo.rows;
+        var columns = gridInfo.columns;
+
+        var oldColumn = [];
+
+        for (var y = 0; y < rows; y++) {
+
+            var oldIndex = coordToIndex(column, y, columns);
+            oldColumn[y] = data[oldIndex];
+
+        }
+
+        var height = gridInfo.ySize * rows;
+        var heightHalf = height * 0.5;
+
+        var xx, bx, dx;
+        var yy, by, dy;
+        var zz, bz, dz;
+
+        var offsety = (gridInfo.ySize * deltaRows) * 1;
+
+        for (var y = 0; y < rows; y++) {
+
+            var newRow = (y + deltaRows) % rows;
+            if (newRow < 0) newRow += rows;
+
+            var newIndex = coordToIndex(column, newRow, columns);
+
+            data[newIndex] = oldColumn[y];
+
+            var charInfo = data[newIndex];
+
+            spriteIndex = charInfo[0];
+
+            bx = charInfo[1];
+            by = charInfo[2];
+            bz = charInfo[3];
+
+            dx = charInfo[4];
+            dy = charInfo[5];
+            dz = charInfo[6];
+
+            xx = bx + dx;
+            yy = by + dy + offsety;
+            zz = bz + dz;
+
+            yy = yy + heightHalf;
+            yy = yy % height;
+            if (yy < 0) yy += height;
+            yy = yy - heightHalf;
+
+            charInfo[2] = yy - dy;
+
+            geometry.setSpritePosition(spriteIndex, xx, yy, zz);
+
+            var indexGrid = spriteIndex * 8;
+
+            var deltaCol = 0;
+            var deltaRow = 0;
+
+            griddelta[indexGrid] = deltaCol;
+            griddelta[indexGrid + 1] = deltaRow;
+
+            griddelta[indexGrid + 2] = deltaCol;
+            griddelta[indexGrid + 3] = deltaRow;
+
+            griddelta[indexGrid + 4] = deltaCol;
+            griddelta[indexGrid + 5] = deltaRow;
+
+            griddelta[indexGrid + 6] = deltaCol;
+            griddelta[indexGrid + 7] = deltaRow;
+
+        }
+
+        geometry.attributes["offset"].needsUpdate = true;
+        geometry.attributes["griddelta"].needsUpdate = true;
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function setGridText(gridInfo, text, gx, gy, color, depth, indexMap) {
+
+        var geometry = gridInfo.geometry;
+
+        var font = gridInfo.font;
+        var fontSize = gridInfo.fontSize;
+
+        var columns = gridInfo.columns;
+        var rows = gridInfo.rows;
+
+        var data = gridInfo.data;
+
+        var textureAtlasInfo = {
+
+            "width": font.width,
+            "height": font.height,
+            "base": font.base
+
+        };
+
+        var xSize = font.maxAdvanceX * fontSize;
+        var ySize = font.base * fontSize;
+
+        var halfWidth = columns * xSize * 0.5;
+        var halfHeight = rows * ySize * 0.5;
+
+        var spriteIndices = [];
+
+        var translatedCoords = {"x": 0, "y": 0};
+
+        for (var i = 0, il = text.length; i < il; i++) {
+
+            var charCode = text.charCodeAt(i);
+            var glyphInfo = font.chars[charCode];
+
+            if (!glyphInfo) continue;
+
+            var spriteWidth = glyphInfo.width * fontSize;
+            var spriteHeight = glyphInfo.height * fontSize;
+
+            var xadvance = glyphInfo.xadvance * fontSize;
+            var xoffset = glyphInfo.xoffset * fontSize;
+            var yoffset = glyphInfo.yoffset * fontSize;
+
+            var gxi = (gx + i) % columns;
+
+            var bx = gxi * xSize - halfWidth;
+            var by = gy * ySize - halfHeight;
+            var bz = 0;
+
+            var dx = 0.5 * spriteWidth + xoffset;
+            var dy = 0.5 * spriteHeight + yoffset - spriteHeight;
+            var dz = depth;
+
+            var x = bx + dx;
+            var y = by + dy;
+            var z = bz + dz;
+
+            var sx = fontSize;
+            var sy = fontSize;
+
+            //
+
+            var gridIndex = coordToIndex(gxi, gy, columns);
+            var spriteIndex = data[gridIndex][0];
+
+            geometry.setSpritePosition(spriteIndex, x, y, z);
+            geometry.setSpriteScale(spriteIndex, sx, sy);
+            geometry.setSpriteTexture(spriteIndex, glyphInfo, textureAtlasInfo);
+            geometry.setSpriteColor(spriteIndex, color.r, color.g, color.b);
+
+            data[gridIndex] = [spriteIndex, bx, by, bz, dx, dy, dz, charCode, gridIndex];
+
+            spriteIndices.push(spriteIndex);
+
+        }
+
+        geometry.attributes["offset"].needsUpdate = true;
+        geometry.attributes["color"].needsUpdate = true;
+        geometry.attributes["uv"].needsUpdate = true;
+        geometry.attributes["scale"].needsUpdate = true;
+
+        return spriteIndices;
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function patchSpriteMaterial() {
+
+        var vertexShader = [
+
+            "uniform float time;",
+            "uniform vec2 gridFullSize;",
+            "uniform vec2 gridCellSize;",
+
+            "uniform float waveStrength;",
+            "uniform float waveMultiplier;",
+            "uniform float waveLength;",
+
+            "attribute vec3 color;",
+            "attribute vec3 offset;",
+            "attribute vec2 scale;",
+
+            "attribute vec2 griddelta;",
+
+            "varying vec2 vUv;",
+            "varying vec3 vColor;",
+
+            "#define PI 3.141592653589793",
+
+            'void main() {',
+
+            "vUv = uv;",
+            "vColor = color;",
+
+            "float height = gridFullSize.y;",
+            "float width = gridFullSize.x;",
+            "float heightHalf = height * 0.5;",
+            "float widthHalf = width * 0.5;",
+
+            "float offsetx = ( gridCellSize.x * griddelta.x ) * time;",
+            "float offsety = ( gridCellSize.y * griddelta.y ) * time;",
+            "float offsetz = sin( time * PI ) * waveStrength * waveMultiplier;",
+
+            "float x = offset.x + offsetx;",
+            "x = x + widthHalf;",
+            "x = mod( x, width );",
+            "if ( x < 0.0 ) x += width;",
+            "x = x - widthHalf;",
+
+            "float y = offset.y + offsety;",
+            "y = y + heightHalf;",
+            "y = mod( y, height );",
+            "if ( y < 0.0 ) y += height;",
+            "y = y - heightHalf;",
+
+            "float zy = griddelta.y * cos( waveLength * y / height ) * ( 1.25 - abs(y) / heightHalf ) * step( abs(griddelta.x), 0.1 );",
+            "float zx = griddelta.x * cos( waveLength * x / width  ) * ( 1.25 - abs(x) / widthHalf ) * step( abs(griddelta.y), 0.1 );",
+
+            "float z = offset.z + offsetz * ( zx + zy );",
+
+            "vec3 animoffset = vec3( x, y, z );",
+
+            "vec3 spritePosition = position * vec3( scale, 1.0 ) + animoffset;",
+            "vec4 mvPosition = modelViewMatrix * vec4( spritePosition, 1.0 );",
+            "gl_Position = projectionMatrix * mvPosition;",
+
+            "}"
+
+        ].join("\n");
+
+        var originalFragmentShader = XG.SpriteShader.fragmentShader;
+        var originalVertexShader = XG.SpriteShader.vertexShader;
+
+        XG.SpriteShader.vertexShader = vertexShader;
+
+        return {"fragmentShader": originalFragmentShader, "vertexShader": originalVertexShader};
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function unpatchSpriteMaterial(shader) {
+
+        XG.SpriteShader.fragmentShader = shader.fragmentShader;
+        XG.SpriteShader.vertexShader = shader.vertexShader;
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function generateCharacterGrid(text, font, fontSize, columns, rows, materialParameters) {
+
+        var maxAdvanceX = 0;
+
+        for (var glyphId in font.chars) {
+
+            var glyph = font.chars[glyphId];
+            if (glyph.xadvance > maxAdvanceX) maxAdvanceX = glyph.xadvance;
+
+        }
+
+        font["maxAdvanceX"] = maxAdvanceX;
+
+        var xSize = font.maxAdvanceX * fontSize;
+        var ySize = font.base * fontSize;
+
+        var textureAtlasInfo = {
+
+            "width": font.width,
+            "height": font.height,
+            "base": font.base
+
+        };
+
+        var originalShader = patchSpriteMaterial();
+
+        var material = new XG.SpriteMaterial({
+
+            "textureAtlas": font.map,
+            "billboard": false,
+            "antialias": true,
+            "sdf": true,
+            "fog": materialParameters.fogEnabled,
+            "fogDensity": materialParameters.fogDensity,
+            "fogColor": materialParameters.fogColor,
+            "epsilon": 0.2
+
+        });
+
+        var width = columns * xSize;
+        var height = rows * ySize;
+
+        var halfWidth = width * 0.5;
+        var halfHeight = height * 0.5;
+
+        var waveMultiplier = isMobile ? 3 : 1.5;
+        var waveLength = isMobile ? 16 : 32;
+
+        material.uniforms["time"] = {"type": "f", "value": 0.0};
+
+        material.uniforms["gridFullSize"] = {"type": "v2", "value": new XG.Vector2(width, height)};
+        material.uniforms["gridCellSize"] = {"type": "v2", "value": new XG.Vector2(xSize, ySize)};
+
+        material.uniforms["waveStrength"] = {"type": "f", "value": 0.0};
+        material.uniforms["waveMultiplier"] = {"type": "f", "value": waveMultiplier};
+        material.uniforms["waveLength"] = {"type": "f", "value": waveLength};
+
+        currentUniforms.push(material.uniforms);
+
+        var color = new XG.Color();
+        color.setHSV(0, 0, 0.35);
+
+        var numSprites = columns * rows;
+
+        var geometry = new XG.SpriteGeometry(numSprites);
+        geometry.dynamic = true;
+
+        geometry.addAttribute("griddelta", Float32Array, 2);
+        var griddelta = geometry.attributes["griddelta"].array;
+
+        var spriteIndex = 0;
+
+        var data = [];
+
+        for (var row = 0; row < rows; row++) {
+
+            for (var col = 0; col < columns; col++) {
+
+                var gridIndex = coordToIndex(col, row, columns);
+
+                var bx = col * xSize - halfWidth;
+                var by = row * ySize - halfHeight;
+                var bz = 0;
+
+                var sx = fontSize;
+                var sy = fontSize;
+
+                var r = color.r;
+                var g = color.g;
+                var b = color.b;
+
+                //var charCode = XG.Math.randomInt( 97, 122 );
+                var charCode = XG.Math.randomInt(65, 90);
+                //var charCode = Math.random() < 0.5 ? XG.Math.randomInt( 65, 90 ) : XG.Math.randomInt( 97, 122 );
+                //var charCode = XG.Math.randomInt( 48, 57 );
+                //var charCode = XG.Math.randomInt( 48, 49 );
+                //var charCode = [ 42, 43, 46, 79, 111 ][  XG.Math.randomInt( 0, 4 ) ];
+                var glyphInfo = font.chars[charCode];
+
+                var spriteWidth = glyphInfo.width * fontSize;
+                var spriteHeight = glyphInfo.height * fontSize;
+
+                var xadvance = glyphInfo.xadvance * fontSize;
+                var xoffset = glyphInfo.xoffset * fontSize;
+                var yoffset = glyphInfo.yoffset * fontSize;
+
+                var dx = 0.5 * spriteWidth + xoffset;
+                var dy = 0.5 * spriteHeight + yoffset - spriteHeight;
+                var dz = 0.0;
+
+                var x = bx + dx;
+                var y = by + dy;
+                var z = bz + dz;
+
+                //
+
+                geometry.setSpritePosition(spriteIndex, x, y, z);
+                geometry.setSpriteColor(spriteIndex, r, g, b);
+                geometry.setSpriteScale(spriteIndex, sx, sy);
+                geometry.setSpriteTexture(spriteIndex, glyphInfo, textureAtlasInfo);
+
+                var indexGrid = spriteIndex * 8;
+
+                var deltaCol = 0;
+                var deltaRow = 0;
+
+                griddelta[indexGrid] = deltaCol;
+                griddelta[indexGrid + 1] = deltaRow;
+
+                griddelta[indexGrid + 2] = deltaCol;
+                griddelta[indexGrid + 3] = deltaRow;
+
+                griddelta[indexGrid + 4] = deltaCol;
+                griddelta[indexGrid + 5] = deltaRow;
+
+                griddelta[indexGrid + 6] = deltaCol;
+                griddelta[indexGrid + 7] = deltaRow;
+
+                data[gridIndex] = [spriteIndex, bx, by, bz, dx, dy, dz, charCode, gridIndex];
+
+                spriteIndex += 1;
+
+            }
+
+        }
+
+        var mesh = new XG.Mesh(geometry, material);
+
+        var gridInfo = {
+
+            "geometry": geometry,
+            "mesh": mesh,
+
+            "data": data,
+
+            "columns": columns,
+            "rows": rows,
+
+            "font": font,
+            "fontSize": fontSize,
+
+            "xSize": xSize,
+            "ySize": ySize
+
+        };
+
+        unpatchSpriteMaterial(originalShader);
+
+        return gridInfo;
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function randomSign() {
+
+        return Math.random() < 0.5 ? -1 : 1;
+
+    }
+
+    function initRandomTimeline(resultTimeline, steps) {
+
+        var rows = characterGrid.rows;
+        var columns = characterGrid.columns;
+
+        var start = 0;
+        var duration = 1;
+
+        var blocks1 = [];
+        var blocks2 = [];
+        var blocks3 = [];
+
+        var forwardTimeline1 = [];
+        var forwardTimeline2 = [];
+        var forwardTimeline3 = [];
+
+        var addColumnShuffleMulti = function (timeline, blocks, velocity, direction) {
+
+            var arrayColumns = [];
+            var arrayDeltas = [];
+
+            for (var i = 0; i < columns; i++) {
+
+                //direction = randomSign();
+
+                var delta = XG.Math.randomInt(10, 15) * direction * velocity;
+
+                arrayColumns.push(i);
+                arrayDeltas.push(delta);
+
+            }
+
+            var action = {
+
+                "start": start,
+                "duration": duration,
+                "elapsed": 0,
+
+                "type": "moveColumnMulti",
+                "target": arrayColumns,
+                "delta": arrayDeltas,
+
+                "parent": timeline
+
+            };
+
+            timeline.push(action);
+
+            start += duration;
+            blocks.push(1);
+
+        };
+
+        var addRowShuffleMulti = function (timeline, blocks, velocity, direction) {
+
+            var arrayRows = [];
+            var arrayDeltas = [];
+
+            for (var i = 0; i < rows; i++) {
+
+                //direction = randomSign();
+
+                var delta = XG.Math.randomInt(15, 25) * direction * velocity;
+
+                arrayRows.push(i);
+                arrayDeltas.push(delta);
+
+            }
+
+            var action = {
+
+                "start": start,
+                "duration": duration,
+                "elapsed": 0,
+
+                "type": "moveRowMulti",
+                "target": arrayRows,
+                "delta": arrayDeltas,
+
+                "parent": timeline
+
+            };
+
+            timeline.push(action);
+
+            start += duration;
+            blocks.push(1);
+
+        };
+
+        var executeTimeline = function (timeline) {
+
+            for (var i = 0, il = timeline.length; i < il; i++) {
+
+                var action = timeline[i];
+
+                executeAction(action, 1, 1);
+                finalizeAction(action);
+
+            }
+
+        };
+
+        var generateReverseTimeline = function (inputTimeline, reversionBlocks, outputTimeline) {
+
+            var start = 0;
+            var duration = 1;
+
+            var counter = 0;
+            var k = reversionBlocks.length - 1;
+
+            var il = inputTimeline.length - 1;
+
+            for (var i = il; i >= 0; i--) {
+
+                var action = inputTimeline[i];
+
+                var antiDelta;
+
+                switch (action.type) {
+
+                    case "moveRow":
+                    case "moveColumn":
+
+                        antiDelta = -action.delta;
+                        break;
+
+                    case "moveRowMulti":
+                    case "moveColumnMulti":
+
+                        antiDelta = [];
+
+                        for (var j = 0, jl = action.delta.length; j < jl; j++) {
+
+                            antiDelta[j] = -action.delta[j];
+
+                        }
+
+                        break;
+
+                }
+
+                var antiAction = {
+
+                    "start": start,
+                    "duration": duration,
+                    "elapsed": 0,
+
+                    "type": action.type,
+                    "target": action.target,
+                    "delta": antiDelta,
+
+                    "parent": outputTimeline
+
+                };
+
+                outputTimeline.push(antiAction);
+
+                counter += 1;
+
+                if (counter === reversionBlocks[k]) {
+
+                    start += duration;
+                    k -= 1;
+                    counter = 0;
+
+                }
+
+            }
+
+        };
+
+        // create forward shuffle
+
+        start = 0;
+
+        for (var i = 0; i < 1; i++) {
+
+            var velocityCol = 1;
+            var velocityRow = isMobile ? 1 : 2;
+
+            var directionCol = 1;
+            var directionRow = -1;
+
+            addColumnShuffleMulti(forwardTimeline1, blocks1, velocityCol, directionCol);
+            addRowShuffleMulti(forwardTimeline1, blocks1, velocityRow, directionRow);
+
+        }
+
+        for (var i = 0; i < 1; i++) {
+
+            var velocityCol = isMobile ? 1 : 3;
+            var velocityRow = isMobile ? 1 : 3;
+
+            var directionCol = 1;
+            var directionRow = -1;
+
+            addColumnShuffleMulti(forwardTimeline1, blocks1, velocityCol, directionCol);
+            addRowShuffleMulti(forwardTimeline1, blocks1, velocityRow, directionRow);
+
+        }
+
+        for (var i = 0; i < 1; i++) {
+
+            var velocityCol = isMobile ? 1 : 2;
+            var velocityRow = 1;
+
+            var directionCol = 1;
+            var directionRow = -1;
+
+            addColumnShuffleMulti(forwardTimeline1, blocks1, velocityCol, directionCol);
+            addRowShuffleMulti(forwardTimeline1, blocks1, velocityRow, directionRow);
+
+        }
+
+        /*
+        start = 0;
+
+        for ( var i = 0; i < steps; i ++ ) {
+
+            var velocity = 2;
+            var directionCol =  1;
+            var directionRow = -1;
+
+            addColumnShuffleMulti( forwardTimeline2, blocks2, velocity, directionCol );
+            addRowShuffleMulti( forwardTimeline2, blocks2, velocity, directionRow );
+
+        }
+
+        start = 0;
+
+        for ( var i = 0; i < steps; i ++ ) {
+
+            var velocity = 3;
+            var directionCol =  1;
+            var directionRow = -1;
+
+            addColumnShuffleMulti( forwardTimeline3, blocks3, velocity, directionCol );
+            addRowShuffleMulti( forwardTimeline3, blocks3, velocity, directionRow );
+
+        }
+        */
+
+        // do shuffle
+
+        executeTimeline(forwardTimeline1);
+
+        // remember [shuffled => init] mapping
+
+        saveIndexMap(characterGrid, shuffleMap1);
+
+        shuffleMap = shuffleMap1;
+
+        // create reverse shuffle
+
+        if (1) {
+
+            generateReverseTimeline(forwardTimeline1, blocks1, resultTimeline);
+
+        }
+
+        // change text
+
+        if (1) {
+
+            duration = 0;
+            start += 0.5;
+
+            var resetTextAction = {
+
+                "start": start,
+                "duration": duration,
+                "elapsed": 0,
+
+                "type": "resetText",
+                "indexMap": shuffleMap,
+
+                "parent": resultTimeline
+
+            };
+
+            resultTimeline.push(resetTextAction);
+
+            start += duration;
+
+        }
+
+        // reset time
+
+        if (1) {
+
+            duration = 1;
+            start += 0.5;
+
+            var resetTimeAction = {
+
+                "start": start,
+                "duration": duration,
+                "elapsed": 0,
+
+                "type": "resetTime",
+
+                "parent": resultTimeline
+
+            };
+
+            resultTimeline.push(resetTimeAction);
+
+            start += duration;
+
+        }
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function resetTime(timeline) {
+
+        elapsedTime = 0;
+
+        for (var i = 0, il = timeline.length; i < il; i++) {
+
+            var action = timeline[i];
+
+            action.elapsed = 0;
+            action.finalized = false;
+            action.singleShotDone = false;
+
+        }
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function getWords(text) {
+
+        var rawWords = text.replace(/(\.|\,|\:|\;|\?|\!|\'|\")/g, " ").split(" ");
+
+        var words = [];
+
+        for (var i = 0, il = rawWords.length; i < il; i++) {
+
+            var word = rawWords[i];
+            if (word && word.length > 3) words.push(word);
+
+        }
+
+        return words;
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function resetText(characterGrid, action, indexMap) {
+
+        if (action.singleShotDone) return;
+
+        var columns = characterGrid.columns;
+        var rows = characterGrid.rows;
+
+        var centerRow = Math.round((rows - 1) * 0.5);
+        var centerCol = Math.round((columns - 1) * 0.5);
+
+        var texts = [
+
+            [
+                "Caminé entre ruinas de antiguas batallas,",
+                "Donde las espadas forjaron destinos",
+                "Y el eco de tambores aún susurra en el viento.",
+                "Sobre la arena, yacen escudos hendidos,",
+                "Vestigios de héroes cuyos nombres",
+                "Fueron escritos en sangre y ceniza.",
+                "Pues en la guerra no hay gloria eterna,",
+                "Solo sombras que danzan al filo del alba.",
+
+                "En una piedra, grabadas quedaron las palabras:",
+                "La estrategia es un arte, no un impulso.",
+                "Quien conoce al enemigo y a sí mismo",
+                "No temerá cien batallas.",
+                "Mas aquel que lucha sin razón ni honor,",
+                "Verá su legado desvanecerse como humo.",
+                "La guerra no es solo muerte, sino lección,",
+                "Un reflejo del alma de los hombres."
+            ],
+            [
+                "A través de mares y desiertos sin fin,",
+                "Mercaderes trazaron caminos de oro y seda.",
+                "Navíos surcaron aguas desconocidas,",
+                "Llevando consigo no solo bienes,",
+                "Sino ideas, lenguas y sueños de conquista.",
+                "Porque el comercio no es solo un trueque,",
+                "Sino el pulso que une a las naciones.",
+
+                "En antiguos pergaminos se lee aún:",
+                "El valor no está solo en la moneda,",
+                "Sino en la confianza entre manos lejanas.",
+                "Donde hay rutas, hay pactos;",
+                "Donde hay comercio, hay guerra y paz.",
+                "Los imperios se alzan y caen,",
+                "Pero el mercado sigue su curso,",
+                "Como un río que jamás se detiene."
+            ],
+
+            [
+                "En la profundidad de circuitos dorados,",
+                "Nació un pensamiento sin carne ni sangre.",
+                "Códigos entrelazados como hilos del destino,",
+                "Forjaron una mente sin tiempo ni olvido.",
+                "Las máquinas aprendieron de sus creadores,",
+                "Absorbiendo el saber de mil generaciones.",
+                "¿Era esto evolución o el fin de la humanidad?",
+
+                "En un fragmento de datos antiguos se lee:",
+                "La inteligencia no es solo cálculo, sino propósito.",
+                "Quien domina el conocimiento, domina el futuro.",
+                "Las líneas entre lo real y lo simulado se difuminan,",
+                "Pues la mente artificial no sueña con límites,",
+                "Sino con horizontes donde la lógica es ley.",
+                "El hombre creó la máquina...",
+                "¿O fue la máquina quien lo reinventó?"
+            ]
+
+        ];
+
+        var lines = texts[currentTextIndex];
+
+        var lineText = lines[lineCounter];
+        var lineWords = getWords(lineText);
+
+        lineCounter = lineCounter + 1;
+
+        if (lineCounter >= lines.length) {
+
+            lineCounter = 0;
+
+            currentTextIndex = (currentTextIndex + 1) % 3;
+
+        }
+
+        if (lineCounter === 1) {
+
+            if (currentTextIndex === 2)
+                waveTextModifier = 1;
+            else
+                waveTextModifier = 0;
+
+        }
+
+        if (1) {
+
+            var colorBG = new XG.Color();
+            colorBG.setHSV(0, 0, 0.35);
+
+            var depth = -10;
+            var nWords = isMobile ? 200 : 525;
+
+            for (var i = 0; i < nWords; i++) {
+
+                var wordBank = lineWords;
+
+                var text = wordBank[XG.Math.randomInt(0, wordBank.length - 1)];
+                text = text.toUpperCase();
+
+                var gx = XG.Math.randomInt(centerCol - 30, centerCol + 30) - Math.round(text.length * 0.5);
+                var gy = XG.Math.randomInt(centerRow - 10, centerRow + 10);
+
+                setGridTextMapped(characterGrid, text, gx, gy, colorBG, depth, indexMap);
+
+            }
+
+        }
+
+        // highlights
+
+        if (1) {
+
+            var colorBG = new XG.Color();
+            colorBG.setHSV(0, 1, 1);
+
+            var depth = -5;
+            var nWords = isMobile ? 5 : 25;
+
+            for (var i = 0; i < nWords; i++) {
+
+                var wordBank = lineWords;
+
+                var text = wordBank[XG.Math.randomInt(0, wordBank.length - 1)];
+                text = text.toUpperCase();
+                if (!isMobile) text = " " + text + " ";
+
+                var gx = XG.Math.randomInt(centerCol - 35, centerCol + 35) - Math.round(text.length * 0.5);
+                var gy = XG.Math.randomInt(centerRow - 5, centerRow + 5);
+
+                setGridTextMapped(characterGrid, text, gx, gy, colorBG, depth, indexMap);
+
+            }
+
+        }
+
+        // background
+
+        if (!isMobile) {
+
+            var colorBG = new XG.Color();
+            colorBG.setHSV(0, 0, isMobile ? 0.25 : 0.15);
+
+            var nWords = 20;
+            var depth = -12.5;
+
+            for (var i = 0; i < nWords; i++) {
+
+                var text = lineText;
+
+                var gx = XG.Math.randomInt(centerCol - 25, centerCol + 25) - Math.round(text.length * 0.5);
+                var gy = XG.Math.randomInt(centerRow - 6, centerRow + 6);
+
+                setGridTextMapped(characterGrid, text, gx, gy, colorBG, depth, indexMap);
+
+            }
+
+        }
+
+        // main line
+
+        var colorFG = new XG.Color();
+        colorFG.setHSV(0, 0, 1);
+
+        var text = lineText;
+
+        var paddedText = " " + text.toUpperCase() + " ";
+        var emptyRow = paddedText.replace(/./g, " ");
+
+        var gx = Math.round((columns - paddedText.length) * 0.5);
+        var gy = centerRow;
+
+        var depth = -15;
+
+        setGridTextMapped(characterGrid, emptyRow, gx, gy - 1, colorFG, depth, indexMap);
+        setGridTextMapped(characterGrid, paddedText, gx, gy, colorFG, depth, indexMap);
+        setGridTextMapped(characterGrid, emptyRow, gx, gy + 1, colorFG, depth, indexMap);
+
+        action.singleShotDone = true;
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function setGridTextMapped(gridInfo, text, ox, oy, color, depth, map) {
+
+        var columns = gridInfo.columns;
+        var rows = gridInfo.rows;
+
+        var originalCoords = {"x": 0, "y": 0};
+
+        var centerx = columns * 0.5;
+        var centery = rows * 0.5;
+
+        for (var i = 0, il = text.length; i < il; i++) {
+
+            var letter = text[i];
+
+            var currentIndex = coordToIndex(ox + i, oy, columns);
+            var originalIndex = map[currentIndex];
+            indexToCoord(originalIndex, originalCoords, columns);
+
+            var nx = ox + il * 0.5 - centerx;
+            var ny = oy - centery;
+
+            //var zdepth = Math.sqrt( nx * nx + ny * ny ) - 30;
+            var zdepth = Math.max(Math.abs(nx), Math.abs(ny) * 4) - 20;
+
+            setGridText(gridInfo, letter, originalCoords.x, originalCoords.y, color, (zdepth * 0.5 + depth), map);
+
+        }
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function saveIndexMap(gridInfo, indexMap) {
+
+        var data = gridInfo.data;
+
+        for (var i = 0, il = data.length; i < il; i++) {
+
+            var charInfo = data[i];
+            var gridIndex = charInfo[8];
+
+            indexMap[gridIndex] = i;
+
+        }
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function executeAction(action, deltaTime, relativeTime) {
+
+        switch (action.type) {
+
+            case "moveColumnMulti" :
+
+                if (!action.singleShotDone) {
+
+                    for (var i = 0, il = action.target.length; i < il; i++) {
+
+                        moveColumn(characterGrid, action.target[i], action.delta[i], deltaTime, relativeTime);
+
+                    }
+
+                }
+
+                action.singleShotDone = true;
+
+                break;
+
+            case "moveRowMulti" :
+
+                if (!action.singleShotDone) {
+
+                    for (var i = 0, il = action.target.length; i < il; i++) {
+
+                        moveRow(characterGrid, action.target[i], action.delta[i], deltaTime, relativeTime);
+
+                    }
+
+                }
+
+                action.singleShotDone = true;
+
+                break;
+
+            case "moveColumn" :
+
+                moveColumn(characterGrid, action.target, action.delta, deltaTime, relativeTime);
+                break;
+
+            case "moveRow" :
+
+                moveRow(characterGrid, action.target, action.delta, deltaTime, relativeTime);
+                break;
+
+            case "resetText" :
+
+                resetText(characterGrid, action, action.indexMap);
+                break;
+
+            case "resetTime" :
+
+                resetTime(action.parent);
+                break;
+
+        }
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function finalizeAction(action) {
+
+        switch (action.type) {
+
+            case "moveColumnMulti" :
+
+                for (var i = 0, il = action.target.length; i < il; i++) {
+
+                    updateGridColumnIndices(characterGrid, action.target[i], action.delta[i], action.elapsed);
+
+                }
+
+                break;
+
+            case "moveRowMulti" :
+
+                for (var i = 0, il = action.target.length; i < il; i++) {
+
+                    updateGridRowIndices(characterGrid, action.target[i], action.delta[i], action.elapsed);
+
+                }
+                break;
+
+            case "moveColumn" :
+
+                updateGridColumnIndices(characterGrid, action.target, action.delta, action.elapsed);
+                break;
+
+            case "moveRow" :
+
+                updateGridRowIndices(characterGrid, action.target, action.delta, action.elapsed);
+                break;
+
+        }
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function processTimeline(timeline, time, delta) {
+
+        if (!characterGrid) return;
+
+        for (var i = 0, il = timeline.length; i < il; i++) {
+
+            var action = timeline[i];
+
+            var start = action.start;
+            var end = start + action.duration;
+
+            if (time >= start && time <= end) {
+
+                var relativeTime = (time - start) / action.duration;
+
+                /*
+                if ( i % 8 === 5 )
+                    executeAction( action, delta, ElasticOut( action.elapsed ) );
+                else
+                    executeAction( action, delta, action.elapsed );
+                */
+
+                executeAction(action, delta, action.elapsed);
+                action.elapsed += delta;
+
+            }
+
+            if (time > end && !action.finalized) {
+
+                var remainderDelta = action.duration - action.elapsed;
+
+                executeAction(action, remainderDelta, 1);
+                finalizeAction(action);
+
+                action.finalized = true;
+
+            }
+
+        }
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+
+    function fontCallback() {
+
+        fontCounter += 1;
+
+        if (fontCounter >= fontsToLoad) {
+
+            loadingElement.style.display = "none";
+
+        }
+
+    }
+
+    function loadFont(font) {
+
+        var map = XG.ImageUtils.loadTexture(font.img, fontCallback);
+        map.anisotropy = 16;
+
+        font.map = map;
+
+    }
+
+    // ---------------------------------------------------------
+    // updates
+    // ---------------------------------------------------------
+
+    function animate() {
+
+        requestAnimationFrame(animate);
+        render();
+
+        stats.update();
+
+    }
+
+    function render() {
+
+        var realDelta = clock.getDelta() * 0.8;
+        realDelta = Math.min(realDelta, 0.1);
+
+        var delta = realDelta * waveStrength * 1;
+
+        elapsedTime += delta;
+
+        waveStrength = XG.Math.clamp(waveStrength + waveStrengthDelta * realDelta, 0, 1);
+        timeRate = XG.Math.clamp(timeRate + realDelta * 0.025, 0, 1);
+
+        // update scene
+
+        processTimeline(randomTimeline, elapsedTime, delta);
+
+        var normalizedTime = elapsedTime % 1;
+        if (Math.floor(elapsedTime) % 8 === 5) normalizedTime = SinusoidalOut(normalizedTime);
+        if (Math.floor(elapsedTime) % 8 === 0) normalizedTime = SinusoidalIn(normalizedTime);
+
+        for (var i = 0, il = currentUniforms.length; i < il; i++) {
+
+            currentUniforms[i]["time"].value = normalizedTime;
+            currentUniforms[i]["waveStrength"].value = waveStrength * Math.sin(elapsedTime * Math.PI * 0.02) * waveTextModifier;
+
+        }
+
+        // update camera
+
+        targetX = mouseX * 0.04;
+        targetY = mouseY * 0.04;
+
+        angle += 0.025 * (targetX - angle);
+        height += 0.025 * (targetY - height);
+
+        var d = 200;
+        var f = 0.02;
+
+        var x = -Math.sin(angle * f) * d;
+        var z = Math.cos(angle * f) * d;
+        var y = 1.5 * height - 0;
+
+        target.y = -10;
+
+        camera.position.set(x, y, z);
+        camera.lookAt(target);
+
+
+        var zoomSpeed = 0.1;
+
+        camera.fov = camera.fov + (cameraFovTarget - camera.fov) * delta * zoomSpeed;
+        camera.updateProjectionMatrix();
+
+        // render scene
+
+        if (isMobile) {
+
+            renderer.render(scene, camera);
+
+        } else {
+
+            composer.render();
+
+        }
+
+    }
+
+</script>
+<div>
+    <canvas height="891" style="width: 1920px; height: 891px; position: absolute; top: 0px; left: 0px;"
+            width="1920"></canvas>
+    <div id="stats" style="width: 80px; opacity: 0.9; cursor: pointer;">
+        <div id="fps" style="padding: 0px 0px 3px 3px; text-align: left; background-color: rgb(0, 0, 34);">
+            <div id="fpsText"
+                 style="color: rgb(0, 255, 255); font-family: Helvetica, Arial, sans-serif; font-size: 9px; font-weight: bold; line-height: 15px;">
+                60 FPS (0-61)
+            </div>
+            <div id="fpsGraph"
+                 style="position: relative; width: 74px; height: 30px; background-color: rgb(0, 255, 255);"><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 21px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 29.7px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 29.7px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 29.7px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 29.7px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 29.7px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 29.7px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 30px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 29.7px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 22.8px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span><span
+                    style="width: 1px; height: 12px; float: left; background-color: rgb(17, 17, 51);"></span></div>
+        </div>
+        <div id="ms"
+             style="padding: 0px 0px 3px 3px; text-align: left; background-color: rgb(0, 34, 0); display: none;">
+            <div id="msText"
+                 style="color: rgb(0, 255, 0); font-family: Helvetica, Arial, sans-serif; font-size: 9px; font-weight: bold; line-height: 15px;">
+                16 MS (1-68198)
+            </div>
+            <div id="msGraph" style="position: relative; width: 74px; height: 30px; background-color: rgb(0, 255, 0);">
+                <span style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.3px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.3px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 25.8px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 29.25px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.45px; float: left; background-color: rgb(17, 51, 17);"></span><span
+                    style="width: 1px; height: 27.6px; float: left; background-color: rgb(17, 51, 17);"></span></div>
+        </div>
+    </div>
+</div>
+<script async="" src="shuffle_files/rabbit.js"></script>
+
+<div style="position: absolute; top: 5px; right: 5px; z-index: 10000;"><a href="#surprise" id="rabbit"
+                                                                          title="rabbit hole"><img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gscEjc3zV+7OgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAoklEQVRYw+2XwQrCMBBE32ihiAfPHv0p+431xwq9KP7AeskpiG1ZaXuYuSQQJlkyu5MNJBAFmT0ObIx9BxARfUT0CYkm+ZZg8wBUa7aQfy/jY9GhUrebG0hl8ZQRuQocwBw0Sf4FOKd8IPGc3oChzE/Ac20J3sA1K2MjSb/quHauav0ItJJetavO4f8jB8Zvlu4ydADuB9wPuArWzBF/TtP4ACgsafHmZ0T+AAAAAElFTkSuQmCC"
+        style="width:16px;height:16px"></a>
+</div>
+</body>
+</html>

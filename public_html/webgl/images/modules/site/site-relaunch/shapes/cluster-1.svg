@@ -1,0 +1,49 @@
+<!--
+  - /***
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  -  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  -  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  -  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  -  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  -  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  -  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  -  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  -  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  -  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  -  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  -  ** █ @link https://www.codehiggs.com
+  -  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ Datos recibidos desde el controlador - @ModuleController
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ***/
+  -->
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 154.12 259.21">
+    <defs>
+        <style>
+            .cls-2,.cls-5{fill:none;stroke-miterlimit:10}.cls-2{stroke:#05264c;stroke-linecap:round;stroke-width:1.66px}.cls-5{stroke-width:2px;stroke:#2088ff}
+        </style>
+    </defs>
+    <g id="Layer_2" data-name="Layer 2">
+        <g id="Layer_1-2" data-name="Layer 1">
+            <path d="M100.54 137.06c0-13.7 20-13.7 20-27.41s-20-13.7-20-27.41 20-13.71 20-27.41-20-13.71-20-27.41 20-13.71 20-27.41"
+                  stroke-width=".68" stroke="#05264c" fill="none" stroke-miterlimit="10"/>
+            <path class="cls-2"
+                  d="M18.83 125.1h.24M39.34 125.1h.24M59.85 125.1h.24M80.35 125.1h.25M100.86 125.1h.25M18.83 149.01h.24M39.34 149.01h.24M59.85 149.01h.24M80.35 149.01h.25M100.86 149.01h.25M18.83 172.91h.24M39.34 172.91h.24M59.85 172.91h.24M80.35 172.91h.25M100.86 172.91h.25M18.83 196.82h.24M39.34 196.82h.24M59.85 196.82h.24M80.35 196.82h.25M100.86 196.82h.25M28.38 137.06h.25M48.89 137.06h.25M69.4 137.06h.25M89.91 137.06h.24M110.42 137.06h.24M28.38 160.96h.25M48.89 160.96h.25M69.4 160.96h.25M89.91 160.96h.24M110.42 160.96h.24M28.38 184.87h.25M48.89 184.87h.25M69.4 184.87h.25M89.91 184.87h.24M110.42 184.87h.24"/>
+            <circle cx="150.14" cy="130.39" r="3.6" stroke-width=".75" stroke="#05264c" fill="none"
+                    stroke-miterlimit="10"/>
+            <path stroke-width="2" stroke="#79b8ff" fill="none" stroke-miterlimit="10"
+                  d="M142.72 232.51h-14.84l-7.41 12.85 7.41 12.85h14.84l7.42-12.85-7.42-12.85z"/>
+            <path class="cls-5" transform="rotate(90 25.065 169.965)" d="M-42.9 145.9H93.03v48.14H-42.9z"/>
+            <path class="cls-5" d="M49.14 130.39H1M49.14 169H1M49.14 207.62H1"/>
+        </g>
+    </g>
+</svg>

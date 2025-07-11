@@ -34,7 +34,14 @@ $fileUrl = $request->getVar("file");
 /** @var TYPE_NAME $oid */
 $back = "/iris/studies/view/{$oid}";
 
-$code = "<b>Archivo recibido</b>: {$fileUrl}<br>";
+//$code = "<b>Archivo recibido</b>: {$fileUrl}<br>";
+
+$code="<div class=\"alert alert-info\">
+            <strong>Nota Aclaratoria:</strong><br>
+            La información a continuación transcrita son apartes tomados en fiel copia de la historia clínica del paciente para fines netamente administrativos. Para la toma de decisiones clínicas por favor remitirse al texto completo de la historia clínica, de conformidad con lo establecido en la legislación colombiana vigente.
+        </div>";
+
+
 
 
 $analisisUrl = 'https://oftalmologia.xn--cm-fka.co/tests/gpt/analisis-oftalmologico.php';
@@ -60,7 +67,7 @@ $json = json_decode($ria, true);
 
 //print_r($json["result"]);
 
-$code .= "<hr>";
+$code .= "<analysis>";
 
 if (isset($json["result"]["response"])) {
     $markdown = new App\Libraries\Markdown();
@@ -71,6 +78,8 @@ if (isset($json["result"]["response"])) {
     $code .= "<script>setTimeout(function() { window.location.reload(); }, 3000);</script>";
 }
 
+$code .= "</analysis>";
+
 $bootstrap = service("bootstrap");
 $card = $bootstrap->get_Card2("card-view-service", array(
     "header-title" => "Analizando archivo",
@@ -79,3 +88,38 @@ $card = $bootstrap->get_Card2("card-view-service", array(
 ));
 echo($card);
 ?>
+<style>
+    analysis {
+        font-size: 1rem;
+    }
+
+    analysis h1 {
+        font-size: 1.2rem;
+        background-color: #182a84;
+        margin: 10px 0px 10px 0px;
+        padding: 5px;
+        border-width: 1px;
+        border-color: #192c84;
+        border-style: solid;
+        border-radius: 5px;
+        color: #ffffff;
+    }
+
+    analysis h2 {
+        font-size: 1.2rem;
+        background-color: #CCCCCC;
+        margin: 10px 0px 10px 0px;
+        padding: 5px;
+        border-width: 1px;
+        border-color: #192c84;
+        border-style: solid;
+        border-radius: 5px;
+        color: #182a84;
+    }
+
+    analysis p{
+        font-size: 1rem;
+        line-height: 1.1rem;
+    }
+
+</style>

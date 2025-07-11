@@ -1,0 +1,87 @@
+/*
+ * **
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+ *  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+ *  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ *  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+ *  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+ *  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+ *  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+ *  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+ *  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+ *  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+ *  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+ *  ** █ @link https://www.codehiggs.com
+ *  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ Datos recibidos desde el controlador - @ModuleController
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  **
+ */
+
+.cm-s-made-of-code {
+    font-family: monospace;
+    background: #090916;
+    color: #F8F8F8;
+}
+
+.cm-s-made-of-code .CodeMirror-gutters {
+    box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
+    background-color: #090916;
+    z-index: 3;
+    border: none;
+}
+
+.cm-s-made-of-code div.CodeMirror-cursor {
+    border-left: 3px solid #F8F8F8;
+}
+
+.cm-s-made-of-code .CodeMirror-activeline-background {
+    background: #00000000;
+}
+
+.cm-s-made-of-code .CodeMirror-selected {
+    background: #007DFF80;
+}
+
+.cm-s-made-of-code .cm-comment {
+    color: #54576B;
+    background: #00000000;
+}
+
+.cm-s-made-of-code .cm-keyword {
+    color: #FF3854;
+}
+
+.cm-s-made-of-code .cm-string {
+    color: #8FFF58;
+    background: #102622FA;
+}
+
+.cm-s-made-of-code .cm-property {
+    color: #F1D950;
+}
+
+.cm-s-made-of-code .cm-atom {
+    color: #F1D950;
+}
+
+.cm-s-made-of-code .cm-number {
+    color: #F1D950;
+}
+
+.cm-s-made-of-code .cm-operator {
+    color: #FF3854;
+}
+
+.cm-s-made-of-code .CodeMirror-linenumber {
+    color: #54576B;
+}

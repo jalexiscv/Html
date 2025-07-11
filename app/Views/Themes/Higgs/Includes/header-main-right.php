@@ -3,7 +3,7 @@ $loggedIn = get_LoggedIn();
 $default_class = "btn nav-header-btn rounded-circle p-0 d-flex justify-content-center align-items-center float-right border border-secondary-subtle me-2";
 $toggle_class = "btn nav-header-btn rounded-circle p-0 d-flex justify-content-center align-items-center float-right border border-secondary-subtle";
 
-$code = "<ul class=\"navbar-nav ms-auto mb-2 mb-lg-0\">\n";
+$code = "<ul class=\"navbar-nav ms-auto mb-2 mb-lg-0 d-none d-md-flex\">\n";
 //[messages]------------------------------------------------------------------------------------------------------------
 $code .= "\t\t<li class=\"nav-item\">\n";
 $code .= "\t\t\t\t <button class=\"{$default_class}\">";

@@ -1,0 +1,151 @@
+/*
+ * **
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+ *  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+ *  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ *  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+ *  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+ *  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+ *  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+ *  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+ *  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+ *  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+ *  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+ *  ** █ @link https://www.codehiggs.com
+ *  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ Datos recibidos desde el controlador - @ModuleController
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  **
+ */
+
+/**
+ * "
+ *  Using Zenburn color palette from the Emacs Zenburn Theme
+ *  https://github.com/bbatsov/zenburn-emacs/blob/master/zenburn-theme.el
+ *
+ *  Also using parts of https://github.com/xavi/coderay-lighttable-theme
+ * "
+ * From: https://github.com/wisenomad/zenburn-lighttable-theme/blob/master/zenburn.css
+ */
+
+.cm-s-zenburn .CodeMirror-gutters {
+    background: #3f3f3f !important;
+}
+
+.cm-s-zenburn .CodeMirror-foldgutter-open, .CodeMirror-foldgutter-folded {
+    color: #999;
+}
+
+.cm-s-zenburn .CodeMirror-cursor {
+    border-left: 1px solid white;
+}
+
+.cm-s-zenburn {
+    background-color: #3f3f3f;
+    color: #dcdccc;
+}
+
+.cm-s-zenburn span.cm-builtin {
+    color: #dcdccc;
+    font-weight: bold;
+}
+
+.cm-s-zenburn span.cm-comment {
+    color: #7f9f7f;
+}
+
+.cm-s-zenburn span.cm-keyword {
+    color: #f0dfaf;
+    font-weight: bold;
+}
+
+.cm-s-zenburn span.cm-atom {
+    color: #bfebbf;
+}
+
+.cm-s-zenburn span.cm-def {
+    color: #dcdccc;
+}
+
+.cm-s-zenburn span.cm-variable {
+    color: #dfaf8f;
+}
+
+.cm-s-zenburn span.cm-variable-2 {
+    color: #dcdccc;
+}
+
+.cm-s-zenburn span.cm-string {
+    color: #cc9393;
+}
+
+.cm-s-zenburn span.cm-string-2 {
+    color: #cc9393;
+}
+
+.cm-s-zenburn span.cm-number {
+    color: #dcdccc;
+}
+
+.cm-s-zenburn span.cm-tag {
+    color: #93e0e3;
+}
+
+.cm-s-zenburn span.cm-property {
+    color: #dfaf8f;
+}
+
+.cm-s-zenburn span.cm-attribute {
+    color: #dfaf8f;
+}
+
+.cm-s-zenburn span.cm-qualifier {
+    color: #7cb8bb;
+}
+
+.cm-s-zenburn span.cm-meta {
+    color: #f0dfaf;
+}
+
+.cm-s-zenburn span.cm-header {
+    color: #f0efd0;
+}
+
+.cm-s-zenburn span.cm-operator {
+    color: #f0efd0;
+}
+
+.cm-s-zenburn span.CodeMirror-matchingbracket {
+    box-sizing: border-box;
+    background: transparent;
+    border-bottom: 1px solid;
+}
+
+.cm-s-zenburn span.CodeMirror-nonmatchingbracket {
+    border-bottom: 1px solid;
+    background: none;
+}
+
+.cm-s-zenburn .CodeMirror-activeline {
+    background: #000000;
+}
+
+.cm-s-zenburn .CodeMirror-activeline-background {
+    background: #000000;
+}
+
+.cm-s-zenburn div.CodeMirror-selected {
+    background: #545454;
+}
+
+.cm-s-zenburn .CodeMirror-focused div.CodeMirror-selected {
+    background: #4f4f4f;
+}

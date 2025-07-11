@@ -1,0 +1,81 @@
+<!--
+  - /***
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  -  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  -  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  -  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  -  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  -  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  -  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  -  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  -  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  -  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  -  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  -  ** █ @link https://www.codehiggs.com
+  -  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ Datos recibidos desde el controlador - @ModuleController
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ***/
+  -->
+
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.9282 8.17383H9.88477" stroke="#2088FF" stroke-width="1.3913" stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <path d="M27.3628 8.17383H21.4062" stroke="#79B8FF" stroke-width="1.3913" stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <path d="M23.8843 11.7446H17.9277" stroke="#2088FF" stroke-width="1.3913" stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <path d="M14.45 11.7446H9.88477" stroke="#79B8FF" stroke-width="1.3913" stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <path d="M12.363 18.8789H9.88477" stroke="#79B8FF" stroke-width="1.3913" stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <path d="M13.0587 22.4482H9.88477" stroke="#2088FF" stroke-width="1.3913" stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <path d="M12.363 15.3149H9.88477" stroke="#2088FF" stroke-width="1.3913" stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <path d="M7.48828 36C15.8469 36 24.2055 36 32.5641 36C33.3325 36 33.9554 35.3771 33.9554 34.6087L33.9554 34.6045L33.9281 25.5652M33.9281 26.302C33.9281 25.6836 33.9281 10.843 33.9281 9.60632"
+          stroke="#79B8FF" stroke-width="1.3913" stroke-linecap="round"/>
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M13.7679 32.5217C14.1521 32.5217 14.4636 32.2102 14.4636 31.826C14.4636 31.4418 14.1521 31.1304 13.7679 31.1304C13.3837 31.1304 13.0723 31.4418 13.0723 31.826C13.0723 32.2102 13.3837 32.5217 13.7679 32.5217Z"
+          fill="#2088FF"/>
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M17.2328 29.0436C17.617 29.0436 17.9284 28.7322 17.9284 28.348C17.9284 27.9638 17.617 27.6523 17.2328 27.6523C16.8486 27.6523 16.5371 27.9638 16.5371 28.348C16.5371 28.7322 16.8486 29.0436 17.2328 29.0436Z"
+          fill="#2088FF"/>
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M20.7093 29.4348C21.0935 29.4348 21.405 29.1233 21.405 28.7391C21.405 28.3549 21.0935 28.0435 20.7093 28.0435C20.3251 28.0435 20.0137 28.3549 20.0137 28.7391C20.0137 29.1233 20.3251 29.4348 20.7093 29.4348Z"
+          fill="#2088FF"/>
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M24.1878 27.739C24.572 27.739 24.8835 27.4275 24.8835 27.0433C24.8835 26.6591 24.572 26.3477 24.1878 26.3477C23.8036 26.3477 23.4922 26.6591 23.4922 27.0433C23.4922 27.4275 23.8036 27.739 24.1878 27.739Z"
+          fill="#2088FF"/>
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M27.6664 21.174C28.0506 21.174 28.362 20.8626 28.362 20.4784C28.362 20.0942 28.0506 19.7827 27.6664 19.7827C27.2822 19.7827 26.9707 20.0942 26.9707 20.4784C26.9707 20.8626 27.2822 21.174 27.6664 21.174Z"
+          fill="#2088FF"/>
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M31.1449 13.9567C31.5291 13.9567 31.8405 13.6453 31.8405 13.2611C31.8405 12.8769 31.5291 12.5654 31.1449 12.5654C30.7607 12.5654 30.4492 12.8769 30.4492 13.2611C30.4492 13.6453 30.7607 13.9567 31.1449 13.9567Z"
+          fill="#2088FF"/>
+    <path d="M6 30.4348V5.3913C6 4.62291 6.62291 4 7.3913 4H32.4348" stroke="#79B8FF" stroke-width="1.3913"
+          stroke-linecap="round"/>
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M24.8837 16.5217V19.3686C24.8837 20.5016 24.7248 21.892 23.5983 23.2272C22.0329 24.8958 20.1313 25.5641 20.0158 25.5652C19.9004 25.5662 17.8759 24.8205 16.4388 23.2272C15.3387 22.0075 15.1445 20.499 15.1445 19.3686V16.5217C15.1445 15.7533 15.7674 15.1304 16.5358 15.1304H23.4924C24.2608 15.1304 24.8837 15.7533 24.8837 16.5217Z"
+          stroke="#2088FF" stroke-width="1.3913" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20.0254 20.0137V17.9267" stroke="#2088FF" stroke-width="1.3913" stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M20.0296 21.4046C20.4138 21.4046 20.7253 21.716 20.7253 22.1002C20.7253 22.4844 20.4138 22.7959 20.0296 22.7959C19.6454 22.7959 19.334 22.4844 19.334 22.1002C19.334 21.716 19.6454 21.4046 20.0296 21.4046Z"
+          fill="#2088FF"/>
+    <path d="M6.17969 33.8357L16.5524 23.463M24.5205 15.4949L33.9783 6.03711" stroke="#2088FF" stroke-width="1.3913"
+          stroke-linecap="round"/>
+    <path d="M31.1445 15.3574V31.8262" stroke="#79B8FF" stroke-width="1.3913" stroke-linecap="round"/>
+    <path d="M27.666 22.582V31.8259" stroke="#79B8FF" stroke-width="1.3913" stroke-linecap="round"/>
+    <path d="M24.1895 29.1235V31.8259" stroke="#79B8FF" stroke-width="1.3913" stroke-linecap="round"/>
+    <path d="M20.7539 30.8975V31.8263" stroke="#79B8FF" stroke-width="1.3913" stroke-linecap="round"/>
+    <path d="M17.2324 30.4346V31.8259" stroke="#79B8FF" stroke-width="1.3913" stroke-linecap="round"/>
+</svg>

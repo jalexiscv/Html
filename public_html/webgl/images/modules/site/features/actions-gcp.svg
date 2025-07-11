@@ -1,0 +1,38 @@
+<!--
+  - /***
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  -  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  -  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  -  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  -  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  -  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  -  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  -  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  -  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  -  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  -  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  -  ** █ @link https://www.codehiggs.com
+  -  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ Datos recibidos desde el controlador - @ModuleController
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  -  ** █ ---------------------------------------------------------------------------------------------------------------------
+  -  ***/
+  -->
+
+<svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M26.6031 8.82618L30.0802 5.3694L30.3119 3.91387C23.9758 -1.81397 13.9038 -1.1645 8.19203 5.26905C6.60547 7.05593 5.42844 9.28366 4.80078 11.5841L6.04609 11.4096L13 10.2696L13.5369 9.72373C16.6302 6.34634 21.8603 5.89197 25.4319 8.7656L26.6031 8.82618Z"
+          fill="#EA4335"/>
+    <path d="M35.0323 11.4825C34.2331 8.55655 32.5923 5.92618 30.3109 3.91406L25.4309 8.76564C27.4916 10.4396 28.6655 12.9614 28.6151 15.6063V16.4675C31.0137 16.4675 32.9584 18.4007 32.9584 20.7854C32.9584 23.1701 31.0137 25.0549 28.6151 25.0549H19.9166L19.0625 25.9767V31.1557L19.9166 31.9683H28.6151C34.8542 32.0166 39.9514 27.076 40 20.8733C40.0294 17.1136 38.1648 13.5889 35.0323 11.4825Z"
+          fill="#4285F4"/>
+    <path d="M11.23 31.9681H19.9164V25.0545H11.23C10.6111 25.0544 10.0117 24.9222 9.44891 24.6665L8.21656 25.0424L4.71516 28.4992L4.41016 29.6757C6.37375 31.1498 8.76953 31.9787 11.23 31.9681Z"
+          fill="#34A853"/>
+    <path d="M11.2297 9.54206C4.99052 9.57904 -0.0369825 14.6375 0.000204978 20.8402C0.0209862 24.304 1.64817 27.5646 4.40989 29.6761L9.44864 24.6669C7.26255 23.685 6.29114 21.1273 7.2788 18.9541C8.2663 16.7809 10.8391 15.8152 13.0249 16.7969C13.9882 17.2295 14.7596 17.9966 15.1947 18.9541L20.2335 13.9449C18.0896 11.1585 14.7583 9.52948 11.2297 9.54206Z"
+          fill="#FBBC05"/>
+</svg>

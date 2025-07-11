@@ -142,6 +142,25 @@ class Sie_Settings extends CachedModel
             return (false);
         }
     }
+
+    public function upsert($data)
+    {
+        if (!isset($data[$this->primaryKey])) {
+            throw new InvalidArgumentException("Falta la clave primaria '{$this->primaryKey}' en los datos.");
+        }
+
+        $id = $data[$this->primaryKey];
+        $exists = $this->where($this->primaryKey, $id)->first();
+
+        if ($exists) {
+            // Actualiza el registro existente
+            return $this->update($id, $data);
+        } else {
+            // Inserta un nuevo registro
+            return $this->insert($data);
+        }
+    }
+
 }
 
 ?>
