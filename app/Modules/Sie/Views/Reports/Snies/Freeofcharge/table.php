@@ -60,6 +60,7 @@ $code .= "\t\t border=\"1\">\n";
 $code .= "<thead>";
 $code .= "<tr>\n";
 $code .= "<th class='text-center ' title=\"\" >#</th>\n";
+$code .= "<th class='text-center ' title=\"\" >ESTADO</th>\n";
 $code .= "<th class='text-center ' title=\"\" >AÑO</th>\n";
 $code .= "<th class='text-center ' title=\"\" >SEMESTRE</th>\n";
 $code .= "<th class='text-center ' title=\"\" >ID_TIPO_DOCUMENTO</th>\n";
@@ -110,6 +111,7 @@ foreach ($statuses as $status) {
     $disability_type = @$registration['disability_type'] == "" ? "0" : (int)($registration['disability_type']);
     $ek = @$registration['ek'];
     // vars
+    $RSTATUS = @$status["reference"];
     $ANNO = $year;
     $SEMESTRE = $semester;
     $ID_TIPO_DOCUMENTO = $identification_type;
@@ -117,17 +119,19 @@ foreach ($statuses as $status) {
     $PRO_CONSECUTIVO = $program_snies;
     $ID_MUNICIPIO = "76111";
     $ID_VALIDACION_REQUISITO = @$registration['snies_id_validation_requisite'];
-    // build
-    $code .= "<tr id=\"trid-".@$registration["registration"]."\" data-registration=\"".@$status["status"]."\" data-status=\"STARTED\">\n";
-    $code .= "<td class='text-center ' title=\"\" >$count</td>\n";
-    $code .= "<td class='text-center ' title=\"\" >{$ANNO}</td>\n";
-    $code .= "<td class='text-center ' title=\"\" >{$SEMESTRE}</td>\n";
-    $code .= "<td class='text-center ' title=\"\" >{$ID_TIPO_DOCUMENTO}</td>\n";
-    $code .= "<td class='text-center ' title=\"\" >{$NUM_DOCUMENTO}</td>\n";
-    $code .= "<td class='text-center ' title=\"\" >{$PRO_CONSECUTIVO}</td>\n";
-    $code .= "<td class='text-center ' title=\"\" >{$ID_MUNICIPIO}</td>\n";
-    $code .= "<td class='text-center ' title=\"\" >{$ID_VALIDACION_REQUISITO}</td>\n";
 
+    $link = "<a href=\"/sie/students/view/{$registration["registration"]}\" target=\"_blank\">{$NUM_DOCUMENTO}</a>";
+    // build
+    $code .= "<tr id=\"trid-" . @$registration["registration"] . "\" data-registration=\"" . @$status["status"] . "\" data-status=\"STARTED\">\n";
+    $code .= "<td class='text-center text-nowrap' title=\"\" >$count</td>\n";
+    $code .= "<td class='text-center text-nowrap' title=\"\" >{$RSTATUS}</td>\n";
+    $code .= "<td class='text-center text-nowrap' title=\"\" >{$ANNO}</td>\n";
+    $code .= "<td class='text-center text-nowrap' title=\"\" >{$SEMESTRE}</td>\n";
+    $code .= "<td class='text-center text-nowrap' title=\"\" >{$ID_TIPO_DOCUMENTO}</td>\n";
+    $code .= "<td class='text-center text-nowrap' title=\"\" >{$link}</td>\n";
+    $code .= "<td class='text-center text-nowrap' title=\"\" >{$PRO_CONSECUTIVO}</td>\n";
+    $code .= "<td class='text-center text-nowrap' title=\"\" >{$ID_MUNICIPIO}</td>\n";
+    $code .= "<td class='text-center text-nowrap' title=\"\" >{$ID_VALIDACION_REQUISITO}</td>\n";
     $code .= "</tr>\n";
 }
 

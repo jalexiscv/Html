@@ -92,25 +92,56 @@ class Moodle extends ModuleController
         }
     }
 
-    public function users($option)
+    public function students($option)
     {
         if ($option == "list") {
-            echo(view('App\Modules\Sie\Views\Moodle\Users\List\index'));
+            echo(view('App\Modules\Sie\Views\Moodle\Students\List\index'));
         } elseif ($option == "create") {
-            echo(view('App\Modules\Sie\Views\Moodle\Users\Create\index'));
+            echo(view('App\Modules\Sie\Views\Moodle\Students\Create\index'));
         } elseif ($option == "edit") {
-            echo(view('App\Modules\Sie\Views\Moodle\Users\Edit\index'));
+            echo(view('App\Modules\Sie\Views\Moodle\Students\Edit\index'));
         } elseif ($option == "delete") {
-            echo(view('App\Modules\Sie\Views\Moodle\Users\Delete\index'));
+            echo(view('App\Modules\Sie\Views\Moodle\Students\Delete\index'));
         } elseif ($option == "asign") {
-            echo(view('App\Modules\Sie\Views\Moodle\Users\Asign\index'));
+            echo(view('App\Modules\Sie\Views\Moodle\Students\Asign\index'));
         }elseif($option=="synchronization"){
-            echo(view('App\Modules\Sie\Views\Moodle\Users\Synchronization\index'));
+            echo(view('App\Modules\Sie\Views\Moodle\Students\Synchronization\index'));
         } else {
             echo("Opcion de cursos no valida");
         }
     }
 
+
+    public function teachers($option)
+    {
+        if ($option == "list") {
+            echo(view('App\Modules\Sie\Views\Moodle\Teachers\List\index'));
+        } elseif ($option == "create") {
+            echo(view('App\Modules\Sie\Views\Moodle\Teachers\Create\index'));
+        } elseif ($option == "edit") {
+            echo(view('App\Modules\Sie\Views\Moodle\Teachers\Edit\index'));
+        } elseif ($option == "delete") {
+            echo(view('App\Modules\Sie\Views\Moodle\Teachers\Delete\index'));
+        } elseif ($option == "asign") {
+            echo(view('App\Modules\Sie\Views\Moodle\Teachers\Asign\index'));
+        } elseif ($option == "synchronization") {
+            echo(view('App\Modules\Sie\Views\Moodle\Teachers\Synchronization\index'));
+        } elseif ($option == "assignments") {
+            echo(view('App\Modules\Sie\Views\Moodle\Teachers\Assignments\index'));
+        } else {
+            echo("Opcion de cursos no valida");
+        }
+    }
+
+
+    public function passwords($option)
+    {
+        if ($option == "assignments") {
+            echo(view('App\Modules\Sie\Views\Moodle\Passwords\Assignments\index'));
+        } else {
+
+        }
+    }
 
 
 

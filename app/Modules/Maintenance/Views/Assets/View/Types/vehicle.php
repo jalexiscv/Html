@@ -138,6 +138,7 @@ $f->groups["gy"] = $f->get_GroupSeparator();
 $card = $bootstrap->get_Card2("create", array(
     "header-title" => lang("Maintenance_Assets.edit-title"),
     "content" => $f,
+    "header-add" => "/maintenance/maintenances/create/" . $oid,
     "header-back" => $back
 ));
 echo($card);

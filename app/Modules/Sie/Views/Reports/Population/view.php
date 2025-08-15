@@ -17,9 +17,10 @@ if ($authentication->get_LoggedIn()) {
     $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/firstyear/" . lpk(), "icon" => "fa-light fa-dice-d12", "value" => "Primer Curso", "description" => "SNIES R#62", "class" => "text-success", "target" => "_blank")));
     $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/snies/graduateds/" . lpk(), "icon" => ICON_REPORTS, "value" => "Graduados", "description" => "SNIES R#68", "class" => "text-success", "target" => "_blank")));
     $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/projected/home?t=" . lpk(), "icon" => ICON_REPORTS, "value" => "Cupos Proyectados", "description" => "SNIES R#75", "class" => "text-success", "target" => "_blank")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/enrolledcourses/home?t=" . lpk(), "icon" => ICON_REPORTS, "value" => "Materias Matriculadas", "description" => "SNIES R#124", "class" => "text-warning", "target" => "_blank")));
     $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/registeredslistregistereds/" . lpk() , "icon" => "fa-light fa-dice-d12", "value" => "Relación Inscritos", "description" => "SNIES R#143", "class" => "text-success", "target" => "_blank")));
     $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/registereds/" . lpk() . "?status=ADMITTED", "icon" => "fa-light fa-dice-d12", "value" => "Inscrito Programas", "description" => "SNIES R#144", "class" => "text-success", "target" => "_blank")));
-    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/coverage/" . lpk(), "icon" => ICON_REPORTS, "value" => "Estrategias de Cobertura", "description" => "SNIES R#148", "class" => "text-warning", "target" => "_blank")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/coverage/" . lpk(), "icon" => ICON_REPORTS, "value" => "Estrategias de Cobertura", "description" => "SNIES R#148", "class" => "text-success", "target" => "_blank")));
     $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/snies/freeofcharge/" . lpk(), "icon" => "fa-light fa-dice-d12", "value" => "Caracterización-Gratuidad", "description" => "SNIES R#301", "class" => "text-success", "target" => "_blank")));
     echo($shortcuts);
 } else {

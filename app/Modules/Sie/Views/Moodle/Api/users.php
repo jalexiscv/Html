@@ -1,26 +1,19 @@
 <?php
 
-
 $mregistrations=model("App\Modules\Sie\Models\Sie_Registrations");
-
 $registration=$_GET["registration"];
-
 $registration=$mregistrations->get_Registration($registration);
 
-/**********************
- *  Configuración básica
- **********************/
-$token    = 'd9551c4aa62771d4a38d74b1e885b13d';
-$domain   = 'https://campus2025b.utede.edu.co';
+$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
+$domain = 'https://campus.utede.edu.co';
 $function = 'core_user_create_users';
 $endpoint = "$domain/webservice/rest/server.php";
-
 
 $email=(!empty($registration["email_institutional"]))?$registration["email_institutional"]:"e{$registration["registration"]}@utede.edu.co";
 
 $nuevoUsuario = [
     'username'  => $registration["identification_number"],
-    'password'  => $registration["registration"],
+    'password' => $registration["identification_number"],
     'firstname' => $registration["first_name"]." ".$registration["second_name"],
     'lastname'  => $registration["first_surname"]." ".$registration["second_surname"],
     'email'     => $email,
@@ -42,7 +35,6 @@ curl_setopt_array($curl, [
 
 $errorInfo="";
 $createdUserId="";
-
 
 $response = curl_exec($curl);
 if ($response === false) {

@@ -1,6 +1,6 @@
 <?php
 $token = 'a99cf98a32a7bc899e0e9c45e4f50b8f';
-$domain = 'https://campus2025b.utede.edu.co';
+$domain = 'https://campus.utede.edu.co';
 $function = 'core_course_get_courses';
 $restFormat = 'json';
 

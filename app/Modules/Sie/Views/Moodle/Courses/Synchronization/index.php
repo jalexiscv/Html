@@ -1,5 +1,9 @@
 <?php
 
+use App\Libraries\Moodle;
+
+$moodle = new Moodle();
+
 $mcourses=model("App\Modules\Sie\Models\Sie_Courses");
 
 $courses=$mcourses->where('status',"ACTIVE")->findAll();
@@ -14,6 +18,7 @@ $code .= "\t\t\t\t  <tr>\n";
 $code .= "\t\t\t\t\t\t <th class='text-center' title=\"\">#</th>\n";
 $code .= "\t\t\t\t\t\t <th class='text-center' title=\"\">Código</th>\n";
 $code .= "\t\t\t\t\t\t <th class='text-center' title=\"\">Referencia</th>\n";
+$code .= "\t\t\t\t\t\t <th class='text-center' title=\"\">Moodle CourseID</th>\n";
 $code .= "\t\t\t\t\t\t <th class='text-center' title=\"\">Estado</th>\n";
 $code .= "\t\t\t\t  </tr>\n";
 $code .= "\t\t </thead>";
@@ -24,11 +29,13 @@ foreach ($courses as $course){
     $count++;
     $trid=@$course["course"];
     $name=@$course['name'];
+    $courseid = $moodle->getCourse(@$course["course"]);
     // Fila
     $code .="\t\t\t\t  <tr id=\"trid-{$trid}\" data-registration=\"{$trid}\" data-status=\"STARTED\" >\n";
     $code .="\t\t\t\t\t <td class='text-center ' title=\"\" >{$count}</td>\n";
     $code .="\t\t\t\t\t <td class='text-center ' title=\"\" >{$course["course"]}</td>\n";
     $code .="\t\t\t\t\t <td class='text-center ' title=\"\" >{$name}</td>\n";
+    $code .= "\t\t\t\t\t <td class='text-center ' title=\"\" >{$courseid}</td>\n";
     $code .="\t\t\t\t  </tr>\n";
 
 }

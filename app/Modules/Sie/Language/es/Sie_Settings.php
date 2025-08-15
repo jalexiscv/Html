@@ -30,6 +30,9 @@ return [
     "label_time" => "Hora",
     "label_author" => "Autor",
     "label_status_graduations"=>"Estado de postulaciones",
+    "label_status_registrations" => "Estado de las inscripciones",
+    "label_registrations_message_enabled_value" => "Mensaje Habilitado",
+    "label_registrations_message_disable_value" => "Mensaje Deashbiltaso",
     "placeholder_setting" => "Código",
     "placeholder_name" => "Nombre",
     "placeholder_value" => "Valor",
@@ -95,6 +98,8 @@ return [
     "help_graduations_message_disabled" => "Obligatorio: Mensaje que veran los usuarios al acceder al formulario deshabilitado de graduaciones",
     // Graduations
     "graduations-edit-title" => "Estado del componente de postulaciones",
+    // Registrations
+    "registrations-view-title" => "Estado del componente de inscripciones",
 ];
 
 ?>

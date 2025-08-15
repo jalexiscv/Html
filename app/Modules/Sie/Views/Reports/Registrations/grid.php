@@ -29,7 +29,7 @@ $period = "2025A";
 $program = $_GET['program'];
 //ENROLLED, ENROLLED-OLD, ENROLLED-EXT
 $status = "";
-$limit = 200; // Registros por página
+$limit = 2000000; // Registros por página
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 ?>

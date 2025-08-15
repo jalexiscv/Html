@@ -53,9 +53,12 @@ echo($card);
 
 if ($authentication->get_LoggedIn()) {
     $shortcuts = $bootstrap->get_Shortcuts(array("id" => "shortcuts-panel"));
-    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/moodle/users/synchronization?t=".pk(), "icon" => ICON_USERS, "value" => lang("Sie_Moodle.synchronization-users"), "description" =>lang("Sie_Moodle.synchronization-users-description") )));
-    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/moodle/courses/synchronization?t=".pk(), "icon" => ICON_COURSES, "value" => lang("Sie_Moodle.synchronization-courses"), "description" =>lang("Sie_Moodle.synchronization-courses-description") )));
-    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/moodle/registrations/create/".pk(), "icon" => ICON_COURSES, "value" => lang("Sie_Moodle.registration-course"), "description" =>lang("Sie_Moodle.registration-course-description") )));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/moodle/students/synchronization?t=" . pk(), "icon" => ICON_USERS, "value" => "Estudiantes", "description" => "Sincronización")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/moodle/teachers/synchronization?t=" . pk(), "icon" => ICON_USERS, "value" => "Profesores", "description" => "Sincronización")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/moodle/teachers/assignments?t=" . pk(), "icon" => ICON_USERS, "value" => "Profesores", "description" => "Asignación")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/moodle/courses/synchronization?t=" . pk(), "icon" => ICON_COURSES, "value" => "Cursos", "description" => "Sincronización")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/tools/moodle/coursesenrollments/" . pk(), "icon" => ICON_COURSES, "value" => "Cursos", "description" => "Matricula Total")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/moodle/passwords/assignments/" . pk(), "icon" => ICON_COURSES, "value" => "Contraseñas", "description" => "Reasignación")));
     echo($shortcuts);
 } else {
 

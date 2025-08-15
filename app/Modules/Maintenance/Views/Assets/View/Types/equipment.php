@@ -134,6 +134,7 @@ $f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["submit"] . $f->
 $card = $bootstrap->get_Card2("create", array(
     "header-title" => lang("Maintenance_Assets.edit-title"),
     "content" => $f,
+    "header-add" => "/maintenance/maintenances/create/" . $oid,
     "header-back" => $back
 ));
 echo($card);
