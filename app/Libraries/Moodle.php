@@ -1371,6 +1371,528 @@ class Moodle
             ];
         }
     }
+
+    /**
+     * Crea un usuario en Moodle sin asignarle ningún rol
+     * Ejemplo de uso:
+     * $moodle = new Moodle();
+     * $userData = [
+     *     'username' => '1234567890',
+     *     'password' => 'TempPass123!',
+     *     'firstname' => 'Juan',
+     *     'lastname' => 'Pérez',
+     *     'email' => 'juan.perez@example.com',
+     *     'idnumber' => '1234567890'
+     * ];
+     * $result = $moodle->createUser($userData);
+     * if ($result['success']) {
+     *     echo "Usuario creado con ID: " . $result['userId'];
+     * } else {
+     *     echo "Error: " . $result['error'];
+     * }
+     * @param array $userData Datos del usuario a crear
+     * @return array Array con success, userId, error, originalData y userInfo
+     */
+    function createUser(array $userData): array
+    {
+        $wsfunction = 'core_user_create_users';
+
+        try {
+            // Validar campos obligatorios
+            $requiredFields = ['username', 'password', 'firstname', 'lastname', 'email'];
+            foreach ($requiredFields as $field) {
+                if (empty($userData[$field])) {
+                    return [
+                        "success" => false,
+                        "userId" => null,
+                        "error" => "Campo obligatorio faltante: $field",
+                        "originalData" => null
+                    ];
+                }
+            }
+
+            // Validar formato de email
+            if (!filter_var($userData['email'], FILTER_VALIDATE_EMAIL)) {
+                return [
+                    "success" => false,
+                    "userId" => null,
+                    "error" => "Formato de email inválido: " . $userData['email'],
+                    "originalData" => null
+                ];
+            }
+
+            // Configurar datos por defecto del usuario
+            $defaultUser = [
+                'username' => $userData['username'],
+                'password' => $userData['password'],
+                'firstname' => $userData['firstname'],
+                'lastname' => $userData['lastname'],
+                'email' => $userData['email'],
+                'idnumber' => $userData['idnumber'] ?? $userData['username'],
+                'lang' => $userData['lang'] ?? 'es',
+                'timezone' => $userData['timezone'] ?? 'America/Bogota',
+                'mailformat' => $userData['mailformat'] ?? 1,
+                'description' => $userData['description'] ?? '',
+                'city' => $userData['city'] ?? 'Bogotá',
+                'country' => $userData['country'] ?? 'CO',
+                'firstnamephonetic' => $userData['firstnamephonetic'] ?? '',
+                'lastnamephonetic' => $userData['lastnamephonetic'] ?? '',
+                'middlename' => $userData['middlename'] ?? '',
+                'alternatename' => $userData['alternatename'] ?? ''
+            ];
+
+            // Construir parámetros para la API
+            $params = [
+                'users' => [$defaultUser]
+            ];
+
+            // Construir URL para la API
+            $serverUrl = $this->endpoint
+                . '?wstoken=' . $this->token
+                . '&wsfunction=' . $wsfunction
+                . '&moodlewsrestformat=' . $this->restFormat;
+
+            // Realizar la petición
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => $serverUrl,
+                CURLOPT_POST => true,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POSTFIELDS => http_build_query($params),
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_TIMEOUT => 30
+            ]);
+
+            $response = curl_exec($curl);
+            $errorInfo = "";
+            $result = null;
+            $userId = null;
+
+            if ($response === false) {
+                $errorInfo = 'Error cURL: ' . curl_error($curl);
+            } else {
+                $result = json_decode($response, true);
+
+                // Verificar si hay errores en la respuesta
+                if (isset($result['exception'])) {
+                    $errorInfo = 'Error al crear usuario: ' . ($result['message'] ?? 'Error desconocido')
+                        . ' (Código: ' . ($result['errorcode'] ?? 'N/A') . ')';
+                } elseif (isset($result['warnings']) && !empty($result['warnings'])) {
+                    // Si hay warnings, considerarlo como error
+                    $warnings = array_map(function ($warning) {
+                        return $warning['message'] ?? 'Warning desconocido';
+                    }, $result['warnings']);
+                    $errorInfo = 'Warnings al crear usuario: ' . implode(', ', $warnings);
+                } elseif (isset($result[0]['id']) && is_numeric($result[0]['id'])) {
+                    // Usuario creado exitosamente
+                    $userId = (int)$result[0]['id'];
+                } else {
+                    $errorInfo = 'Respuesta inesperada de Moodle al crear usuario';
+                }
+            }
+
+            curl_close($curl);
+
+            // Preparar respuesta
+            return [
+                "success" => empty($errorInfo) && !is_null($userId),
+                "userId" => $userId,
+                "error" => $errorInfo,
+                "originalData" => $result,
+                "userInfo" => [
+                    "username" => $userData['username'],
+                    "firstname" => $userData['firstname'],
+                    "lastname" => $userData['lastname'],
+                    "email" => $userData['email'],
+                    "idnumber" => $defaultUser['idnumber'],
+                    "fullName" => $userData['firstname'] . ' ' . $userData['lastname'],
+                    "moodleUserId" => $userId
+                ]
+            ];
+
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "userId" => null,
+                "error" => "Excepción: " . $e->getMessage(),
+                "originalData" => null
+            ];
+        }
+    }
+
+    /**
+     * Consulta los datos del perfil de un usuario en Moodle
+     * Ejemplo de uso:
+     * $moodle = new Moodle();
+     * $result = $moodle->getUserProfile('1234567890');
+     * if ($result['success']) {
+     *     echo "Usuario encontrado: " . $result['userInfo']['fullName'];
+     * } else {
+     *     echo "Error: " . $result['error'];
+     * }
+     *
+     * @param string $searchValue Valor a buscar (username, email, idnumber)
+     * @param string $searchField Campo por el cual buscar (username, email, idnumber)
+     * @return array Array con success, error, originalData y userInfo
+     */
+    function getUserProfile(string $searchValue, string $searchField = 'idnumber'): array
+    {
+        $wsfunction = 'core_user_get_users';
+
+        try {
+            // Validar parámetros
+            if (empty($searchValue)) {
+                return [
+                    "success" => false,
+                    "error" => "Valor de búsqueda es requerido",
+                    "originalData" => null,
+                    "userInfo" => null
+                ];
+            }
+
+            // Validar campo de búsqueda
+            $validFields = ['username', 'email', 'idnumber'];
+            if (!in_array($searchField, $validFields)) {
+                return [
+                    "success" => false,
+                    "error" => "Campo de búsqueda inválido. Debe ser: " . implode(', ', $validFields),
+                    "originalData" => null,
+                    "userInfo" => null
+                ];
+            }
+
+            // Construir parámetros de búsqueda
+            $searchParams = http_build_query([
+                'criteria' => [['key' => $searchField, 'value' => $searchValue]]
+            ]);
+
+            // Construir URL para la API
+            $getUserUrl = $this->endpoint
+                . '?wstoken=' . $this->token
+                . '&wsfunction=' . $wsfunction
+                . '&moodlewsrestformat=' . $this->restFormat
+                . '&' . $searchParams;
+
+            // Realizar la petición
+            $curl = curl_init($getUserUrl);
+            curl_setopt_array($curl, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_TIMEOUT => 30
+            ]);
+
+            $response = curl_exec($curl);
+            $errorInfo = "";
+            $result = null;
+            $userInfo = null;
+
+            if ($response === false) {
+                $errorInfo = 'Error cURL: ' . curl_error($curl);
+            } else {
+                $result = json_decode($response, true);
+
+                // Verificar si hay errores en la respuesta
+                if (isset($result['exception'])) {
+                    $errorInfo = 'Error al consultar usuario: ' . ($result['message'] ?? 'Error desconocido')
+                        . ' (Código: ' . ($result['errorcode'] ?? 'N/A') . ')';
+                } elseif (isset($result['warnings']) && !empty($result['warnings'])) {
+                    $warnings = array_map(function ($warning) {
+                        return $warning['message'] ?? 'Warning desconocido';
+                    }, $result['warnings']);
+                    $errorInfo = 'Warnings al consultar usuario: ' . implode(', ', $warnings);
+                } elseif (empty($result['users'])) {
+                    $errorInfo = "Usuario no encontrado con $searchField: $searchValue";
+                } else {
+                    // Usuario encontrado, extraer información
+                    $user = $result['users'][0];
+                    $userInfo = [
+                        "id" => $user['id'] ?? null,
+                        "username" => $user['username'] ?? '',
+                        "firstname" => $user['firstname'] ?? '',
+                        "lastname" => $user['lastname'] ?? '',
+                        "fullname" => ($user['firstname'] ?? '') . ' ' . ($user['lastname'] ?? ''),
+                        "email" => $user['email'] ?? '',
+                        "idnumber" => $user['idnumber'] ?? '',
+                        "lang" => $user['lang'] ?? '',
+                        "timezone" => $user['timezone'] ?? '',
+                        "description" => $user['description'] ?? '',
+                        "city" => $user['city'] ?? '',
+                        "country" => $user['country'] ?? '',
+                        "profileimageurlsmall" => $user['profileimageurlsmall'] ?? '',
+                        "profileimageurl" => $user['profileimageurl'] ?? '',
+                        "firstaccess" => $user['firstaccess'] ?? null,
+                        "lastaccess" => $user['lastaccess'] ?? null,
+                        "lastcourseaccess" => $user['lastcourseaccess'] ?? null,
+                        "suspended" => $user['suspended'] ?? false,
+                        "confirmed" => $user['confirmed'] ?? false,
+                        "mailformat" => $user['mailformat'] ?? null,
+                        "theme" => $user['theme'] ?? '',
+                        "auth" => $user['auth'] ?? '',
+                        "customfields" => $user['customfields'] ?? []
+                    ];
+                }
+            }
+
+            curl_close($curl);
+
+            // Preparar respuesta
+            return [
+                "success" => empty($errorInfo) && !is_null($userInfo),
+                "error" => $errorInfo,
+                "originalData" => $result,
+                "userInfo" => $userInfo,
+                "searchCriteria" => [
+                    "field" => $searchField,
+                    "value" => $searchValue
+                ]
+            ];
+
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "error" => "Excepción: " . $e->getMessage(),
+                "originalData" => null,
+                "userInfo" => null
+            ];
+        }
+    }
+
+    /**
+     * Actualiza los datos de un usuario en Moodle
+     * Ejemplo de uso:
+     * $moodle = new Moodle();
+     * $userData = [
+     *     'id' => 123,
+     *     'firstname' => 'Juan',
+     *     'lastname' => 'Pérez',
+     *     'email' => 'juan.perez@example.com'
+     * ];
+     * $result = $moodle->updateUser($userData);
+     * if ($result['success']) {
+     *     echo "Usuario actualizado exitosamente";
+     * } else {
+     *     echo "Error: " . $result['error'];
+     * }
+     *
+     * @param array $userData Datos del usuario a actualizar (debe incluir 'id')
+     * @return array Array con success, error, originalData y userInfo
+     */
+    function updateUser(array $userData): array
+    {
+        $wsfunction = 'core_user_update_users';
+
+        try {
+            // Validar campo obligatorio
+            if (empty($userData['id']) || !is_numeric($userData['id'])) {
+                return [
+                    "success" => false,
+                    "error" => "ID del usuario es obligatorio y debe ser numérico",
+                    "originalData" => null,
+                    "userInfo" => null
+                ];
+            }
+
+            // Configurar datos del usuario para actualización
+            $userToUpdate = [
+                'id' => (int)$userData['id'], // ID del usuario es obligatorio
+                'firstname' => $userData['firstname'] ?? null,
+                'lastname' => $userData['lastname'] ?? null,
+                'email' => $userData['email'] ?? null,
+                'idnumber' => $userData['idnumber'] ?? null,
+                'lang' => $userData['lang'] ?? null,
+                'timezone' => $userData['timezone'] ?? null,
+                'description' => $userData['description'] ?? null,
+                'city' => $userData['city'] ?? null,
+                'country' => $userData['country'] ?? null,
+                'mailformat' => $userData['mailformat'] ?? null,
+                'theme' => $userData['theme'] ?? null
+            ];
+
+            // Remover campos null para enviar solo los campos que se quieren actualizar
+            $userToUpdate = array_filter($userToUpdate, function ($value) {
+                return $value !== null;
+            });
+
+            // Construir parámetros para la API
+            $params = [
+                'users' => [$userToUpdate]
+            ];
+
+            // Construir URL para la API
+            $serverUrl = $this->endpoint
+                . '?wstoken=' . $this->token
+                . '&wsfunction=' . $wsfunction
+                . '&moodlewsrestformat=' . $this->restFormat;
+
+            // Realizar la petición
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => $serverUrl,
+                CURLOPT_POST => true,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POSTFIELDS => http_build_query($params),
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_TIMEOUT => 30
+            ]);
+
+            $response = curl_exec($curl);
+            $errorInfo = "";
+            $result = null;
+
+            if ($response === false) {
+                $errorInfo = 'Error cURL: ' . curl_error($curl);
+            } else {
+                $result = json_decode($response, true);
+
+                // Verificar si hay errores en la respuesta
+                if (isset($result['exception'])) {
+                    $errorInfo = 'Error al actualizar usuario: ' . ($result['message'] ?? 'Error desconocido')
+                        . ' (Código: ' . ($result['errorcode'] ?? 'N/A') . ')';
+                } elseif (isset($result['warnings']) && !empty($result['warnings'])) {
+                    // Si hay warnings, considerarlo como error
+                    $warnings = array_map(function ($warning) {
+                        return $warning['message'] ?? 'Warning desconocido';
+                    }, $result['warnings']);
+                    $errorInfo = 'Warnings al actualizar usuario: ' . implode(', ', $warnings);
+                }
+            }
+
+            curl_close($curl);
+
+            // Preparar respuesta
+            return [
+                "success" => empty($errorInfo),
+                "error" => $errorInfo,
+                "originalData" => $result,
+                "userInfo" => [
+                    "userId" => $userData['id'],
+                    "updatedFields" => array_keys($userToUpdate),
+                    "fieldCount" => count($userToUpdate)
+                ]
+            ];
+
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "error" => "Excepción: " . $e->getMessage(),
+                "originalData" => null,
+                "userInfo" => null
+            ];
+        }
+    }
+
+    /**
+     * Elimina un usuario de Moodle por su ID
+     *
+     * Ejemplo de uso:
+     * $moodle = new \App\Libraries\Moodle();
+     * $result = $moodle->deleteUser(123);
+     * if ($result['success']) {
+     *     echo "Usuario eliminado exitosamente";
+     * } else {
+     *     echo "Error: " . $result['error'];
+     * }
+     *
+     * @param int $userId ID del usuario en Moodle
+     * @return array Array con success, error, originalData y userInfo
+     */
+    function deleteUser(int $userId): array
+    {
+        $wsfunction = 'core_user_delete_users';
+
+        try {
+            // Validar que el ID del usuario sea válido
+            if ($userId <= 0) {
+                return [
+                    "success" => false,
+                    "error" => "ID de usuario inválido: $userId",
+                    "originalData" => null,
+                    "userInfo" => null
+                ];
+            }
+
+            // Construir parámetros para la API
+            $params = [
+                'userids' => [$userId]
+            ];
+
+            // Construir URL para la API
+            $serverUrl = $this->endpoint
+                . '?wstoken=' . $this->token
+                . '&wsfunction=' . $wsfunction
+                . '&moodlewsrestformat=' . $this->restFormat;
+
+            // Realizar la petición
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => $serverUrl,
+                CURLOPT_POST => true,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POSTFIELDS => http_build_query($params),
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_TIMEOUT => 30
+            ]);
+
+            $response = curl_exec($curl);
+            $errorInfo = "";
+            $result = null;
+
+            if ($response === false) {
+                $errorInfo = 'Error cURL: ' . curl_error($curl);
+            } else {
+                $result = json_decode($response, true);
+
+                // Verificar si hay errores en la respuesta
+                if (isset($result['exception'])) {
+                    $errorInfo = 'Error al eliminar usuario: ' . ($result['message'] ?? 'Error desconocido')
+                        . ' (Código: ' . ($result['errorcode'] ?? 'N/A') . ')';
+                } elseif (isset($result['warnings']) && !empty($result['warnings'])) {
+                    // Si hay warnings, considerarlo como error
+                    $warnings = array_map(function ($warning) {
+                        return $warning['message'] ?? 'Warning desconocido';
+                    }, $result['warnings']);
+                    $errorInfo = 'Warnings al eliminar usuario: ' . implode(', ', $warnings);
+                } elseif ($result === null || $result === []) {
+                    // Respuesta vacía significa éxito en eliminación
+                    $errorInfo = "";
+                } else {
+                    $errorInfo = 'Respuesta inesperada de Moodle al eliminar usuario';
+                }
+            }
+
+            curl_close($curl);
+
+            if (empty($errorInfo)) {
+                return [
+                    "success" => true,
+                    "error" => null,
+                    "originalData" => $result,
+                    "userInfo" => [
+                        "userId" => $userId,
+                        "deleted" => true
+                    ]
+                ];
+            } else {
+                return [
+                    "success" => false,
+                    "error" => $errorInfo,
+                    "originalData" => $result,
+                    "userInfo" => null
+                ];
+            }
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "error" => "Excepción: " . $e->getMessage(),
+                "originalData" => null,
+                "userInfo" => null
+            ];
+        }
+    }
 }
 
 ?>

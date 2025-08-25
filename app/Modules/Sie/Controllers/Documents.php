@@ -37,6 +37,8 @@ class Documents extends ResourceController
         $this->oid = $oid;
         if ($oid == "grade") {
             return (view("App\Modules\Sie\Views\Certifications\Transcript\index", $this->get_Array()));
+        } elseif ($oid == "history") {
+            return (view("App\Modules\Sie\Views\Certifications\History\index", $this->get_Array()));
         } else {
             echo("Seleccione un tipo de documento..");
         }
