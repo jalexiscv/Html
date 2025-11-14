@@ -1,0 +1,91 @@
+.higgs-tabs {
+    border-bottom: none;
+}
+
+.tabs-nav-link {
+    border: 1px solid #d4dae8 !important;
+    border-top-left-radius: .25rem !important;
+    border-top-right-radius: .25rem !important;
+    display: block;
+    padding: .5rem 1rem;
+    background-color: #e3e8f4;
+    color: #9099b759;
+}
+
+.nav-link.active {
+    color: #3d3f54b0;
+    background-color: #f5f7fc;
+    border-bottom-color: #f5f7fc !important;
+}
+
+
+.dark-mode .tabs-nav-link {
+    background: 0 0;
+    border: 1px solid #1a1e21 !important;
+    border-top-left-radius: .25rem !important;
+    border-top-right-radius: .25rem !important;
+    display: block;
+    padding: .5rem 1rem;
+    background-color: #6c757d29;
+    color: #0a0b0c;
+}
+
+
+.higgs-tabs {
+    border-bottom: none;
+}
+
+
+.dark-mode .tabs-nav-link {
+    background: 0 0;
+    border: 1px solid #1a1e21 !important;
+    border-top-left-radius: .25rem !important;
+    border-top-right-radius: .25rem !important;
+    display: block;
+    padding: .5rem 1rem;
+    background-color: #6c757d29;
+    color: #0a0b0c;
+}
+
+
+.tabs-nav-link .active {
+    color: var(--primary-text);
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.dark-mode .tabs-tabs-content {
+    border: 1px solid #1a1e21;
+    top: 0px;
+    position: relative;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+
+.tabs-tabs-content {
+    border: 1px solid #d4dae8;
+    top: 0px;
+    position: relative;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+
+.dark-mode .tabs-tabs-content {
+    border: 1px solid #1a1e21;
+    top: 0px;
+    position: relative;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+
+.dark-mode .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: var(--bs-nav-tabs-link-active-color);
+    background-color: var(--nav-tabs-link-active-bg);
+    border-bottom-color: #212529 !important;
+}

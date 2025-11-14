@@ -1,0 +1,45 @@
+
+.execution-text-bg-primary {
+    color: #fff !important;
+    background-color: RGBA(var(--bs-primary-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
+.execution-text-bg-secondary {
+    color: #fff !important;
+    background-color: RGBA(var(--bs-secondary-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
+.execution-text-bg-success {
+    color: #fff !important;
+    background-color: RGBA(var(--bs-success-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
+.execution-text-bg-info {
+    color: #000 !important;
+    background-color: RGBA(var(--bs-info-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
+.execution-text-bg-warning {
+    color: #000 !important;
+    background-color: RGBA(var(--bs-warning-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
+.execution-text-bg-danger {
+    color: #fff !important;
+    background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
+.execution-text-bg-light {
+    color: #000 !important;
+    background-color: RGBA(var(--bs-light-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
+.execution-text-bg-dark {
+    color: #fff !important;
+    background-color: RGBA(var(--bs-dark-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
+.details {
+    font-family: 1rem;
+    line-height: 1rem;
+}

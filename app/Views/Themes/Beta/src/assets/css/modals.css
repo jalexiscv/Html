@@ -1,0 +1,134 @@
+/**
+ * Estilos para ventanas modales de Bootstrap 5
+ *
+ * Define el aspecto de las modales en modo claro y oscuro utilizando variables CSS.
+ */
+
+:root {
+    --modal-backdrop-bg: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--modal-bg);
+    border: 1px solid var(--modal-border-color);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    color: var(--text-color);
+}
+
+.modal-header {
+    background-color: var(--modal-header-bg);
+    border-bottom: 1px solid var(--modal-header-border-color);
+    color: var(--text-color);
+}
+
+.modal-header .btn-close {
+    filter: var(--bs-btn-close-white-filter);
+}
+
+.modal-title {
+    color: var(--primary-color);
+}
+
+.modal-body {
+    background-color: var(--modal-bg);
+}
+
+.modal-footer {
+    background-color: var(--modal-footer-bg);
+    border-top: 1px solid var(--modal-footer-border-color);
+}
+
+/**
+ * Modo Oscuro
+ */
+.dark-mode .modal-content {
+    background-color: var(--modal-bg);
+    border-color: var(--modal-border-color);
+    color: var(--text-color);
+}
+
+.dark-mode .modal-header {
+    background-color: var(--modal-header-bg);
+    border-bottom-color: var(--modal-header-border-color);
+    color: var(--dark-cyan);
+}
+
+.dark-mode .modal-title {
+    color: var(--dark-cyan);
+}
+
+.dark-mode .modal-body {
+    background-color: var(--modal-bg);
+    color: var(--text-color);
+}
+
+.dark-mode .modal-footer {
+    background-color: var(--modal-footer-bg);
+    border-top-color: var(--modal-footer-border-color);
+}
+
+
+#higgs-options-modules .module-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+}
+
+#higgs-options-modules .module-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+#higgs-options-modules .module-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+
+#higgs-options-modules .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+#higgs-options-modules .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+#higgs-options-modules .card-title {
+    font-size: 12px;
+    color: #7e7e7e;
+}
+
+#higgs-options-modules .badge-module {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#higgs-options-modules .hidden {
+    display: none !important;
+}
+
+/* Animación para los resultados de búsqueda */
+#higgs-options-modules
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#higgs-options-modules .module-card.search-result {
+    animation: fadeIn 0.3s ease-in-out;
+}

@@ -1,0 +1,19 @@
+<?php
+// Set the correct header for CSS output
+header("Content-type: text/css; charset: UTF-8");
+
+// Define the directory we are in
+$cssDir = __DIR__;
+
+// Get all .css files in the directory
+$files = glob($cssDir . '/*.css');
+
+// Output the contents of each file
+foreach ($files as $file) {
+    // We don't want to include ourself, so we check the filename
+    if (basename($file) !== 'styles.php') {
+        echo "/* --- Start: " . basename($file) . " --- */\n";
+        readfile($file);
+        echo "\n/* --- End: " . basename($file) . " --- */\n\n";
+    }
+}

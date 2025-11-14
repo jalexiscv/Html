@@ -1,0 +1,25 @@
+{
+  "build_timestamp": 1760705414,
+  "version_hash": "8719000844",
+  "assets": {
+    "css": {
+      "css/combined.css": "01e1e6d437"
+    },
+    "js": {
+      "js/apexcharts.js": "19b1b5e920",
+      "js/crypt.js": "a7c53190ed",
+      "js/dashboard.js": "1db966907c",
+      "js/excel.js": "55623bc202",
+      "js/heatgraphs.js": "80899ed6bb",
+      "js/index.js": "7eb8b81c48",
+      "js/messenger.js": "11bb769926",
+      "js/modals.js": "becee6f80b",
+      "js/sidebarend.js": "bdc1240160",
+      "js/sidebarstart.js": "17e1d9e6d0",
+      "js/ui.js": "417325da92"
+    },
+    "images": {
+      "img/logo.png": "0c7138c32c"
+    }
+  }
+}

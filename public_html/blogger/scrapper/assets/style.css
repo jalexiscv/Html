@@ -1,0 +1,146 @@
+/* style.css - Estilos simples para el scrapper */
+:root {
+    --bg: #0f172a; /* slate-900 */
+    --fg: #e2e8f0; /* slate-200 */
+    --muted: #94a3b8; /* slate-400 */
+    --panel: #111827; /* gray-900 */
+    --accent: #22d3ee; /* cyan-400 */
+    --danger: #ef4444; /* red-500 */
+    --ok: #22c55e; /* green-500 */
+}
+
+* {
+    box-sizing: border-box
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 32px auto;
+    padding: 0 16px
+}
+
+h1 {
+    margin: 0 0 8px 0;
+    font-size: 28px
+}
+
+.muted {
+    color: var(--muted);
+    margin: 0 0 16px 0
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid #1f2937;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 16px
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--muted)
+}
+
+input[type="url"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #0b1220;
+    color: var(--fg)
+}
+
+.row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin: 10px 0 0 0
+}
+
+button {
+    background: linear-gradient(135deg, var(--accent), #60a5fa);
+    border: none;
+    color: #00111a;
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+    font-weight: 700;
+    cursor: pointer
+}
+
+button:hover {
+    filter: brightness(1.05)
+}
+
+.alert {
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin: 12px 0
+}
+
+.alert-error {
+    background: #3f1a1a;
+    border: 1px solid #7f1d1d;
+    color: #fecaca
+}
+
+.results {
+    margin-top: 16px
+}
+
+.grid {
+    display: grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid #1f2937;
+    border-radius: 10px;
+    padding: 14px
+}
+
+.thumbs {
+    display: grid;
+    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px
+}
+
+.thumbs img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #1f2937
+}
+
+.links {
+    list-style: none;
+    padding: 0;
+    margin: 0
+}
+
+.links li {
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+code {
+    background: #0b1220;
+    padding: 2px 6px;
+    border-radius: 6px;
+    color: #bae6fd
+}

@@ -1,0 +1,483 @@
+/**
+ * Bootstrap Tables CSS - Tema Beta
+ * Sistema de colores para modo claro y oscuro usando paleta Facebook
+ * Autor: Sistema de Temas Beta
+ * Fecha: 2025-09-02
+ */
+
+/* ===== VARIABLES CSS PARA TABLAS ===== */
+:root {
+    /* Colores base para tablas - Modo Claro (Facebook Light) */
+    --table-bg: #FFFFFF;
+    --table-color: #1C1E21;
+    --table-border-color: #DADDE1;
+    --table-striped-bg: #F0F2F5;
+    --table-hover-bg: #E4E6EA;
+    --table-active-bg: #D8DADF;
+
+    /* Colores de encabezado */
+    --table-head-bg: #F0F2F5;
+    --table-head-color: #1C1E21;
+    --table-head-border-color: #DADDE1;
+
+    /* Variantes de color */
+    --table-primary-bg: rgba(24, 119, 242, 0.1);
+    --table-primary-border: rgba(24, 119, 242, 0.2);
+    --table-success-bg: rgba(66, 184, 131, 0.1);
+    --table-success-border: rgba(66, 184, 131, 0.2);
+    --table-info-bg: rgba(66, 165, 245, 0.1);
+    --table-info-border: rgba(66, 165, 245, 0.2);
+    --table-warning-bg: rgba(255, 107, 53, 0.1);
+    --table-warning-border: rgba(255, 107, 53, 0.2);
+    --table-danger-bg: rgba(231, 76, 60, 0.1);
+    --table-danger-border: rgba(231, 76, 60, 0.2);
+}
+
+/* Modo Oscuro (Facebook Dark) - Usando clase dark-mode */
+.dark-mode {
+    --table-bg: #242526;
+    --table-color: #E4E6EA;
+    --table-border-color: #3A3B3C;
+    --table-striped-bg: #2D2E2F;
+    --table-hover-bg: #3A3B3C;
+    --table-active-bg: #404142;
+
+    /* Colores de encabezado oscuro */
+    --table-head-bg: #2D2E2F;
+    --table-head-color: #E4E6EA;
+    --table-head-border-color: #3A3B3C;
+
+    /* Variantes de color para modo oscuro */
+    --table-primary-bg: rgba(45, 136, 255, 0.15);
+    --table-primary-border: rgba(45, 136, 255, 0.25);
+    --table-success-bg: rgba(0, 200, 81, 0.15);
+    --table-success-border: rgba(0, 200, 81, 0.25);
+    --table-info-bg: rgba(66, 103, 178, 0.15);
+    --table-info-border: rgba(66, 103, 178, 0.25);
+    --table-warning-bg: rgba(255, 107, 53, 0.15);
+    --table-warning-border: rgba(255, 107, 53, 0.25);
+    --table-danger-bg: rgba(240, 40, 73, 0.15);
+    --table-danger-border: rgba(240, 40, 73, 0.25);
+}
+
+/* Forzar modo oscuro en tablas específicamente */
+.dark-mode .table,
+.dark-mode .table.table-striped,
+.dark-mode .table.table-bordered,
+.dark-mode .table.table-hover,
+.dark-mode .table.table-res,
+.dark-mode .table-hoverP-0,
+.dark-mode .table,
+.dark-mode .table.table-striped,
+.dark-mode .table.table-bordered {
+    /* Variables Bootstrap completas para modo oscuro */
+    --bs-table-color-type: initial;
+    --bs-table-bg-type: initial;
+    --bs-table-color-state: initial;
+    --bs-table-bg-state: initial;
+    --bs-table-color: #E4E6EA;
+    --bs-table-bg: #242526;
+    --bs-table-border-color: #3A3B3C;
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: #E4E6EA;
+    --bs-table-striped-bg: #2D2E2F;
+    --bs-table-active-color: #E4E6EA;
+    --bs-table-active-bg: #404142;
+    --bs-table-hover-color: #E4E6EA;
+    --bs-table-hover-bg: #3A3B3C;
+    /* Propiedades directas */
+    background-color: #242526;
+    color: #E4E6EA;
+    border-color: #3A3B3C;
+}
+
+/* Encabezados en modo oscuro */
+.dark-mode .table > thead > tr > th,
+.dark-mode .table.table-striped > thead > tr > th,
+.dark-mode .table.table-bordered > thead > tr > th,
+.dark-mode .table > thead > tr > th {
+    background-color: #2D2E2F;
+    color: #E4E6EA;
+    border-color: #3A3B3C;
+}
+
+/* Celdas en modo oscuro */
+.dark-mode .table > tbody > tr > td,
+.dark-mode .table.table-striped > tbody > tr > td,
+.dark-mode .table.table-bordered > tbody > tr > td,
+.dark-mode .table > tbody > tr > td {
+    background-color: #242526;
+    color: #E4E6EA;
+    border-color: #3A3B3C;
+}
+
+/* Filas alternas en modo oscuro */
+.dark-mode .table-striped > tbody > tr:nth-of-type(odd) > td,
+.dark-mode .table.table-striped > tbody > tr:nth-of-type(odd) > td,
+.dark-mode .table-striped > tbody > tr:nth-of-type(odd) > td {
+    background-color: #2D2E2F;
+}
+
+/* Hover en modo oscuro */
+.dark-mode .table-hover > tbody > tr:hover > td,
+.dark-mode .table.table-hover > tbody > tr:hover > td,
+.dark-mode .table-hoverP-0 > tbody > tr:hover > td,
+.dark-mode .table-hover > tbody > tr:hover > td {
+    background-color: #3A3B3C;
+}
+
+/* ===== ESTILOS BASE PARA BOOTSTRAP TABLES ===== */
+
+/* Tabla base - Mayor especificidad para sobrescribir estilos por defecto */
+.table,
+.table.table-striped,
+.table.table-bordered,
+.table.table-hover,
+.table.table-res {
+    --bs-table-bg: var(--table-bg);
+    --bs-table-color: var(--table-color);
+    --bs-table-border-color: var(--table-border-color);
+    --bs-table-striped-bg: var(--table-striped-bg);
+    --bs-table-hover-bg: var(--table-hover-bg);
+    --bs-table-active-bg: var(--table-active-bg);
+
+    background-color: var(--bs-table-bg);
+    color: var(--bs-table-color);
+    border-color: var(--bs-table-border-color);
+}
+
+/* Encabezados de tabla - Mayor especificidad */
+.table > :not(caption) > * > *,
+.table.table-striped > :not(caption) > * > *,
+.table.table-bordered > :not(caption) > * > * {
+    border-bottom-color: var(--table-border-color);
+}
+
+.table > thead > tr > th,
+.table.table-striped > thead > tr > th,
+.table.table-bordered > thead > tr > th {
+    background-color: var(--table-head-bg);
+    color: var(--table-head-color);
+    border-bottom: 2px solid var(--table-head-border-color);
+    border-color: var(--table-border-color);
+    font-weight: 600;
+    padding: 0.25rem;
+}
+
+/* Celdas de tabla */
+.table > tbody > tr > td,
+.table.table-striped > tbody > tr > td,
+.table.table-bordered > tbody > tr > td {
+    padding: 0.25rem;
+    border-bottom: 1px solid var(--table-border-color);
+    border-color: var(--table-border-color);
+    background-color: var(--table-bg);
+    color: var(--table-color);
+}
+
+/* ===== VARIANTES DE TABLA ===== */
+
+/* Tabla rayada - Mayor especificidad */
+.table-striped > tbody > tr:nth-of-type(odd) > td,
+.table-striped > tbody > tr:nth-of-type(odd) > th,
+.table.table-striped > tbody > tr:nth-of-type(odd) > td,
+.table.table-striped > tbody > tr:nth-of-type(odd) > th {
+    background-color: var(--table-striped-bg);
+}
+
+/* Tabla con hover - Incluyendo clase personalizada table-hoverP-0 */
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th,
+.table.table-hover > tbody > tr:hover > td,
+.table.table-hover > tbody > tr:hover > th,
+.table-hoverP-0 > tbody > tr:hover > td,
+.table-hoverP-0 > tbody > tr:hover > th {
+    background-color: var(--table-hover-bg);
+}
+
+/* Tabla con bordes */
+.table-bordered,
+.table.table-bordered {
+    border: 1px solid var(--table-border-color);
+}
+
+.table-bordered > :not(caption) > *,
+.table.table-bordered > :not(caption) > * {
+    border-width: 1px 0;
+    border-color: var(--table-border-color);
+}
+
+.table-bordered > :not(caption) > * > *,
+.table.table-bordered > :not(caption) > * > * {
+    border-width: 0 1px;
+    border-color: var(--table-border-color);
+}
+
+/* Tabla sin bordes */
+.table-borderless > :not(caption) > * > * {
+    border-bottom-width: 0;
+}
+
+/* ===== VARIANTES DE COLOR ===== */
+
+/* Tabla Primary */
+.table-primary {
+    --bs-table-bg: var(--table-primary-bg);
+    --bs-table-border-color: var(--table-primary-border);
+}
+
+/* Tabla Success */
+.table-success {
+    --bs-table-bg: var(--table-success-bg);
+    --bs-table-border-color: var(--table-success-border);
+}
+
+/* Tabla Info */
+.table-info {
+    --bs-table-bg: var(--table-info-bg);
+    --bs-table-border-color: var(--table-info-border);
+}
+
+/* Tabla Warning */
+.table-warning {
+    --bs-table-bg: var(--table-warning-bg);
+    --bs-table-border-color: var(--table-warning-border);
+}
+
+/* Tabla Danger */
+.table-danger {
+    --bs-table-bg: var(--table-danger-bg);
+    --bs-table-border-color: var(--table-danger-border);
+}
+
+/* ===== FILAS CON COLORES ===== */
+
+/* Fila Primary */
+.table > tbody > .table-primary > td,
+.table > tbody > .table-primary > th {
+    background-color: var(--table-primary-bg);
+    border-color: var(--table-primary-border);
+}
+
+/* Fila Success */
+.table > tbody > .table-success > td,
+.table > tbody > .table-success > th {
+    background-color: var(--table-success-bg);
+    border-color: var(--table-success-border);
+}
+
+/* Fila Info */
+.table > tbody > .table-info > td,
+.table > tbody > .table-info > th {
+    background-color: var(--table-info-bg);
+    border-color: var(--table-info-border);
+}
+
+/* Fila Warning */
+.table > tbody > .table-warning > td,
+.table > tbody > .table-warning > th {
+    background-color: var(--table-warning-bg);
+    border-color: var(--table-warning-border);
+}
+
+/* Fila Danger */
+.table > tbody > .table-danger > td,
+.table > tbody > .table-danger > th {
+    background-color: var(--table-danger-bg);
+    border-color: var(--table-danger-border);
+}
+
+/* ===== TABLA OSCURA ===== */
+.table-dark {
+    --bs-table-bg: #242526;
+    --bs-table-color: #E4E6EA;
+    --bs-table-border-color: #3A3B3C;
+    --bs-table-striped-bg: #2D2E2F;
+    --bs-table-hover-bg: #3A3B3C;
+    --bs-table-active-bg: #404142;
+}
+
+.table-dark > thead > tr > th {
+    background-color: #2D2E2F;
+    color: #E4E6EA;
+    border-bottom-color: #3A3B3C;
+}
+
+/* ===== TABLA CLARA ===== */
+.table-light {
+    --bs-table-bg: #F0F2F5;
+    --bs-table-color: #1C1E21;
+    --bs-table-border-color: #DADDE1;
+    --bs-table-striped-bg: #E4E6EA;
+    --bs-table-hover-bg: #D8DADF;
+    --bs-table-active-bg: #CED0D4;
+}
+
+/* ===== RESPONSIVIDAD ===== */
+
+/* Contenedor responsivo */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Tabla pequeña */
+.table-sm > :not(caption) > * > * {
+    padding: 0.25rem;
+}
+
+/* ===== MEJORAS ADICIONALES ===== */
+
+/* Transiciones suaves */
+.table > tbody > tr {
+    transition: background-color 0.15s ease-in-out;
+}
+
+/* Scroll personalizado para tablas responsivas */
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: var(--table-striped-bg);
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: var(--table-border-color);
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: var(--table-hover-bg);
+}
+
+/* Alineación de texto en celdas */
+.table .text-center {
+    text-align: center;
+}
+
+.table .text-end {
+    text-align: right;
+}
+
+.table .text-start {
+    text-align: left;
+}
+
+/* Estilos de botones movidos a buttons.css */
+
+/* ===== ESTILOS ESPECÍFICOS PARA CLASES PERSONALIZADAS ===== */
+
+/* Clase table-res (responsive personalizada) */
+.table-res {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: var(--table-bg);
+    color: var(--table-color);
+}
+
+/* Clase table-hoverP-0 (hover personalizado con padding 0) */
+.table-hoverP-0 {
+    padding: 0;
+    margin: 0;
+}
+
+/* Combinación específica para la tabla del usuario */
+.table.table-striped.table-bordered.table-res.table-hoverP-0 {
+    background-color: var(--table-bg);
+    color: var(--table-color);
+    border-color: var(--table-border-color);
+}
+
+.table.table-striped.table-bordered.table-res.table-hoverP-0 > thead > tr > th {
+    background-color: var(--table-head-bg);
+    color: var(--table-head-color);
+    border-color: var(--table-border-color);
+}
+
+.table.table-striped.table-bordered.table-res.table-hoverP-0 > tbody > tr > td {
+    background-color: var(--table-bg);
+    color: var(--table-color);
+    border-color: var(--table-border-color);
+}
+
+.table.table-striped.table-bordered.table-res.table-hoverP-0 > tbody > tr:nth-of-type(odd) > td {
+    background-color: var(--table-striped-bg);
+}
+
+.table.table-striped.table-bordered.table-res.table-hoverP-0 > tbody > tr:hover > td {
+    background-color: var(--table-hover-bg);
+}
+
+/* Forzar modo oscuro en la tabla específica del usuario */
+.dark-mode .table.table-striped.table-bordered.table-res.table-hoverP-0,
+.dark-mode .table.table-striped.table-bordered.table-res.table-hoverP-0 {
+    /* Variables Bootstrap completas para la tabla específica */
+    --bs-table-color-type: initial;
+    --bs-table-bg-type: initial;
+    --bs-table-color-state: initial;
+    --bs-table-bg-state: initial;
+    --bs-table-color: #E4E6EA;
+    --bs-table-bg: #242526;
+    --bs-table-border-color: #3A3B3C;
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: #E4E6EA;
+    --bs-table-striped-bg: #2D2E2F;
+    --bs-table-active-color: #E4E6EA;
+    --bs-table-active-bg: #404142;
+    --bs-table-hover-color: #E4E6EA;
+    --bs-table-hover-bg: #3A3B3C;
+
+    /* Propiedades directas */
+    background-color: #242526;
+    color: #E4E6EA;
+    border-color: #3A3B3C;
+}
+
+.dark-mode .table.table-striped.table-bordered.table-res.table-hoverP-0 > thead > tr > th,
+.dark-mode .table.table-striped.table-bordered.table-res.table-hoverP-0 > thead > tr > th {
+    background-color: #2D2E2F;
+    color: #E4E6EA;
+    border-color: #3A3B3C;
+}
+
+.dark-mode .table.table-striped.table-bordered.table-res.table-hoverP-0 > tbody > tr > td,
+.dark-mode .table.table-striped.table-bordered.table-res.table-hoverP-0 > tbody > tr > td {
+    background-color: #242526;
+    color: #E4E6EA;
+    border-color: #3A3B3C;
+}
+
+.dark-mode .table.table-striped.table-bordered.table-res.table-hoverP-0 > tbody > tr:nth-of-type(odd) > td,
+.dark-mode .table.table-striped.table-bordered.table-res.table-hoverP-0 > tbody > tr:nth-of-type(odd) > td {
+    background-color: #2D2E2F;
+}
+
+.dark-mode .table.table-striped.table-bordered.table-res.table-hoverP-0 > tbody > tr:hover > td,
+.dark-mode .table.table-striped.table-bordered.table-res.table-hoverP-0 > tbody > tr:hover > td {
+    background-color: #3A3B3C;
+}
+
+/* ===== CONTENEDOR RESPONSIVO ESPECÍFICO ===== */
+#container-grid-default-68b718d7825d5,
+.table-responsive {
+    background-color: transparent;
+    border: none;
+}
+
+/* Estados de carga */
+.table-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.table-loading tbody::after {
+    content: "Cargando...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-style: italic;
+    color: var(--table-color);
+}

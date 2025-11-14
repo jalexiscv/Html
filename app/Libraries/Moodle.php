@@ -12,13 +12,13 @@ class Moodle
      * Token de acceso a la API de Moodle
      * @var string
      */
-    private string $token;
+    private static string $token;
 
     /**
      * Dominio de la instancia de Moodle
      * @var string
      */
-    private string $domainName;
+    private static string $domainName;
 
     /**
      * Formato de respuesta de la API
@@ -35,14 +35,58 @@ class Moodle
     /**
      * Constructor de la clase Moodle
      * Inicializa las propiedades de configuración
+     * service("moodle")::getToken()
+     * service("moodle")::getDomainName()
      */
     public function __construct()
     {
-        $this->token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-        $this->domainName = 'https://campus.utede.edu.co';
+        self::$token = "";
+        self::$domainName = "";
         $this->restFormat = 'json';
-        $this->endpoint = rtrim($this->domainName, '/') . '/webservice/rest/server.php';
+        $this->endpoint = '';
+        $this->init();
     }
+
+    public function init(): void
+    {
+        $msettings = model('App\Modules\Sie\Models\Sie_Settings');
+        $token = $msettings->getSetting("MOODLE-TOKEN");
+        $domainName = $msettings->getSetting("MOODLE-URL");
+        $this->setToken(@$token["value"]);
+        $this->setDomainName(@$domainName["value"]);
+        $this->endpoint = rtrim(self::$domainName, '/') . '/webservice/rest/server.php';
+    }
+
+
+    public static function getToken()
+    {
+        return self::$token;
+    }
+
+    public static function getDomainName()
+    {
+        return self::$domainName;
+    }
+
+    public function setToken($token)
+    {
+        if (!is_null($token)) {
+            self::$token = $token;
+        } else {
+            self::$token = "";
+        }
+
+    }
+
+    public function setDomainName($domain)
+    {
+        if (!is_null($domain)) {
+            self::$domainName = $domain;
+        } else {
+            self::$domainName = "";
+        }
+    }
+
 
     /**
      * Obtiene el ID de un curso por su shortname
@@ -63,7 +107,7 @@ class Moodle
         // Parámetros de conexión configurados directamente en la función
         $wsfunction = "core_course_get_courses_by_field";
         $postFields = [
-            'wstoken' => $this->token,
+            'wstoken' => self::$token,
             'wsfunction' => $wsfunction,
             'moodlewsrestformat' => $this->restFormat,
             'field' => 'shortname',
@@ -137,7 +181,7 @@ class Moodle
         // Parámetros de conexión configurados directamente en la función
         $wsfunction = "core_course_create_courses";
         $postFields = [
-            'wstoken' => $this->token,
+            'wstoken' => self::$token,
             'wsfunction' => $wsfunction,
             'moodlewsrestformat' => $this->restFormat
         ];
@@ -290,7 +334,7 @@ class Moodle
 
             // Construir URL para la API
             $serverUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $wsfunction
                 . '&moodlewsrestformat=' . $this->restFormat;
 
@@ -389,10 +433,15 @@ class Moodle
             $mcourses = model("App\Modules\Sie\Models\Sie_Courses");
             $mmodules = model("App\Modules\Sie\Models\Sie_Modules");
             $mpensums = model("App\Modules\Sie\Models\Sie_Pensums");
-
+            $mnetworks = model("App\Modules\Sie\Models\Sie_Networks");
+            $msubsectors = model("App\Modules\Sie\Models\Sie_Subsectors");
             // Obtener información del curso
-            $course = $mcourses->get_Course($courseCode);
+            $course = $mcourses->getCourse($courseCode);
+            //echo(safe_dump($course));
+
+
             if (!$course) {
+                //echo(safe_dump($course));
                 return [
                     "success" => false,
                     "clonedCourseId" => "",
@@ -402,6 +451,8 @@ class Moodle
             }
 
             $pensum = $mpensums->get_Pensum($course["pensum"]);
+            //echo(safe_dump($pensum));
+
             if (!$pensum) {
                 return [
                     "success" => false,
@@ -412,6 +463,7 @@ class Moodle
             }
 
             $module = $mmodules->get_Module($pensum["module"]);
+            //echo(safe_dump($module));
             if (!$module) {
                 return [
                     "success" => false,
@@ -420,27 +472,10 @@ class Moodle
                     "originalData" => null
                 ];
             }
-
-            $red = $module["red"];
-            $subsector = $module["subsector"];
-
+            $red = @$module["network"];
+            $subsector = $msubsectors->getSubsector($module["subsector"]);
             // Determinar el curso plantilla a clonar según subsector/red
-            $clonar = "";
-            if ($subsector == "SBM") {
-                $clonar = "577"; // Módulo base red de transformación productiva - Subsector minería
-            } elseif ($subsector == "SBA") {
-                $clonar = "574"; // Módulo base red de transformación productiva - Subsector agrícola
-            } elseif ($subsector == "SBG") {
-                $clonar = "573"; // Módulo base red de arte, ocio y recreación - Subsector Gastronomía
-            } elseif ($subsector == "SBS") {
-                $clonar = "572"; // Módulo base red de arte, ocio y recreación - Subsector software
-            } elseif ($subsector == "SBE") {
-                $clonar = "571"; // Módulo base red de agregación de valor - Subsector empresarial
-            } elseif ($red == "F") {
-                $clonar = "576"; // Módulo base fundamentación
-            } elseif ($red == "EI") {
-                $clonar = "575"; // Módulo base red de escuela de idiomas
-            }
+            $clonar = $subsector["moodle_course_base"];
 
             if (empty($clonar)) {
                 return [
@@ -458,7 +493,7 @@ class Moodle
 
             // Construir URL para la API
             $serverUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $wsfunction
                 . '&moodlewsrestformat=' . $this->restFormat;
 
@@ -558,7 +593,7 @@ class Moodle
 
             // Construir URL para la API
             $serverUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $wsfunction
                 . '&moodlewsrestformat=' . $this->restFormat
                 . '&' . http_build_query($params);
@@ -663,7 +698,7 @@ class Moodle
             ]);
 
             $getUserUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $getUserFunction
                 . '&moodlewsrestformat=' . $this->restFormat
                 . '&' . $searchParams;
@@ -708,7 +743,7 @@ class Moodle
             ]);
 
             $unenrollUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $unenrollFunction
                 . '&moodlewsrestformat=' . $this->restFormat;
 
@@ -805,7 +840,7 @@ class Moodle
             // 1. Obtener todos los usuarios enrollados en el curso con rol de profesor
             $getEnrolledFunction = 'core_enrol_get_enrolled_users';
             $getEnrolledUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $getEnrolledFunction
                 . '&moodlewsrestformat=' . $this->restFormat
                 . '&courseid=' . $courseId;
@@ -945,7 +980,7 @@ class Moodle
             ]);
 
             $getUserUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $getUserFunction
                 . '&moodlewsrestformat=' . $this->restFormat
                 . '&' . $searchParams;
@@ -990,7 +1025,7 @@ class Moodle
             ]);
 
             $unenrollUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $unenrollFunction
                 . '&moodlewsrestformat=' . $this->restFormat;
 
@@ -1089,7 +1124,7 @@ class Moodle
             ]);
 
             $getUserUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $getUserFunction
                 . '&moodlewsrestformat=' . $this->restFormat
                 . '&' . $searchParams;
@@ -1135,7 +1170,7 @@ class Moodle
             ]);
 
             $enrollUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $enrollFunction
                 . '&moodlewsrestformat=' . $this->restFormat;
 
@@ -1257,7 +1292,7 @@ class Moodle
             ]);
 
             $getUserUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $getUserFunction
                 . '&moodlewsrestformat=' . $this->restFormat
                 . '&' . $searchParams;
@@ -1306,7 +1341,7 @@ class Moodle
             ]);
 
             $enrollUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $enrollFunction
                 . '&moodlewsrestformat=' . $this->restFormat
                 . '&' . $enrollParams;
@@ -1448,7 +1483,7 @@ class Moodle
 
             // Construir URL para la API
             $serverUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $wsfunction
                 . '&moodlewsrestformat=' . $this->restFormat;
 
@@ -1569,7 +1604,7 @@ class Moodle
 
             // Construir URL para la API
             $getUserUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $wsfunction
                 . '&moodlewsrestformat=' . $this->restFormat
                 . '&' . $searchParams;
@@ -1722,7 +1757,7 @@ class Moodle
 
             // Construir URL para la API
             $serverUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $wsfunction
                 . '&moodlewsrestformat=' . $this->restFormat;
 
@@ -1821,7 +1856,7 @@ class Moodle
 
             // Construir URL para la API
             $serverUrl = $this->endpoint
-                . '?wstoken=' . $this->token
+                . '?wstoken=' . self::$token
                 . '&wsfunction=' . $wsfunction
                 . '&moodlewsrestformat=' . $this->restFormat;
 

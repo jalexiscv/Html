@@ -1,0 +1,110 @@
+<!-- Script de inicialización completa del modo oscuro -->
+<script>
+    (function () {
+        'use strict';
+
+        // Configuración del modo oscuro
+        const THEME_KEY = 'theme';
+        const DARK_CLASS = 'dark-mode';
+        const LOADING_CLASS = 'dark-mode-loading';
+        const LOADED_CLASS = 'dark-mode-loaded';
+
+        // Función para aplicar el tema
+        function applyTheme(isDark) {
+            const elements = [document.documentElement, document.body];
+
+            elements.forEach(element => {
+                if (isDark) {
+                    element.classList.add(DARK_CLASS);
+                } else {
+                    element.classList.remove(DARK_CLASS);
+                }
+            });
+
+            // Guardar preferencia
+            localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+
+            // Disparar evento personalizado
+            window.dispatchEvent(new CustomEvent('themeChanged', {
+                detail: {isDark: isDark}
+            }));
+        }
+
+        // Función para detectar preferencia del sistema
+        function getSystemPreference() {
+            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+
+        // Función para obtener tema actual
+        function getCurrentTheme() {
+            const saved = localStorage.getItem(THEME_KEY);
+            if (saved === 'dark') return true;
+            if (saved === 'light') return false;
+            return getSystemPreference();
+        }
+
+        // Función para alternar tema
+        function toggleTheme() {
+            const currentIsDark = document.body.classList.contains(DARK_CLASS);
+            applyTheme(!currentIsDark);
+        }
+
+        // Aplicar tema inicial
+        const initialTheme = getCurrentTheme();
+        applyTheme(initialTheme);
+
+        // Escuchar cambios en preferencias del sistema
+        if (window.matchMedia) {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            mediaQuery.addListener(function (e) {
+                // Solo aplicar si no hay preferencia manual guardada
+                const saved = localStorage.getItem(THEME_KEY);
+                if (!saved) {
+                    applyTheme(e.matches);
+                }
+            });
+        }
+
+        // Función para mostrar contenido cuando esté listo
+        function showContent() {
+            document.body.classList.remove(LOADING_CLASS);
+            document.body.classList.add(LOADED_CLASS);
+        }
+
+        // Mostrar contenido cuando DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', showContent);
+        } else {
+            showContent();
+        }
+
+        // Exponer funciones globalmente
+        window.themeManager = {
+            toggle: toggleTheme,
+            apply: applyTheme,
+            getCurrent: getCurrentTheme,
+            isDark: function () {
+                return document.body.classList.contains(DARK_CLASS);
+            }
+        };
+
+        // Función para inicializar botones de cambio de tema
+        function initThemeToggles() {
+            const toggleButtons = document.querySelectorAll('[data-theme-toggle]');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    toggleTheme();
+                });
+            });
+        }
+
+        // Inicializar cuando DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initThemeToggles);
+        } else {
+            initThemeToggles();
+        }
+
+    })();
+</script>

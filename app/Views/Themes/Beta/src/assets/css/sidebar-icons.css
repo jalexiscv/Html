@@ -1,0 +1,96 @@
+/**
+ * Estilos CSS para consistencia entre iconos Font Awesome y SVG en el sidebar
+ * 
+ * Este archivo asegura que ambos tipos de iconos tengan el mismo tamaño,
+ * espaciado y alineación visual en el menú del sidebar.
+ */
+
+/* Contenedor base para todos los iconos del sidebar */
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Estilos base para iconos Font Awesome */
+.sidebar-menu i[class*="fa-"] {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+/* Estilos base para iconos SVG */
+.sidebar-menu .menu-icon-svg {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    display: inline-block;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+/* Asegurar que el texto del menú se alinee correctamente */
+.sidebar-menu span {
+    flex: 1;
+    line-height: 1.2;
+}
+
+/* Hover effects consistentes */
+.sidebar-menu a:hover i[class*="fa-"],
+.sidebar-menu a:hover .menu-icon-svg {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Estados activos */
+.sidebar-menu a.active i[class*="fa-"],
+.sidebar-menu a.active .menu-icon-svg {
+    opacity: 1;
+    filter: brightness(1.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar-menu i[class*="fa-"],
+    .sidebar-menu .menu-icon-svg {
+        font-size: 14px;
+        width: 0.875em;
+        height: 0.875em;
+        margin-right: 0.375em;
+    }
+}
+
+/* Dark theme adjustments */
+@media (prefers-color-scheme: dark) {
+    .sidebar-menu .menu-icon-svg {
+        filter: invert(1) brightness(0.9);
+    }
+}
+
+/* Fallback para iconos que no cargan */
+.sidebar-menu .menu-icon-svg[src=""],
+.sidebar-menu .menu-icon-svg:not([src]) {
+    display: none;
+}
+
+.sidebar-menu .menu-icon-svg[src=""]:before,
+.sidebar-menu .menu-icon-svg:not([src]):before {
+    content: "\f111"; /* fa-circle */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    text-align: center;
+}

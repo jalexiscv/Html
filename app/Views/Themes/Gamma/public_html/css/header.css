@@ -1,0 +1,115 @@
+/* c:\xampp\htdocs\app\Views\Themes\Beta\src\assets\css\header.css */
+/* 1. Estilo Base del Header */
+.header {
+    height: var(--header-height);
+    background-color: #d6d9db;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    color: var(--theme-text-primary);
+}
+
+/* 2. Estructura y Columnas del Header */
+.header-left, .header-right {
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+}
+
+.header-left {
+    width: 250px;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-center {
+    flex: 1;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-right {
+    justify-content: flex-end;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 3. Componentes y Elementos Interactivos del Header */
+
+/* Agrupación de contenedores de componentes */
+.header .dropdown,
+.header .input-group,
+.header .btn-group {
+    height: 38px;
+    margin-right: 10px;
+}
+
+.header .input-group {
+    width: 300px;
+}
+
+/* Botones genéricos dentro del input-group */
+.header .input-group .btn {
+    border-color: rgba(255, 255, 255, var(--border-opacity));
+    color: white;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo unificado para botones outline-secondary */
+.header .btn-outline-secondary {
+    color: #1272b8;
+    border-color: white;
+    background-color: transparent;
+    height: 38px;
+    width: 38px; /* Ancho fijo para botones de icono */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Asegurar que el icono quede centrado */
+}
+
+.header .btn-outline-secondary:hover,
+.header .btn-outline-secondary:focus {
+    color: var(--primary-color);
+    background-color: white;
+    border-color: white;
+}
+
+/* 4. Elementos Misceláneos */
+.logo {
+    max-height: 64px;
+    width: auto !important;
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.header h4 {
+    color: white;
+}
+
+.header .dropdown-toggle::after {
+    color: white;
+}
+
+
+.dark-mode .header .btn-outline-secondary {
+    color: #1272b8;
+    border-color: #46494b;
+    background-color: transparent;
+    height: 38px;
+    width: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}

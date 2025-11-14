@@ -38,20 +38,24 @@ $code .= "\t\t</div>\n";
 $code .= "\t</div>\n";
 $code .= "\t<div class=\"card-body py-0 px-0\">\n";
 $code .= "\t\t<div class=\"card-content\">\n";
-$code .= "\t\t\t<div class=\"container easy-tree\">\n";
+$code .= "\t\t\t<div class=\"container easy-tree pt-3\">\n";
 $code .= "\t\t\t\t<ul>\n";
 
+$count = 0;
 foreach ($parents as $index => $parent) {
-    $category = $mcategories->getCategory($parent["category"]);
-    if (isset($parent['name'])) {
-        // Obtener el ID del padre del elemento anterior
-        $parentId = ($index > 0) ? $parents[$index - 1]['object'] : '';
-        $code .= "<li class=\"w-100\">";
-        $code .= "<span class=\"w-100\">\n";
-        $code .= "<span class=\"title\">{$category["name"]}: </span>\n";
-        $code .= "<a class=\"\" href=\"/standards/objects/list/{$parent['object']}?parent={$parentId}\" target=\"\">{$parent['name']}</a>\n";
-        $code .= "</span>\n";
-        $code .= "</li>\n";
+    $count++;
+    if ($count > 1) {
+        $category = $mcategories->getCategory($parent["category"]);
+        if (isset($parent['name'])) {
+            $prevId = ($index > 0) ? $parents[$index - 1]['object'] : '';
+            $prevName = ($index > 0) ? $parents[$index - 1]['name'] : 'Inicio';
+            $code .= "<li class=\"w-100\">";
+            $code .= "<span class=\"w-100\">\n";
+            //$code .= "<span class=\"title\">{$category["name"]}: </span>\n";
+            $code .= "<a class=\"\" href=\"/standards/objects/list/{$parent['object']}?parent={$prevId}\" target=\"\">{$prevName}</a>\n";
+            $code .= "</span>\n";
+            $code .= "</li>\n";
+        }
     }
 }
 

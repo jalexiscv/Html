@@ -1,0 +1,116 @@
+<!-- Sincronización de tema PHP con JavaScript -->
+<script>
+    (function () {
+        'use strict';
+
+        // Obtener tema del servidor (inyectado por PHP)
+        const serverTheme = window.serverTheme || 'auto';
+
+        // Sincronizar con localStorage
+        localStorage.setItem('theme', serverTheme);
+
+        // Función para cambiar tema via AJAX
+        function changeThemeOnServer(newTheme) {
+            return fetch('php/api/theme.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({theme: newTheme})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Recargar página para aplicar cambios del servidor
+                        window.location.reload();
+                    } else {
+                        console.error('Error al cambiar tema:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error de conexión:', error);
+                });
+        }
+
+        // API global para cambio de tema
+        window.phpThemeManager = {
+            setTheme: function (theme) {
+                changeThemeOnServer(theme);
+            },
+            setDark: function () {
+                changeThemeOnServer('dark');
+            },
+            setLight: function () {
+                changeThemeOnServer('light');
+            },
+            setAuto: function () {
+                changeThemeOnServer('auto');
+            },
+            toggle: function () {
+                const current = serverTheme;
+                const newTheme = (current === 'dark') ? 'light' : 'dark';
+                changeThemeOnServer(newTheme);
+            },
+            getCurrentTheme: function () {
+                return serverTheme;
+            },
+            isDark: function () {
+                return serverTheme === 'dark';
+            },
+            isLight: function () {
+                return serverTheme === 'light';
+            },
+            isAuto: function () {
+                return serverTheme === 'auto';
+            }
+        };
+
+        // Inicializar botones de cambio de tema
+        function initThemeButtons() {
+            // Botones de toggle
+            document.querySelectorAll('[data-theme-toggle]').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.phpThemeManager.toggle();
+                });
+            });
+
+            // Botones específicos
+            document.querySelectorAll('[data-theme-set]').forEach(button => {
+                const targetTheme = button.getAttribute('data-theme-set');
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.phpThemeManager.setTheme(targetTheme);
+                });
+            });
+
+            // Actualizar estado visual
+            updateButtonStates();
+        }
+
+        // Actualizar estado visual de botones
+        function updateButtonStates() {
+            document.querySelectorAll('[data-theme-set]').forEach(button => {
+                const targetTheme = button.getAttribute('data-theme-set');
+                const isActive = targetTheme === serverTheme;
+                button.classList.toggle('active', isActive);
+            });
+
+            // Actualizar iconos de toggle
+            document.querySelectorAll('[data-theme-toggle]').forEach(button => {
+                const icon = button.querySelector('i, .icon');
+                if (icon) {
+                    icon.className = serverTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                }
+            });
+        }
+
+        // Inicializar cuando DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initThemeButtons);
+        } else {
+            initThemeButtons();
+        }
+
+    })();
+</script>

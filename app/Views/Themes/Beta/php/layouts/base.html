@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ${theme_data_attribute} lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>${title}</title>
+    {% include "partials/head.html" %}
+</head>
+<body class="${theme_body_class}">${theme_sync_script}
+{% include "partials/header.html" %}
+<!-- Contenedor principal con 3 columnas -->
+<div class="content-wrapper">
+    <!--[left-sidebar]-->
+    {% include "partials/left-sidebar.html" %}
+    <!--[/left-sidebar]-->
+    <!-- Contenido principal que viene de las páginas -->
+    <div class="main-content p-0" id="mainContent">
+        <div class="container pt-3">
+            {% include "partials/breadcrumb.html" %}
+            ${content}
+        </div>
+    </div>
+    <!--[right-sidebar]-->
+    {% include "partials/right-sidebar.html" %}
+    <!--[/right-sidebar]-->
+</div>
+<!-- Overlay para dispositivos móviles -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+{% include "partials/modals.html" %}
+{% include "partials/scripts.html" %}
+</body>
+</html> 

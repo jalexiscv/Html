@@ -1,0 +1,4 @@
+.alert .content {
+    font-size: var(--bs-body-font-size);
+    line-height: var(--bs-body-font-size);
+}  

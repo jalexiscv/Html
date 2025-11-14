@@ -1,5 +1,7 @@
 <?php
 // Option 1: Set time limit in seconds (0 means no limit)
+use App\Controllers\Firewall;
+
 set_time_limit(0);
 ini_set('max_execution_time', '300'); // 5 minutes
 
@@ -69,11 +71,9 @@ $app->initialize();
 $context = is_cli() ? 'php-cli' : 'web';
 $app->setContext($context);
 
-$controller = new \App\Controllers\Firewall();
+$controller = new Firewall();
 if ($controller->intercept()) {
-    //header("redirect: /e403.php");
-    header("Location: /e403.php");
-    //header("Location: /e403.php", true, 403);
+    header("Location: /e403.php", true, 403);
     exit();
 }
 $app->run();

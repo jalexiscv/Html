@@ -19,7 +19,7 @@ $json = view($uri, $data);
 //[build]---------------------------------------------------------------------------------------------------------------
 $assign = array();
 $assign['theme'] = "Higgs";
-$assign['main_template'] = safe_json($json, 'main_template', 'c8c4');
+$assign['main_template'] = safe_json($json, 'main_template', 'c9c3');
 $assign['breadcrumb'] = safe_json($json, 'breadcrumb');
 $assign['main'] = safe_json($json, 'main');
 $assign['left'] = get_workflow_sidebar();
@@ -46,6 +46,6 @@ $benchmark->stop('time');
 $assign['benchmark'] = $benchmark->getElapsedTime('time', 4);
 $assign['version'] = $version;
 //[print]---------------------------------------------------------------------------------------------------------------
-$template = view("App\Views\Themes\Higgs\index", $assign);
+$template = view("App\Views\Themes\Gamma\index", $assign);
 echo($template);
 ?>

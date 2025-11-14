@@ -47,7 +47,8 @@ foreach ($rows as $row) {
         $title = $row['name'];
         $percentage = @$row['value'];
         $subtitle = "$percentage";
-        $category = $mcategories->getCategory($row['category'])['name'];
+        $categoryData = $mcategories->getCategory($row['category']);
+        $category = is_array($categoryData) ? $categoryData['name'] : 'Sin categoría';
 
         $link_view = "$component/list/{$row["object"]}?parent={$row["object"]}";
         $link_edit = "$component/edit/{$row["object"]}";

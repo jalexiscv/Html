@@ -20,7 +20,7 @@ $mfields = model("App\Modules\Sgd\Models\Sgd_Users_Fields");
 
 $reference = isset($_GET['oid']) ? $_GET['oid'] : '0000000000';
 
-$registration = $mregistrations->get_Registration($reference);
+$registration = $mregistrations->getRegistration($reference);
 
 $profile_from = @$registration["from_name"];
 if (!empty($registration["from_user"])) {

@@ -1,0 +1,75 @@
+<div class="header d-flex">
+    <!-- Columna izquierda del encabezado -->
+    <div class="header-left px-3">
+        <a href="/">
+            <img alt="Logo" class="logo p-3" src="${logo_url}">
+        </a>
+    </div>
+
+    <!-- Columna central del encabezado -->
+    <div class="header-center">
+        <div class="d-flex align-items-center">
+            <button class="btn btn-sm btn-outline-secondary me-2 p-1" id="toggleLeftSidebar">
+                <i class="fas fa-bars  "></i>
+            </button>
+            <span class="ms-2">Dashboard</span>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <div class="input-group">
+                <input class="form-control" placeholder="Buscar..." type="text">
+                <button class="btn btn-outline-secondary  p-1" type="button">
+                    <i class="fas fa-search  "></i>
+                </button>
+            </div>
+
+            <!-- Botón de pantalla completa -->
+            <button class="btn btn-outline-secondary ms-2  p-1" id="fullscreenBtn">
+                <i class="fas fa-expand  "></i>
+            </button>
+
+            <button class="btn btn-outline-secondary ms-2 p-1"
+                    data-bs-target="#higgs-options-modules"
+                    data-bs-toggle="modal"
+                    id="modules">
+                <i class="fas fa-grid-2  "></i>
+            </button>
+            <!-- Botón de modo claro/oscuro (simplificado a un enlace) -->
+            {% if is_dark_theme %}
+            <a class="btn btn-outline-secondary ms-2  p-1" href="?theme=light" title="Cambiar a modo claro">
+                <i class="fas fa-sun  "></i>
+            </a>
+            {% else %}
+            <a class="btn btn-outline-secondary ms-2  p-1" href="?theme=dark" title="Cambiar a modo oscuro">
+                <i class="fas fa-moon  "></i>
+            </a>
+            {% endif %}
+
+            <!-- Botón de mensajes -->
+            <div class="dropdown ms-2">
+                <button class="btn btn-outline-secondary  p-1" data-bs-toggle="dropdown"
+                        id="messagesDropdown" type="button">
+                    <i class="fas fa-envelope  "></i>
+                    <span class="badge bg-danger rounded-pill">5</span>
+                </button>
+            </div>
+
+            <!-- Botón de notificaciones -->
+            <div class="dropdown ms-2">
+                <button class="btn btn-outline-secondary   p-1" data-bs-toggle="dropdown"
+                        id="notificationsDropdown" type="button">
+                    <i class="fas fa-bell  "></i>
+                    <span class="badge bg-danger rounded-pill">3</span>
+                </button>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary ms-2  p-1" id="toggleRightSidebar">
+                <i class="fas fa-arrow-left  "></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Columna derecha del encabezado -->
+    <div class="header-right">
+    </div>
+</div>

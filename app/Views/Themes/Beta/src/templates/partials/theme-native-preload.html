@@ -1,0 +1,26 @@
+<!-- Sistema nativo de temas sin FOUC usando data-theme en <html> -->
+<script>
+    (function () {
+        'use strict';
+
+        // Detectar preferencia de tema antes de que se renderice el body
+        function getThemePreference() {
+            // 1. Verificar localStorage primero
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark' || saved === 'light') {
+                return saved;
+            }
+
+            // 2. Si no hay preferencia guardada, usar 'auto' (CSS nativo)
+            return 'auto';
+        }
+
+        // Aplicar tema inmediatamente al <html>
+        const theme = getThemePreference();
+        if (theme !== 'auto') {
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+        // Si es 'auto', CSS nativo manejará con @media (prefers-color-scheme)
+
+    })();
+</script>

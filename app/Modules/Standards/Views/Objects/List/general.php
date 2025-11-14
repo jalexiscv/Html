@@ -117,7 +117,7 @@ foreach ($rows as $row) {
         );
     }
 }
-//[build]--------------------------------------------------------------------------------------------------------------
+//[build]---------------------------------------------------------------------------------------------------------------
 
 if (!empty($parent)) {
     $link_create = "/standards/objects/create/{$parent}" . "?parent=" . $parent;
@@ -134,15 +134,25 @@ if (!empty($parent)) {
 
 $object = $mobjects->get_Object($oid);
 
+$message = lang("Standards_Objects.list-message");
+$header_title = "Normas / Estándares";
+
+if (is_array($object)) {
+    $header_title = $object["name"];
+    if (!empty($object["description"])) {
+        $message = $object["description"];
+    }
+}
+
 $card = $bootstrap->get_Card2("card-grid", array(
-    "header-title" => @$object["name"],
+    "header-title" => $header_title,
     "header-back" => $link_back,
     "header-add" => $link_create,
     "alert" => array(
         "icon" => ICON_INFO,
         "type" => "info",
         "title" => "Descripción",
-        "message" => " " . @$object["description"]),
+        "message" => " " . $message),
     "content" => $bgrid,
 ));
 echo($card);

@@ -1,0 +1,202 @@
+<!-- Gestor de temas nativo mejorado -->
+<script>
+    (function () {
+        'use strict';
+
+        const THEME_KEY = 'theme';
+        const THEMES = {
+            AUTO: 'auto',
+            LIGHT: 'light',
+            DARK: 'dark'
+        };
+
+        // Clase para gestionar temas nativos
+        class NativeThemeManager {
+            constructor() {
+                this.currentTheme = this.getStoredTheme();
+                this.systemPrefersDark = this.getSystemPreference();
+                this.init();
+            }
+
+            getStoredTheme() {
+                const stored = localStorage.getItem(THEME_KEY);
+                return Object.values(THEMES).includes(stored) ? stored : THEMES.AUTO;
+            }
+
+            getSystemPreference() {
+                return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+
+            getEffectiveTheme() {
+                if (this.currentTheme === THEMES.AUTO) {
+                    return this.systemPrefersDark ? THEMES.DARK : THEMES.LIGHT;
+                }
+                return this.currentTheme;
+            }
+
+            applyTheme(theme) {
+                this.currentTheme = theme;
+
+                if (theme === THEMES.AUTO) {
+                    // Remover data-theme para usar CSS nativo
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.removeItem(THEME_KEY);
+                } else {
+                    // Aplicar tema específico
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem(THEME_KEY, theme);
+                }
+
+                // Disparar evento personalizado
+                this.dispatchThemeChange();
+
+                // *** INICIO DE LA MODIFICACIÓN ***
+                // Sincronizar con el servidor PHP recargando la página
+                const currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.set('theme', theme);
+                window.location.href = currentUrl.href;
+                // *** FIN DE LA MODIFICACIÓN ***
+            }
+
+            toggle() {
+                const effective = this.getEffectiveTheme();
+                const newTheme = effective === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK;
+                this.applyTheme(newTheme);
+            }
+
+            setAuto() {
+                this.applyTheme(THEMES.AUTO);
+            }
+
+            setLight() {
+                this.applyTheme(THEMES.LIGHT);
+            }
+
+            setDark() {
+                this.applyTheme(THEMES.DARK);
+            }
+
+            isDark() {
+                return this.getEffectiveTheme() === THEMES.DARK;
+            }
+
+            isLight() {
+                return this.getEffectiveTheme() === THEMES.LIGHT;
+            }
+
+            isAuto() {
+                return this.currentTheme === THEMES.AUTO;
+            }
+
+            dispatchThemeChange() {
+                const detail = {
+                    theme: this.currentTheme,
+                    effective: this.getEffectiveTheme(),
+                    isDark: this.isDark(),
+                    isLight: this.isLight(),
+                    isAuto: this.isAuto()
+                };
+
+                window.dispatchEvent(new CustomEvent('themeChanged', {detail}));
+            }
+
+            init() {
+                // Escuchar cambios en preferencias del sistema
+                if (window.matchMedia) {
+                    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+                    const handleSystemChange = (e) => {
+                        this.systemPrefersDark = e.matches;
+                        // Solo disparar evento si estamos en modo auto
+                        if (this.currentTheme === THEMES.AUTO) {
+                            this.dispatchThemeChange();
+                        }
+                    };
+
+                    // Usar addEventListener si está disponible, sino addListener
+                    if (mediaQuery.addEventListener) {
+                        mediaQuery.addEventListener('change', handleSystemChange);
+                    } else {
+                        mediaQuery.addListener(handleSystemChange);
+                    }
+                }
+
+                // Inicializar botones de cambio de tema
+                this.initThemeControls();
+            }
+
+            initThemeControls() {
+                // Botones de toggle simple
+                document.querySelectorAll('[data-theme-toggle]').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        alert('cambio de thema');
+                        this.toggle();
+                    });
+                });
+
+                // Botones específicos por tema
+                document.querySelectorAll('[data-theme-set]').forEach(button => {
+                    const targetTheme = button.getAttribute('data-theme-set');
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.applyTheme(targetTheme);
+                    });
+                });
+
+                // Actualizar estado visual de controles
+                this.updateControlsState();
+            }
+
+            updateControlsState() {
+                const effective = this.getEffectiveTheme();
+
+                // Actualizar botones activos
+                document.querySelectorAll('[data-theme-set]').forEach(button => {
+                    const targetTheme = button.getAttribute('data-theme-set');
+                    const isActive = (targetTheme === this.currentTheme) ||
+                        (targetTheme === effective && this.currentTheme === THEMES.AUTO);
+
+                    button.classList.toggle('active', isActive);
+                });
+
+                // Actualizar iconos de toggle
+                document.querySelectorAll('[data-theme-toggle]').forEach(button => {
+                    const icon = button.querySelector('i, .icon');
+                    if (icon) {
+                        icon.className = this.isDark() ? 'fas fa-sun' : 'fas fa-moon';
+                    }
+                });
+            }
+        }
+
+        // Inicializar cuando DOM esté listo
+        function initThemeManager() {
+            window.nativeThemeManager = new NativeThemeManager();
+
+            // Escuchar cambios de tema para actualizar controles
+            window.addEventListener('themeChanged', () => {
+                window.nativeThemeManager.updateControlsState();
+            });
+
+            // API de compatibilidad con sistema anterior
+            window.themeManager = {
+                toggle: () => window.nativeThemeManager.toggle(),
+                apply: (isDark) => window.nativeThemeManager.applyTheme(isDark ? THEMES.DARK : THEMES.LIGHT),
+                getCurrent: () => window.nativeThemeManager.isDark(),
+                isDark: () => window.nativeThemeManager.isDark(),
+                setAuto: () => window.nativeThemeManager.setAuto(),
+                setLight: () => window.nativeThemeManager.setLight(),
+                setDark: () => window.nativeThemeManager.setDark()
+            };
+        }
+
+        // Inicializar
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initThemeManager);
+        } else {
+            initThemeManager();
+        }
+
+    })();
+</script>

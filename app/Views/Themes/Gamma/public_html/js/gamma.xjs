@@ -1,0 +1,155 @@
+    // Referencias a elementos
+    const toggleSidebar = document.getElementById('toggleSidebar');
+    const toggleSidebarCollapsed = document.getElementById('toggleSidebarCollapsed');
+    const sidebar = document.getElementById('sidebar');
+    const headerLeft = document.getElementById('headerLeft');
+    const mainContent = document.getElementById('main-content');
+    
+    const toggleRightbar = document.getElementById('toggleRightbar');
+    const toggleRightbarCollapsed = document.getElementById('toggleRightbarCollapsed');
+    const rightbar = document.getElementById('rightbar');
+    const headerRight = document.getElementById('headerRight');
+    
+    const themeToggle = document.getElementById('themeToggle');
+    const fullscreenToggle = document.getElementById('fullscreenToggle');
+    const messagesBtn = document.getElementById('messagesBtn');
+    const notificationsBtn = document.getElementById('notificationsBtn');
+    const userProfileBtn = document.getElementById('userProfileBtn');
+    
+    // Toggle Sidebar - función compartida
+    function toggleSidebarFunction() {
+        sidebar.classList.toggle('collapsed');
+        headerLeft.classList.toggle('collapsed');
+        mainContent.classList.toggle('sidebar-collapsed');
+        
+        const isCollapsed = sidebar.classList.contains('collapsed');
+        localStorage.setItem('sidebarState', isCollapsed ? 'collapsed' : 'expanded');
+
+        // Mostrar/ocultar botones
+        if (isCollapsed) {
+            toggleSidebar.style.display = 'none';
+            toggleSidebarCollapsed.style.display = 'flex';
+        } else {
+            toggleSidebar.style.display = 'flex';
+            toggleSidebarCollapsed.style.display = 'none';
+        }
+    }
+    
+    // Eventos para ambos botones
+    toggleSidebar.addEventListener('click', toggleSidebarFunction);
+    toggleSidebarCollapsed.addEventListener('click', toggleSidebarFunction);
+    
+    // Toggle Rightbar - función compartida
+    function toggleRightbarFunction() {
+        rightbar.classList.toggle('collapsed');
+        headerRight.classList.toggle('collapsed');
+        mainContent.classList.toggle('rightbar-collapsed');
+        
+        const isCollapsed = rightbar.classList.contains('collapsed');
+        localStorage.setItem('rightbarState', isCollapsed ? 'collapsed' : 'expanded');
+
+        // Mostrar/ocultar botones
+        if (isCollapsed) {
+            toggleRightbar.style.display = 'none';
+            toggleRightbarCollapsed.style.display = 'flex';
+        } else {
+            toggleRightbar.style.display = 'flex';
+            toggleRightbarCollapsed.style.display = 'none';
+        }
+    }
+    
+    // Eventos para ambos botones del rightbar
+    toggleRightbar.addEventListener('click', toggleRightbarFunction);
+    toggleRightbarCollapsed.addEventListener('click', toggleRightbarFunction);
+    
+    // Theme Toggle (Dark/Light Mode)
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const icon = themeToggle.querySelector('i');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+    
+    // Cargar tema guardado
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.querySelector('i').classList.remove('fa-moon');
+        themeToggle.querySelector('i').classList.add('fa-sun');
+    }
+
+    // Cargar estado guardado de la barra lateral izquierda
+    const savedSidebarState = localStorage.getItem('sidebarState');
+    if (savedSidebarState === 'collapsed') {
+        sidebar.classList.add('collapsed');
+        headerLeft.classList.add('collapsed');
+        mainContent.classList.add('sidebar-collapsed');
+        toggleSidebar.style.display = 'none';
+        toggleSidebarCollapsed.style.display = 'flex';
+    }
+
+    // Cargar estado guardado de la barra lateral derecha
+    const savedRightbarState = localStorage.getItem('rightbarState');
+    if (savedRightbarState === 'collapsed') {
+        rightbar.classList.add('collapsed');
+        headerRight.classList.add('collapsed');
+        mainContent.classList.add('rightbar-collapsed');
+        toggleRightbar.style.display = 'none';
+        toggleRightbarCollapsed.style.display = 'flex';
+    }
+    
+    // Fullscreen Toggle
+    fullscreenToggle.addEventListener('click', () => {
+        const icon = fullscreenToggle.querySelector('i');
+        
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+            icon.classList.remove('fa-expand');
+            icon.classList.add('fa-compress');
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+                icon.classList.remove('fa-compress');
+                icon.classList.add('fa-expand');
+            }
+        }
+    });
+    
+    // Detectar salida de pantalla completa con ESC
+    document.addEventListener('fullscreenchange', () => {
+        const icon = fullscreenToggle.querySelector('i');
+        if (!document.fullscreenElement) {
+            icon.classList.remove('fa-compress');
+            icon.classList.add('fa-expand');
+        }
+    });
+    
+    // Botones de funcionalidad (mensajes, notificaciones, perfil)
+    messagesBtn.addEventListener('click', () => {
+        alert('Sistema de mensajes - 5 mensajes sin leer');
+        // Aquí puedes agregar la funcionalidad real
+    });
+    
+    notificationsBtn.addEventListener('click', () => {
+        alert('Notificaciones - 12 notificaciones nuevas');
+        // Aquí puedes agregar la funcionalidad real
+    });
+    
+
+    // Active menu items
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    const breadcrumb = document.querySelector('.breadcrumb');
+    
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            //e.preventDefault();
+        });
+    });

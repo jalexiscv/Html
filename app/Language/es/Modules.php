@@ -34,7 +34,7 @@ return [
     "NEXUS_MODULE_TITLE" => "Nexus",
     "ORGANIZATION_MODULE_TITLE" => "Organización",
     "ORGANIZATIONS_MODULE_TITLE" => "Organizaciones",
-    "PLANS_MODULE_TITLE" => "Planes",
+    "PLANS_MODULE_TITLE" => "Planes de Acción",
     "PLEX_MODULE_TITLE" => "Plex",
     "POLICIES_MODULE_TITLE" => "Políticas",
     "PRONAVICOLA_MODULE_TITLE" => "ProNavícola",
@@ -46,14 +46,14 @@ return [
     "SECURITY_MODULE_TITLE" => "Seguridad",
     "SEDUX_MODULE_TITLE" => "Sedux",
     "SETTINGS_MODULE_TITLE" => "Configuraciones",
-    "SGD_MODULE_TITLE" => "SGD",
+    "SGD_MODULE_TITLE" => "Gestión Documental",
     "SIAC_MODULE_TITLE" => "SIAC",
     "SIE_MODULE_TITLE" => "SIE",
     "SINT_MODULE_TITLE" => "SINT",
     "SOCIAL_MODULE_TITLE" => "Social",
     "SPA_MODULE_TITLE" => "SPA",
     "SPAADMIN_MODULE_TITLE" => "SPA Admin",
-    "STANDARDS_MODULE_TITLE" => "Estándares",
+    "STANDARDS_MODULE_TITLE" => "Normas / Estándares",
     "STORAGE_MODULE_TITLE" => "Almacenamiento",
     "TDP_MODULE_TITLE" => "TDP",
     "TEST_MODULE_TITLE" => "Pruebas",
@@ -62,6 +62,7 @@ return [
     "WORKFLOW_MODULE_TITLE" => "Flujo de Trabajo",
     "PROJECT_MODULE_TITLE" => "Proyectos",
     "MAINTENANCE_MODULE_TITLE" => "Mantenimientos",
+    "IRIS_MODULE_TITLE" => "IRIS",
 ];
 
 ?>

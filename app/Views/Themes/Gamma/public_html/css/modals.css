@@ -1,0 +1,216 @@
+/**
+ * Estilos para ventanas modales de Bootstrap 5
+ *
+ * Define el aspecto de las modales en modo claro y oscuro utilizando variables CSS.
+ */
+
+.modal {
+    --bs-modal-zindex: 1055;
+    --bs-modal-width: 500px;
+    --bs-modal-padding: 1rem;
+    --bs-modal-margin: 0.5rem;
+    --bs-modal-color: ;
+    --bs-modal-bg: var(--bs-body-bg);
+    --bs-modal-border-color: var(--bs-border-color-translucent);
+    --bs-modal-border-width: var(--bs-border-width);
+    --bs-modal-border-radius: var(--bs-border-radius-lg);
+    --bs-modal-box-shadow: var(--bs-box-shadow-sm);
+    --bs-modal-inner-border-radius: calc(var(--bs-border-radius-lg) - (var(--bs-border-width)));
+    --bs-modal-header-padding-x: 1rem;
+    --bs-modal-header-padding-y: 1rem;
+    --bs-modal-header-padding: 1rem 1rem;
+    --bs-modal-header-border-color: var(--bs-border-color);
+    --bs-modal-header-border-width: var(--bs-border-width);
+    --bs-modal-title-line-height: 1.5;
+    --bs-modal-footer-gap: 0.5rem;
+    --bs-modal-footer-bg: ;
+    --bs-modal-footer-border-color: var(--bs-border-color);
+    --bs-modal-footer-border-width: var(--bs-border-width);
+}
+
+.dark-mode {
+    --bs-modal-zindex: 1055;
+    --bs-modal-width: 500px;
+    --bs-modal-padding: 1rem;
+    --bs-modal-margin: 0.5rem;
+    --bs-modal-color: #dee2e6;
+    --bs-modal-bg: #212529;
+    --bs-modal-border-color: rgba(255, 255, 255, 0.15);
+    --bs-modal-border-width: var(--bs-border-width);
+    --bs-modal-border-radius: var(--bs-border-radius-lg);
+    --bs-modal-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+    --bs-modal-inner-border-radius: calc(var(--bs-border-radius-lg) - (var(--bs-border-width)));
+    --bs-modal-header-padding-x: 1rem;
+    --bs-modal-header-padding-y: 1rem;
+    --bs-modal-header-padding: 1rem 1rem;
+    --bs-modal-header-border-color: rgba(255, 255, 255, 0.15);
+    --bs-modal-header-border-width: var(--bs-border-width);
+    --bs-modal-title-line-height: 1.5;
+    --bs-modal-footer-gap: 0.5rem;
+    --bs-modal-footer-bg: ;
+    --bs-modal-footer-border-color: rgba(255, 255, 255, 0.15);
+    --bs-modal-footer-border-width: var(--bs-border-width);
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: var(--bs-modal-color);
+    pointer-events: auto;
+    background-color: var(--bs-modal-bg);
+    background-clip: padding-box;
+    border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+    border-radius: var(--bs-modal-border-radius);
+    outline: 0;
+}
+
+
+.modal-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding: var(--bs-modal-header-padding);
+    border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
+    border-top-left-radius: var(--bs-modal-inner-border-radius);
+    border-top-right-radius: var(--bs-modal-inner-border-radius);
+}
+
+.modal-header .btn-close {
+    filter: var(--bs-btn-close-white-filter);
+}
+
+.modal-title {
+    color: var(--primary-color);
+}
+
+.modal-body {
+    background-color: var(--bs-modal-bg);
+}
+
+.modal-footer {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: calc(var(--bs-modal-padding) - var(--bs-modal-footer-gap) * .5);
+    background-color: var(--bs-modal-footer-bg);
+    border-top: var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-border-color);
+    border-bottom-right-radius: var(--bs-modal-inner-border-radius);
+    border-bottom-left-radius: var(--bs-modal-inner-border-radius);
+}
+
+
+#higgs-options-modules .module-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+}
+
+#higgs-options-modules .module-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+#higgs-options-modules .module-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+
+#higgs-options-modules .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+#higgs-options-modules .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+#higgs-options-modules .card-title {
+    font-size: 12px;
+    color: #7e7e7e;
+}
+
+#higgs-options-modules .badge-module {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#higgs-options-modules .hidden {
+    display: none !important;
+}
+
+/* Animación para los resultados de búsqueda */
+#higgs-options-modules
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#higgs-options-modules .module-card.search-result {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+
+#higgs-options-modal .options-list {
+    list-style: none;
+    padding: 0;
+}
+
+#higgs-options-modal .options-list li {
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#higgs-options-modal .options-list li:last-child {
+    border-bottom: none;
+}
+
+#higgs-options-modal .options-list i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+#higgs-options-modal .options-list .text-danger {
+    color: #dc3545;
+}
+
+#higgs-options-modal .options-list a {
+    text-decoration: none;
+    color: #343a40;
+}
+
+#higgs-options-modal .options-list li:hover {
+    background-color: #f8f9fa;
+}
+
+#higgs-options-modal .options-list li {
+    border-bottom: 1px solid #eee;
+}
+
+.dark-mode #higgs-options-modal .options-list li:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode #higgs-options-modal .options-list li {
+    border-bottom: 1px solid #000000;
+}

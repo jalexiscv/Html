@@ -1,0 +1,158 @@
+/**
+ * Status Cards
+
+ */
+.card-status {
+    width: 164px;
+    height: 180px;
+    border: 1px solid;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.card-status:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-status.activo {
+    border-color: #28a745;
+}
+
+.card-status.cerrado {
+    border-color: #dc3545;
+}
+
+.card-status.cancelado {
+    border-color: #ffc107;
+}
+
+.card-status.pausado {
+    border-color: #6c757d;
+}
+
+.status-sidebar {
+    width: 35%;
+    height: 100%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+.status-sidebar.activo {
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.status-sidebar.cerrado {
+    background: linear-gradient(135deg, #dc3545, #e74c3c);
+}
+
+.status-sidebar.cancelado {
+    background: linear-gradient(135deg, #ffc107, #ffb300);
+}
+
+.status-sidebar.pausado {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+}
+
+.status-content {
+    width: 65%;
+    height: 100%;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.user-icon {
+    width: 60px;
+    height: 60px;
+    background: #6c757d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.status-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 0.5rem;
+    line-height: 1;
+}
+
+.status-label {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-top: 0;
+    text-align: center;
+}
+
+/* Diferentes tamaños */
+.card-status.small {
+    width: 150px;
+    height: 200px;
+}
+
+.card-status.large {
+    width: 250px;
+    height: 350px;
+}
+
+.card-status.large .user-icon {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+}
+
+.card-status.large .status-number {
+    font-size: 4rem;
+}
+
+/* Versión horizontal */
+.card-status.horizontal {
+    width: 300px;
+    height: 120px;
+    flex-direction: row;
+}
+
+.card-status.horizontal .status-sidebar {
+    width: 25%;
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 0.9rem;
+}
+
+.card-status.horizontal .status-content {
+    width: 75%;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.card-status.horizontal .user-icon {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 0;
+    margin-right: 1rem;
+}
+
+.card-status.horizontal .status-number {
+    font-size: 2rem;
+}

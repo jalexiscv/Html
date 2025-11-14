@@ -20,7 +20,7 @@ $mfields = model("App\Modules\Sgd\Models\Sgd_Users_Fields");
 $position = intval($request->getVar("position"));
 $number = $oid;
 
-$registration = $mregistrations->get_Registration($number);
+$registration = $mregistrations->getRegistration($number);
 
 
 $radication = ("https://benevalle.xn--cm-fka.co/sgd/external/view/{$number}");

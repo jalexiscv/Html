@@ -1,0 +1,148 @@
+<!-- Script de detección temprana del modo oscuro para evitar FOUC -->
+<script>
+    (function () {
+        // Función para detectar el modo oscuro desde localStorage o preferencias del sistema
+        function detectDarkMode() {
+            // Verificar localStorage primero
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                return true;
+            }
+            if (savedTheme === 'light') {
+                return false;
+            }
+
+            // Si no hay preferencia guardada, verificar preferencias del sistema
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return true;
+            }
+
+            return false;
+        }
+
+        // Aplicar modo oscuro inmediatamente si es necesario
+        if (detectDarkMode()) {
+            document.documentElement.classList.add('dark-mode');
+            document.body.classList.add('dark-mode');
+        }
+    })();
+</script>
+
+<!-- CSS crítico inline para modo oscuro -->
+<style>
+    /* CSS crítico para evitar FOUC en modo oscuro */
+    .dark-mode {
+        background-color: #18191A !important;
+        color: #E4E6EA !important;
+    }
+
+    .dark-mode body {
+        background-color: #18191A !important;
+        color: #E4E6EA !important;
+    }
+
+    /* Variables críticas para modo oscuro */
+    .dark-mode {
+        --bs-body-bg: #18191A;
+        --bs-body-color: #E4E6EA;
+        --bs-primary: #2D88FF;
+        --bs-secondary: #B0B3B8;
+        --bs-success: #00C851;
+        --bs-info: #4267B2;
+        --bs-warning: #FF6B35;
+        --bs-danger: #F02849;
+        --bs-light: #3A3B3C;
+        --bs-dark: #242526;
+    }
+
+    /* Tablas críticas para modo oscuro */
+    .dark-mode .table {
+        background-color: #242526 !important;
+        color: #E4E6EA !important;
+        border-color: #3A3B3C !important;
+    }
+
+    .dark-mode .table > thead > tr > th {
+        background-color: #2D2E2F !important;
+        color: #E4E6EA !important;
+        border-color: #3A3B3C !important;
+    }
+
+    .dark-mode .table > tbody > tr > td {
+        background-color: #242526 !important;
+        color: #E4E6EA !important;
+        border-color: #3A3B3C !important;
+    }
+
+    .dark-mode .table-striped > tbody > tr:nth-of-type(odd) > td {
+        background-color: #2D2E2F !important;
+    }
+
+    /* Cards críticas para modo oscuro */
+    .dark-mode .card {
+        background-color: #242526 !important;
+        color: #E4E6EA !important;
+        border-color: #3A3B3C !important;
+    }
+
+    .dark-mode .card-header {
+        background-color: #2D2E2F !important;
+        color: #E4E6EA !important;
+        border-color: #3A3B3C !important;
+    }
+
+    /* Sidebar crítico para modo oscuro */
+    .dark-mode .sidebar,
+    .dark-mode .left-sidebar {
+        background-color: #242526 !important;
+        color: #E4E6EA !important;
+    }
+
+    .dark-mode .sidebar-menu a {
+        color: #B0B3B8 !important;
+    }
+
+    .dark-mode .sidebar-menu a:hover {
+        background-color: #3A3B3C !important;
+        color: #E4E6EA !important;
+    }
+
+    /* Navbar crítico para modo oscuro */
+    .dark-mode .navbar {
+        background-color: #242526 !important;
+        border-color: #3A3B3C !important;
+    }
+
+    .dark-mode .navbar-brand,
+    .dark-mode .navbar-nav .nav-link {
+        color: #E4E6EA !important;
+    }
+
+    /* Botones críticos para modo oscuro */
+    .dark-mode .btn-primary {
+        background-color: #2D88FF !important;
+        border-color: #2D88FF !important;
+        color: #FFFFFF !important;
+    }
+
+    .dark-mode .btn-warning {
+        background-color: #FF6B35 !important;
+        border-color: #FF6B35 !important;
+        color: #FFFFFF !important;
+    }
+
+    .dark-mode .btn-danger {
+        background-color: #F02849 !important;
+        border-color: #F02849 !important;
+        color: #FFFFFF !important;
+    }
+
+    /* Ocultar contenido hasta que se cargue completamente */
+    .dark-mode-loading {
+        visibility: hidden;
+    }
+
+    .dark-mode-loaded {
+        visibility: visible;
+    }
+</style>
