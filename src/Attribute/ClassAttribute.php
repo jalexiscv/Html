@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Higgs\Html\Attribute;
 
+
+use Higgs\Html\Attribute\AbstractAttribute;
+
 /**
  * Class ClassAttribute
  * Maneja lógica específica para el atributo 'class', permitiendo arrays condicionales.
  */
-class ClassAttribute extends Attribute
+class ClassAttribute extends AbstractAttribute
 {
     /**
      * Procesa los valores permitiendo claves condicionales.

@@ -25,8 +25,12 @@ abstract class AbstractBaseHtmlTagObject
     protected function ensureFlatArray(array $data): array
     {
         $flat = [];
-        array_walk_recursive($data, function ($a) use (&$flat) {
-            $flat[] = $a;
+        array_walk_recursive($data, function ($a, $k) use (&$flat) {
+            if (is_string($k)) {
+                $flat[$k] = $a;
+            } else {
+                $flat[] = $a;
+            }
         });
         return $flat;
     }

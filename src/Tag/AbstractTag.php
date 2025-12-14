@@ -119,8 +119,20 @@ abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInter
      * @var array<string>
      */
     private const VOID_ELEMENTS = [
-        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 
-        'link', 'meta', 'param', 'source', 'track', 'wbr'
+        'area',
+        'base',
+        'br',
+        'col',
+        'embed',
+        'hr',
+        'img',
+        'input',
+        'link',
+        'meta',
+        'param',
+        'source',
+        'track',
+        'wbr'
     ];
 
     public function render(): string
@@ -146,7 +158,6 @@ abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInter
         }
 
         return $this;
-        return $this;
     }
 
     /**
@@ -161,7 +172,7 @@ abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInter
     {
         if (empty($arguments)) {
             // Get attribute value if no arguments
-             return $this->attributes[$name] ?? null;
+            return $this->attributes[$name] ?? null;
         }
 
         // Set attribute value
@@ -193,6 +204,4 @@ abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInter
         //return null === $return ?$return :htmlentities($return);
         return null === $return ? $return : htmlspecialchars($return, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
-
-
 }

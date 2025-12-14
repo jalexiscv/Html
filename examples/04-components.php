@@ -36,3 +36,25 @@ echo Html::video([
 ], 'poster.jpg', ['controls' => true, 'width' => 640]);
 
 echo "<hr>";
+
+echo "<h2>3. Tablas Dinámicas</h2>";
+
+$headers = ['ID', 'Nombre', 'Email'];
+$rows = [
+    ['1', 'Juan Perez', 'juan@example.com'],
+    ['2', 'Maria Lopez', 'maria@example.com'],
+];
+
+echo Html::table($headers, $rows, ['class' => 'table table-striped', 'border' => '1']);
+
+echo "<hr>";
+
+echo "<h2>4. Macros Personalizados</h2>";
+
+Html::macro('alert', function ($message, $type = 'info') {
+    return Html::div(['class' => "alert alert-{$type}", 'role' => 'alert'], $message);
+});
+
+echo Html::alert('Este es un mensaje de alerta personalizado!', 'success');
+echo "<br><br>";
+echo Html::alert('¡Algo salió mal!', 'danger');

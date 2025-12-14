@@ -205,4 +205,218 @@ trait HtmlElementsTrait
         }
         return self::tag($name, $attributes, $content);
     }
+
+    // --- HTML5 Structure Tags ---
+
+    public static function header(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('header', $attributes, $content);
+    }
+
+    public static function footer(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('footer', $attributes, $content);
+    }
+
+    public static function main(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('main', $attributes, $content);
+    }
+
+    public static function section(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('section', $attributes, $content);
+    }
+
+    public static function article(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('article', $attributes, $content);
+    }
+
+    public static function aside(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('aside', $attributes, $content);
+    }
+
+    public static function nav(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('nav', $attributes, $content);
+    }
+
+    // --- Headings ---
+
+    public static function h1(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('h1', $attributes, $content);
+    }
+
+    public static function h2(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('h2', $attributes, $content);
+    }
+
+    public static function h3(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('h3', $attributes, $content);
+    }
+
+    public static function h4(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('h4', $attributes, $content);
+    }
+
+    public static function h5(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('h5', $attributes, $content);
+    }
+
+    public static function h6(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('h6', $attributes, $content);
+    }
+
+    // --- Text Formatting & Utils ---
+
+    public static function strong(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('strong', $attributes, $content);
+    }
+
+    public static function em(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('em', $attributes, $content);
+    }
+
+    public static function small(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('small', $attributes, $content);
+    }
+
+    public static function blockquote(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('blockquote', $attributes, $content);
+    }
+
+    public static function pre(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('pre', $attributes, $content);
+    }
+
+    public static function code(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('code', $attributes, $content);
+    }
+
+    public static function br(array $attributes = []): TagInterface
+    {
+        return self::tag('br', $attributes);
+    }
+
+    public static function hr(array $attributes = []): TagInterface
+    {
+        return self::tag('hr', $attributes);
+    }
+
+    // --- Definition Lists ---
+
+    public static function dl(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('dl', $attributes, $content);
+    }
+
+    public static function dt(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('dt', $attributes, $content);
+    }
+
+    public static function dd(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('dd', $attributes, $content);
+    }
+
+    // --- Interactive ---
+
+    public static function details(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('details', $attributes, $content);
+    }
+
+    public static function summary(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('summary', $attributes, $content);
+    }
+
+    public static function dialog(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('dialog', $attributes, $content);
+    }
+
+    // --- System / Meta Helpers ---
+
+    public static function favicon(string $href, string $type = 'image/x-icon'): TagInterface
+    {
+        return self::link('icon', $href, ['type' => $type]);
+    }
+
+    public static function viewport(string $content = 'width=device-width, initial-scale=1.0'): TagInterface
+    {
+        return self::meta(['name' => 'viewport', 'content' => $content]);
+    }
+
+    // --- Form Structure ---
+
+    public static function fieldset(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('fieldset', $attributes, $content);
+    }
+
+    public static function legend(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('legend', $attributes, $content);
+    }
+
+    // --- Figures ---
+
+    public static function figure(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('figure', $attributes, $content);
+    }
+
+    public static function figcaption(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('figcaption', $attributes, $content);
+    }
+
+    // --- Embedded & Graphics ---
+
+    public static function iframe(string $src, array $attributes = []): TagInterface
+    {
+        $attributes['src'] = $src;
+        return self::tag('iframe', $attributes);
+    }
+
+    public static function canvas(array $attributes = [], mixed $content = null): TagInterface
+    {
+        return self::tag('canvas', $attributes, $content);
+    }
+
+    public static function progress(mixed $value = null, mixed $max = null, array $attributes = [], mixed $content = null): TagInterface
+    {
+        if ($value !== null) $attributes['value'] = $value;
+        if ($max !== null) $attributes['max'] = $max;
+        return self::tag('progress', $attributes, $content);
+    }
+
+    public static function meter(mixed $value = null, array $attributes = [], mixed $content = null): TagInterface
+    {
+        if ($value !== null) $attributes['value'] = $value;
+        return self::tag('meter', $attributes, $content);
+    }
+
+    // --- Style ---
+
+    public static function style(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('style', $attributes, $content);
+    }
 }

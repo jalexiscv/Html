@@ -19,7 +19,7 @@ trait HtmlFormTrait
     {
         $attributes['type'] = $type;
         $attributes['name'] = $name;
-        
+
         if ($value !== null) {
             $attributes['value'] = $value;
         }
@@ -104,11 +104,26 @@ trait HtmlFormTrait
         $attributes['name'] = $name;
         $optionTags = [];
 
-        foreach ($options as $value => $label) {
-            $optAttr = ['value' => $value];
-            
+        foreach ($options as $key => $label) {
+            // Soporte para Optgroups
+            if (is_array($label)) {
+                $groupOptions = [];
+                foreach ($label as $optValue => $optLabel) {
+                    $optAttr = ['value' => $optValue];
+                    if ((string)$optValue === (string)$selected) {
+                        $optAttr['selected'] = 'selected';
+                    }
+                    $groupOptions[] = self::tag('option', $optAttr, $optLabel);
+                }
+                $optionTags[] = self::tag('optgroup', ['label' => $key], $groupOptions);
+                continue;
+            }
+
+            // Opciones normales
+            $optAttr = ['value' => $key];
+
             // Comparación estricta puede fallar con números en strings, usamos comparacion suave segura
-            if ((string)$value === (string)$selected) {
+            if ((string)$key === (string)$selected) {
                 $optAttr['selected'] = 'selected';
             }
 
@@ -125,5 +140,52 @@ trait HtmlFormTrait
     {
         $attributes['for'] = $for;
         return self::tag('label', $attributes, $text);
+    }
+
+    // --- Extended Inputs ---
+
+    public static function file(string $name, array $attributes = []): TagInterface
+    {
+        return self::input('file', $name, null, $attributes);
+    }
+
+    public static function date(string $name, mixed $value = null, array $attributes = []): TagInterface
+    {
+        return self::input('date', $name, $value, $attributes);
+    }
+
+    public static function time(string $name, mixed $value = null, array $attributes = []): TagInterface
+    {
+        return self::input('time', $name, $value, $attributes);
+    }
+
+    public static function number(string $name, mixed $value = null, array $attributes = []): TagInterface
+    {
+        return self::input('number', $name, $value, $attributes);
+    }
+
+    public static function range(string $name, mixed $value = null, array $attributes = []): TagInterface
+    {
+        return self::input('range', $name, $value, $attributes);
+    }
+
+    public static function color(string $name, mixed $value = null, array $attributes = []): TagInterface
+    {
+        return self::input('color', $name, $value, $attributes);
+    }
+
+    public static function tel(string $name, mixed $value = null, array $attributes = []): TagInterface
+    {
+        return self::input('tel', $name, $value, $attributes);
+    }
+
+    public static function url(string $name, mixed $value = null, array $attributes = []): TagInterface
+    {
+        return self::input('url', $name, $value, $attributes);
+    }
+
+    public static function search(string $name, mixed $value = null, array $attributes = []): TagInterface
+    {
+        return self::input('search', $name, $value, $attributes);
     }
 }
