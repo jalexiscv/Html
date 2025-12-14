@@ -1,0 +1,11 @@
+vendor/
+composer.lock
+*.phar
+.idea/
+.vscode/
+*.log
+nbproject/
+.DS_Store
+phpunit.xml.bak
+phpcs.xml.bak
+coverage/
