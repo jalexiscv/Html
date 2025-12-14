@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2025-12-14
+
+### Added
+- **HtmlElementsTrait**: Extracted semantic HTML helpers to a dedicated trait for better code organization.
+- **Modern PHP 8 Features**: Refactored `AbstractBaseHtmlTagObject` to use `match` expressions and strict typing.
+
+### Deprecated
+- **Legacy Methods**: Methods like `Html::get_Div`, `Html::get_Img`, etc. are now deprecated. Use `Html::div`, `Html::img` instead.
+
 ## [2.0.0] - 2025-12-14
 
 ### Changed

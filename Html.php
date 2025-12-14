@@ -18,6 +18,8 @@ use RuntimeException;
  */
 final class Html implements HtmlTagInterface
 {
+    use HtmlElementsTrait;
+
     private static array $cache = [];
     private static array $themeDefaults = [];
 
@@ -104,97 +106,7 @@ final class Html implements HtmlTagInterface
         self::$themeDefaults[$name] = $defaults;
     }
 
-    // --- Semantic Helpers ---
-
-    public static function div(array $attributes = [], mixed $content = null): TagInterface
-    {
-        return self::tag('div', $attributes, $content);
-    }
-
-    public static function span(array $attributes = [], mixed $content = null): TagInterface
-    {
-        return self::tag('span', $attributes, $content);
-    }
-
-    public static function p(array $attributes = [], mixed $content = null): TagInterface
-    {
-        return self::tag('p', $attributes, $content);
-    }
-
-    public static function a(string $href, mixed $content = null, array $attributes = []): TagInterface
-    {
-        $attributes['href'] = $href;
-        return self::tag('a', $attributes, $content);
-    }
-
-    public static function img(string $src, string $alt = '', array $attributes = []): TagInterface
-    {
-        $attributes['src'] = $src;
-        $attributes['alt'] = $alt;
-        return self::tag('img', $attributes);
-    }
-
-    public static function ul(array $attributes = [], mixed $content = null): TagInterface
-    {
-        return self::tag('ul', $attributes, $content);
-    }
-
-    public static function ol(array $attributes = [], mixed $content = null): TagInterface
-    {
-        return self::tag('ol', $attributes, $content);
-    }
-
-    public static function li(array $attributes = [], mixed $content = null): TagInterface
-    {
-        return self::tag('li', $attributes, $content);
-    }
-
-    public static function input(string $type, string $name, ?string $value = null, array $attributes = []): TagInterface
-    {
-        $attributes['type'] = $type;
-        $attributes['name'] = $name;
-        if ($value !== null) {
-            $attributes['value'] = $value;
-        }
-        return self::tag('input', $attributes);
-    }
-
-    public static function button(mixed $content, string $type = 'button', array $attributes = []): TagInterface
-    {
-        $attributes['type'] = $type;
-        return self::tag('button', $attributes, $content);
-    }
-
-    public static function script(string $src = null, mixed $content = null, array $attributes = []): TagInterface
-    {
-        if ($src !== null) {
-            $attributes['src'] = $src;
-        }
-        return self::tag('script', $attributes, $content);
-    }
-
-    public static function link(string $rel, string $href, array $attributes = []): TagInterface
-    {
-        $attributes['rel'] = $rel;
-        $attributes['href'] = $href;
-        return self::tag('link', $attributes);
-    }
-
-    public static function meta(array $attributes = []): TagInterface
-    {
-        return self::tag('meta', $attributes);
-    }
-
-    /**
-     * Crea un componente web personalizado
-     */
-    public static function webComponent(string $name, array $attributes = [], mixed $content = null): TagInterface
-    {
-        if (!str_contains($name, '-')) {
-            throw new InvalidArgumentException('Web component names must contain a hyphen');
-        }
-        return self::tag($name, $attributes, $content);
-    }
+    // --- Semantic Helpers (Moved to HtmlElementsTrait) ---
 
     private static function generateCacheKey(string $name, array $attributes, mixed $content): string
     {
@@ -212,7 +124,8 @@ final class Html implements HtmlTagInterface
     /**
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'b' con el contenido especificado.
      * @param array $args Un array asociativo que contiene los atributos de la etiqueta 'a'.
-     * @return TagInterface La instancia de Tag representando una etiqueta HTML 'b' con los atributos especificados.
+     * @return string La instancia de Tag representando una etiqueta HTML 'b' con los atributos especificados.
+     * @deprecated Use Html::tag('b', ...) instead.
      */
     public static function get_B(array $args): string
     {
@@ -228,7 +141,8 @@ final class Html implements HtmlTagInterface
     /**
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'i' con el contenido especificado.
      * @param array $args Un array asociativo que contiene los atributos de la etiqueta 'i'.
-     * @return TagInterface La instancia de Tag representando una etiqueta HTML 'i' con los atributos especificados.
+     * @return string La instancia de Tag representando una etiqueta HTML 'i' con los atributos especificados.
+     * @deprecated Use Html::tag('i', ...) instead.
      */
     public static function get_I(array $args): string
     {
@@ -244,7 +158,8 @@ final class Html implements HtmlTagInterface
     /**
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'a' con el contenido y atributos especificados.
      * @param array $args Un array asociativo que contiene los atributos de la etiqueta 'a'.
-     * @return TagInterface La instancia de Tag representando una etiqueta HTML 'a' con los atributos especificados.
+     * @return string La instancia de Tag representando una etiqueta HTML 'a' con los atributos especificados.
+     * @deprecated Use Html::a(...) instead.
      */
     public static function get_A(array $args): string
     {
@@ -259,7 +174,8 @@ final class Html implements HtmlTagInterface
     /**
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'p' con el contenido especificado.
      * @param array $args Un array asociativo que contiene los atributos de la etiqueta 'p'.
-     * @return TagInterface La instancia de Tag representando una etiqueta HTML 'p' con los atributos especificados.
+     * @return string La instancia de Tag representando una etiqueta HTML 'p' con los atributos especificados.
+     * @deprecated Use Html::p(...) instead.
      */
     public static function get_P(array $args): string
     {
@@ -272,7 +188,8 @@ final class Html implements HtmlTagInterface
     /**
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'img' con los atributos especificados.
      * @param array $args Un array asociativo que contiene los atributos de la etiqueta 'img'.
-     * @return TagInterface La instancia de Tag representando una etiqueta HTML 'img' con los atributos especificados.
+     * @return string La instancia de Tag representando una etiqueta HTML 'img' con los atributos especificados.
+     * @deprecated Use Html::img(...) instead.
      */
     public static function get_Img(array $args): string
     {
@@ -287,7 +204,8 @@ final class Html implements HtmlTagInterface
     /**
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'ul' con los elementos especificados.
      * @param array $args Un array asociativo que contiene los elementos de la lista 'ul'.
-     * @return TagInterface La instancia de Tag representando una etiqueta HTML 'ul' con los elementos especificados.
+     * @return string La instancia de Tag representando una etiqueta HTML 'ul' con los elementos especificados.
+     * @deprecated Use Html::ul(...) instead.
      */
     public static function get_Ul(array $args): string
     {
@@ -304,7 +222,8 @@ final class Html implements HtmlTagInterface
     /**
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'ol' con los elementos especificados.
      * @param array $args Un array asociativo que contiene los elementos de la lista 'ol'.
-     * @return TagInterface La instancia de Tag representando una etiqueta HTML 'ol' con los elementos especificados.
+     * @return string La instancia de Tag representando una etiqueta HTML 'ol' con los elementos especificados.
+     * @deprecated Use Html::ol(...) instead.
      */
     public static function get_Ol(array $args): string
     {
@@ -321,7 +240,8 @@ final class Html implements HtmlTagInterface
     /**
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'h1' con el contenido especificado.
      * @param array $args Un array asociativo que contiene los atributos de la etiqueta 'h1'.
-     * @return TagInterface La instancia de Tag representando una etiqueta HTML 'h1' con los atributos especificados.
+     * @return string La instancia de Tag representando una etiqueta HTML 'h1' con los atributos especificados.
+     * @deprecated Use Html::tag('h1', ...) instead.
      */
     public static function get_H1(array $args): string
     {
@@ -337,6 +257,7 @@ final class Html implements HtmlTagInterface
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'div' con el contenido y atributos especificados.
      * @param array $args Un array asociativo que contiene los atributos y el contenido de la etiqueta 'div'.
      * @return string Retorna la instancia de Tag representando una etiqueta HTML 'div' con los atributos y contenido especificados.
+     * @deprecated Use Html::div(...) instead.
      */
     public static function get_Div(array $args): string
     {
@@ -357,6 +278,7 @@ final class Html implements HtmlTagInterface
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'button' con el contenido y atributos especificados.
      * @param array $args Un array asociativo que contiene los atributos y el contenido del botón.
      * @return string Retorna la instancia de Tag representando una etiqueta HTML 'div' con los atributos y contenido especificados.
+     * @deprecated Use Html::button(...) instead.
      */
     public static function get_Button($args = array()): string
     {
@@ -375,7 +297,8 @@ final class Html implements HtmlTagInterface
     /**
      * Crea una instancia de la clase HtmlTag representando una etiqueta HTML 'span' con el contenido y atributos especificados.
      * @param array $args Un array asociativo que contiene los atributos y el contenido de la etiqueta 'span'.
-     * @return TagInterface La instancia de Tag representando una etiqueta HTML 'span' con los atributos y contenido especificados.
+     * @return string La instancia de Tag representando una etiqueta HTML 'span' con los atributos y contenido especificados.
+     * @deprecated Use Html::span(...) instead.
      */
     public static function get_Span(array $args): string
     {

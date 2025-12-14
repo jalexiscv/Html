@@ -2,51 +2,29 @@
 [![Say Thanks!](https://img.shields.io/badge/Say-thanks-brightgreen.svg?style=flat-square)](https://saythanks.io/to/jalexiscv)
 [![Donate!](https://img.shields.io/badge/Donate-Paypal-brightgreen.svg?style=flat-square)](https://paypal.me/jalexiscv)
 
-# HTML
+# Higgs HTML
 
 ## Descripción
 
-Biblioteca PHP moderna para la generación de HTML con implementación completa de Bootstrap 5. Diseñada con un enfoque en la seguridad, accesibilidad y mantenibilidad del código.
+Biblioteca PHP moderna, ligera y agnóstica para la generación de HTML puro. Diseñada con un enfoque en la seguridad, rendimiento y flexibilidad, sin dependencias de frameworks CSS específicos.
 
 ## Características Principales
 
-- Implementación completa de Bootstrap 5 con tipado estricto
-- Sistema de componentes extensible y personalizable
-- Validación automática de opciones y atributos
-- Soporte completo para ARIA y accesibilidad
-- Integración con JavaScript y eventos
-- Generación segura de HTML con escape automático
-- Caché de componentes para mejor rendimiento
+- **Agnóstico**: Genera HTML limpio sin ataduras a Bootstrap, Tailwind ni otros frameworks.
+- **Tipado Estricto**: Compatible con PHP 8.0+.
+- **Fluido**: API encadenable para una escritura de código limpia y legible.
+- **Seguro**: Escape automático de contenido para prevenir XSS.
+- **Extensible**: Fácil de extender para crear tus propios sistemas de componentes.
+- **Caché**: Sistema de caché integrado para rendimiento.
 
 ## Requisitos
 
 * PHP 8.0 o superior
-* Composer 2.6 o superior
-* Bootstrap 5.x (vía CDN)
 
 ## Instalación
 
 ```bash
 composer require Higgs/Html
-```
-
-Incluye Bootstrap en tu HTML:
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS de Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <!-- Tu contenido aquí -->
-
-    <!-- JavaScript de Bootstrap (al final del body) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
 ```
 
 ## Uso Básico
@@ -56,112 +34,56 @@ Incluye Bootstrap en tu HTML:
 declare(strict_types=1);
 
 use Higgs\Html\Html;
-use Higgs\Html\Components\Bootstrap5\Bootstrap as BS5;
 
 // Crear elementos HTML básicos
-$div = Html::tag('div', ['class' => 'container']);
-$h1 = Html::tag('h1', ['class' => 'mt-4'], 'Bienvenido');
+$div = Html::div(['class' => 'container'], 'Hola Mundo');
 
-// Alerta con botón de cierre
-$alert = BS5::alert(
-    '¡Operación exitosa!', 
-    'success',
-    true
-)->render();
+// Encadenamiento fluido
+$button = Html::button('Click me')
+    ->attr('class', 'btn btn-primary')
+    ->attr('data-id', '123')
+    ->id('my-button');
 
-// Formulario con validación
-$form = BS5::form([
-    'action' => '/procesar',
-    'method' => 'POST'
-])
-->content([
-    BS5::input('text', 'nombre', [
-        'class' => 'form-control',
-        'required' => true,
-        'pattern' => '[A-Za-z\s]+'
-    ])->render(),
-    
-    BS5::button('Enviar', 'primary', [
-        'type' => 'submit'
-    ])->render()
-])
-->render();
+echo $button; 
+// <button type="button" class="btn btn-primary" data-id="123" id="my-button">Click me</button>
 
-// Modal con eventos
-$modal = BS5::modal('ejemploModal', [
-    'class' => 'fade',
-    'tabindex' => '-1'
-])
-->setTitle('Título del Modal')
-->setBody('Contenido del modal...')
-->setFooter([
-    BS5::button('Cerrar', 'secondary', [
-        'data-bs-dismiss' => 'modal'
-    ])->render()
-])
-->render();
+// Listas
+$list = Html::ul(['class' => 'list-group'])
+    ->child(Html::li(['class' => 'list-item'], 'Item 1'))
+    ->child(Html::li(['class' => 'list-item'], 'Item 2'));
 
-$trigger = BS5::button('Abrir Modal', 'primary', [
-    'data-bs-toggle' => 'modal',
-    'data-bs-target' => '#ejemploModal'
-])->render();
+// Imágenes
+$img = Html::img('path/to/image.jpg', 'Descripción');
+
+// Componentes Web Personalizados
+$custom = Html::webComponent('user-card', ['user-id' => '42']);
 ```
 
-## Componentes Disponibles
+## API
 
-### Layout
-- Container
-- Grid (Row/Col)
-- Breakpoints
+### Métodos Estáticos (Html)
 
-### Contenido
-- Typography
-- Tables
-- Images
+La clase `Higgs\Html\Html` provee helpers estáticos para las etiquetas más comunes:
 
-### Formularios
-- Input
-- Select
-- Check/Radio
-- File
-- Textarea
-- Range
+- `Html::div(array $attributes = [], mixed $content = null)`
+- `Html::span(...)`
+- `Html::p(...)`
+- `Html::a(string $href, ...)`
+- `Html::img(string $src, string $alt, ...)`
+- `Html::button(...)`
+- `Html::input(...)`
+- `Html::tag(string $name, ...)` - Para cualquier otra etiqueta.
 
-### Navegación
-- Navbar
-- Nav
-- Breadcrumb
-- Pagination
-- Tabs
+### Métodos de Instancia (TagInterface)
 
-### Componentes UI
-- Alert
-- Badge
-- Button
-- Card
-- Dropdown
-- ListGroup
+Todos los objetos retornados implementan `TagInterface` y soportan encadenamiento:
 
-### Componentes Interactivos
-- Modal
-- Tooltip
-- Popover
-- Collapse
-- Accordion
-- Carousel
-
-## Documentación Detallada
-
-La documentación completa está disponible en el directorio `docs/`:
-
-- [01-instalacion.md](docs/01-instalacion.md) - Guía de instalación
-- [02-componentes.md](docs/02-componentes.md) - Componentes básicos
-- [03-formularios.md](docs/03-formularios.md) - Formularios y validación
-- [04-navegacion.md](docs/04-navegacion.md) - Componentes de navegación
-- [05-layout.md](docs/05-layout.md) - Sistema de grid y layout
-- [06-contenido.md](docs/06-contenido.md) - Componentes de contenido
-- [07-javascript.md](docs/07-javascript.md) - Integración con JavaScript
-- [08-extras.md](docs/08-extras.md) - Características adicionales
+- `->attr(string $name, string $value)`: Establece un atributo.
+- `->addClass(string $class)`: Agrega una clase CSS.
+- `->id(string $id)`: Establece el ID.
+- `->content(mixed $content)`: Establece el contenido.
+- `->child(TagInterface $child)`: Agrega un elemento hijo.
+- `->render()`: Retorna el string HTML final.
 
 ## Contribuir
 
@@ -174,8 +96,3 @@ La documentación completa está disponible en el directorio `docs/`:
 ## Licencia
 
 Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-## Agradecimientos
-
-- Bootstrap Team por su excelente framework
-- Contribuidores y usuarios de la biblioteca
