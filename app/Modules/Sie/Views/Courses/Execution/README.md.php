@@ -1,0 +1,1 @@
+Este formulario al ser llamado desde un curso directamente para intentar inscribir a un estudiante, en forma directa
