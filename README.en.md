@@ -119,7 +119,47 @@ The library provides static methods for most standard HTML5 tags, improving IDE 
 | `Html::input()` | `<input>` | Form fields |
 | `Html::meta()` | `<meta>` | SEO and headers |
 
-### 4. Web Components (Custom HTML)
+### 4. Advanced Form Helpers (v2.5)
+Forget manual HTML for complex inputs.
+
+```php
+// Select with options
+echo Html::select('country', ['CO' => 'Colombia', 'US' => 'USA'], 'CO', ['class' => 'form-select']);
+
+// Checkbox
+echo Html::checkbox('subscribe', 1, true); 
+
+// Specific inputs
+echo Html::email('user_email');
+echo Html::password('user_password');
+```
+
+### 5. Table Generator (v2.5)
+Render data tables in a single line.
+
+```php
+$headers = ['ID', 'Name', 'Role'];
+$rows = [
+    ['1', 'Ana', 'Admin'],
+    ['2', 'Carlos', 'User'],
+];
+
+echo Html::table($headers, $rows, ['class' => 'table table-striped']);
+```
+
+### 6. Macro System (Extensibility)
+Need a custom component? Register your own macro.
+
+```php
+Html::macro('alert', function($msg, $type = 'info') {
+    return Html::div(['class' => "alert alert-$type"], $msg);
+});
+
+// Usage
+echo Html::alert('Operation successful!', 'success');
+```
+
+### 7. Web Components (Custom HTML)
 For modern applications using Custom Elements (JS), `Higgs\Html` validates and supports custom tags.
 
 ```php

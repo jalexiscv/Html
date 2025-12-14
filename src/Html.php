@@ -18,10 +18,18 @@ use RuntimeException;
  */
 final class Html implements HtmlTagInterface
 {
-    use HtmlElementsTrait;
+    use HtmlElementsTrait, Traits\Macroable, Traits\HtmlFormTrait, Traits\HtmlTableTrait {
+        Traits\HtmlFormTrait::input insteadof HtmlElementsTrait;
+    }
 
     private static array $cache = [];
     private static array $themeDefaults = [];
+    
+    // ... métodos de fábrica (attribute, attributes, tag) existentes ...
+    
+    // NOTA: Mantenemos form() y formField() por retrocompatibilidad, 
+    // pero ahora form() es simplemente un alias o setup inicial,
+    // y la lógica compleja está en los Traits.
 
     /**
      * Crea una instancia de atributo.
@@ -73,17 +81,22 @@ final class Html implements HtmlTagInterface
     }
 
     /**
-     * Crea un formulario con validación y accesibilidad mejorada
+     * Crea un formulario con validación y accesibilidad mejorada.
+     * (Wrapper de conveniencia sobre tag('form'))
      */
     public static function form(array $attributes = []): TagInterface
     {
         $form = self::tag('form', $attributes);
-        $form->attr('novalidate', 'novalidate');
+        // Por defecto activamos soporte ARIA/HTML5
+        if (!isset($attributes['novalidate'])) {
+            //$form->attr('novalidate', 'novalidate'); // Opcional según preferencia
+        }
         return $form;
     }
 
     /**
-     * Crea un campo de formulario con soporte ARIA
+     * Crea un campo de formulario con soporte ARIA (Legacy Helper).
+     * Se recomienda usar los métodos específicos (Html::text, Html::email) en su lugar.
      */
     public static function formField(string $type, string $name, array $attributes = []): TagInterface
     {
@@ -124,8 +137,6 @@ final class Html implements HtmlTagInterface
     {
         self::$themeDefaults[$name] = $defaults;
     }
-
-    // --- Semantic Helpers (Moved to HtmlElementsTrait) ---
 
     /**
      * Genera una clave de caché única para la etiqueta.

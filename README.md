@@ -119,7 +119,47 @@ La librería provee métodos estáticos para la mayoría de etiquetas HTML5 est�
 | `Html::input()` | `<input>` | Campos de formulario |
 | `Html::meta()` | `<meta>` | SEO y cabeceras |
 
-### 4. Web Components (HTML Personalizado)
+### 4. Helpers de Formularios Avanzados (v2.5)
+Olvida el HTML manual para inputs complejos.
+
+```php
+// Select con opciones
+echo Html::select('country', ['CO' => 'Colombia', 'US' => 'USA'], 'CO', ['class' => 'form-select']);
+
+// Checkbox con label
+echo Html::checkbox('subscribe', 1, true); 
+
+// Inputs específicos
+echo Html::email('user_email');
+echo Html::password('user_password');
+```
+
+### 5. Generador de Tablas (v2.5)
+Renderiza tablas de datos en una sola línea.
+
+```php
+$headers = ['ID', 'Nombre', 'Rol'];
+$rows = [
+    ['1', 'Ana', 'Admin'],
+    ['2', 'Carlos', 'User'],
+];
+
+echo Html::table($headers, $rows, ['class' => 'table table-striped']);
+```
+
+### 6. Sistema de Macros (Extensibilidad)
+¿Necesitas un componente personalizado? Registra tu propia macro.
+
+```php
+Html::macro('alert', function($msg, $type = 'info') {
+    return Html::div(['class' => "alert alert-$type"], $msg);
+});
+
+// Uso
+echo Html::alert('¡Operación exitosa!', 'success');
+```
+
+### 7. Web Components (HTML Personalizado)
 Para aplicaciones modernas que usan Custom Elements (JS), `Higgs\Html` valida y soporta etiquetas personalizadas.
 
 ```php
