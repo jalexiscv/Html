@@ -2,7 +2,6 @@ vendor/
 composer.lock
 *.phar
 .idea/
-.vscode/
 *.log
 nbproject/
 .DS_Store
