@@ -20,34 +20,34 @@ interface TagInterface extends
     StringableInterface
 {
     /**
-     * Get the attributes as string or a specific attribute if $name is provided.
+     * Obtiene los atributos como una cadena o un atributo específico si se proporciona $name.
      *
      * @param string $name
-     *   The name of the attribute
+     *   El nombre del atributo.
      * @param mixed ...$value
-     *   The value.
+     *   El valor.
      *
      * @return AttributeInterface|string
-     *   The attributes as string or a specific Attribute object
+     *   Los atributos como cadena o un objeto Attribute específico.
      */
     public function attr(?string $name = null, ...$value);
 
     /**
-     * Set or get the content.
+     * Establece u obtiene el contenido.
      *
      * @param mixed ...$data
-     *   The content.
+     *   El contenido.
      *
      * @return string|null
-     *   The content
+     *   El contenido.
      */
     public function content(...$data): ?string;
 
     /**
-     * Get the content.
+     * Obtiene el contenido.
      *
      * @return array<int, string>
-     *   The content as an array
+     *   El contenido como un array.
      */
     public function getContentAsArray(): array;
 }

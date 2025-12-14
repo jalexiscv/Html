@@ -9,41 +9,35 @@ use Higgs\Html\Attributes\AttributesInterface;
 use Higgs\Html\Tag\TagInterface;
 
 /**
- * Interface HtmlTagInterface.
+ * Interfaz HtmlTagInterface.
  */
 interface HtmlTagInterface
 {
     /**
-     * Create a new attribute.
-     * @param string $name The attribute name
-     * @param array<mixed>|string $value The attribute value
-     * @return AttributeInterface The attribute
+     * Crea un nuevo atributo.
+     * @param string $name El nombre del atributo.
+     * @param array<mixed>|string $value El valor del atributo.
+     * @return AttributeInterface El atributo creado.
      */
     public static function attribute(string $name, $value): AttributeInterface;
 
     /**
-     * Create a new attributes.
+     * Crea una colección de atributos.
      *
-     * @param array<mixed> $attributes
-     *   The attributes
+     * @param array<mixed> $attributes Los atributos.
      *
-     * @return AttributesInterface
-     *   The attributes
+     * @return AttributesInterface La colección de atributos.
      */
     public static function attributes(array $attributes = []): AttributesInterface;
 
     /**
-     * Create a new tag.
+     * Crea una nueva etiqueta.
      *
-     * @param string $name
-     *   The tag name
-     * @param array<mixed> $attributes
-     *   The attributes
-     * @param mixed $content
-     *   The content
+     * @param string $name El nombre de la etiqueta.
+     * @param array<mixed> $attributes Los atributos.
+     * @param mixed $content El contenido.
      *
-     * @return TagInterface
-     *   The tag
+     * @return TagInterface La etiqueta creada.
      */
     public static function tag(string $name, array $attributes = [], $content = null): TagInterface;
 }

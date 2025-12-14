@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Higgs\Html;
 
 /**
- * Interface EscapableInterface.
+ * Interfaz EscapableInterface.
  */
 interface EscapableInterface
 {
     /**
-     * Escape a value.
+     * Escapa un valor.
      *
      * @param mixed|string|StringableInterface|null $value
-     *   The value to escape.
+     *   El valor a escapar.
      *
      * @return string|StringableInterface|null
-     *   The value.
+     *   El valor escapado.
      */
     public function escape($value);
 }

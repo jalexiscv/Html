@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Higgs\Html;
 
 /**
- * Interface AlterableInterface.
+ * Interfaz AlterableInterface.
  */
 interface AlterableInterface
 {
     /**
-     * Alter the values of an object.
+     * Altera los valores de un objeto.
      *
      * @param callable ...$closures
-     *   The closure(s).
+     *   El/los cierre(s) (closures).
      *
      * @return object
-     *   The object
+     *   El objeto.
      */
     public function alter(callable ...$closures);
 }

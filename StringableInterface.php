@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Higgs\Html;
 
 /**
- * Interface StringableInterface.
+ * Interfaz StringableInterface.
  */
 interface StringableInterface
 {
     /**
-     * Get a string representation of the object.
+     * Obtiene una representación en cadena del objeto.
      *
      * @return string
-     *   The string
+     *   La cadena.
      */
     public function __toString(): string;
 }

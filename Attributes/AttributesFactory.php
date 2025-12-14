@@ -11,7 +11,7 @@ use ReflectionClass;
 class AttributesFactory implements AttributesFactoryInterface
 {
     /**
-     * The classes registry.
+     * El registro de clases.
      *
      * @var array
      */

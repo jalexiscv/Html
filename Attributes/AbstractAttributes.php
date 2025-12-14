@@ -13,26 +13,26 @@ use function array_key_exists;
 abstract class AbstractAttributes extends AbstractBaseHtmlTagObject implements AttributesInterface
 {
     /**
-     * The attribute factory.
+     * La fábrica de atributos.
      *
      * @var \drupol\htmltag\Attribute\AttributeFactoryInterface
      */
     private $attributeFactory;
 
     /**
-     * Stores the attribute data.
+     * Almacena los datos de los atributos.
      *
      * @var array<string, AttributesInterface>
      */
     private $storage = [];
 
     /**
-     * Attributes constructor.
+     * Constructor de Attributes.
      *
      * @param \drupol\htmltag\Attribute\AttributeFactoryInterface $attributeFactory
-     *   The attribute factory
+     *   La fábrica de atributos.
      * @param mixed[] $data
-     *   The input attributes
+     *   Los atributos de entrada.
      */
     public function __construct(AttributeFactoryInterface $attributeFactory, array $data = [])
     {

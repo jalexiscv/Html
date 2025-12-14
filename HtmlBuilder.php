@@ -8,23 +8,23 @@ use Higgs\Html\Tag\TagFactory;
 use Higgs\Html\Tag\TagInterface;
 
 /**
- * Class HtmlBuilder.
+ * Clase HtmlBuilder.
  */
 final class HtmlBuilder implements StringableInterface
 {
     /**
-     * The tag scope.
+     * El ámbito de la etiqueta actual.
      *
      * @var TagInterface|null
      */
-    private $scope;
+    private ?TagInterface $scope = null;
 
     /**
-     * The storage.
+     * El almacenamiento.
      *
      * @var TagInterface[]|string[]
      */
-    private $storage;
+    private array $storage = [];
 
     public function __call($name, array $arguments = [])
     {
@@ -50,15 +50,15 @@ final class HtmlBuilder implements StringableInterface
     }
 
     /**
-     * Add the current tag to the stack.
+     * Añade la etiqueta actual a la pila.
      *
      * @param TagInterface $tag
-     *   The tag
+     *   La etiqueta.
      * @param bool $updateScope
-     *   True if the current scope needs to be updated
+     *   Verdadero si el ámbito actual necesita ser actualizado.
      *
      * @return HtmlBuilder
-     *   The HTML Builder object
+     *   El objeto Html Builder.
      */
     private function update(TagInterface $tag, $updateScope = false)
     {

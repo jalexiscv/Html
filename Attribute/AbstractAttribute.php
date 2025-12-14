@@ -13,42 +13,39 @@ use const ENT_QUOTES;
 use const ENT_SUBSTITUTE;
 
 /**
- * Class Attribute.
+ * Clase Attribute.
  */
 abstract class AbstractAttribute extends AbstractBaseHtmlTagObject implements AttributeInterface
 {
     /**
-     * Store the attribute name.
-     *
-     * @var string
-     */
-    private $name;
-
-    /**
-     * Store the attribute value.
-     *
-     * @var array<mixed>
-     */
-    private $values;
-
-    /**
-     * Attribute constructor.
+     * Constructor de Atributo.
      *
      * @param string $name
-     *   The attribute name
+     *   El nombre del atributo.
      * @param mixed[]|string|string[] ...$values
-     *   The attribute values.
+     *   Los valores del atributo.
      */
-    public function __construct(string $name, ...$values)
-    {
+    public function __construct(
+        /**
+         * Almacena el nombre del atributo.
+         */
+        private string $name,
+        ...$values
+    ) {
         if (1 === preg_match('/[\t\n\f \/>"\'=]+/', $name)) {
             // @todo: create exception class for this.
             throw new InvalidArgumentException('Attribute name is not valid.');
         }
 
-        $this->name = $name;
         $this->values = $values;
     }
+
+    /**
+     * Almacena los valores del atributo.
+     *
+     * @var array<mixed>
+     */
+    private array $values;
 
     public function __toString(): string
     {

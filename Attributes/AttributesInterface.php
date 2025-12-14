@@ -25,142 +25,142 @@ interface AttributesInterface extends
     StringableInterface
 {
     /**
-     * Append a value into an attribute.
+     * Añade un valor a un atributo.
      *
      * @param string $key
-     *   The attribute's name
+     *   El nombre del atributo.
      * @param array|string ...$values
-     *   The attribute's values.
+     *   Los valores del atributo.
      *
      * @return AttributesInterface
-     *   The attributes
+     *   Los atributos.
      */
     public function append($key, ...$values): AttributesInterface;
 
     /**
-     * Check if attribute contains a value.
+     * Comprueba si un atributo contiene un valor.
      *
      * @param string $key
-     *   Attribute name
+     *   El nombre del atributo.
      * @param mixed[]|string ...$values
-     *   Attribute values.
+     *   Los valores del atributo.
      *
      * @return bool
-     *   Whereas an attribute contains a value
+     *   Verdadero si contiene el valor.
      */
     public function contains(string $key, ...$values): bool;
 
     /**
-     * Delete an attribute.
+     * Elimina un atributo.
      *
      * @param array|string ...$keys
-     *   The name(s) of the attribute to delete.
+     *   El/los nombre(s) del atributo a eliminar.
      *
      * @return AttributesInterface
-     *   The attributes
+     *   Los atributos.
      */
     public function delete(string ...$keys): AttributesInterface;
 
     /**
-     * Check if an attribute exists and if a value if provided check it as well.
+     * Comprueba si un atributo existe.
      *
      * @param string $key
-     *   Attribute name
+     *   El nombre del atributo.
      * @param mixed|string ...$values
-     *   The value to check if the attribute name exists.
+     *   El valor a comprobar si el nombre del atributo existe.
      *
      * @return bool
-     *   True if the attribute exists, false otherwise
+     *   Verdadero si el atributo existe, falso en caso contrario.
      */
     public function exists(string $key, ...$values): bool;
 
     /**
-     * Get storage.
+     * Obtiene el almacenamiento.
      *
      * @return ArrayIterator<mixed>
-     *   The storage array
+     *   El array de almacenamiento.
      */
     public function getStorage(): ArrayIterator;
 
     /**
-     * Get the values as an array.
+     * Obtiene los valores como un array.
      *
      * @return array<string, mixed>
-     *   The attributes values keyed by the attribute name
+     *   Los valores de los atributos indexados por nombre.
      */
     public function getValuesAsArray(): array;
 
     /**
-     * Import attributes.
+     * Importa atributos.
      *
      * @param array|Traversable $data
-     *   The data to import
+     *   Los datos a importar.
      *
      * @return AttributesInterface
-     *   The attributes
+     *   Los atributos.
      */
     public function import($data): AttributesInterface;
 
     /**
-     * Merge attributes.
+     * Fusiona atributos.
      *
      * @param array<mixed> ...$dataset
-     *   The data to merge.
+     *   Los datos a fusionar.
      *
      * @return AttributesInterface
-     *   The attributes
+     *   Los atributos.
      */
     public function merge(array ...$dataset): AttributesInterface;
 
     /**
-     * Remove a value from a specific attribute.
+     * Elimina un valor de un atributo específico.
      *
      * @param string $key
-     *   The attribute's name
+     *   El nombre del atributo.
      * @param array|string ...$values
-     *   The attribute's values.
+     *   Los valores del atributo.
      *
      * @return AttributesInterface
-     *   The attributes
+     *   Los atributos.
      */
     public function remove(string $key, ...$values): AttributesInterface;
 
     /**
-     * Replace a value with another.
+     * Reemplaza un valor por otro.
      *
      * @param string $key
-     *   The attributes's name
+     *   El nombre del atributo.
      * @param string $value
-     *   The attribute's value
+     *   El valor del atributo.
      * @param string ...$replacements
-     *   The replacement values.
+     *   Los valores de reemplazo.
      *
      * @return AttributesInterface
-     *   The attributes
+     *   Los atributos.
      */
     public function replace(string $key, string $value, string ...$replacements): AttributesInterface;
 
     /**
-     * Set an attribute.
+     * Establece un atributo.
      *
      * @param string $key
-     *   The attribute name
+     *   El nombre del atributo.
      * @param string|null ...$values
-     *   The attribute values.
+     *   Los valores del atributo.
      *
      * @return AttributesInterface
-     *   The attributes
+     *   Los atributos.
      */
     public function set(string $key, ...$values): AttributesInterface;
 
     /**
-     * Return the attributes without a specific attribute.
+     * Retorna los atributos sin un atributo específico.
      *
      * @param string ...$keys
-     *   The name(s) of the attribute to remove.
+     *   El/los nombre(s) del atributo a eliminar.
      *
      * @return AttributesInterface
-     *   The attributes
+     *   Los atributos.
      */
     public function without(string ...$keys): AttributesInterface;
 }

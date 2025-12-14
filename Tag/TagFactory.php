@@ -13,7 +13,7 @@ use function in_array;
 class TagFactory implements TagFactoryInterface
 {
     /**
-     * The classes registry.
+     * El registro de clases.
      *
      * @var array<string, string>
      */

@@ -12,7 +12,7 @@ use Higgs\Html\Tag\TagFactory;
 use Higgs\Html\Tag\TagInterface;
 
 /**
- * Class HtmlTag.
+ * Clase HtmlTag.
  */
 final class HtmlTag implements HtmlTagInterface
 {

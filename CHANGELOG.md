@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2025-12-14
+
+### Changed
+- **PHP Requirement**: Bumped minimum PHP version to `^8.2`.
+- **Quality Assurance**: Added PHPStan (Level 5) and PHP_CodeSniffer (PSR-12) configurations.
+
+### Removed
+- **LegacyHtmlTrait**: Completely removed the deprecated legacy trait. Methods like `Html::get_Div` are no longer available.
+
 ## [2.1.0] - 2025-12-14
 
 ### Added

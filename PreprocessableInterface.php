@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace Higgs\Html;
 
 /**
- * Interface PreprocessableInterface.
+ * Interfaz PreprocessableInterface.
  */
 interface PreprocessableInterface
 {
     /**
-     * Preprocess the values of an object.
+     * Preprocesa los valores de un objeto.
      *
      * @param array<mixed> $values
-     *   The values to preprocess.
+     *   Los valores a preprocesar.
      * @param array<mixed> $context
-     *   The context.
+     *   El contexto.
      *
      * @return array<int, mixed>
-     *   The values.
+     *   Los valores procesados.
      */
     public function preprocess(array $values, array $context = []): array;
 }

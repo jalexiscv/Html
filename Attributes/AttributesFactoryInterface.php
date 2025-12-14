@@ -7,26 +7,26 @@ namespace Higgs\Html\Attributes;
 interface AttributesFactoryInterface
 {
     /**
-     * Create a new attributes.
+     * Crea una nueva colección de atributos.
      *
      * @param array $attributes
-     *   The attributes
+     *   Los atributos.
      *
      * @return AttributesInterface
-     *   The attributes
+     *   Los atributos.
      */
     public static function build(
         array $attributes = []
     );
 
     /**
-     * Create a new attributes.
+     * Obtiene una instancia de atributos.
      *
      * @param array $attributes
-     *   The attributes
+     *   Los atributos.
      *
      * @return AttributesInterface
-     *   The attributes
+     *   Los atributos.
      */
     public function getInstance(
         array $attributes = []

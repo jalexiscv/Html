@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Higgs\Html;
 
 /**
- * Interface RenderableInterface.
+ * Interfaz RenderableInterface.
  */
 interface RenderableInterface
 {
     /**
-     * Render the object.
+     * Renderiza el objeto.
      *
      * @return string
-     *   The object rendered in a string
+     *   El objeto renderizado como cadena.
      */
     public function render(): string;
 }

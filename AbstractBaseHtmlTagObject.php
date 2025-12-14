@@ -9,18 +9,18 @@ use function gettype;
 use function is_array;
 
 /**
- * Class AbstractBaseHtmlTagObject.
+ * Clase AbstractBaseHtmlTagObject.
  *
- * This class is the base class of other HTMLTag objects.
- * It contains simple methods that are needed everywhere.
+ * Esta clase es la base para otros objetos de etiquetas HTML.
+ * Contiene métodos simples y utilitarios requeridos por múltiples componentes.
  */
 abstract class AbstractBaseHtmlTagObject
 {
     /**
-     * Transform a multidimensional array into a flat array.
+     * Transforma un array multidimensional en un array plano.
      *
-     * @param array<mixed> $data The input array
-     * @return array<mixed> A simple array
+     * @param array<mixed> $data El array de entrada.
+     * @return array<mixed> Un array simple aplanado.
      */
     protected function ensureFlatArray(array $data): array
     {
@@ -32,10 +32,10 @@ abstract class AbstractBaseHtmlTagObject
     }
 
     /**
-     * Convert a value into a string when it's possible.
+     * Convierte un valor a cadena cuando es posible.
      *
-     * @param mixed $data The input value
-     * @return string|null The value converted as a string or null
+     * @param mixed $data El valor de entrada.
+     * @return string|null El valor convertido a cadena o null si no es posible.
      */
     protected function ensureString(mixed $data): ?string
     {
@@ -48,10 +48,10 @@ abstract class AbstractBaseHtmlTagObject
     }
 
     /**
-     * Make sure that the value parameters is converted into an array of strings.
+     * Asegura que los valores sean convertidos en un array de cadenas.
      *
-     * @param array<mixed> $values The input values
-     * @return array<string> The output values
+     * @param array<mixed> $values Los valores de entrada.
+     * @return array<string> Los valores de salida convertidos.
      */
     protected function ensureStrings(array $values): array
     {

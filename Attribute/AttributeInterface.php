@@ -31,110 +31,110 @@ interface AttributeInterface extends
     public function alter(callable ...$closures): AttributeInterface;
 
     /**
-     * Append a value to the attribute.
+     * Añade un valor al atributo.
      *
      * @param mixed[]|string|null ...$value
-     *   The value to append.
+     *   El valor a añadir.
      *
      * @return AttributeInterface
-     *   The attribute
+     *   El atributo.
      */
     public function append(...$value): AttributeInterface;
 
     /**
-     * Check if the attribute contains a string or a substring.
+     * Comprueba si el atributo contiene una cadena o subcadena.
      *
      * @param mixed[]|string ...$substring
-     *   The string to check.
+     *   La cadena a comprobar.
      *
      * @return bool
-     *   True or False
+     *   Verdadero o Falso.
      */
     public function contains(...$substring): bool;
 
     /**
-     * Delete the current attribute.
+     * Elimina el atributo actual.
      *
      * @return AttributeInterface
-     *   The attribute
+     *   El atributo.
      */
     public function delete(): AttributeInterface;
 
     /**
-     * Get the attribute name.
+     * Obtiene el nombre del atributo.
      *
      * @return string
-     *   The attribute name
+     *   El nombre del atributo.
      */
     public function getName(): string;
 
     /**
-     * Get the attribute value as an array.
+     * Obtiene el valor del atributo como un array.
      *
      * @return array<int, string>
-     *   The attribute value as an array
+     *   El valor del atributo como array.
      */
     public function getValuesAsArray(): array;
 
     /**
-     * Get the attribute value as a string.
+     * Obtiene el valor del atributo como cadena.
      *
      * @return string|null
-     *   The attribute value as a string
+     *   El valor del atributo como cadena.
      */
     public function getValuesAsString(): ?string;
 
     /**
-     * Check if the attribute is a loner attribute.
+     * Comprueba si el atributo es booleano.
      *
      * @return bool
-     *   True or False
+     *   Verdadero o Falso.
      */
     public function isBoolean();
 
     /**
-     * Remove a value from the attribute.
+     * Elimina un valor del atributo.
      *
      * @param array|string ...$value
-     *   The value to remove.
+     *   El valor a eliminar.
      *
      * @return AttributeInterface
-     *   The attribute
+     *   El atributo.
      */
     public function remove(...$value): AttributeInterface;
 
     /**
-     * Replace a value of the attribute.
+     * Reemplaza un valor del atributo.
      *
      * @param mixed[]|string $original
-     *   The original value
+     *   El valor original.
      * @param mixed[]|string ...$replacement
-     *   The replacement value.
+     *   El valor de reemplazo.
      *
      * @return AttributeInterface
-     *   The attribute
+     *   El atributo.
      */
     public function replace($original, ...$replacement): AttributeInterface;
 
     /**
-     * Set the value.
+     * Establece el valor.
      *
      * @param array|string|null ...$value
-     *   The value.
+     *   El valor.
      *
      * @return AttributeInterface
-     *   The attribute
+     *   El atributo.
      */
     public function set(...$value): AttributeInterface;
 
     /**
-     * Set the attribute as a loner attribute.
+     * Establece el atributo como booleano.
      *
      * @param bool $boolean
-     *   True or False
+     *   Verdadero o Falso.
      *
      * @return AttributeInterface
-     *   The attribute
+     *   El atributo.
      */
     public function setBoolean($boolean = true): AttributeInterface;
 }

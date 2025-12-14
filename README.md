@@ -19,7 +19,7 @@ Biblioteca PHP moderna, ligera y agnóstica para la generación de HTML puro. Di
 
 ## Requisitos
 
-* PHP 8.0 o superior
+* PHP 8.2 o superior
 
 ## Instalación
 

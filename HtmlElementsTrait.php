@@ -9,12 +9,12 @@ use InvalidArgumentException;
 
 /**
  * Trait HtmlElementsTrait
- * Provides semantic HTML tag helper methods.
+ * Provee métodos de ayuda para etiquetas HTML semánticas.
  */
 trait HtmlElementsTrait
 {
     /**
-     * Creates a div element.
+     * Crea un elemento div.
      */
     public static function div(array $attributes = [], mixed $content = null): TagInterface
     {
@@ -22,7 +22,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates a span element.
+     * Crea un elemento span.
      */
     public static function span(array $attributes = [], mixed $content = null): TagInterface
     {
@@ -30,7 +30,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates a paragraph element.
+     * Crea un elemento de párrafo (p).
      */
     public static function p(array $attributes = [], mixed $content = null): TagInterface
     {
@@ -38,7 +38,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates an anchor element.
+     * Crea un elemento de enlace (a).
      */
     public static function a(string $href, mixed $content = null, array $attributes = []): TagInterface
     {
@@ -47,7 +47,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates an image element.
+     * Crea un elemento de imagen (img).
      */
     public static function img(string $src, string $alt = '', array $attributes = []): TagInterface
     {
@@ -57,7 +57,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates an unordered list element.
+     * Crea un elemento de lista desordenada (ul).
      */
     public static function ul(array $attributes = [], mixed $content = null): TagInterface
     {
@@ -65,7 +65,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates an ordered list element.
+     * Crea un elemento de lista ordenada (ol).
      */
     public static function ol(array $attributes = [], mixed $content = null): TagInterface
     {
@@ -73,7 +73,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates a list item element.
+     * Crea un elemento de ítem de lista (li).
      */
     public static function li(array $attributes = [], mixed $content = null): TagInterface
     {
@@ -81,7 +81,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates an input element.
+     * Crea un elemento de entrada (input).
      */
     public static function input(string $type, string $name, ?string $value = null, array $attributes = []): TagInterface
     {
@@ -94,7 +94,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates a button element.
+     * Crea un elemento de botón (button).
      */
     public static function button(mixed $content, string $type = 'button', array $attributes = []): TagInterface
     {
@@ -103,7 +103,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates a script element.
+     * Crea un elemento de script.
      */
     public static function script(string $src = null, mixed $content = null, array $attributes = []): TagInterface
     {
@@ -114,7 +114,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates a link element.
+     * Crea un elemento de enlace a recurso (link).
      */
     public static function link(string $rel, string $href, array $attributes = []): TagInterface
     {
@@ -124,7 +124,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Creates a meta element.
+     * Crea un elemento meta.
      */
     public static function meta(array $attributes = []): TagInterface
     {
@@ -132,7 +132,7 @@ trait HtmlElementsTrait
     }
 
     /**
-     * Crea un componente web personalizado
+     * Crea un componente web personalizado.
      */
     public static function webComponent(string $name, array $attributes = [], mixed $content = null): TagInterface
     {

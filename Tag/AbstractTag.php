@@ -11,40 +11,26 @@ use Higgs\Html\StringableInterface;
 abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInterface
 {
     /**
-     * The tag attributes.
-     *
-     * @var AttributesInterface
-     */
-    private $attributes;
-
-    /**
-     * The tag content.
-     *
-     * @var mixed[]|null
-     */
-    private $content;
-
-    /**
-     * The tag name.
-     *
-     * @var string
-     */
-    private $tag;
-
-    /**
-     * Tag constructor.
+     * Constructor de la Etiqueta.
      *
      * @param AttributesInterface $attributes
-     *   The attributes object
-     * @param string $name
-     *   The tag name
+     *   El objeto de atributos.
+     * @param string|null $tag
+     *   El nombre de la etiqueta.
      * @param mixed $content
-     *   The content
+     *   El contenido.
      */
-    public function __construct(AttributesInterface $attributes, ?string $name = null, $content = null)
-    {
-        $this->tag = $name;
-        $this->attributes = $attributes;
+    public function __construct(
+        /**
+         * Los atributos de la etiqueta.
+         */
+        private AttributesInterface $attributes,
+        /**
+         * El nombre de la etiqueta.
+         */
+        private ?string $tag = null,
+        mixed $content = null
+    ) {
         $this->content($content);
     }
 
@@ -62,7 +48,7 @@ abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInter
     }
 
     /**
-     * Render the tag content.
+     * Renderiza el contenido de la etiqueta.
      */
     protected function renderContent(): ?string
     {
@@ -102,7 +88,7 @@ abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInter
     }
 
     /**
-     * List of HTML5 void elements.
+     * Lista de elementos vacíos de HTML5.
      *
      * @var array<string>
      */
@@ -117,11 +103,11 @@ abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInter
         $isVoid = in_array(strtolower($this->tag), self::VOID_ELEMENTS, true);
 
         if ($isVoid) {
-            // Void elements cannot have content
+            // Los elementos vacíos no pueden tener contenido.
             return sprintf('<%s%s>', $this->tag, $this->attributes->render());
         }
 
-        // Non-void elements must strictly have a closing tag, even if content is null/empty
+        // Los elementos no vacíos deben tener estrictamente una etiqueta de cierre, incluso si el contenido es nulo/vacío.
         return sprintf('<%s%s>%s</%s>', $this->tag, $this->attributes->render(), $content ?? '', $this->tag);
     }
 
@@ -138,8 +124,8 @@ abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInter
     }
 
     /**
-     * Handle dynamic attribute setting via method calls.
-     * Example: $tag->id('my-id') becomes $tag->attr('id', 'my-id')
+     * Maneja el establecimiento dinámico de atributos vía llamadas a métodos.
+     * Ejemplo: $tag->id('my-id') se convierte en $tag->attr('id', 'my-id')
      *
      * @param string $name
      * @param array $arguments

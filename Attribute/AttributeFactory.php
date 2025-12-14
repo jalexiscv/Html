@@ -11,7 +11,7 @@ use function in_array;
 class AttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * The classes registry.
+     * El registro de clases.
      *
      * @var array<string, string>
      */

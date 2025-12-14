@@ -7,32 +7,32 @@ namespace Higgs\Html\Tag;
 interface TagFactoryInterface
 {
     /**
-     * Create a new tag.
+     * Crea una nueva etiqueta.
      *
      * @param string $name
-     *   The tag name
+     *   El nombre de la etiqueta.
      * @param array<mixed> $attributes
-     *   The tag attributes
+     *   Los atributos de la etiqueta.
      * @param mixed $content
-     *   The tag content
+     *   El contenido de la etiqueta.
      *
      * @return TagInterface
-     *   The tag
+     *   La etiqueta.
      */
     public static function build(string $name, array $attributes = [], $content = null): TagInterface;
 
     /**
-     * Create a new tag.
+     * Crea una nueva etiqueta.
      *
      * @param string $name
-     *   The tag name
+     *   El nombre de la etiqueta.
      * @param array<mixed> $attributes
-     *   The tag attributes
+     *   Los atributos de la etiqueta.
      * @param mixed $content
-     *   The tag content
+     *   El contenido de la etiqueta.
      *
      * @return TagInterface
-     *   The tag
+     *   La etiqueta.
      */
     public function getInstance(string $name, array $attributes = [], $content = null): TagInterface;
 }
