@@ -32,7 +32,7 @@ if (empty($status)) {
 //[querys]--------------------------------------------------------------------------------------------------------------
 $status = $mstatuses->get_Status($status);
 $program = $mprograms->getProgram($status['program']);
-$registration = $mregistrations->get_Registration($status['registration']);
+$registration = $mregistrations->getRegistration($status['registration']);
 $discounteds = $mdiscounteds->where('object', @$status['registration'])->findAll();
 $period = $status['period'];
 
@@ -89,16 +89,16 @@ if ($registration["identification_type"] == "CC") {
 // Si tiene descuento por el Decreto 2271 de 2023 queda en 0
 $descuentRecurrentes = 0;
 foreach ($discounteds as $discounted) {
-    if ($discounted['discount'] == "6630C3352C3BD"||$discounted['discount'] == "6725536CAD062") {
+    if ($discounted['discount'] == "6630C3352C3BD" || $discounted['discount'] == "6725536CAD062") {
         break;
-    }else{
+    } else {
         // Procesar otros descuentos
         $discount = $mdiscounts->getDiscount($discounted['discount']);
         if ($discount && is_numeric($valorBrutoMatricula)) {
-            if ($discount['type'] == 'ENROLLMENT'&&$discounted['discount'] != "66578F3AC7987") {
+            if ($discount['type'] == 'ENROLLMENT' && $discounted['discount'] != "66578F3AC7987") {
                 $descuentRecurrentes += $valorBrutoMatricula * ($discount['value'] / 100);
             }
-        }else{
+        } else {
             $descuentRecurrentes = "NO CALCULABLE";
         }
     }
@@ -114,10 +114,10 @@ $otrosApoyos = 0;
 // Valor neto de derechos de matrícula de pregrado (valor en pesos).
 // Corresponde al valor neto de derechos de matrícula de pregrado registrado en pesos, es la diferencia entre el valor bruto
 // de los derechos de matrícula de pregrado y los descuentos permanentes o recurrentes diligenciados anteriormente.
-$valorNetoMatricula=0;
+$valorNetoMatricula = 0;
 if (is_numeric($valorBrutoMatricula)) {
-    $valorNetoMatricula = $valorBrutoMatricula - $apoyoGobNac-$descuentRecurrentes - $otrosApoyos;
-}else{
+    $valorNetoMatricula = $valorBrutoMatricula - $apoyoGobNac - $descuentRecurrentes - $otrosApoyos;
+} else {
     $valorNetoMatricula = "NO CALCULABLE";
 }
 
@@ -127,10 +127,10 @@ if (is_numeric($valorBrutoMatricula)) {
 // Corresponde al valor neto de derechos de matrícula de pregrado que debe pagar el estudiante registrado en pesos, es la
 // diferencia entre el valor neto de los derechos de matrícula de pregrado y los descuentos adicionales diligenciados anteriormente,
 // determinando el monto de la matrícula neta no cubierta por apoyos permanentes y/o adicionales.
-$valNetoCargoEst=0;
+$valNetoCargoEst = 0;
 if (is_numeric($valorNetoMatricula)) {
     $valNetoCargoEst = $valorNetoMatricula;
-}else{
+} else {
     $valNetoCargoEst = "NO CALCULABLE";
 }
 
@@ -141,12 +141,12 @@ if (is_numeric($valorNetoMatricula)) {
 // y no hacen parte de la caracterización de la matrícula ordinaria neta a financiar con la política de gratuidad.
 $valorBrutoComplemen = 0;
 if (is_numeric($valorNetoMatricula)) {
-    $aporteBienestarEstudiantil=$mproducts->getProductByReference("P-BIENESTAR");
-    $carneEstudiantil=$mproducts->getProductByReference("P-CARNE");;
-    $derechosRegistro=$mproducts->getProductByReference("P-DERECHOS");;
-    $seguroEstudiantil=$mproducts->getProductByReference("P-SEGURO");;
-    $valorBrutoComplemen = $aporteBienestarEstudiantil["value"]+$carneEstudiantil["value"]+$derechosRegistro["value"]+$seguroEstudiantil["value"];
-}else{
+    $aporteBienestarEstudiantil = $mproducts->getProductByReference("P-BIENESTAR");
+    $carneEstudiantil = $mproducts->getProductByReference("P-CARNE");
+    $derechosRegistro = $mproducts->getProductByReference("P-DERECHOS");
+    $seguroEstudiantil = $mproducts->getProductByReference("P-SEGURO");
+    $valorBrutoComplemen = $aporteBienestarEstudiantil["value"] + $carneEstudiantil["value"] + $derechosRegistro["value"] + $seguroEstudiantil["value"];
+} else {
     $valorBrutoComplemen = "NO CALCULABLE";
 }
 
@@ -156,16 +156,16 @@ if (is_numeric($valorNetoMatricula)) {
 // diferentes al de matrícula, una vez aplicados los descuentos asociados a estos. Los datos registrados son de carácter
 // informativo y no hacen parte de la caracterización de la matrícula ordinaria neta a financiar con la política de
 // gratuidad.
-$valorNetoComplement=0;
+$valorNetoComplement = 0;
 if (is_numeric($valorBrutoComplemen)) {
-    $descuentosAdicionales=0;
+    $descuentosAdicionales = 0;
     foreach ($discounteds as $discounted) {
-        if ($discounted['discount'] != "6630C3352C3BD"||$discounted['discount'] != "6725536CAD062") {
-            $descuentosAdicionales+=0;// Falta se debe calcular uno por uno
+        if ($discounted['discount'] != "6630C3352C3BD" || $discounted['discount'] != "6725536CAD062") {
+            $descuentosAdicionales += 0;// Falta se debe calcular uno por uno
         }
     }
-    $valorNetoComplement=$valorBrutoComplemen-$descuentosAdicionales;
-}else{
+    $valorNetoComplement = $valorBrutoComplemen - $descuentosAdicionales;
+} else {
     $valorNetoComplement = "NO CALCULABLE";
 }
 

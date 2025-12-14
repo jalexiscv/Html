@@ -6,11 +6,11 @@ $f = service("forms", array("lang" => "Versions."));
 $mregistrations = model("App\Modules\Sie\Models\Sie_Registrations");
 $musers = model("App\Modules\Sie\Models\Sie_Users");
 $mfields = model("App\Modules\Sie\Models\Sie_Users_Fields");
-$mcourses = model("App\Modules\Sie\Models\Sie_Courses");
+$mcourses = model('App\Modules\Sie\Models\Sie_Courses');
 //$model = model("App\Modules\Sie\Models\Sie_Versions");
 //[vars]----------------------------------------------------------------------------------------------------------------
 $back = "/sie/students/view/{$oid}";
-$registration = $mregistrations->get_Registration($oid);
+$registration = $mregistrations->getRegistration($oid);
 
 $console = array();
 $console[] = "> Tyrell Sycamore QS";

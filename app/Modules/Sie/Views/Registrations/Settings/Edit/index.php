@@ -54,14 +54,12 @@ if ($plural || $authority) {
             'breadcrumb' => view($breadcrumb, $data),
             'main' => view($validator, $data),
             'right' => "",
-            'main_template' => 'c8c4',//'c12',
         );
     } else {
         $json = array(
             'breadcrumb' => view($breadcrumb, $data),
             'main' => view($form, $data),
             'right' => "",
-            'main_template' => 'c8c4',//'c12',
         );
     }
 } else {
@@ -69,7 +67,6 @@ if ($plural || $authority) {
         'breadcrumb' => view($breadcrumb, $data),
         'main' => view($deny, $data),
         'right' => "",
-        'main_template' => 'c8c4',//'c12',
     );
 }
 echo(json_encode($json));

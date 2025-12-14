@@ -4,10 +4,11 @@ $mprograms = model('App\Modules\Sie\Models\Sie_Programs');
 $programs = $mprograms->get_SelectData();
 
 $resultados = null; // Inicializa $resultados
+$periodos = PERIODS;
 
 $modal = true;
 if (isset($_GET['program'])) {
-    $period = "2025B";
+    $period = $_GET['period'];
     $program = $_GET['program'];
     $modal = false;
 }

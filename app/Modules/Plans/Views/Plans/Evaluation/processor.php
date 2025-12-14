@@ -44,6 +44,8 @@ $authentication = service('authentication');
 $mplans = model("App\Modules\Plans\Models\Plans_Plans");
 $mactions = model("App\Modules\Plans\Models\Plans_Actions");
 $mscores = model("App\Modules\Plans\Models\Plans_Scores");
+$msobjects = model('App\Modules\Standards\Models\Standards_Objects');
+$msscores = model("App\Modules\Standards\Models\Standards_Scores");
 //[Process]-----------------------------------------------------------------------------
 $f = service("forms", array("lang" => "Plans_Plans."));
 $d = array(
@@ -76,6 +78,22 @@ if (is_array($plan)) {
             "author" => safe_get_user(),
         );
         $mscores->insert($d);
+
+        $d = array(
+            "score" => pk(),
+            "object" => $plan["reference"],
+            "value" => $propuesta,
+            "description" =>"Calificación actualizada por el cumplimiento del plan de acción " . $plan["order"],
+            "author" => safe_get_user(),
+        );
+        $msscores->insert($d);
+
+
+        $msobjects->update($plan["reference"],array("value"=>$propuesta));
+
+
+
+
     }
 
 
@@ -104,4 +122,5 @@ if (is_array($plan)) {
     ));
 }
 echo($c);
+cache()->clean();
 ?>

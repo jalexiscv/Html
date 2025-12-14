@@ -1,0 +1,11 @@
+<?php
+$f->groups["g01"]=$f->get_Group(array("legend"=>"","fields"=>($f->fields["model"].$f->fields["code"].$f->fields["country"])));
+$f->groups["g02"]=$f->get_Group(array("legend"=>"","fields"=>($f->fields["name"])));
+$f->groups["g03"]=$f->get_Group(array("legend"=>"","fields"=>($f->fields["description"])));
+$f->groups["g04"]=$f->get_Group(array("legend"=>"","fields"=>($f->fields["regulatory_framework"])));
+$f->groups["g05"]=$f->get_Group(array("legend"=>"","fields"=>($f->fields["uses_credits"].$f->fields["hours_per_credit"].$f->fields["credit_calculation_formula"])));
+$f->groups["g06"]=$f->get_Group(array("legend"=>"","fields"=>($f->fields["requires_theoretical_hours"].$f->fields["requires_practical_hours"].$f->fields["requires_independent_hours"])));
+$f->groups["g07"]=$f->get_Group(array("legend"=>"","fields"=>($f->fields["requires_total_hours"].$f->fields["is_active"])));
+$f->groups["g08"]=$f->get_Group(array("legend"=>"","fields"=>($f->fields["validation_rules"])));
+$f->groups["g09"]=$f->get_Group(array("legend"=>"","fields"=>($f->fields["configuration"])));
+?>

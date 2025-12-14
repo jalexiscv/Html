@@ -41,7 +41,7 @@ $server = service("server");
  * @var string $viewer Complete URI to the view responsible for evaluating each requested view.
  * @var string $views Complete URI to the module views.
  **/
-$r["notification"] = $f->get_Value("notification");
+$r["notification"] = $f->get_Value("notification",pk());
 $r["user"] = $f->get_Value("user");
 $r["recipient_email"] = $f->get_Value("recipient_email");
 $r["recipient_phone"] = $f->get_Value("recipient_phone");
@@ -68,19 +68,19 @@ $r["deleted_at"] = $f->get_Value("deleted_at");
 $back = $f->get_Value("back", $server->get_Referer());
 //[fields]----------------------------------------------------------------------------------------------------------------
 $f->add_HiddenField("back", $back);
-$f->fields["notification"] = $f->get_FieldText("notification", array("value" => $r["notification"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
+$f->fields["notification"] = $f->get_FieldText("notification", array("value" => $r["notification"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12","readonly"=>true));
 $f->fields["user"] = $f->get_FieldText("user", array("value" => $r["user"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
-$f->fields["recipient_email"] = $f->get_FieldText("recipient_email", array("value" => $r["recipient_email"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
-$f->fields["recipient_phone"] = $f->get_FieldText("recipient_phone", array("value" => $r["recipient_phone"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
+$f->fields["recipient_email"] = $f->get_FieldText("recipient_email", array("value" => $r["recipient_email"], "proportion" => "col-md-6 col-sm-12 col-12"));
+$f->fields["recipient_phone"] = $f->get_FieldText("recipient_phone", array("value" => $r["recipient_phone"], "proportion" => "col-md-6 col-sm-12 col-12"));
 $f->fields["type"] = $f->get_FieldText("type", array("value" => $r["type"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
-$f->fields["category"] = $f->get_FieldText("category", array("value" => $r["category"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
-$f->fields["priority"] = $f->get_FieldText("priority", array("value" => $r["priority"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
-$f->fields["subject"] = $f->get_FieldText("subject", array("value" => $r["subject"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
-$f->fields["message"] = $f->get_FieldText("message", array("value" => $r["message"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
+$f->fields["category"] = $f->get_FieldText("category", array("value" => $r["category"], "proportion" => "col-md-6 col-sm-12 col-12"));
+$f->fields["priority"] = $f->get_FieldText("priority", array("value" => $r["priority"], "proportion" => "col-md-6 col-sm-12 col-12"));
+$f->fields["subject"] = $f->get_FieldText("subject", array("value" => $r["subject"], "proportion" => "col-12"));
+$f->fields["message"] = $f->get_FieldTextArea("message", array("value" => $r["message"], "proportion" => "col-12"));
 $f->fields["data"] = $f->get_FieldText("data", array("value" => $r["data"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
 $f->fields["is_read"] = $f->get_FieldText("is_read", array("value" => $r["is_read"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
 $f->fields["read_at"] = $f->get_FieldText("read_at", array("value" => $r["read_at"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
-$f->fields["email_sent"] = $f->get_FieldText("email_sent", array("value" => $r["email_sent"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
+$f->fields["email_sent"] = $f->get_FieldText("email_sent", array("value" => $r["email_sent"], "proportion" => "col-md-6 col-sm-12 col-12"));
 $f->fields["email_sent_at"] = $f->get_FieldText("email_sent_at", array("value" => $r["email_sent_at"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
 $f->fields["email_error"] = $f->get_FieldText("email_error", array("value" => $r["email_error"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
 $f->fields["sms_sent"] = $f->get_FieldText("sms_sent", array("value" => $r["sms_sent"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
@@ -95,20 +95,21 @@ $f->fields["deleted_at"] = $f->get_FieldText("deleted_at", array("value" => $r["
 $f->fields["cancel"] = $f->get_Cancel("cancel", array("href" => $back, "text" => lang("App.Cancel"), "type" => "secondary", "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-right"));
 $f->fields["submit"] = $f->get_Submit("submit", array("value" => lang("App.Create"), "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-left"));
 //[groups]----------------------------------------------------------------------------------------------------------------
-$f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["notification"] . $f->fields["user"] . $f->fields["recipient_email"])));
-$f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["recipient_phone"] . $f->fields["type"] . $f->fields["category"])));
-$f->groups["g3"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["priority"] . $f->fields["subject"] . $f->fields["message"])));
-$f->groups["g4"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["data"] . $f->fields["is_read"] . $f->fields["read_at"])));
-$f->groups["g5"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["email_sent"] . $f->fields["email_sent_at"] . $f->fields["email_error"])));
-$f->groups["g6"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["sms_sent"] . $f->fields["sms_sent_at"] . $f->fields["sms_error"])));
-$f->groups["g7"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["action_url"] . $f->fields["action_text"] . $f->fields["expires_at"])));
-$f->groups["g8"] = $f->get_Group(array("legend" => "", "fields" => ()));
+$f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["notification"] . $f->fields["user"].$f->fields["type"])));
+$f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["category"].$f->fields["priority"])));
+$f->groups["g3"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["recipient_email"] . $f->fields["recipient_phone"] )));
+$f->groups["g4"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["subject"])));
+$f->groups["g5"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["message"])));
+//$f->groups["g4"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["data"] . $f->fields["is_read"] . $f->fields["read_at"])));
+//$f->groups["g5"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["email_sent"] . $f->fields["email_sent_at"] . $f->fields["email_error"])));
+//$f->groups["g6"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["sms_sent"] . $f->fields["sms_sent_at"] . $f->fields["sms_error"])));
+//$f->groups["g7"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["action_url"] . $f->fields["action_text"] . $f->fields["expires_at"])));
 //[buttons]-------------------------------------------------------------------------------------------------------------
 $f->groups["gy"] = $f->get_GroupSeparator();
 $f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["submit"] . $f->fields["cancel"]));
 //[build]---------------------------------------------------------------------------------------------------------------
-$card = $b->get_Card("create", array(
-    "title" => lang("Notifications_Notifications.create-title"),
+$card = $b->get_Card2("create", array(
+    "header-title" => lang("Notifications_Notifications.create-title"),
     "content" => $f,
     "header-back" => $back
 ));

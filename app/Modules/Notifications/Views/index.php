@@ -6,27 +6,30 @@
 $server = service('server');
 $benchmark = service('timer');
 $benchmark->start('time');
-$version = round(($server->get_DirectorySize(APPPATH . 'Modules/Notifications') / 102400), 6);
+/** @var object $server */
+$version = (string)round($server->get_DirectorySize(APPPATH . 'Modules/Sie') / 102400, 6);
 $data = $parent->get_Array();
 $rviews = array(
     "default" => "{$views}\E404\index",
     "notifications-denied" => "{$views}\Denied\index",
     "notifications-home" => "{$views}\Home\index",
-    //[Notifications]----------------------------------------------------------------------------------------
-    "notifications-notifications-home" => "$views\Notifications\Home\index",
-    "notifications-notifications-list" => "$views\Notifications\List\index",
-    "notifications-notifications-view" => "$views\Notifications\View\index",
-    "notifications-notifications-create" => "$views\Notifications\Create\index",
-    "notifications-notifications-edit" => "$views\Notifications\Edit\index",
-    "notifications-notifications-delete" => "$views\Notifications\Delete\index",
-    //[others]------------------------------------------------------------------------------------------
+    //[notifications]---------------------------------------------------------------------------------------------------
+    "me-notifications-home" => "$views\Notifications\Home\index",
+    "me-notifications-list" => "$views\Notifications\List\index",
+    "me-notifications-view" => "$views\Notifications\View\index",
+    "me-notifications-create" => "$views\Notifications\Create\index",
+    "me-notifications-edit" => "$views\Notifications\Edit\index",
+    "me-notifications-delete" => "$views\Notifications\Delete\index",
+    //[others]----------------------------------------------------------------------------------------------------------
+
 );
 $uri = !isset($rviews[$prefix]) ? $rviews["default"] : $rviews[$prefix];
 $json = view($uri, $data);
+$mmu = model("App\Modules\Messenger\Models\Messenger_Users");
 //[build]---------------------------------------------------------------------------------------------------------------
 $assign = array();
 $assign['theme'] = "Higgs";
-$assign['main_template'] = safe_json($json, 'main_template', 'c9c3');
+$assign['main_template'] = safe_json($json, 'main_template', "c9c3");
 $assign['breadcrumb'] = safe_json($json, 'breadcrumb');
 $assign['main'] = safe_json($json, 'main');
 $assign['left'] = get_notifications_sidebar();
@@ -48,10 +51,10 @@ $assign['article'] = safe_json($json, 'article');
 $assign['next'] = safe_json($json, 'next');
 $assign['previus'] = safe_json($json, 'previus');
 $assign['messenger'] = true;
-$assign['messenger_users'] = "";
+$assign['messenger_users'] = false;
 $benchmark->stop('time');
-$assign['benchmark'] = $benchmark->getElapsedTime('time', 4);
 $assign['modals'] = safe_module_modal();
+$assign['benchmark'] = $benchmark->getElapsedTime('time', 4);
 $assign['version'] = $version;
 //[print]---------------------------------------------------------------------------------------------------------------
 $template = view("App\Views\Themes\Gamma\index", $assign);

@@ -19,7 +19,7 @@ $mdiscounts = model('App\Modules\Sie\Models\Sie_Discounts');
 $mstatuses = model('App\Modules\Sie\Models\Sie_Statuses');
 $mcosts = model('App\Modules\Sie\Models\Sie_Costs');
 $mproducts = model('App\Modules\Sie\Models\Sie_Products');
-$mcourses = model("App\Modules\Sie\Models\Sie_Courses");
+$mcourses = model('App\Modules\Sie\Models\Sie_Courses');
 
 
 //[requests]------------------------------------------------------------------------------------------------------------
@@ -44,9 +44,9 @@ $num_materias_inscritas = 0;
 $twin = "";
 $wincount = 0;
 foreach ($progresses as $key => $progress) {
-    $exec = $mexecutions->get_ExecutionByProgress($progress["progress"]);
+    $exec = $mexecutions->getLastExecutionbyProgress($progress["progress"]);
     if (is_array($exec)) {
-        $course = $mcourses->get_Course($exec["course"]);
+        $course = $mcourses->getCourse($exec["course"]);
         if (is_array($course) && !empty($course["period"]) && $course["period"] == $period) {
             $num_materias_inscritas++;
             $twin .= "[{$exec["execution"]}] C1=" . $exec["c1"] . " C2=" . $exec["c2"] . " C3=" . $exec["c3"] . " TOTAL=" . $exec["total"] . "</br>";

@@ -26,7 +26,7 @@
  * █ ---------------------------------------------------------------------------------------------------------------------
  **/
 return [
-    'module' => 'Titulo del modulo',
-    'intro-1' => 'Descripcion introductoria',
+    'module' => 'Módulo de Notificaciones',
+    'intro-1' => 'El Módulo de Notificaciones Inteligente es una solución completa y profesional que permite a tu aplicación comunicarse efectivamente con tus usuarios a través de múltiples canales: correo electrónico, SMS, notificaciones push y alertas dentro de la aplicación (in-app). Todo desde una única plataforma centralizada.',
 ];
 ?>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/Libraries" isTestSource="false" packagePrefix="Melbahja" />
+      <sourceFolder url="file://$MODULE_DIR$/app/Libraries/Ratchet/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/Libraries/Ratchet/tests/helpers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/Libraries/Ratchet/tests/unit" isTestSource="false" packagePrefix="Ratchet" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty" isTestSource="false" packagePrefix="drupol" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty" isTestSource="false" packagePrefix="drupol" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty" isTestSource="false" packagePrefix="drupol" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Bacon" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Bacon/bacon/bacon-qr-code/src" isTestSource="false" packagePrefix="BaconQrCode" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Barcode" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/GS1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/google/cloud/Asset/external/protos" isTestSource="false" packagePrefix="Google" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/google/cloud/Grafeas/src" isTestSource="false" packagePrefix="Grafeas" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/google/common-protos/src" isTestSource="false" packagePrefix="Google" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/google/gax/metadata" isTestSource="false" packagePrefix="GPBMetadata" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/google/grpc-gcp/src/generated" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/google/protobuf/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/grpc/grpc/src/lib" isTestSource="false" packagePrefix="Grpc" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/guzzlehttp/guzzle/src" isTestSource="false" packagePrefix="GuzzleHttp" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/monolog/monolog/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/psr/log" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Google/rize/uri-template/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/HtmlTag" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Mongo" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Mongo/jean85/pretty-package-versions/src" isTestSource="false" packagePrefix="Jean85" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/Mongo/mongodb/mongodb/src" isTestSource="false" packagePrefix="MongoDB" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/SendGrid/lib" isTestSource="false" packagePrefix="SendGrid" />
+      <sourceFolder url="file://$MODULE_DIR$/app/ThirdParty/SendGrid/lib/helpers/stats" isTestSource="false" packagePrefix="SendGrid" />
+      <sourceFolder url="file://$MODULE_DIR$/public/codebar/GS1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/public/coder/classes" isTestSource="false" packagePrefix="ICEcoder" />
+      <sourceFolder url="file://$MODULE_DIR$/public/demo" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/public/domain" isTestSource="false" packagePrefix="Helge" />
+      <sourceFolder url="file://$MODULE_DIR$/public/domain/src" isTestSource="false" packagePrefix="Helge" />
+      <sourceFolder url="file://$MODULE_DIR$/public/nequi" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/public/tests/eithan" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/public/tests/periodista" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/public/tests/ratchet/src" isTestSource="false" packagePrefix="MyApp" />
+      <sourceFolder url="file://$MODULE_DIR$/public/tests/voice/backend" isTestSource="false" packagePrefix="App" />
+      <sourceFolder url="file://$MODULE_DIR$/public/tests/websocket" isTestSource="false" packagePrefix="Thruway" />
+      <sourceFolder url="file://$MODULE_DIR$/public/tests/websocket/src" isTestSource="false" packagePrefix="Thruway" />
+      <sourceFolder url="file://$MODULE_DIR$/system" isTestSource="false" packagePrefix="Higgs" />
+      <sourceFolder url="file://$MODULE_DIR$/system/ThirdParty" isTestSource="false" packagePrefix="Laminas" />
+      <sourceFolder url="file://$MODULE_DIR$/system/ThirdParty" isTestSource="false" packagePrefix="Laminas" />
+      <excludeFolder url="file://$MODULE_DIR$/public/tests/Chroma/chromadb" />
+      <excludeFolder url="file://$MODULE_DIR$/public/tests/Chroma/docs" />
+      <excludeFolder url="file://$MODULE_DIR$/writable" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

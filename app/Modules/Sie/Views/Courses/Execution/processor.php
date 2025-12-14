@@ -84,7 +84,7 @@ if (is_array($row)) {
     $course = $mcourses->getCourse($d["course"]);
     $progress = $mprogress->get_Progress($d["progress"]);
     $enrollment = $menrollments->get_Enrollment($progress["enrollment"]);
-    $registration = $mregistrations->getRegistration($enrollment["student"]);
+    $registration = $mregistrations->getRegistration($enrollment["registration"]);
     $moodle = new Moodle();
     $result = $moodle->enrollUserInCourse($course["moodle_course"], $registration["identification_number"], 5);
     if ($result['success']) {

@@ -1,0 +1,133 @@
+.help-block {
+	font-size: small;
+	opacity: 0.3;
+}
+
+
+.readonly {
+	background-color: var(--card-border);
+	font-weight: bold;
+}
+
+/* Styling for placeholders */ 
+::-webkit-input-placeholder { /* Edge */
+  font-style: italic;
+  opacity: 0.2 !important;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  font-style: italic;
+  opacity: 0.2 !important;
+}
+
+
+::placeholder {
+	font-style: italic;
+	opacity: 0.2 !important;
+}
+
+.form-header {
+	font-size: 1.2rem;
+	font-weight: normal;
+	line-height: 2rem;
+	background-color: #dddee1;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	border: 1px dotted #acadaf;
+	border-radius: 0.35rem;
+	color: black;
+}
+
+
+/* Estilos de formularios "nítidos" - Importado de dashboard.css */
+.form-control, .form-select {
+  border: 1px solid var(--card-border);
+  box-shadow: none !important;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: none !important;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  box-shadow: none !important;
+  border: 1px solid var(--card-border);
+}
+
+/* Estilos de formulario en el encabezado - Importado de dashboard.css */
+.header .form-control {
+  border: 1px solid rgba(255, 255, 255, var(--border-opacity));
+  background-color: rgba(255, 255, 255, var(--opacity-light));
+  color: white;
+  height: 38px;
+}
+
+.header .form-control::placeholder {
+  color: rgba(255, 255, 255, var(--opacity-high));
+}
+
+/* Estilos de input de chat - Importado de messenger.css */
+.chat .input input {
+    border: none;
+    background-image: none;
+    background-color: white;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    border-radius: 1.125rem;
+    flex-grow: 2;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1), 0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.2);
+    font-family: Red hat Display, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.025em;
+}
+
+
+/* --- DARK MODE STYLES --- */
+
+/* Estilos de formularios en modo oscuro - Importado de dashboard.css */
+.dark-mode .form-control,
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+    background-color: var(--dark-input-bg);
+    border-color: var(--dark-border-subtle);
+    color: var(--dark-text);
+}
+
+.dark-mode .form-control:focus,
+.dark-mode input:focus,
+.dark-mode textarea:focus,
+.dark-mode select:focus {
+    border-color: var(--dark-cyan);
+    box-shadow: 0 0 0 0.2rem rgba(0, 209, 255, 0.25);
+}
+
+.dark-mode label {
+    color: var(--dark-text);
+}
+
+/* Estilos de input de chat en modo oscuro - Importado de messenger.css */
+.theme-dark .chat .input input,
+.dark-mode .chat .input input {
+    background-color: #121416;
+    color: #e6e6e6;
+}
+
+.dark-mode .readonly {
+	background-color: var(--dark-input-bg);
+	font-weight: bold;
+}
+
+.dark-mode .form-header {
+    background-color: var(--dark-input-bg);
+    border-color: var(--border-strong);
+    color: var(--text-color);
+}
+
+
+.dark-mode .help-block {
+	font-size: 10px;
+	opacity: 0.5;
+	color: #728590;
+}

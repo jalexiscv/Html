@@ -181,70 +181,70 @@ $cities_residence = array_merge($cities_residence, $mcities->get_SelectData($r["
 $subgroups = array();
 if ($r["sisben_group"] == "A") {
     $subgroups = array(
-        array("label" => "A1", "value" => "A1"),
-        array("label" => "A2", "value" => "A2"),
-        array("label" => "A3", "value" => "A3"),
-        array("label" => "A4", "value" => "A4"),
-        array("label" => "A5", "value" => "A5")
+            array("label" => "A1", "value" => "A1"),
+            array("label" => "A2", "value" => "A2"),
+            array("label" => "A3", "value" => "A3"),
+            array("label" => "A4", "value" => "A4"),
+            array("label" => "A5", "value" => "A5")
     );
 } elseif ($r["sisben_group"] == "B") {
     $subgroups = array(
-        array("label" => "B1", "value" => "B1"),
-        array("label" => "B2", "value" => "B2"),
-        array("label" => "B3", "value" => "B3"),
-        array("label" => "B4", "value" => "B4"),
-        array("label" => "B5", "value" => "B5"),
-        array("label" => "B6", "value" => "B6"),
-        array("label" => "B7", "value" => "B7"),
+            array("label" => "B1", "value" => "B1"),
+            array("label" => "B2", "value" => "B2"),
+            array("label" => "B3", "value" => "B3"),
+            array("label" => "B4", "value" => "B4"),
+            array("label" => "B5", "value" => "B5"),
+            array("label" => "B6", "value" => "B6"),
+            array("label" => "B7", "value" => "B7"),
     );
 } elseif ($r["sisben_group"] == "C") {
     $subgroups = array(
-        array("label" => "C1", "value" => "C1"),
-        array("label" => "C2", "value" => "C2"),
-        array("label" => "C3", "value" => "C3"),
-        array("label" => "C4", "value" => "C4"),
-        array("label" => "C5", "value" => "C5"),
-        array("label" => "C6", "value" => "C6"),
-        array("label" => "C7", "value" => "C7"),
-        array("label" => "C8", "value" => "C8"),
-        array("label" => "C9", "value" => "C9"),
-        array("label" => "C10", "value" => "C10"),
-        array("label" => "C11", "value" => "C11"),
-        array("label" => "C12", "value" => "C12"),
-        array("label" => "C13", "value" => "C13"),
-        array("label" => "C14", "value" => "C14"),
-        array("label" => "C15", "value" => "C15"),
-        array("label" => "C16", "value" => "C16"),
-        array("label" => "C17", "value" => "C17"),
-        array("label" => "C18", "value" => "C18"),
+            array("label" => "C1", "value" => "C1"),
+            array("label" => "C2", "value" => "C2"),
+            array("label" => "C3", "value" => "C3"),
+            array("label" => "C4", "value" => "C4"),
+            array("label" => "C5", "value" => "C5"),
+            array("label" => "C6", "value" => "C6"),
+            array("label" => "C7", "value" => "C7"),
+            array("label" => "C8", "value" => "C8"),
+            array("label" => "C9", "value" => "C9"),
+            array("label" => "C10", "value" => "C10"),
+            array("label" => "C11", "value" => "C11"),
+            array("label" => "C12", "value" => "C12"),
+            array("label" => "C13", "value" => "C13"),
+            array("label" => "C14", "value" => "C14"),
+            array("label" => "C15", "value" => "C15"),
+            array("label" => "C16", "value" => "C16"),
+            array("label" => "C17", "value" => "C17"),
+            array("label" => "C18", "value" => "C18"),
     );
 } elseif ($r["sisben_group"] == "D") {
     $subgroups = array(
-        array("label" => "D1", "value" => "D1"),
-        array("label" => "D2", "value" => "D2"),
-        array("label" => "D3", "value" => "D3"),
-        array("label" => "D4", "value" => "D4"),
-        array("label" => "D5", "value" => "D5"),
-        array("label" => "D6", "value" => "D6"),
-        array("label" => "D7", "value" => "D7"),
-        array("label" => "D8", "value" => "D8"),
-        array("label" => "D9", "value" => "D9"),
-        array("label" => "D10", "value" => "D10"),
-        array("label" => "D11", "value" => "D11"),
-        array("label" => "D12", "value" => "D12"),
-        array("label" => "D13", "value" => "D13"),
-        array("label" => "D14", "value" => "D14"),
-        array("label" => "D15", "value" => "D15"),
-        array("label" => "D16", "value" => "D16"),
-        array("label" => "D17", "value" => "D17"),
-        array("label" => "D18", "value" => "D18"),
-        array("label" => "D19", "value" => "D19"),
-        array("label" => "D20", "value" => "D20"),
-        array("label" => "D21", "value" => "D21"),
+            array("label" => "D1", "value" => "D1"),
+            array("label" => "D2", "value" => "D2"),
+            array("label" => "D3", "value" => "D3"),
+            array("label" => "D4", "value" => "D4"),
+            array("label" => "D5", "value" => "D5"),
+            array("label" => "D6", "value" => "D6"),
+            array("label" => "D7", "value" => "D7"),
+            array("label" => "D8", "value" => "D8"),
+            array("label" => "D9", "value" => "D9"),
+            array("label" => "D10", "value" => "D10"),
+            array("label" => "D11", "value" => "D11"),
+            array("label" => "D12", "value" => "D12"),
+            array("label" => "D13", "value" => "D13"),
+            array("label" => "D14", "value" => "D14"),
+            array("label" => "D15", "value" => "D15"),
+            array("label" => "D16", "value" => "D16"),
+            array("label" => "D17", "value" => "D17"),
+            array("label" => "D18", "value" => "D18"),
+            array("label" => "D19", "value" => "D19"),
+            array("label" => "D20", "value" => "D20"),
+            array("label" => "D21", "value" => "D21"),
     );
 } else {
     $subgroups = array(
-        array("label" => "No aplica", "value" => ""),
+            array("label" => "No aplica", "value" => ""),
     );
 }
 
@@ -467,9 +467,9 @@ $f->groups["gy"] = $f->get_GroupSeparator();
 $f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["submit"] . $f->fields["cancel"]));
 //[build]---------------------------------------------------------------------------------------------------------------
 $card = $bootstrap->get_Card2("create", array(
-    "header-title" => "Crear estudiante",
-    "content" => $f,
-    "header-back" => $back
+        "header-title" => "Crear estudiante",
+        "content" => $f,
+        "header-back" => $back
 ));
 echo($card);
 $fid = $f->get_fid();

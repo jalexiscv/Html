@@ -1,0 +1,36 @@
+<?php
+
+class Smarty_Internal_Resource_Stream extends Smarty_Resource_Recompiled
+{
+    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    {
+        if (strpos($source->resource, '://') !== false) {
+            $source->filepath = $source->resource;
+        } else {
+            $source->filepath = str_replace(':', '://', $source->resource);
+        }
+        $source->uid = false;
+        $source->content = $this->getContent($source);
+        $source->timestamp = $source->exists = !!$source->content;
+    }
+
+    public function getContent(Smarty_Template_Source $source)
+    {
+        $t = '';
+        $fp = fopen($source->filepath, 'r+');
+        if ($fp) {
+            while (!feof($fp) && ($current_line = fgets($fp)) !== false) {
+                $t .= $current_line;
+            }
+            fclose($fp);
+            return $t;
+        } else {
+            return false;
+        }
+    }
+
+    public function buildUniqueResourceName(Smarty $smarty, $resource_name, $isConfig = false)
+    {
+        return get_class($this) . '#' . $resource_name;
+    }
+}

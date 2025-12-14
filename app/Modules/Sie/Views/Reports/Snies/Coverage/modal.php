@@ -29,7 +29,8 @@
                         <div class="mb-3">
                             <div class="mb-3">
                                 <div class="alert alert-primary" role="alert">
-                                    Este reporte solo incluye estudiantes de la jornada Nocturna en el periodo académico indicado.
+                                    Este reporte solo incluye estudiantes de la jornada Nocturna en el periodo académico
+                                    indicado.
                                 </div>
                             </div>
                         </div>

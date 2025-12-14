@@ -1,0 +1,7 @@
+{
+  "cert_provider_command": [
+    "invalid command",
+    "2>",
+    "/dev/null"
+  ]
+}

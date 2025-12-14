@@ -1,0 +1,12 @@
+{table
+id=$table['id']
+data-url=$table['data-url']
+cols=$table['cols']
+buttons=$table['buttons']
+data-page-size=$table['data-page-size']
+data-side-pagination=$table['data-side-pagination']
+data-show-columns=true
+data-show-refresh=true
+data-show-fullscreen=true
+stickyHeader=true
+}

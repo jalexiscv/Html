@@ -6,7 +6,7 @@ $data['permissions'] = array('singular' => 'sie-courses-view', "plural" => 'sie-
 $singular = $authentication->has_Permission($data['permissions']['singular']);
 $plural = $authentication->has_Permission($data['permissions']['plural']);
 
-$mcourses = model("App\Modules\Sie\Models\Sie_Courses");
+$mcourses = model('App\Modules\Sie\Models\Sie_Courses');
 $course = $mcourses->where('course', $oid)->first();
 $author = (@$course['teacher'] == safe_get_user()) ? true : false;
 

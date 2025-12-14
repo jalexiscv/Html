@@ -2,8 +2,8 @@
 /**********************
  *  Configuración
  **********************/
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domain = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domain = service("moodle")::getDomainName();
 $endpoint = "$domain/webservice/rest/server.php";
 
 $functionGetUser = 'core_user_get_users';
@@ -16,10 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = strtolower(trim($_POST['username'] ?? ''));
     $username = preg_replace('/[^a-z0-9._-]/', '', $username);
     $courseid = (int)($_POST['courseid'] ?? 0);
-    $role = $_POST['role'] ?? 'student';
+    $role = $_POST['role'] ?? 'registration';
 
     $roleidMap = [
-            'student' => 5,  // ID por defecto en Moodle para estudiante
+            'registration' => 5,  // ID por defecto en Moodle para estudiante
             'teacher' => 3   // ID por defecto para profesor
     ];
 
@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mb-3">
             <label for="role" class="form-label">Rol a Asignar *</label>
             <select name="role" id="role" class="form-select" required>
-                <option value="student">Estudiante</option>
+                <option value="registration">Estudiante</option>
                 <option value="teacher">Profesor</option>
             </select>
         </div>

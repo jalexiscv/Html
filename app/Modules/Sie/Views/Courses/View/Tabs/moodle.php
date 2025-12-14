@@ -1,27 +1,48 @@
 <?php
 /** @var String $oid */
 //[models]--------------------------------------------------------------------------------------------------------------
-$mcourses = model("App\Modules\Sie\Models\Sie_Courses");
+$mcourses = model('App\Modules\Sie\Models\Sie_Courses');
 $mprograms = model("App\Modules\Sie\Models\Sie_Programs");
 $mmodules = model("App\Modules\Sie\Models\Sie_Modules");
+$mpensums = model('App\Modules\Sie\Models\Sie_Pensums');
+$msubsectors = model('App\Modules\Sie\Models\Sie_Subsectors');
+$mnetworks = model('App\Modules\Sie\Models\Sie_Networks');
+
 $bootstrap = service('bootstrap');
 $strings = model('App\Libraries\Strings');
+//[models]--------------------------------------------------------------------------------------------------------------
+$msettings = model("App\Modules\Sie\Models\Sie_Settings");
 //[vars]----------------------------------------------------------------------------------------------------------------
 
-$row = $mcourses->get_Course($oid);
+$course = $mcourses->getCourse($oid);
+$pensum = $mpensums->get_Pensum(@$course["pensum"]);
+$module = $mmodules->getModule(@$pensum["module"]);
+$subsector = $msubsectors->getSubsector(@$module["subsector"]);
+$network = $mnetworks->getNetwork(@$subsector["network"]);
 
-if (!$row) {
+
+//echo(safe_dump($course));
+
+if (!$course) {
     echo '<div class="alert alert-danger"><i class="fas fa-exclamation-triangle me-2"></i>Curso no encontrado</div>';
     return;
 }
 
-$course_code = $row["course"];
-$course_name = $strings->get_URLDecode($row["name"]);
-$course_reference = $row["reference"];
-$course_program = $row["program"];
-$course_period = $row["period"];
-$course_teacher = $row["teacher"];
-$moodle_course_id = $row["moodle_course"];
+$pensum_pensum = @$pensum["pensum"];
+$pensum_name = @$module["name"];
+$pensum_module = @$pensum["module"];
+
+$course_code = $course["course"];
+$course_name = $strings->get_URLDecode(@$course["name"]);
+$course_reference = $course["reference"];
+$course_program = $course["program"];
+$course_period = $course["period"];
+$course_teacher = $course["teacher"];
+$course_pensum = $pensum_name . " - " . @$course["pensum"];
+$course_network = @$network["name"] . " - " . @$subsector["network"];
+$course_subsector = @$subsector["name"] . " - " . @$subsector["subsector"];
+$course_moodle_course_id = @$subsector["moodle_course_base"];
+$moodle_course_id = $course["moodle_course"];
 
 // Obtener información adicional del programa si existe
 $program_info = null;
@@ -33,113 +54,115 @@ if ($course_program) {
 $moodle = new App\Libraries\Moodle();
 $courseResult = $moodle->getCourse($course_code);
 
+
+$moodle_url = $msettings->getSetting("MOODLE-URL");
 ?>
 
-    <div class="container-fluid p-0 m-0">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-book me-2"></i>
-                            Estado del Curso en Moodle
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6 class="text-muted">Información del Curso</h6>
-                                <table class="table table-sm">
-                                    <tr>
-                                        <td><strong>Código:</strong></td>
-                                        <td><?php echo $course_code; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Nombre:</strong></td>
-                                        <td><?php echo $course_name; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Referencia:</strong></td>
-                                        <td><?php echo $course_reference; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Programa:</strong></td>
-                                        <td><?php echo $program_info ? $strings->get_URLDecode($program_info['name']) : $course_program; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Período:</strong></td>
-                                        <td><?php echo $course_period; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Profesor:</strong></td>
-                                        <td><?php echo $course_teacher; ?></td>
-                                    </tr>
-                                    <?php if ($moodle_course_id): ?>
-                                        <tr>
-                                            <td><strong>ID Moodle Local:</strong></td>
-                                            <td><?php echo $moodle_course_id; ?></td>
-                                        </tr>
-                                    <?php endif; ?>
-                                </table>
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mx-0 my-3 form-header">2. Estado del Curso en Moodle</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="mx-0 my-3 form-header">2.1. Información del Curso</h2>
+                    <table class="table table-sm">
+                        <tr>
+                            <td><strong>Código:</strong></td>
+                            <td><?php echo $course_code; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nombre:</strong></td>
+                            <td><?php echo $course_name; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Referencia:</strong></td>
+                            <td><?php echo $course_reference; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Programa:</strong></td>
+                            <td><?php echo $program_info ? $strings->get_URLDecode($program_info['name']) : $course_program; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Período:</strong></td>
+                            <td><?php echo $course_period; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Profesor:</strong></td>
+                            <td><?php echo $course_teacher; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pensum:</strong></td>
+                            <td><?php echo $course_pensum; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Red Académica:</strong></td>
+                            <td><?php echo $course_network; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Subsector Académico:</strong></td>
+                            <td><?php echo $course_subsector; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Curso Base:</strong></td>
+                            <td><?php echo $course_moodle_course_id; ?></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="mx-0 my-3 form-header">2.2. Estado en Moodle</h2>
+                    <div id="moodle-status">
+                        <?php if ($courseResult !== false && $courseResult > 0): ?>
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>Curso Registrado</strong>
+                                <hr>
+                                <small>
+                                    <strong>ID Moodle:</strong>
+                                    <a href="#"
+                                       onclick="confirmMoodleAccess(<?php echo $courseResult; ?>); return false;"
+                                       class="text-primary fw-bold">
+                                        <?php echo $courseResult; ?>
+                                        <i class="fas fa-external-link-alt ms-1"></i>
+                                    </a><br>
+                                    <strong>Código:</strong> <?php echo $course_code; ?><br>
+                                    <strong>Estado:</strong> Activo en Moodle
+                                </small>
                             </div>
-                            <div class="col-md-6">
-                                <h6 class="text-muted">Estado en Moodle</h6>
-                                <div id="moodle-status">
-                                    <?php if ($courseResult !== false && $courseResult > 0): ?>
-                                        <div class="alert alert-success">
-                                            <i class="fas fa-check-circle me-2"></i>
-                                            <strong>Curso Registrado</strong>
-                                            <hr>
-                                            <small>
-                                                <strong>ID Moodle:</strong>
-                                                <a href="#"
-                                                   onclick="confirmMoodleAccess(<?php echo $courseResult; ?>); return false;"
-                                                   class="text-primary fw-bold">
-                                                    <?php echo $courseResult; ?>
-                                                    <i class="fas fa-external-link-alt ms-1"></i>
-                                                </a><br>
-                                                <strong>Código:</strong> <?php echo $course_code; ?><br>
-                                                <strong>Estado:</strong> Activo en Moodle
-                                            </small>
-                                        </div>
-                                        <?php if ($moodle_course_id != $courseResult): ?>
-                                            <div class="alert alert-warning">
-                                                <i class="fas fa-exclamation-triangle me-2"></i>
-                                                <strong>Discrepancia Detectada</strong>
-                                                <hr>
-                                                <small>El ID local (<?php echo $moodle_course_id; ?>) no coincide con el
-                                                    ID de Moodle
-                                                    (<a href="#"
-                                                        onclick="confirmMoodleAccess(<?php echo $courseResult; ?>); return false;"
-                                                        class="text-primary fw-bold">
-                                                        <?php echo $courseResult; ?>
-                                                        <i class="fas fa-external-link-alt ms-1"></i>
-                                                    </a>)</small>
-                                            </div>
-                                            <div class="d-grid mb-2">
-                                                <button type="button" class="btn btn-warning" id="btn-sync-moodle">
-                                                    <i class="fas fa-sync me-2"></i>
-                                                    Sincronizar ID con Moodle
-                                                </button>
-                                            </div>
-                                        <?php endif; ?>
-                                    <?php else: ?>
-                                        <div class="alert alert-warning">
-                                            <i class="fas fa-exclamation-triangle me-2"></i>
-                                            <strong>Curso No Registrado</strong>
-                                            <hr>
-                                            <small>Este curso no existe en Moodle</small>
-                                        </div>
-                                        <div class="d-grid">
-                                            <button type="button" class="btn btn-primary" id="btn-create-moodle">
-                                                <i class="fas fa-plus me-2"></i>
-                                                Crear Curso en Moodle
-                                            </button>
-                                        </div>
-                                    <?php endif; ?>
+                            <?php if ($moodle_course_id != $courseResult): ?>
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <strong>Discrepancia Detectada</strong>
+                                    <hr>
+                                    <small>El ID local (<?php echo $moodle_course_id; ?>) no coincide con el
+                                        ID de Moodle
+                                        (<a href="#"
+                                            onclick="confirmMoodleAccess(<?php echo $courseResult; ?>); return false;"
+                                            class="text-primary fw-bold">
+                                            <?php echo $courseResult; ?>
+                                            <i class="fas fa-external-link-alt ms-1"></i>
+                                        </a>)</small>
                                 </div>
+                                <div class="d-grid mb-2">
+                                    <button type="button" class="btn btn-warning" id="btn-sync-moodle">
+                                        <i class="fas fa-sync me-2"></i>
+                                        Sincronizar ID con Moodle
+                                    </button>
+                                </div>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Curso No Registrado</strong>
+                                <hr>
+                                <small>Este curso no existe en Moodle</small>
                             </div>
-                        </div>
+                            <div class="d-grid">
+                                <button type="button" class="btn btn-primary" id="btn-create-moodle">
+                                    <i class="fas fa-plus me-2"></i>
+                                    Crear Curso en Moodle
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -405,7 +428,7 @@ $courseResult = $moodle->getCourse($course_code);
             // Event listener para el botón de confirmación del modal
             confirmMoodleAccessBtn.addEventListener('click', function () {
                 if (currentMoodleCourseId) {
-                    const moodleUrl = `https://campus.utede.edu.co/user/index.php?id=${currentMoodleCourseId}`;
+                    const moodleUrl = `<?php echo($moodle_url["value"]); ?>/course/view.php?id=${currentMoodleCourseId}`;
                     window.open(moodleUrl, '_blank');
                     moodleAccessModal.hide();
                     currentMoodleCourseId = null;

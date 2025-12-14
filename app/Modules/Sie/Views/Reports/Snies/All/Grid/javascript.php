@@ -12,8 +12,8 @@
     document.addEventListener('DOMContentLoaded', adjustTableHeight);
     window.addEventListener('resize', adjustTableHeight);
 
-    document.getElementById('btn-excel').addEventListener('click', function() {
-        window.excel.Convert('grid-table','reporte-gratuidad-pagina-<?php echo $page; ?>');
+    document.getElementById('btn-excel').addEventListener('click', function () {
+        window.excel.Convert('grid-table', 'reporte-gratuidad-pagina-<?php echo $page; ?>');
     });
 
 </script>

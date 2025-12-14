@@ -121,7 +121,7 @@ class CursoPDF extends Fpdi
     // Función para crear la sección de información del curso
     function infoCurso($oid)
     {
-        $mcourses = model("App\Modules\Sie\Models\Sie_Courses");
+        $mcourses = model('App\Modules\Sie\Models\Sie_Courses');
         $mprograms = model("App\Modules\Sie\Models\Sie_Programs");
         $mmodules = model("App\Modules\Sie\Models\Sie_Modules");
         $mgrids = model("App\Modules\Sie\Models\Sie_Grids");
@@ -131,7 +131,7 @@ class CursoPDF extends Fpdi
         $minstitutions = model("App\Modules\Sie\Models\Sie_Institutions");
         $mgroups = model("App\Modules\Sie\Models\Sie_Groups");
 
-        $row = $mcourses->get_Course($oid);
+        $row = $mcourses->getCourse($oid);
         $program = $mprograms->getProgram(@$row["program"]);
         $grid = $mgrids->get_Grid(@$row["grid"]);
         $pensum = $mpensums->get_Pensum(@$row["pensum"]);
@@ -262,7 +262,7 @@ class CursoPDF extends Fpdi
         $mregistrations = model('App\Modules\Sie\Models\Sie_Registrations');
         $mstatuses = model('App\Modules\Sie\Models\Sie_Statuses');
 
-        $row = $mcourses->get_Course($oid);
+        $row = $mcourses->getCourse($oid);
 
         $executions = $mexecutions
             ->select('MAX(execution) as execution, progress')
@@ -279,7 +279,7 @@ class CursoPDF extends Fpdi
                 $progress = $mprogress->where('progress', $execution['progress'])->first();
                 if (!empty($progress['enrollment'])) {
                     $enrollment = $menrollments->where('enrollment', $progress['enrollment'])->first();
-                    $registration = $mregistrations->where('registration', $enrollment['student'])->first();
+                    $registration = $mregistrations->where('registration', $enrollment['registration'])->first();
 
                     $linkView = "/sie/executions/edit/{$execution['execution']}?t=" . pk();
 

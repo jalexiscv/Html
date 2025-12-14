@@ -1,0 +1,1 @@
+<link rel="icon" type="image/png" href="{base_url("themes/favicon.png")}"/>

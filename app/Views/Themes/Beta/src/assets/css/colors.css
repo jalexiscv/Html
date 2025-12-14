@@ -1,0 +1,95 @@
+/* Variables globales para ambos modos (claro y oscuro) */
+:root {
+  /* Tamaños estructurales */
+  --sidebar-width: 280px;
+  --header-height: 60px;
+  
+  /* Colores del modo claro - Paleta Bootstrap 5 */
+  --primary-color: #0d6efd; /* Azul Bootstrap principal */
+  --secondary-color: #6c757d; /* Gris Bootstrap secundario */
+  --success-color: #198754; /* Verde Bootstrap */
+  --info-color: #0dcaf0; /* Cyan Bootstrap */
+  --warning-color: #ffc107; /* Amarillo Bootstrap */
+  --danger-color: #dc3545; /* Rojo Bootstrap */
+  --light-color: #f8f9fa; /* Gris claro Bootstrap */
+  --dark-color: #212529; /* Gris oscuro Bootstrap */
+  
+  /* Elementos principales en modo claro */
+  --body-bg: var(--light-color);
+  --card-bg: #FFFFFF;
+  --card-border: #DADDE1; /* Borde gris Facebook */
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --text-color: var(--secondary-color);
+  --border-opacity: 0.1;
+
+  /* Estilos para modales */
+  --modal-bg: var(--card-bg);
+  --modal-border-color: var(--card-border);
+  --modal-header-bg: var(--card-bg);
+  --modal-header-border-color: var(--card-border);
+  --modal-footer-bg: var(--card-bg);
+  --modal-footer-border-color: var(--card-border);
+  
+  /* Transparencias comunes */
+  --opacity-light: 0.1;
+  --opacity-medium: 0.3;
+  --opacity-high: 0.7;
+
+  --nav-tabs-link-active-bg:var(--card-bg);
+
+}
+
+/* Colores del modo oscuro - Paleta Facebook Dark */
+.dark-mode {
+    /* Colores principales del tema oscuro Facebook */
+    --body-bg: #181c1f;               /* Negro Facebook - Fondo principal */
+    --text-color: #778a96;            /* Blanco Facebook - Texto principal */
+    --text-muted: #B0B3B8;            /* Gris claro Facebook - Texto secundario */
+    /* Borde Facebook oscuro */
+    --border-strong: #4E4F50;         /* Borde más visible Facebook */
+    --input-bg: #171b1d;              /* Fondo para campos Facebook */
+    --hover-bg: #3A3B3C;              /* Color para hover Facebook */
+    --border-opacity: 0.2;             /* Opacidad para bordes */
+
+    /** Cards */
+    --card-bg: #212529;
+    --card-color: #ffffff;
+    --card-border: #171b1d;
+ 
+    /* Estilos para modales en modo oscuro */
+    --modal-bg: var(--dark-card-bg);
+    --modal-border-color: var(--dark-border-subtle);
+    --modal-header-bg: var(--dark-card-bg);
+    --modal-header-border-color: var(--dark-border-subtle);
+    --modal-footer-bg: var(--dark-card-bg);
+    --modal-footer-border-color: var(--dark-border-subtle);
+    
+    /* Colores de acento en modo oscuro Facebook */
+    --primary-color: #2D88FF;         /* Azul Facebook oscuro - Color principal */
+    --secondary-color: #8D907D;       /* Gris claro Facebook - Color secundario */
+    --success-color: #00C851;         /* Verde Facebook oscuro - Éxito */
+    --info-color: #4267B2;            /* Azul Facebook clásico - Información */
+    --warning-color: #FF6B35;         /* Naranja Facebook - Advertencia */
+    --danger-color: #F02849;          /* Rojo Facebook oscuro - Peligro/Error */
+    --light-color: #3A3B3C;           /* Gris Facebook - Fondo alternativo */
+    --dark-color: #18191A;            /* Negro Facebook - Color oscuro */
+    
+    /* Alias para compatibilidad con estilos existentes */
+    --dark-bg: var(--body-bg);
+    --dark-card-bg: var(--card-bg);
+    --dark-text: var(--text-color);
+    --dark-text-secondary: var(--text-muted);
+    --dark-border-subtle: var(--card-border);
+    --dark-border: var(--border-strong);
+    --dark-input-bg: var(--input-bg);
+    --dark-hover: var(--hover-bg);
+    --dark-cyan: var(--info-color);
+    --dark-green: var(--success-color);
+    --dark-red: var(--danger-color);
+    --dark-purple: var(--primary-color);
+    --dark-pink: var(--warning-color);
+    --dark-a-text: var(--text-color);
+    --dark-ahover-text: var(--text-color);
+    /** Tabs */
+    --nav-tabs-link-active-bg:var(--card-bg);
+}

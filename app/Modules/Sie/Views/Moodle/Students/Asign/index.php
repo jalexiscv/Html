@@ -2,12 +2,12 @@
 /**********************
  *  Configuración
  **********************/
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domain = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domain = service("moodle")::getDomainName();
 $endpoint = "$domain/webservice/rest/server.php";
 
 $functionGetUser = 'core_user_get_users';
-$functionEnroll  = 'enrol_manual_enrol_users';
+$functionEnroll = 'enrol_manual_enrol_users';
 
 $errorInfo = null;
 $successMsg = null;
@@ -16,11 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = strtolower(trim($_POST['username'] ?? ''));
     $username = preg_replace('/[^a-z0-9._-]/', '', $username);
     $courseid = (int)($_POST['courseid'] ?? 0);
-    $role     = $_POST['role'] ?? 'student';
+    $role = $_POST['role'] ?? 'registration';
 
     $roleidMap = [
-        'student' => 5,  // ID por defecto en Moodle para estudiante
-        'teacher' => 3   // ID por defecto para profesor
+            'registration' => 5,  // ID por defecto en Moodle para estudiante
+            'teacher' => 3   // ID por defecto para profesor
     ];
 
     if (!$username || !$courseid || !isset($roleidMap[$role])) {
@@ -28,16 +28,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // 1. Obtener ID del usuario
         $searchParams = http_build_query([
-            'criteria' => [['key' => 'username', 'value' => $username]]
+                'criteria' => [['key' => 'username', 'value' => $username]]
         ]);
 
         $urlGet = "$endpoint?wstoken=$token&wsfunction=$functionGetUser&moodlewsrestformat=json&$searchParams";
 
         $curl = curl_init($urlGet);
         curl_setopt_array($curl, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
         ]);
 
         $response = curl_exec($curl);
@@ -51,22 +51,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // 2. Enrolar usuario en curso
             $enrolParams = http_build_query([
-                'enrolments' => [[
-                    'roleid'    => $roleid,
-                    'userid'    => $userid,
-                    'courseid'  => $courseid
-                ]]
+                    'enrolments' => [[
+                            'roleid' => $roleid,
+                            'userid' => $userid,
+                            'courseid' => $courseid
+                    ]]
             ]);
 
             $urlEnroll = "$endpoint?wstoken=$token&wsfunction=$functionEnroll&moodlewsrestformat=json";
 
             $curl = curl_init($urlEnroll);
             curl_setopt_array($curl, [
-                CURLOPT_POST => true,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_POSTFIELDS => $enrolParams,
-                CURLOPT_SSL_VERIFYPEER => false,
-                CURLOPT_SSL_VERIFYHOST => false,
+                    CURLOPT_POST => true,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POSTFIELDS => $enrolParams,
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_SSL_VERIFYHOST => false,
             ]);
 
             $enrolResponse = curl_exec($curl);
@@ -93,7 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Asignar Usuario a Curso</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>body { padding-top: 20px; }</style>
+    <style>body {
+            padding-top: 20px;
+        }</style>
 </head>
 <body>
 <div class="container">
@@ -117,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mb-3">
             <label for="role" class="form-label">Rol a Asignar *</label>
             <select name="role" id="role" class="form-select" required>
-                <option value="student">Estudiante</option>
+                <option value="registration">Estudiante</option>
                 <option value="teacher">Profesor</option>
             </select>
         </div>

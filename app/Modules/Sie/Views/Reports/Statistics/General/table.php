@@ -203,8 +203,8 @@ $count = 0;
 $class = "";
 
 foreach ($statuses as $status) {
-    $registration = $mregistrations->get_Registration($status['registration']);
-    if (!empty($registration["registration"])) {
+    $registration = $mregistrations->getRegistration($status['registration']);
+    if (!empty($registration)) {
         $count++;
         $class = ($count % 2 == 0) ? "odd" : "even";
 
@@ -221,9 +221,15 @@ foreach ($statuses as $status) {
 
         $STATUS_AGREEMENT = @$status['agreement'];
         if (!empty($STATUS_AGREEMENT)) {
-            $STATUS_AGREEMENT_COUNTRY = !empty(@$status['agreement_country']) ? safe_strtoupper($mcountries->getCountry($status['agreement_country'])["name"]) : $nupdated;
-            $STATUS_AGREEMENT_REGION = !empty(@$status['agreement_region']) ? safe_strtoupper(@$mregions->getRegion($status['agreement_region'])["name"]) : $nupdated;
-            $STATUS_AGREEMENT_CITY = !empty(@$status['agreement_city']) ? safe_strtoupper($mcities->getCity(@$status['agreement_city'])["name"]) : $nupdated;
+            $agreement_country = !empty(@$status['agreement_country']) ? $mcountries->getCountry($status['agreement_country']) : null;
+            $STATUS_AGREEMENT_COUNTRY = $agreement_country ? safe_strtoupper($agreement_country['name']) : $nupdated;
+
+            $agreement_region = !empty(@$status['agreement_region']) ? $mregions->getRegion($status['agreement_region']) : null;
+            $STATUS_AGREEMENT_REGION = $agreement_region ? safe_strtoupper($agreement_region['name']) : $nupdated;
+
+            $agreement_city = !empty(@$status['agreement_city']) ? $mcities->getCity($status['agreement_city']) : null;
+            $STATUS_AGREEMENT_CITY = $agreement_city ? safe_strtoupper($agreement_city['name']) : $nupdated;
+
             $STATUS_AGREEMENT_INSTITUTION = @$status['agreement_institution'];
             $STATUS_AGREEMENT_GROUP = @$status['agreement_group'];
         } else {
@@ -246,9 +252,15 @@ foreach ($statuses as $status) {
 
         $STATUS_IDENTIFICATION_PLACE = !empty(@$status['identification_place']) ? safe_strtoupper(@$status['identification_place']) : $nupdated;
         $STATUS_IDENTIFICATION_DATE = !empty(@$status['identification_date']) ? safe_strtoupper(@$status['identification_date']) : $nupdated;
-        $STATUS_IDENTIFICATION_COUNTRY = !empty(@$status['identification_country']) ? safe_strtoupper($mcountries->getCountry($status['identification_country'])["name"]) : $nupdated;
-        $STATUS_IDENTIFICATION_REGION = !empty(@$status['identification_region']) ? safe_strtoupper(@$mregions->getRegion($status['identification_region'])["name"]) : $nupdated;
-        $STATUS_IDENTIFICATION_CITY = !empty(@$status['identification_city']) ? safe_strtoupper($mcities->getCity(@$status['identification_city'])["name"]) : $nupdated;
+
+        $identification_country = !empty(@$status['identification_country']) ? $mcountries->getCountry($status['identification_country']) : null;
+        $STATUS_IDENTIFICATION_COUNTRY = $identification_country ? safe_strtoupper($identification_country['name']) : $nupdated;
+
+        $identification_region = !empty(@$status['identification_region']) ? $mregions->getRegion($status['identification_region']) : null;
+        $STATUS_IDENTIFICATION_REGION = $identification_region ? safe_strtoupper($identification_region['name']) : $nupdated;
+
+        $identification_city = !empty(@$status['identification_city']) ? $mcities->getCity($status['identification_city']) : null;
+        $STATUS_IDENTIFICATION_CITY = $identification_city ? safe_strtoupper($identification_city['name']) : $nupdated;
 
         $STATUS_GENDER = !empty(@$status['gender']) ? safe_strtoupper(@$status['gender']) : $nupdated;
         $STATUS_EMAIL_ADDRESS = !empty(@$status['email_address']) ? safe_strtoupper(@$status['email_address']) : $nupdated;
@@ -257,15 +269,25 @@ foreach ($statuses as $status) {
         $STATUS_MOBILE = !empty(@$status['mobile']) ? safe_strtoupper(@$status['mobile']) : $nupdated;
         $STATUS_BIRTH_DATE = !empty(@$status['birth_date']) ? safe_strtoupper(@$status['birth_date']) : $nupdated;
 
-        $STATUS_BIRTH_COUNTRY = !empty(@$status['birth_country']) ? safe_strtoupper($mcountries->getCountry($status['birth_country'])["name"]) : $nupdated;
-        $STATUS_BIRTH_REGION = !empty(@$status['birth_region']) ? safe_strtoupper(@$mregions->getRegion($status['birth_region'])["name"]) : $nupdated;
-        $STATUS_BIRTH_CITY = !empty(@$status['birth_city']) ? safe_strtoupper($mcities->getCity(@$status['birth_city'])["name"]) : $nupdated;
+        $birth_country = !empty(@$status['birth_country']) ? $mcountries->getCountry($status['birth_country']) : null;
+        $STATUS_BIRTH_COUNTRY = $birth_country ? safe_strtoupper($birth_country['name']) : $nupdated;
+
+        $birth_region = !empty(@$status['birth_region']) ? $mregions->getRegion($status['birth_region']) : null;
+        $STATUS_BIRTH_REGION = $birth_region ? safe_strtoupper($birth_region['name']) : $nupdated;
+
+        $birth_city = !empty(@$status['birth_city']) ? $mcities->getCity($status['birth_city']) : null;
+        $STATUS_BIRTH_CITY = $birth_city ? safe_strtoupper($birth_city['name']) : $nupdated;
 
         $STATUS_ADDRESS = !empty(@$status['address']) ? safe_strtoupper(@$status['address']) : $nupdated;
 
-        $STATUS_RESIDENCE_COUNTRY = !empty(@$status['residence_country']) ? safe_strtoupper($mcountries->getCountry($status['residence_country'])["name"]) : $nupdated;
-        $STATUS_RESIDENCE_REGION = !empty(@$status['residence_region']) ? safe_strtoupper(@$mregions->getRegion($status['residence_region'])["name"]) : $nupdated;
-        $STATUS_RESIDENCE_CITY = !empty(@$status['residence_city']) ? safe_strtoupper($mcities->getCity(@$status['residence_city'])["name"]) : $nupdated;
+        $residence_country = !empty(@$status['residence_country']) ? $mcountries->getCountry($status['residence_country']) : null;
+        $STATUS_RESIDENCE_COUNTRY = $residence_country ? safe_strtoupper($residence_country['name']) : $nupdated;
+
+        $residence_region = !empty(@$status['residence_region']) ? $mregions->getRegion($status['residence_region']) : null;
+        $STATUS_RESIDENCE_REGION = $residence_region ? safe_strtoupper($residence_region['name']) : $nupdated;
+
+        $residence_city = !empty(@$status['residence_city']) ? $mcities->getCity($status['residence_city']) : null;
+        $STATUS_RESIDENCE_CITY = $residence_city ? safe_strtoupper($residence_city['name']) : $nupdated;
 
         $STATUS_NEIGHBORHOOD = !empty(@$status['neighborhood']) ? safe_strtoupper(@$status['neighborhood']) : $nupdated;
         $STATUS_AREA = !empty(@$status['area']) ? safe_strtoupper(@$status['area']) : $nupdated;

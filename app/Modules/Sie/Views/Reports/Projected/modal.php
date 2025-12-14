@@ -28,7 +28,8 @@
                         <!-- close button -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <a href="/themes/assets/docs/sie/cupos_proyectados_y_matricula_esperada.xlsx" class="btn btn-primary">Descargar Formato</a>
+                            <a href="/themes/assets/docs/sie/cupos_proyectados_y_matricula_esperada.xlsx"
+                               class="btn btn-primary">Descargar Formato</a>
                         </div>
                     </form>
                 </div>

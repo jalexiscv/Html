@@ -1,7 +1,7 @@
 <?php
 
 $token = 'd9551c4aa62771d4a38d74b1e885b13d';
-$domain = 'https://campus.utede.edu.co';
+$domain = service("moodle")::getDomainName();
 $endpoint = "$domain/webservice/rest/server.php";
 
 $musers = model("App\Modules\Sie\Models\Sie_Users");
@@ -76,7 +76,7 @@ if (!empty($result['users'][0]['id'])) {
  *
  *
  * $roleidMap = [
- * 'student' => 5,  // ID por defecto en Moodle para estudiante
+ * 'registration' => 5,  // ID por defecto en Moodle para estudiante
  * 'teacher' => 3   // ID por defecto para profesor
  * ];
  *

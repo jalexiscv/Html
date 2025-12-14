@@ -9,7 +9,7 @@ $bgrid->set_Headers(array(
     array("content" => "#", "class" => "text-center text-nowrap align-middle"),
     array("content" => "Tipo", "class" => "text-center align-middle"),
     array("content" => "Archivo", "class" => "text-center align-middle"),
-    array("content" => "Opciones", "class" => "text-center text-nowrap align-middle"),
+        array("content" => lang("App.Options"), "class" => "text-center text-nowrap align-middle"),
 ));
 $count = 0;
 $files = $mattachments->where('object', $oid)->orderBy("created_at", "DESC")->findAll();
@@ -30,7 +30,7 @@ if (is_array($files)) {
         $options = "";
         $cell_count = array("content" => $count, "class" => "text-center  align-middle",);
         $cell_type = array("content" => $type, "class" => "text-center  align-middle",);
-        $cell_url = array("content" => "<a href=\"" . $url . "\" target=\"_blank\">" . $file["attachment"] . "</a> | <a href=\"/iris/studies/ia/{$oid}?file={$url}\" target=\"_self\">Analizar (IA)</a>  ", "class" => "text-center  align-middle",);
+        $cell_url = array("content" => "<a href=\"" . $url . "\" target=\"_blank\">" . $file["attachment"] . "</a> | <a href=\"/iris/studies/ia/{$oid}?file={$url}&attachment={$file['attachment']}\" class=\"btn btn-sm btn-primary\" target=\"_self\">Analizar (IA)</a>  ", "class" => "text-center  align-middle",);
         //$cell_url = array("content" => "{$file["attachment"]}", "class" => "text-center  align-middle",);
         $cell_options = "<div class=\"btn-group w-auto\">";
         //$cell_options .= "<a href=\"" . $url . "\" class=\"btn btn-sm btn-primary\" target=\"_blank\"><i class=\"fa-light fa-eye\"></i></a>";
@@ -107,7 +107,7 @@ echo($card);
         const input = document.getElementById('attachment');
         const fileType = document.getElementById('fileType').value;
         const grid = document.getElementById('grid-files');
-        const url = "/storage/uploader/single/sie/" + object + "?time=" + new Date().getTime();
+        const url = "/storage/uploader/multiple/iris/" + object + "?time=" + new Date().getTime();
         const files = input.files;
 
         if (files.length === 0) {
@@ -160,33 +160,6 @@ echo($card);
 
         xhr.send(formData);
     }
-
-
-    function uploadFilesOLD() {
-        const object = "<?php echo($oid);?>";
-        const input = document.getElementById('attachment');
-        const fileType = document.getElementById('fileType').value;
-        const grid = document.getElementById('grid-files').value;
-        const url = "/storage/uploader/single/sie/" + object + "?time=" + new Date().getTime();
-        const files = input.files;
-        const formData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            formData.append('attachment' + i, files[i]);
-        }
-        formData.append('reference', fileType);
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                const response = JSON.parse(xhr.responseText);
-                refreshGridFiles();
-                //console.log(response);
-                //alert('Archivos cargados: ' + response.status)
-            }
-        };
-        xhr.send(formData);
-    }
-
 
     // Selecciona todos los botones con la clase "btn-delete"
     const deleteButtons = document.querySelectorAll('.btn-delete');

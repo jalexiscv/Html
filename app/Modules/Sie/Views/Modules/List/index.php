@@ -43,15 +43,28 @@ $breadcrumb = $component . '\breadcrumb';
 $validator = $component . '\validator';
 $table = $component . '\grid';
 $deny = $component . '\deny';
+$right = $component . '\right';
 //[build]---------------------------------------------------------------------------------------------------------------
 if ($plural) {
     if (!empty($submited)) {
-        $json = array('breadcrumb' => view($breadcrumb, $data), 'main' => view($validator, $data), 'right' => "");
+        $json = array(
+            'breadcrumb' => view($breadcrumb, $data),
+            'main' => view($validator, $data),
+            'right' => ""
+        );
     } else {
-        $json = array('breadcrumb' => view($breadcrumb, $data), 'main' => view($table, $data), 'right' => "");
+        $json = array(
+            'breadcrumb' => view($breadcrumb, $data),
+            'main' => view($table, $data),
+            'right' => view($right, $data),
+        );
     }
 } else {
-    $json = array('breadcrumb' => view($breadcrumb, $data), 'main' => view($deny, $data), 'right' => "");
+    $json = array(
+        'breadcrumb' => view($breadcrumb, $data),
+        'main' => view($deny, $data),
+        'right' => ""
+    );
 }
 echo(json_encode($json));
 ?>

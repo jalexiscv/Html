@@ -2,8 +2,8 @@
 header('Content-Type: application/json; charset=utf-8');
 
 /* === CONFIGURA AQUÍ === */
-$domainName = 'https://campus.utede.edu.co';
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
+$domainName = service("moodle")::getDomainName();
+$token = service("moodle")::getToken();
 $endpoint = rtrim($domainName, '/') . '/webservice/rest/server.php';
 
 // Datos de entrada (p.ej., desde POST JSON) — ajusta a tu flujo:
@@ -16,8 +16,8 @@ $categoryid = isset($input['categoryid']) ? (int)$input['categoryid'] : 1; // 1 
 function moodle_call(array $params)
 {
     // Parámetros de conexión configurados directamente en la función
-    $token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-    $domainName = 'https://campus.utede.edu.co';
+    $token = service("moodle")::getToken();
+    $domainName = service("moodle")::getDomainName();
     $restFormat = 'json';
     $wsfunction = "core_course_get_courses_by_field";
     $endpoint = rtrim($domainName, '/') . '/webservice/rest/server.php';

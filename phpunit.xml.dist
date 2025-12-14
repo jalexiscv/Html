@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /***
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  ~  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  ~  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  ~  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  ~  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  ~  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  ~  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  ~  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  ~  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  ~  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  ~  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  ~  ** █ @link https://www.codehiggs.com
+  ~  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ Datos recibidos desde el controlador - @ModuleController
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ***/
+  -->
+
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         bootstrap="system/Test/bootstrap.php"
+         backupGlobals="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+    <coverage includeUncoveredFiles="true" processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./app</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">./app/Views</directory>
+            <file>./app/Config/Routes.php</file>
+        </exclude>
+        <report>
+            <clover outputFile="build/logs/clover.xml"/>
+            <html outputDirectory="build/logs/html"/>
+            <php outputFile="build/logs/coverage.serialized"/>
+            <text outputFile="php://stdout" showUncoveredFiles="false"/>
+        </report>
+    </coverage>
+    <testsuites>
+        <testsuite name="App">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+    <logging>
+        <testdoxHtml outputFile="build/logs/testdox.html"/>
+        <testdoxText outputFile="build/logs/testdox.txt"/>
+        <junit outputFile="build/logs/logfile.xml"/>
+    </logging>
+    <php>
+        <server name="app.baseURL" value="http://example.com/"/>
+        <!-- Directory containing phpunit.xml -->
+        <const name="HOMEPATH" value="./"/>
+        <!-- Directory containing the Paths config file -->
+        <const name="CONFIGPATH" value="./app/Config/"/>
+        <!-- Directory containing the front controller (index.php) -->
+        <const name="PUBLICPATH" value="./public/"/>
+        <!-- Database configuration -->
+        <!-- Uncomment to provide your own database for testing
+        <env name="database.tests.hostname" value="localhost"/>
+        <env name="database.tests.database" value="tests"/>
+        <env name="database.tests.username" value="tests_user"/>
+        <env name="database.tests.password" value=""/>
+        <env name="database.tests.DBDriver" value="MySQLi"/>
+        <env name="database.tests.DBPrefix" value="tests_"/>
+        -->
+    </php>
+</phpunit>

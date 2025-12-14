@@ -36,17 +36,17 @@ $references = ["ENROLLED", "ENROLLED-OLD"];
 
 if (!empty($program) && $program != "ALL") {
     $statuses = $mstatuses
-        ->where("period", $period)
-        ->whereIn('reference', $references)
-        ->where("program", $program)
-        ->limit($limit, $offset)
-        ->find();
+            ->where("period", $period)
+            ->whereIn('reference', $references)
+            ->where("program", $program)
+            ->limit($limit, $offset)
+            ->find();
 } else {
     $statuses = $mstatuses
-        ->where("period", $period)
-        ->whereIn('reference', $references)
-        ->limit($limit, $offset)
-        ->find();
+            ->where("period", $period)
+            ->whereIn('reference', $references)
+            ->limit($limit, $offset)
+            ->find();
 }
 
 $totalRecords = count($statuses);
@@ -94,7 +94,7 @@ $code .= "<tbody>";
 $count = ($page - 1) * $limit;
 foreach ($statuses as $status) {
     $count++;
-    $registration = $mregistrations->get_Registration($status['registration']);
+    $registration = $mregistrations->getRegistration($status['registration']);
     $program = $mprograms->getProgram($status['program']);
     // Vars
     $period = @$status['period'];

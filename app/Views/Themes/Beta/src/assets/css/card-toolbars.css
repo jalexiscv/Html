@@ -1,0 +1,50 @@
+.card .btn-toolbar {
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+    position: relative;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-left: .5rem;
+}
+
+.card .card-toolbar-btn {
+    opacity: .75;
+    transition: all .15s;
+    display: inline-block;
+    border-radius: 50%;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    color: #fff;
+    text-align: center;
+    margin-left: .2rem;
+    background-color: rgba(var(--bs-secondary-rgb), var(--bs-border-opacity));
+    border-color: rgba(var(--bs-secondary-rgb), var(--bs-border-opacity)) !important;
+}
+
+.btn.btn-sm.bg-toolbar-primary.border-toolbar-primary {
+    background-color: #6c757d47;
+    border-color: transparent;
+    color: #495057;
+}
+
+.btn.btn-sm.bg-toolbar-primary.border-toolbar-primary:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.btn.btn-sm.bg-toolbar-secondary.border-toolbar-secondary {
+    background-color: #6c757d47;
+    border-color: transparent;
+    color: #495057;
+}
+
+.btn.btn-sm.bg-toolbar-secondary.border-toolbar-secondary:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}

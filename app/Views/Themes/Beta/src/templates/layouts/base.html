@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" ${theme_data_attribute}>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title}</title>
+    {% include "partials/head.html" %}
+</head>
+
+<body class="${theme_body_class}">${theme_sync_script}
+    {% include "partials/header.html" %}
+    <!-- Contenedor principal con 3 columnas -->
+    <div class="content-wrapper">
+        {% include "partials/left-sidebar.html" %}
+        <!-- Contenido principal que viene de las páginas -->
+        <div class="main-content" id="mainContent">
+            <div class="container p-0">
+                ${content}
+            </div>
+        </div>
+        {% include "partials/right-sidebar.html" %}
+    </div>
+    <!-- Overlay para dispositivos móviles -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    {% include "partials/scripts.html" %}
+    {% include "partials/theme-native-manager.html" %}
+</body>
+
+</html>

@@ -1,12 +1,12 @@
 <?php
 
 
-$mcourses = model("App\Modules\Sie\Models\Sie_Courses");
+$mcourses = model('App\Modules\Sie\Models\Sie_Courses');
 $mmodules = model("App\Modules\Sie\Models\Sie_Modules");
 $mpensums = model("App\Modules\Sie\Models\Sie_Pensums");
 
 /** @var array $d */
-$course = $mcourses->get_Course($d["course"]);
+$course = $mcourses->getCourse($d["course"]);
 $pensum = $mpensums->get_Pensum($course["pensum"]);
 $module = $mmodules->get_Module($pensum["module"]);
 $red = $module["red"];
@@ -32,7 +32,7 @@ if ($subsector == "SBM") {
 //[config]--------------------------------------------------------------------------------------------------------------
 // Configuración de la API
 $token = 'd9551c4aa62771d4a38d74b1e885b13d';
-$domain = 'https://campus.utede.edu.co';
+$domain = service("moodle")::getDomainName();
 $function = 'core_course_update_courses';
 $restFormat = 'json';
 

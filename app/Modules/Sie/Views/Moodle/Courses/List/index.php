@@ -1,22 +1,22 @@
 <?php
 $token = 'a99cf98a32a7bc899e0e9c45e4f50b8f';
-$domain = 'https://campus.utede.edu.co';
+$domain = service("moodle")::getDomainName();
 $function = 'core_course_get_courses';
 $restFormat = 'json';
 
 $url = $domain . '/webservice/rest/server.php'
-    . '?wstoken=' . $token
-    . '&wsfunction=' . $function
-    . '&moodlewsrestformat=' . $restFormat;
+        . '?wstoken=' . $token
+        . '&wsfunction=' . $function
+        . '&moodlewsrestformat=' . $restFormat;
 
 // Opcional: filtrar cursos específicos
 // $url .= '&options[ids][0]=2';
 
 $curl = curl_init($url);
 curl_setopt_array($curl, [
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_SSL_VERIFYPEER => true,
-    CURLOPT_USERAGENT => 'MoodlePHPClient/1.0'
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_USERAGENT => 'MoodlePHPClient/1.0'
 ]);
 
 $response = curl_exec($curl);

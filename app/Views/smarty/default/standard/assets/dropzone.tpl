@@ -1,0 +1,2 @@
+<link href="{base_url("/themes/assets/javascripts/dropzone/dropzone.min.css")}" rel="stylesheet" type="text/css"/>
+<script src="{base_url("/themes/assets/javascripts/dropzone/dropzone.min.js")}" type="text/javascript"></script>

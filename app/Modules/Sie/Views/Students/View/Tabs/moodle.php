@@ -14,7 +14,7 @@ $mregions = model("App\Modules\Sie\Models\Sie_Regions");
 $mcities = model("App\Modules\Sie\Models\Sie_Cities");
 $mstatuses = model("App\Modules\Sie\Models\Sie_Statuses");
 //[vars]----------------------------------------------------------------------------------------------------------------
-$registration = $mregistrations->get_Registration($oid);
+$registration = $mregistrations->getRegistration($oid);
 
 $citizenshipcard = @$registration["identification_number"];
 $username = @$registration["identification_number"];
@@ -160,30 +160,64 @@ $profileResult = $moodle->getUserProfile($sanitizedUsername, 'username');
                 })
                     .then(response => {
                         console.log('Response status:', response.status);
+                        console.log('Response headers:', response.headers);
                         return response.text();
                     })
                     .then(data => {
                         console.log('Response data:', data);
+                        console.log('Response length:', data.length);
+                        console.log('Response type:', typeof data);
+
                         loadingOverlay.style.display = 'none';
 
                         try {
-                            const jsonData = JSON.parse(data);
-                            if (jsonData.success) {
-                                // Éxito: recargar la página
-                                window.location.reload();
+                            // Limpiar posible contenido extra antes/después del JSON
+                            const cleanData = data.trim();
+
+                            // Buscar el inicio del JSON si hay contenido extra
+                            let jsonStart = cleanData.indexOf('{');
+                            let jsonEnd = cleanData.lastIndexOf('}');
+
+                            if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
+                                const jsonString = cleanData.substring(jsonStart, jsonEnd + 1);
+                                console.log('Extracted JSON:', jsonString);
+
+                                const jsonData = JSON.parse(jsonString);
+                                console.log('Parsed JSON:', jsonData);
+
+                                if (jsonData.success) {
+                                    // Éxito: recargar la página
+                                    window.location.reload();
+                                } else {
+                                    // Error de Moodle: mostrar mensaje detallado
+                                    let errorMessage = jsonData.message || 'Error desconocido';
+
+                                    // Si hay información de debug, incluirla
+                                    if (jsonData.debug && jsonData.debug.originalData) {
+                                        errorMessage += '\n\nDetalles técnicos:\n' + JSON.stringify(jsonData.debug.originalData, null, 2);
+                                    }
+
+                                    // Si hay datos de usuario, incluirlos
+                                    if (jsonData.userData) {
+                                        errorMessage += '\n\nDatos enviados:\n' + JSON.stringify(jsonData.userData, null, 2);
+                                    }
+
+                                    throw new Error(errorMessage);
+                                }
                             } else {
-                                // Error: mostrar mensaje
-                                throw new Error(jsonData.message || 'Error desconocido');
+                                throw new Error(`Respuesta no contiene JSON válido. Respuesta completa: ${cleanData}`);
                             }
                         } catch (parseError) {
                             console.error('Error parsing JSON:', parseError);
                             console.log('Raw response:', data);
-                            console.log('Response length:', data.length);
-                            console.log('Response type:', typeof data);
 
-                            // Mostrar los primeros 500 caracteres de la respuesta
-                            const preview = data.substring(0, 500);
-                            throw new Error(`Error parsing JSON. Respuesta: ${preview}${data.length > 500 ? '...' : ''}`);
+                            // Si el error es de parsing, mostrar la respuesta completa
+                            if (parseError instanceof SyntaxError) {
+                                throw new Error(`Error de sintaxis JSON: ${parseError.message}\n\nRespuesta completa:\n${data}`);
+                            } else {
+                                // Re-lanzar otros errores (como los de Moodle)
+                                throw parseError;
+                            }
                         }
                     })
                     .catch(error => {
@@ -191,14 +225,27 @@ $profileResult = $moodle->getUserProfile($sanitizedUsername, 'username');
                         btnRegister.disabled = false;
                         console.error('Error:', error);
 
+                        // Guardar el mensaje de error para la función de copiar
+                        window.currentErrorMessage = error.message;
+
                         statusDiv.innerHTML = `
                     <div class="alert alert-danger">
                         <i class="fas fa-times-circle me-2"></i>
                         <strong>Error al Registrar Usuario</strong>
                         <hr>
-                        <small><strong>Error:</strong> ${error.message}</small>
-                        <br><small>Revisa la consola del navegador para más detalles.</small>
-                        <br><small><strong>Tip:</strong> Presiona F12 → Console para ver los logs detallados.</small>
+                        <div class="mb-3">
+                            <strong>Error:</strong>
+                            <div class="mt-2 p-2 bg-light border rounded" style="max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 12px; white-space: pre-wrap;">${error.message}</div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Revisa la consola del navegador (F12 → Console) para logs detallados
+                            </small>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="copyErrorToClipboard()">
+                                <i class="fas fa-copy me-1"></i>Copiar Error
+                            </button>
+                        </div>
                     </div>
                     <div class="d-grid">
                         <button type="button" class="btn btn-primary" id="btn-register-moodle">
@@ -216,6 +263,27 @@ $profileResult = $moodle->getUserProfile($sanitizedUsername, 'username');
                     });
             });
         }
+
+        // Función global para copiar error al portapapeles
+        window.copyErrorToClipboard = function () {
+            if (window.currentErrorMessage) {
+                navigator.clipboard.writeText(window.currentErrorMessage).then(() => {
+                    alert('Error copiado al portapapeles');
+                }).catch(err => {
+                    console.error('Error al copiar al portapapeles:', err);
+                    // Fallback para navegadores que no soportan clipboard API
+                    const textArea = document.createElement('textarea');
+                    textArea.value = window.currentErrorMessage;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    alert('Error copiado al portapapeles (método alternativo)');
+                });
+            } else {
+                alert('No hay mensaje de error para copiar');
+            }
+        };
     });
 </script>
 
@@ -230,7 +298,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'register_moodle_user') {
 
     try {
         // Recargar datos del estudiante en el contexto POST
-        $registration = $mregistrations->get_Registration($oid);
+        $registration = $mregistrations->getRegistration($oid);
         $citizenshipcard = @$registration["identification_number"];
         $firstname = safe_strtoupper(@$registration["first_name"] . " " . @$registration["second_name"]);
         $lastname = safe_strtoupper(@$registration["first_surname"] . " " . @$registration["second_surname"]);

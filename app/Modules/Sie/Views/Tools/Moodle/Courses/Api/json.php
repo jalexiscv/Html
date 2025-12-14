@@ -6,8 +6,8 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
 
 // Configuración de Moodle API
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domain = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domain = service("moodle")::getDomainName();
 $endpoint = "$domain/webservice/rest/server.php";
 
 $functionEnroll = 'enrol_manual_enrol_users';

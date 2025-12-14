@@ -1,0 +1,81 @@
+a.shortcut {
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem;
+    text-align: center;
+    border-style: solid;
+    border-radius: .375rem;
+    margin-bottom: 1rem;
+    /* Estilos por defecto (light mode) */
+    color: #333;
+    background: rgba(255, 255, 255, 0.7);
+    border-color: #d7e0ec;
+}
+
+.light-mode a.shortcut {
+    color: #333;
+    background: rgba(255, 255, 255, 0.7);
+    border-color: #d7e0ec;
+}
+
+.dark-mode a.shortcut {
+    /**color: var(--bs-body-color);**/
+    /**background: rgba(0, 0, 0, 0.1);**/
+    /**border-color: rgba(0, 0, 0, 0.175);**/
+    /**box-shadow: none;**/
+
+        border: none !important; 
+        border-radius: 0.35rem;
+        box-shadow: var(--shadow);
+        background-color: var(--card-bg);
+        margin-bottom: 1.5rem;
+
+} 
+
+a.shortcut:hover {
+    background: #f8f9fa;
+}
+
+.light-mode a.shortcut:hover {
+    background: #f8f9fa;
+}
+
+.dark-mode a.shortcut:hover {
+    background: #000000;
+}
+
+a.shortcut .container-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 2rem;
+    border-radius: .5rem;
+    margin: 0 auto 10px auto;
+    padding: 8px;
+    text-align: center;
+    line-height: 32px;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+a.shortcut p {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+a.shortcut h5 {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    overflow: hidden;
+    font-weight: bolder;
+    opacity: 0.9;
+}
+
+.light-mode a.shortcut h5 { 
+    color: #212529;
+}
+
+.dark-mode a.shortcut h5 {
+    color: #ff7100;
+}

@@ -53,7 +53,7 @@ $mgroups = model("App\Modules\Sie\Models\Sie_Groups");
 //[vars]-------------------------------------------------------------------------------------------------------------
 $f = service("forms", array("lang" => "Sie_Courses."));
 //[Request]-------------------------------------------------------------------------------------------------------------
-$row = $model->get_Course($oid);
+$row = $model->getCourse($oid);
 $program = $mprograms->getProgram(@$row["program"]);
 $grid = $mgrids->get_Grid(@$row["grid"]);
 $pensum = $mpensums->get_Pensum(@$row["pensum"]);

@@ -3,6 +3,7 @@
 /** @var  $model */
 /** @var  $oid */
 //[services]------------------------------------------------------------------------------------------------------------
+$request=service("request");
 $bootstrap = service("bootstrap");
 $numbers = service("numbers");
 //[models]--------------------------------------------------------------------------------------------------------------
@@ -15,15 +16,19 @@ $mattachments = model('App\Modules\Plans\Models\Plans_Attachments');
 //[vars]----------------------------------------------------------------------------------------------------------------
 $f = service("forms", array("lang" => "Plans_Plans."));
 $plan = $mplans->getPlan($oid);
-//$activity = $mactivities->get_Activity($plan['activity']);
-//$back = "/plans/plans/home/{$plan['activity']}";
 
-//$back = "/plans/activities/home/{$activity['category']}";
-$back = "#";
+//https://intranet.disa-software.com/plans/plans/list/67A6CF5888063?parent=68ACDA4811914&module=standards
+$back ="/plans/plans/list/{$plan["reference"]}?parent={$plan["reference"]}&module={$plan["module"]}";
+
+
+
+
 $editable = true;
 if ($plan["status"] == "COMPLETED") {
     $editable = false;
 }
+
+
 
 
 $options = array();
@@ -72,17 +77,6 @@ $options[] = array(
 $code = "";
 
 $r = $plan;
-
-if ($r["module"] == "iso9001") {
-    $mactivities = model('App\Modules\Iso9001\Models\Iso9001_Activities');
-    $activity = $mactivities->getActivity($r["activity"]);
-    $score = @$activity["score"] . " ";
-    $criteria = @$activity["criteria"] . " ";
-    $description = @$activity["description"] . " ";
-    $evaluation = @$activity["evaluation"] . " ";
-    $back = "/iso9001/activities/home/" . @$activity["category"];
-}
-
 
 $f->fields["plan"] = $f->get_FieldView("plan", array("value" => $r["plan"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
 $f->fields["module"] = $f->get_FieldView("module", array("value" => $r["module"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));

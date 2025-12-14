@@ -54,6 +54,11 @@ $r["time"] = $f->get_Value("time", service("dates")::get_Time());
 $r["author"] = $f->get_Value("author", safe_get_user());
 $back = $f->get_Value("back", $server->get_Referer());
 
+
+$end_registrations_setting = "R-E-D";// Registration End Date
+$end_registrations_value = $msettings->getSetting($end_registrations_setting);
+$end_registrations_label = "Fecha de cierre de inscripciones y matrículas";
+
 $status_registrations_setting = "R-S";
 $status_registrations = $msettings->getSetting($status_registrations_setting);
 $status_registrations_label = "Estado del formulario de registro";
@@ -62,6 +67,18 @@ $status_registrations_value = @$status_registrations["value"];
 if ($status_registrations_value != "ACTIVE") {
     $status_registrations_value = "DISABLED";
 }
+
+$status_registrations_agreements_setting = "R-S-A";
+$status_registrations_agreements = $msettings->getSetting($status_registrations_agreements_setting);
+$status_registrations_agreements_label = "Estado del formulario de registro en convenios ";
+$status_registrations_agreements_value = @$status_registrations_agreements["value"];
+
+if ($status_registrations_agreements_value != "ACTIVE") {
+    $status_registrations_agreements_value = "DISABLED";
+}
+
+
+
 
 $registrations_message_enabled_code = "R-M-E";
 $registrations_message_enabled = $msettings->getSetting($registrations_message_enabled_code);
@@ -80,9 +97,21 @@ $statuses = array(
 
 //[fields]----------------------------------------------------------------------------------------------------------------
 $f->add_HiddenField("back", $back);
-$f->fields["status_registrations_setting"] = $f->get_FieldText("setting", array("value" => $status_registrations_setting, "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
-$f->fields["status_registrations_name"] = $f->get_FieldText("name", array("value" => $status_registrations_label, "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
-$f->fields["status_registrations_value"] = $f->get_FieldSelect("status_registrations", array("selected" => $status_registrations_value, "data" => $statuses, "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
+
+
+
+$f->fields["end_registrations_setting"] = $f->get_FieldText("setting", array("value" => $end_registrations_setting, "proportion" => "col-md-3 col-sm-12 col-12", "readonly" => true));
+$f->fields["end_registrations_name"] = $f->get_FieldText("name", array("value" => $end_registrations_label, "proportion" => "col-md-6 col-sm-12 col-12", "readonly" => true));
+$f->fields["end_registrations_value"] = $f->get_FieldDate("end_registrations_value", array("value" => @$end_registrations_value["value"], "proportion" => "col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12"));
+
+$f->fields["status_registrations_setting"] = $f->get_FieldText("setting", array("value" => $status_registrations_setting, "proportion" => "col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
+$f->fields["status_registrations_name"] = $f->get_FieldText("name", array("value" => $status_registrations_label, "proportion" => "col-xl-6 col-lg-6 col-md-4 col-sm-12 col-12", "readonly" => true));
+$f->fields["status_registrations_value"] = $f->get_FieldSelect("status_registrations", array("selected" => $status_registrations_value, "data" => $statuses, "proportion" => "col-md-3 col-sm-12 col-12"));
+
+$f->fields["status_registrations_agreements_setting"] = $f->get_FieldText("setting", array("value" => $status_registrations_agreements_setting, "proportion" => "col-md-3 col-sm-12 col-12", "readonly" => true));
+$f->fields["status_registrations_agreements_name"] = $f->get_FieldText("name", array("value" => $status_registrations_agreements_label, "proportion" => "col-md-6 col-sm-12 col-12", "readonly" => true));
+$f->fields["status_registrations_agreements_value"] = $f->get_FieldSelect("status_registrations_agreements", array("selected" => $status_registrations_agreements_value, "data" => $statuses, "proportion" => "col-md-3 col-sm-12 col-12"));
+
 
 $f->fields["registrations_message_enabled_code"] = $f->get_FieldText("setting", array("value" => $registrations_message_enabled_code, "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
 $f->fields["registrations_message_enabled_name"] = $f->get_FieldText("name", array("value" => $registrations_message_enabled_label, "proportion" => "col-md-8 col-sm-12 col-12", "readonly" => true));
@@ -98,12 +127,13 @@ $f->add_HiddenField("author", $r["author"]);
 $f->fields["cancel"] = $f->get_Cancel("cancel", array("href" => $back, "text" => lang("App.Cancel"), "type" => "secondary", "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-right"));
 $f->fields["submit"] = $f->get_Submit("submit", array("value" => lang("App.Edit"), "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-left"));
 //[groups]----------------------------------------------------------------------------------------------------------------
-$f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["status_registrations_setting"] . $f->fields["status_registrations_name"] . $f->fields["status_registrations_value"])));
-$f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["registrations_message_enabled_code"] . $f->fields["registrations_message_enabled_name"])));
-$f->groups["g4"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["registrations_message_enabled_value"])));
-$f->groups["g5"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["registrations_message_disabled_code"] . $f->fields["registrations_message_disabled_name"])));
-$f->groups["g6"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["registrations_message_disabled_value"])));
-
+$f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["end_registrations_setting"] . $f->fields["end_registrations_name"] . $f->fields["end_registrations_value"])));
+$f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["status_registrations_setting"] . $f->fields["status_registrations_name"] . $f->fields["status_registrations_value"])));
+$f->groups["g3"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["status_registrations_agreements_setting"] . $f->fields["status_registrations_agreements_name"] . $f->fields["status_registrations_agreements_value"])));
+$f->groups["g4"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["registrations_message_enabled_code"] . $f->fields["registrations_message_enabled_name"])));
+$f->groups["g5"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["registrations_message_enabled_value"])));
+$f->groups["g6"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["registrations_message_disabled_code"] . $f->fields["registrations_message_disabled_name"])));
+$f->groups["g7"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["registrations_message_disabled_value"])));
 //[buttons]-------------------------------------------------------------------------------------------------------------
 $f->groups["gy"] = $f->get_GroupSeparator();
 $f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["submit"] . $f->fields["cancel"]));

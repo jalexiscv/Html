@@ -1,40 +1,40 @@
 <?php
 
-$mregistrations=model("App\Modules\Sie\Models\Sie_Registrations");
-$registration=$_GET["registration"];
-$registration=$mregistrations->get_Registration($registration);
+$mregistrations = model("App\Modules\Sie\Models\Sie_Registrations");
+$registration = $_GET["registration"];
+$registration = $mregistrations->getRegistration($registration);
 
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domain = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domain = service("moodle")::getDomainName();
 $function = 'core_user_create_users';
 $endpoint = "$domain/webservice/rest/server.php";
 
-$email=(!empty($registration["email_institutional"]))?$registration["email_institutional"]:"e{$registration["registration"]}@utede.edu.co";
+$email = (!empty($registration["email_institutional"])) ? $registration["email_institutional"] : "e{$registration["registration"]}@utede.edu.co";
 
 $nuevoUsuario = [
-    'username'  => $registration["identification_number"],
+    'username' => $registration["identification_number"],
     'password' => $registration["identification_number"],
-    'firstname' => $registration["first_name"]." ".$registration["second_name"],
-    'lastname'  => $registration["first_surname"]." ".$registration["second_surname"],
-    'email'     => $email,
-    'auth'      => "manual",
-    'lang'      => "es",
-    'city'      => "Buga",
-    'country'   => "Colombia",
-    'idnumber'  => $registration["identification_number"]
+    'firstname' => $registration["first_name"] . " " . $registration["second_name"],
+    'lastname' => $registration["first_surname"] . " " . $registration["second_surname"],
+    'email' => $email,
+    'auth' => "manual",
+    'lang' => "es",
+    'city' => "Buga",
+    'country' => "Colombia",
+    'idnumber' => $registration["identification_number"]
 ];
 
 $params = http_build_query(['users' => [$nuevoUsuario]]);
 $url = $endpoint . '?wstoken=' . $token . '&wsfunction=' . $function . '&moodlewsrestformat=json';
 $curl = curl_init($url);
 curl_setopt_array($curl, [
-    CURLOPT_POST           => true,
+    CURLOPT_POST => true,
     CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POSTFIELDS     => $params,
+    CURLOPT_POSTFIELDS => $params,
 ]);
 
-$errorInfo="";
-$createdUserId="";
+$errorInfo = "";
+$createdUserId = "";
 
 $response = curl_exec($curl);
 if ($response === false) {
@@ -51,7 +51,7 @@ if (json_last_error() !== JSON_ERROR_NONE) {
     $errorInfo = $result['message'] ?? 'Error desconocido al crear el usuario.';
 }
 
-$response=array(
+$response = array(
     "createdUserId" => $createdUserId,
     "error" => $errorInfo
 );

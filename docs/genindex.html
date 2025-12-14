@@ -1,0 +1,2529 @@
+<!--
+  ~ /***
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  ~  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  ~  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  ~  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  ~  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  ~  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  ~  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  ~  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  ~  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  ~  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  ~  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  ~  ** █ @link https://www.codehiggs.com
+  ~  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ Datos recibidos desde el controlador - @ModuleController
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ***/
+  -->
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Index &mdash; Higgs 7.0.0 documentation</title>
+    <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+    <link href="_static/css/citheme.css" rel="stylesheet" type="text/css"/>
+    <link href="_static/css/citheme_dark.css" rel="stylesheet" type="text/css"/>
+    <link href="_static/favicon.ico" rel="shortcut icon"/>
+    <!--[if lt IE 9]>
+      <script src="_static/js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/js/citheme.js"></script>
+    <script src="_static/js/carbon.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link href="#" rel="index" title="Index"/>
+    <link href="search.html" rel="search" title="Search"/>
+</head>
+
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+    <nav class="wy-nav-side" data-toggle="wy-nav-shift">
+        <div class="wy-side-scroll">
+            <div class="wy-side-nav-search">
+
+
+                <a href="index.html">
+
+                    <img alt="Logo" class="logo" src="_static/ci-logo-text.svg"/>
+                </a>
+                <div role="search">
+                    <form action="search.html" class="wy-form" id="rtd-search-form" method="get">
+                        <input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+                        <input name="check_keywords" type="hidden" value="yes"/>
+                        <input name="area" type="hidden" value="default"/>
+                    </form>
+                </div>
+            </div>
+            <div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="intro/index.html">Bienvenido a Higgs7</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="intro/index.html">Bienvenido a
+                                Higgs7</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="intro/requirements.html">Requisitos
+                                del ejecución</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="intro/credits.html">Creditos</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="intro/psr.html">Cumplimiento de
+                                PSR</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="license.html">Acuerdo de
+                                licencia</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="installation/index.html">Instalación</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal"
+                                                      href="installation/installing_composer.html">Instalación del
+                                compositor</a></li>
+                            <li class="toctree-l2"><a class="reference internal"
+                                                      href="installation/installing_manual.html">Instalación manual</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="installation/running.html">Ejecutando
+                                su aplicación</a></li>
+                            <li class="toctree-l2"><a class="reference internal"
+                                                      href="installation/troubleshooting.html">Solución de problemas</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="changelogs/index.html">Registro
+                                de cambios</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="installation/upgrading.html">Actualización
+                                desde una versión anterior</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="installation/repositories.html">Repositorios
+                                de Higgs</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">Build Your First
+                        Application</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="tutorial/static_pages.html">Static
+                                Pages</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="tutorial/news_section.html">News
+                                Section</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="tutorial/create_news_items.html">Create
+                                News Items</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="tutorial/conclusion.html">Conclusion</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="concepts/index.html">Higgs7 Overview</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="concepts/structure.html">Application
+                                Structure</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="concepts/mvc.html">Models, Views,
+                                and Controllers</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="concepts/autoloader.html">Autoloading
+                                Files</a></li>
+                            <li class="toctree-l2"><a class="reference internal"
+                                                      href="concepts/services.html">Services</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="concepts/factories.html">Factories</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="concepts/http.html">Working with
+                                HTTP Requests</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="concepts/security.html">Security
+                                Guidelines</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="general/index.html">General Topics</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="general/configuration.html">Configuration</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="general/urls.html">Higgs URLs</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="general/helpers.html">Helper
+                                Functions</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="general/common_functions.html">Global
+                                Functions and Constants</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="general/logging.html">Logging
+                                Information</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="general/errors.html">Error
+                                Handling</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="general/caching.html">Web Page
+                                Caching</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="general/ajax.html">AJAX
+                                Requests</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="general/modules.html">Code
+                                Modules</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="general/managing_apps.html">Managing
+                                your Applications</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="general/environments.html">Handling
+                                Multiple Environments</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="incoming/index.html">Controllers and
+                        Routing</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="incoming/routing.html">URI
+                                Routing</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="incoming/controllers.html">Controllers</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="incoming/filters.html">Controller
+                                Filters</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="incoming/message.html">HTTP
+                                Messages</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="incoming/request.html">Request
+                                Class</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="incoming/incomingrequest.html">IncomingRequest
+                                Class</a></li>
+                            <li class="toctree-l2"><a class="reference internal"
+                                                      href="incoming/content_negotiation.html">Content Negotiation</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="incoming/methodspoofing.html">HTTP
+                                Method Spoofing</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="incoming/restful.html">RESTful
+                                Resource Handling</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="outgoing/index.html">Building
+                        Responses</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/views.html">Views</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/view_cells.html">View
+                                Cells</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/view_renderer.html">View
+                                Renderer</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/view_layouts.html">View
+                                Layouts</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/view_parser.html">View
+                                Parser</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/view_decorators.html">View
+                                Decorators</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/table.html">HTML Table
+                                Class</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/response.html">HTTP
+                                Responses</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/api_responses.html">API
+                                Response Trait</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/csp.html">Content
+                                Security Policy</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/localization.html">Localization</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="outgoing/alternative_php.html">Alternate
+                                PHP Syntax for View Files</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="database/index.html">Working with
+                        Databases</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="database/examples.html">Quick
+                                Start: Usage Examples</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/configuration.html">Database
+                                Configuration</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/connecting.html">Connecting
+                                to a Database</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/queries.html">Running
+                                Queries</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/results.html">Generating
+                                Query Results</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/helpers.html">Query
+                                Helper Functions</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/query_builder.html">Query
+                                Builder Class</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/transactions.html">Transactions</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/metadata.html">Getting
+                                MetaData</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/call_function.html">Custom
+                                Function Calls</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/events.html">Database
+                                Events</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="database/utilities.html">Database
+                                Utilities</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="models/index.html">Modeling Data</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="models/model.html">Using Higgs's
+                                Model</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="models/entities.html">Using
+                                Entity Classes</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="dbmgmt/index.html">Managing Databases</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="dbmgmt/forge.html">Database
+                                Manipulation with Database Forge</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="dbmgmt/migration.html">Database
+                                Migrations</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="dbmgmt/seeds.html">Database
+                                Seeding</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="dbmgmt/db_commands.html">Database
+                                Commands</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="libraries/index.html">Library
+                        Reference</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/caching.html">Caching
+                                Driver</a></li>
+                            <li class="toctree-l2"><a class="reference internal"
+                                                      href="libraries/cookies.html">Cookies</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/curlrequest.html">CURLRequest
+                                Class</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/email.html">Email
+                                Class</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/encryption.html">Encryption
+                                Service</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/files.html">Working
+                                with Files</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/file_collections.html">File
+                                Collections</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/honeypot.html">Honeypot
+                                Class</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/images.html">Image
+                                Manipulation Class</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/pagination.html">Pagination</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/publisher.html">Publisher</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal"
+                                                      href="libraries/security.html">Security</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/sessions.html">Session
+                                Library</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/throttler.html">Throttler</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/time.html">Times and
+                                Dates</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/typography.html">Typography</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/uploaded_files.html">Working
+                                with Uploaded Files</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/uri.html">Working with
+                                URIs</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/user_agent.html">User
+                                Agent Class</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="libraries/validation.html">Validation</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="helpers/index.html">Helpers</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/array_helper.html">Array
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/cookie_helper.html">Cookie
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/date_helper.html">Date
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/filesystem_helper.html">Filesystem
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/form_helper.html">Form
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/html_helper.html">HTML
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/inflector_helper.html">Inflector
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/number_helper.html">Number
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/security_helper.html">Security
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/test_helper.html">Test
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/text_helper.html">Text
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/url_helper.html">URL
+                                Helper</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="helpers/xml_helper.html">XML
+                                Helper</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="testing/index.html">Testing</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="testing/overview.html">Getting
+                                Started</a></li>
+                            <li class="toctree-l2"><a class="reference internal"
+                                                      href="testing/database.html">Database</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="testing/fabricator.html">Generating
+                                Data</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="testing/controllers.html">Controller
+                                Testing</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="testing/feature.html">HTTP
+                                Testing</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="testing/response.html">Testing
+                                Responses</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="testing/benchmark.html">Benchmarking</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="testing/debugging.html">Debugging
+                                Your Application</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="testing/mocking.html">Mocking</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="cli/index.html">Command Line Usage</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="cli/cli_overview.html">CLI
+                                Overview</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="cli/cli_controllers.html">Running
+                                Controllers via CLI</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="cli/spark_commands.html">Spark
+                                Commands</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="cli/cli_commands.html">Creating
+                                Spark Commands</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="cli/cli_generators.html">CLI
+                                Generators</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="cli/cli_library.html">CLI
+                                Library</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="cli/cli_request.html">CLIRequest
+                                Class</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="extending/index.html">Extending Higgs</a>
+                        <ul>
+                            <li class="toctree-l2"><a class="reference internal" href="extending/core_classes.html">Creating
+                                Core System Classes</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="extending/common.html">Replacing
+                                Common Functions</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="extending/events.html">Events</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal" href="extending/basecontroller.html">Extending
+                                the Controller</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="extending/authentication.html">Authentication</a>
+                            </li>
+                            <li class="toctree-l2"><a class="reference internal"
+                                                      href="extending/composer_packages.html">Creating Composer
+                                Packages</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="extending/contributing.html">Contributing
+                                to Higgs</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="libraries/official_packages.html">Official
+                        Packages</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+        <nav aria-label="Mobile navigation menu" class="wy-nav-top">
+            <i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+            <a href="index.html">Higgs</a>
+        </nav>
+
+        <div class="wy-nav-content">
+            <div class="rst-content">
+                <a class="btn btn-neutral float-right"
+                   href="https://github.com/higgs/Higgs7/edit/develop/user_guide_src/source/genindex.rst">Edit this
+                    page</a>
+
+                <div aria-label="Page navigation" role="navigation">
+                    <ul class="wy-breadcrumbs">
+                        <li><a aria-label="Home" class="icon icon-home" href="index.html"></a></li>
+                        <li class="breadcrumb-item active">Index</li>
+                        <li class="wy-breadcrumbs-aside">
+                        </li>
+                    </ul>
+                    <hr/>
+                </div>
+                <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+                    <div itemprop="articleBody">
+
+
+                        <h1 id="index">Index</h1>
+
+                        <div class="genindex-jumpbox">
+                            <a href="#Symbols"><strong>Symbols</strong></a>
+                            | <a href="#_"><strong>_</strong></a>
+                            | <a href="#A"><strong>A</strong></a>
+                            | <a href="#B"><strong>B</strong></a>
+                            | <a href="#C"><strong>C</strong></a>
+                            | <a href="#D"><strong>D</strong></a>
+                            | <a href="#E"><strong>E</strong></a>
+                            | <a href="#F"><strong>F</strong></a>
+                            | <a href="#G"><strong>G</strong></a>
+                            | <a href="#H"><strong>H</strong></a>
+                            | <a href="#I"><strong>I</strong></a>
+                            | <a href="#J"><strong>J</strong></a>
+                            | <a href="#L"><strong>L</strong></a>
+                            | <a href="#M"><strong>M</strong></a>
+                            | <a href="#N"><strong>N</strong></a>
+                            | <a href="#O"><strong>O</strong></a>
+                            | <a href="#P"><strong>P</strong></a>
+                            | <a href="#Q"><strong>Q</strong></a>
+                            | <a href="#R"><strong>R</strong></a>
+                            | <a href="#S"><strong>S</strong></a>
+                            | <a href="#T"><strong>T</strong></a>
+                            | <a href="#U"><strong>U</strong></a>
+                            | <a href="#V"><strong>V</strong></a>
+                            | <a href="#W"><strong>W</strong></a>
+                            | <a href="#X"><strong>X</strong></a>
+                            | <a href="#Y"><strong>Y</strong></a>
+
+                        </div>
+                        <h2 id="Symbols">Symbols</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="libraries/throttler.html#check"><strong>() ( method)</strong></a>,
+                                            <a href="libraries/throttler.html#getTokentime"><strong>[1]</strong></a>, <a
+                                                    href="libraries/throttler.html#remove"><strong>[2]</strong></a>, <a
+                                                    href="outgoing/api_responses.html#fail"><strong>[3]</strong></a>, <a
+                                                    href="outgoing/api_responses.html#failForbidden"><strong>[4]</strong></a>,
+                                            <a href="outgoing/api_responses.html#failNotFound"><strong>[5]</strong></a>,
+                                            <a href="outgoing/api_responses.html#failResourceExists"><strong>[6]</strong></a>,
+                                            <a href="outgoing/api_responses.html#failResourceGone"><strong>[7]</strong></a>,
+                                            <a href="outgoing/api_responses.html#failServerError"><strong>[8]</strong></a>,
+                                            <a href="outgoing/api_responses.html#failTooManyRequests"><strong>[9]</strong></a>,
+                                            <a href="outgoing/api_responses.html#failUnauthorized"><strong>[10]</strong></a>,
+                                            <a href="outgoing/api_responses.html#failValidationErrors"><strong>[11]</strong></a>,
+                                            <a href="outgoing/api_responses.html#respond"><strong>[12]</strong></a>, <a
+                                                    href="outgoing/api_responses.html#respondCreated"><strong>[13]</strong></a>,
+                                            <a href="outgoing/api_responses.html#respondDeleted"><strong>[14]</strong></a>,
+                                            <a href="outgoing/api_responses.html#respondNoContent"><strong>[15]</strong></a>,
+                                            <a href="outgoing/api_responses.html#setResponseFormat"><strong>[16]</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="_">_</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::__construct"><strong>__construct()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="libraries/cookies.html#Higgs\Cookie\CookieStore::__construct"><strong>(Higgs\Cookie\CookieStore
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="A">A</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::addColumn"><strong>addColumn()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::addField"><strong>addField()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::addForeignKey"><strong>addForeignKey()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::addKey"><strong>addKey()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::addPrimaryKey"><strong>addPrimaryKey()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/table.html#Higgs\View\Table::addRow"><strong>addRow()
+                                            (Higgs\View\Table method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::addUniqueKey"><strong>addUniqueKey()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#alternator"><strong>alternator() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#anchor"><strong>anchor() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#anchor_popup"><strong>anchor_popup()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#app_timezone"><strong>app_timezone()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::appendBody"><strong>appendBody()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::appendHeader"><strong>appendHeader()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#APPPATH"><strong>APPPATH (global
+                                            constant)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/array_helper.html#array_deep_search"><strong>array_deep_search()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/array_helper.html#array_flatten_with_dots"><strong>array_flatten_with_dots()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/array_helper.html#array_group_by"><strong>array_group_by()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/array_helper.html#array_sort_by_multiple_keys"><strong>array_sort_by_multiple_keys()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#ascii_to_entities"><strong>ascii_to_entities()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::attach"><strong>attach()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/html_helper.html#audio"><strong>audio() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#auto_link"><strong>auto_link() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/typography.html#autoTypography"><strong>autoTypography()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="B">B</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/url_helper.html#base_url"><strong>base_url() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="database/query_builder.html#Higgs\Database\BaseBuilder"><strong>BaseBuilder
+                                            (class in Higgs\Database)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="cli/cli_commands.html#Higgs\CLI\BaseCommand"><strong>BaseCommand
+                                            (class in Higgs\CLI)</strong></a>
+                                        </li>
+                                        <li><a href="database/results.html#Higgs\Database\BaseResult"><strong>BaseResult
+                                            (class in Higgs\Database)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="C">C</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="general/common_functions.html#cache"><strong>cache() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/caching.html#Higgs\Cache\CacheInterface"><strong>CacheInterface
+                                            (class in Higgs\Cache)</strong></a>
+                                        </li>
+                                        <li><a href="cli/cli_commands.html#Higgs\CLI\BaseCommand::call"><strong>call()
+                                            (Higgs\CLI\BaseCommand method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#camelize"><strong>camelize() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#character_limiter"><strong>character_limiter()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/caching.html#Higgs\Cache\CacheInterface::clean"><strong>clean()
+                                            (Higgs\Cache\CacheInterface method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\CookieStore::clear"><strong>clear()
+                                            (Higgs\Cookie\CookieStore method)</strong></a>
+
+                                            <ul>
+                                                <li><a href="libraries/email.html#Higgs\Email\Email::clear"><strong>(Higgs\Email\Email
+                                                    method)</strong></a>
+                                                </li>
+                                                <li><a href="outgoing/table.html#Higgs\View\Table::clear"><strong>(Higgs\View\Table
+                                                    method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="models/model.html#namespace-Higgs"><strong>Higgs
+                                            (namespace)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/caching.html#namespace-Higgs\Cache"><strong>Higgs\Cache
+                                            (namespace)</strong></a>
+                                        </li>
+                                        <li><a href="cli/cli_commands.html#namespace-Higgs\CLI"><strong>Higgs\CLI
+                                            (namespace)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#namespace-Higgs\Cookie"><strong>Higgs\Cookie
+                                            (namespace)</strong></a>
+                                        </li>
+                                        <li><a href="database/query_builder.html#namespace-Higgs\Database"><strong>Higgs\Database
+                                            (namespace)</strong></a>, <a
+                                                href="database/results.html#namespace-Higgs\Database"><strong>[1]</strong></a>,
+                                            <a href="dbmgmt/forge.html#namespace-Higgs\Database"><strong>[2]</strong></a>,
+                                            <a href="dbmgmt/migration.html#namespace-Higgs\Database"><strong>[3]</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#namespace-Higgs\Email"><strong>Higgs\Email
+                                            (namespace)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/encryption.html#namespace-Higgs\Encryption"><strong>Higgs\Encryption
+                                            (namespace)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/incomingrequest.html#namespace-Higgs\HTTP"><strong>Higgs\HTTP
+                                            (namespace)</strong></a>, <a
+                                                href="incoming/message.html#namespace-Higgs\HTTP"><strong>[1]</strong></a>,
+                                            <a href="incoming/request.html#namespace-Higgs\HTTP"><strong>[2]</strong></a>,
+                                            <a href="libraries/user_agent.html#namespace-Higgs\HTTP"><strong>[3]</strong></a>,
+                                            <a href="outgoing/response.html#namespace-Higgs\HTTP"><strong>[4]</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/table.html#namespace-Higgs\View"><strong>Higgs\View
+                                            (namespace)</strong></a>, <a
+                                                href="outgoing/view_parser.html#namespace-Higgs\View"><strong>[1]</strong></a>,
+                                            <a href="outgoing/view_renderer.html#namespace-Higgs\View"><strong>[2]</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#config"><strong>config() (global
+                                            function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/text_helper.html#convert_accented_characters"><strong>convert_accented_characters()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie"><strong>Cookie (class
+                                            in Higgs\Cookie)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#cookie"><strong>cookie() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#cookies"><strong>cookies() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\CookieStore"><strong>CookieStore
+                                            (class in Higgs\Cookie)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::countAll"><strong>countAll()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::countAllResults"><strong>countAllResults()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#counted"><strong>counted() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::createDatabase"><strong>createDatabase()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/encryption.html#Higgs\Encryption\Encryption::createKey"><strong>createKey()
+                                                (Higgs\Encryption\Encryption method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::createTable"><strong>createTable()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#csp_script_nonce"><strong>csp_script_nonce()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#csp_style_nonce"><strong>csp_style_nonce()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#csrf_field"><strong>csrf_field()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#csrf_hash"><strong>csrf_hash()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#csrf_header"><strong>csrf_header()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#csrf_meta"><strong>csrf_meta()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#csrf_token"><strong>csrf_token()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#current_url"><strong>current_url() (global
+                                            function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="D">D</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/inflector_helper.html#dasherize"><strong>dasherize()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="database/results.html#Higgs\Database\BaseResult::dataSeek"><strong>dataSeek()
+                                            (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#DAY"><strong>DAY (global
+                                            constant)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::db"><strong>db()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#DECADE"><strong>DECADE (global
+                                            constant)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#decamelize"><strong>decamelize()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/caching.html#Higgs\Cache\CacheInterface::decrement"><strong>decrement()
+                                                (Higgs\Cache\CacheInterface method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="database/query_builder.html#Higgs\Database\BaseBuilder::decrement"><strong>(Higgs\Database\BaseBuilder
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/encryption.html#Higgs\Encryption\Encryption::decrypt"><strong>decrypt()
+                                                (Higgs\Encryption\Encryption method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/caching.html#Higgs\Cache\CacheInterface::delete"><strong>delete()
+                                            (Higgs\Cache\CacheInterface method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="database/query_builder.html#Higgs\Database\BaseBuilder::delete"><strong>(Higgs\Database\BaseBuilder
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="helpers/cookie_helper.html#delete_cookie"><strong>delete_cookie()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#delete_files"><strong>delete_files()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::deleteBatch"><strong>deleteBatch()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="outgoing/response.html#Higgs\HTTP\Response::deleteCookie"><strong>deleteCookie()
+                                            (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/caching.html#Higgs\Cache\CacheInterface::deleteMatching"><strong>deleteMatching()
+                                            (Higgs\Cache\CacheInterface method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#directory_map"><strong>directory_map()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#directory_mirror"><strong>directory_mirror()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\CookieStore::dispatch"><strong>dispatch()
+                                            (Higgs\Cookie\CookieStore method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\CookieStore::display"><strong>display()
+                                            (Higgs\Cookie\CookieStore method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::distinct"><strong>distinct()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/html_helper.html#doctype"><strong>doctype() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/array_helper.html#dot_array_search"><strong>dot_array_search()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::dropColumn"><strong>dropColumn()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::dropDatabase"><strong>dropDatabase()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::dropKey"><strong>dropKey()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::dropPrimaryKey"><strong>dropPrimaryKey()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::dropTable"><strong>dropTable()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="E">E</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/text_helper.html#ellipsize"><strong>ellipsize() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email"><strong>Email (class in
+                                            Higgs\Email)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/html_helper.html#embed"><strong>embed() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::emptyTable"><strong>emptyTable()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/security_helper.html#encode_php_tags"><strong>encode_php_tags()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li>
+                                            <a href="libraries/encryption.html#Higgs\Encryption\Encryption::encrypt"><strong>encrypt()
+                                                (Higgs\Encryption\Encryption method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/encryption.html#Higgs\Encryption\Encryption"><strong>Encryption
+                                            (class in Higgs\Encryption)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#entities_to_ascii"><strong>entities_to_ascii()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#env"><strong>env() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#esc"><strong>esc() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#excerpt"><strong>excerpt() (global
+                                            function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="F">F</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/test_helper.html#fake"><strong>fake() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#FCPATH"><strong>FCPATH (global
+                                            constant)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/request.html#Higgs\HTTP\Request::fetchGlobal"><strong>fetchGlobal()
+                                            (Higgs\HTTP\Request method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="dbmgmt/migration.html#Higgs\Database\MigrationRunner::findMigrations"><strong>findMigrations()
+                                                (Higgs\Database\MigrationRunner method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="dbmgmt/migration.html#Higgs\Database\MigrationRunner::force"><strong>force()
+                                                (Higgs\Database\MigrationRunner method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#force_https"><strong>force_https()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge"><strong>Forge (class in
+                                            Higgs\Database)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_button"><strong>form_button() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_checkbox"><strong>form_checkbox()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_close"><strong>form_close() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_dropdown"><strong>form_dropdown()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_fieldset"><strong>form_fieldset()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_fieldset_close"><strong>form_fieldset_close()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_hidden"><strong>form_hidden() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_input"><strong>form_input() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_label"><strong>form_label() (global
+                                            function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/form_helper.html#form_multiselect"><strong>form_multiselect()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_open"><strong>form_open() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_open_multipart"><strong>form_open_multipart()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_password"><strong>form_password()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_radio"><strong>form_radio() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_reset"><strong>form_reset() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_submit"><strong>form_submit() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_textarea"><strong>form_textarea()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#form_upload"><strong>form_upload() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/typography.html#formatCharacters"><strong>formatCharacters()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::freeResult"><strong>freeResult()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::from"><strong>from()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/cookies.html#Higgs\Cookie\CookieStore::fromCookieHeaders"><strong>fromCookieHeaders()
+                                                (Higgs\Cookie\CookieStore method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/cookies.html#Higgs\Cookie\Cookie::fromHeaderString"><strong>fromHeaderString()
+                                                (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::fromSubquery"><strong>fromSubquery()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#function_usable"><strong>function_usable()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="G">G</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="outgoing/table.html#Higgs\View\Table::generate"><strong>generate()
+                                            (Higgs\View\Table method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/caching.html#Higgs\Cache\CacheInterface::get"><strong>get()
+                                            (Higgs\Cache\CacheInterface method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="libraries/cookies.html#Higgs\Cookie\CookieStore::get"><strong>(Higgs\Cookie\CookieStore
+                                                        method)</strong></a>
+                                                </li>
+                                                <li>
+                                                    <a href="database/query_builder.html#Higgs\Database\BaseBuilder::get"><strong>(Higgs\Database\BaseBuilder
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="helpers/cookie_helper.html#get_cookie"><strong>get_cookie() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#get_dir_file_info"><strong>get_dir_file_info()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#get_file_info"><strong>get_file_info()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#get_filenames"><strong>get_filenames()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::getAgentString"><strong>getAgentString()
+                                                (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::getBody"><strong>getBody()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::getBrowser"><strong>getBrowser()
+                                                (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/caching.html#Higgs\Cache\CacheInterface::getCacheInfo"><strong>getCacheInfo()
+                                                (Higgs\Cache\CacheInterface method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::getCompiledDelete"><strong>getCompiledDelete()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::getCompiledInsert"><strong>getCompiledInsert()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::getCompiledSelect"><strong>getCompiledSelect()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::getCompiledUpdate"><strong>getCompiledUpdate()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::getCookie"><strong>getCookie()
+                                                (Higgs\HTTP\IncomingRequest method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="outgoing/response.html#Higgs\HTTP\Response::getCookie"><strong>(Higgs\HTTP\Response
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="outgoing/response.html#Higgs\HTTP\Response::getCookies"><strong>getCookies()
+                                            (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getCustomResultObject"><strong>getCustomResultObject()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getCustomRowObject"><strong>getCustomRowObject()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::getDomain"><strong>getDomain()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/request.html#Higgs\HTTP\Request::getEnv"><strong>getEnv()
+                                            (Higgs\HTTP\Request method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/cookies.html#Higgs\Cookie\Cookie::getExpiresString"><strong>getExpiresString()
+                                                (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/cookies.html#Higgs\Cookie\Cookie::getExpiresTimestamp"><strong>getExpiresTimestamp()
+                                                (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getFieldCount"><strong>getFieldCount()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getFieldData"><strong>getFieldData()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getFieldNames"><strong>getFieldNames()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li><a href="testing/controllers.html#getFilterCaller"><strong>getFilterCaller()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="testing/controllers.html#getFiltersForRoute"><strong>getFiltersForRoute()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getFirstRow"><strong>getFirstRow()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::getGet"><strong>getGet()
+                                                (Higgs\HTTP\IncomingRequest method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::getGetPost"><strong>getGetPost()
+                                                (Higgs\HTTP\IncomingRequest method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::getHeaderLine"><strong>getHeaderLine()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::getId"><strong>getId()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/request.html#Higgs\HTTP\Request::getIPAddress"><strong>getIPAddress()
+                                            (Higgs\HTTP\Request method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getLastRow"><strong>getLastRow()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::getMaxAge"><strong>getMaxAge()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li>
+                                            <a href="libraries/caching.html#Higgs\Cache\CacheInterface::getMetadata"><strong>getMetadata()
+                                                (Higgs\Cache\CacheInterface method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/request.html#Higgs\HTTP\Request::getMethod"><strong>getMethod()
+                                            (Higgs\HTTP\Request method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::getMobile"><strong>getMobile()
+                                            (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::getName"><strong>getName()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getNextRow"><strong>getNextRow()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getNumRows"><strong>getNumRows()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::getOptions"><strong>getOptions()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="cli/cli_commands.html#Higgs\CLI\BaseCommand::getPad"><strong>getPad()
+                                            (Higgs\CLI\BaseCommand method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::getPath"><strong>getPath()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::getPath"><strong>(Higgs\HTTP\IncomingRequest
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::getPlatform"><strong>getPlatform()
+                                                (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::getPost"><strong>getPost()
+                                            (Higgs\HTTP\IncomingRequest method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::getPostGet"><strong>getPostGet()
+                                                (Higgs\HTTP\IncomingRequest method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::getPrefix"><strong>getPrefix()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/cookies.html#Higgs\Cookie\Cookie::getPrefixedName"><strong>getPrefixedName()
+                                                (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getPreviousRow"><strong>getPreviousRow()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/message.html#Higgs\HTTP\Message::getProtocolVersion"><strong>getProtocolVersion()
+                                                (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="outgoing/response.html#Higgs\HTTP\Response::getReasonPhrase"><strong>getReasonPhrase()
+                                                (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::getReferrer"><strong>getReferrer()
+                                                (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getResult"><strong>getResult()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getResultArray"><strong>getResultArray()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getResultObject"><strong>getResultObject()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::getRobot"><strong>getRobot()
+                                            (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li><a href="database/results.html#Higgs\Database\BaseResult::getRow"><strong>getRow()
+                                            (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getRowArray"><strong>getRowArray()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/results.html#Higgs\Database\BaseResult::getRowObject"><strong>getRowObject()
+                                                (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::getSameSite"><strong>getSameSite()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::getServer"><strong>getServer()
+                                                (Higgs\HTTP\IncomingRequest method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="incoming/request.html#Higgs\HTTP\Request::getServer"><strong>(Higgs\HTTP\Request
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="outgoing/response.html#Higgs\HTTP\Response::getStatusCode"><strong>getStatusCode()
+                                            (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li><a href="database/results.html#Higgs\Database\BaseResult::getUnbufferedRow"><strong>getUnbufferedRow()
+                                            (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::getUserAgent"><strong>getUserAgent()
+                                                (Higgs\HTTP\IncomingRequest method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::getValue"><strong>getValue()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::getVar"><strong>getVar()
+                                                (Higgs\HTTP\IncomingRequest method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::getVersion"><strong>getVersion()
+                                                (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::getWhere"><strong>getWhere()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::groupBy"><strong>groupBy()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::groupEnd"><strong>groupEnd()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::groupStart"><strong>groupStart()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="H">H</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\CookieStore::has"><strong>has()
+                                            (Higgs\Cookie\CookieStore method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/cookie_helper.html#has_cookie"><strong>has_cookie() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/response.html#Higgs\HTTP\Response::hasCookie"><strong>hasCookie()
+                                            (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::hasHeader"><strong>hasHeader()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::having"><strong>having()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::havingGroupEnd"><strong>havingGroupEnd()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::havingGroupStart"><strong>havingGroupStart()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::havingIn"><strong>havingIn()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::havingLike"><strong>havingLike()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::havingNotIn"><strong>havingNotIn()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::header"><strong>header()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::headers"><strong>headers()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#helper"><strong>helper() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#highlight_code"><strong>highlight_code()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#highlight_phrase"><strong>highlight_phrase()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#HOUR"><strong>HOUR (global
+                                            constant)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#humanize"><strong>humanize() (global
+                                            function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="I">I</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/html_helper.html#img"><strong>img() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/html_helper.html#img_data"><strong>img_data() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest"><strong>IncomingRequest
+                                            (class in Higgs\HTTP)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/caching.html#Higgs\Cache\CacheInterface::increment"><strong>increment()
+                                                (Higgs\Cache\CacheInterface method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="database/query_builder.html#Higgs\Database\BaseBuilder::increment"><strong>(Higgs\Database\BaseBuilder
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#increment_string"><strong>increment_string()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#index_page"><strong>index_page() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/encryption.html#Higgs\Encryption\Encryption::initialize"><strong>initialize()
+                                            (Higgs\Encryption\Encryption method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::insert"><strong>insert()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::insertBatch"><strong>insertBatch()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#is_cli"><strong>is_cli() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#is_pluralizable"><strong>is_pluralizable()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#is_really_writable"><strong>is_really_writable()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="general/common_functions.html#is_windows"><strong>is_windows()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::isAJAX"><strong>isAJAX()
+                                                (Higgs\HTTP\IncomingRequest method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::isBrowser"><strong>isBrowser()
+                                            (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::isCLI"><strong>isCLI()
+                                                (Higgs\HTTP\IncomingRequest method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::isExpired"><strong>isExpired()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::isHTTPOnly"><strong>isHTTPOnly()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::isMobile"><strong>isMobile()
+                                            (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::isRaw"><strong>isRaw()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::isReferral"><strong>isReferral()
+                                                (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::isRobot"><strong>isRobot()
+                                            (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::isSecure"><strong>isSecure()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::isSecure"><strong>(Higgs\HTTP\IncomingRequest
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/caching.html#Higgs\Cache\CacheInterface::isSupported"><strong>isSupported()
+                                                (Higgs\Cache\CacheInterface method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/request.html#Higgs\HTTP\Request::isValidIP"><strong>isValidIP()
+                                            (Higgs\HTTP\Request method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="J">J</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::join"><strong>join()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="L">L</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="general/common_functions.html#lang"><strong>lang() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="dbmgmt/migration.html#Higgs\Database\MigrationRunner::latest"><strong>latest()
+                                                (Higgs\Database\MigrationRunner method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::like"><strong>like()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::limit"><strong>limit()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/html_helper.html#link_tag"><strong>link_tag() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#log_message"><strong>log_message()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="M">M</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/url_helper.html#mailto"><strong>mailto() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/table.html#Higgs\View\Table::makeColumns"><strong>makeColumns()
+                                            (Higgs\View\Table method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#mb_url_title"><strong>mb_url_title()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message"><strong>Message (class in
+                                            Higgs\HTTP)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/migration.html#Higgs\Database\MigrationRunner"><strong>MigrationRunner
+                                            (class in Higgs\Database)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="general/common_functions.html#MINUTE"><strong>MINUTE (global
+                                            constant)</strong></a>
+                                        </li>
+                                        <li><a href="models/model.html#Higgs\Model"><strong>Model (class in
+                                            Higgs)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#model"><strong>model() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::modifyColumn"><strong>modifyColumn()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#MONTH"><strong>MONTH (global
+                                            constant)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="N">N</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="libraries/typography.html#nl2brExceptPre"><strong>nl2brExceptPre()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/response.html#Higgs\HTTP\Response::noCache"><strong>noCache()
+                                            (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::notGroupStart"><strong>notGroupStart()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::notHavingGroupStart"><strong>notHavingGroupStart()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::notHavingLike"><strong>notHavingLike()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::notLike"><strong>notLike()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/date_helper.html#now"><strong>now() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/number_helper.html#number_to_amount"><strong>number_to_amount()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/number_helper.html#number_to_currency"><strong>number_to_currency()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/number_helper.html#number_to_roman"><strong>number_to_roman()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/number_helper.html#number_to_size"><strong>number_to_size()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="O">O</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/html_helper.html#object"><strong>object() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#octal_permissions"><strong>octal_permissions()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::offset"><strong>offset()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/html_helper.html#ol"><strong>ol() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#old"><strong>old() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::onConstraint"><strong>onConstraint()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orderBy"><strong>orderBy()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#ordinal"><strong>ordinal() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#ordinalize"><strong>ordinalize()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orGroupStart"><strong>orGroupStart()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orHaving"><strong>orHaving()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orHavingGroupStart"><strong>orHavingGroupStart()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orHavingIn"><strong>orHavingIn()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orHavingLike"><strong>orHavingLike()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orHavingNotIn"><strong>orHavingNotIn()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orLike"><strong>orLike()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orNotGroupStart"><strong>orNotGroupStart()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orNotHavingGroupStart"><strong>orNotHavingGroupStart()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orNotHavingLike"><strong>orNotHavingLike()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="database/query_builder.html#Higgs\Database\BaseBuilder::orNotLike"><strong>orNotLike()
+                                            (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orWhere"><strong>orWhere()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="database/query_builder.html#Higgs\Database\BaseBuilder::orWhereIn"><strong>orWhereIn()
+                                            (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::orWhereNotIn"><strong>orWhereNotIn()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="P">P</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/html_helper.html#param"><strong>param() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/user_agent.html#Higgs\HTTP\UserAgent::parse"><strong>parse()
+                                            (Higgs\HTTP\UserAgent method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/view_parser.html#Higgs\View\Parser"><strong>Parser (class
+                                            in Higgs\View)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#pascalize"><strong>pascalize()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#plural"><strong>plural() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::populateHeaders"><strong>populateHeaders()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/url_helper.html#prep_url"><strong>prep_url() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::prependHeader"><strong>prependHeader()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#previous_url"><strong>previous_url()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::printDebugger"><strong>printDebugger()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::processIndexes"><strong>processIndexes()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\CookieStore::put"><strong>put()
+                                            (Higgs\Cookie\CookieStore method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="Q">Q</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/text_helper.html#quotes_to_entities"><strong>quotes_to_entities()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="R">R</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/text_helper.html#random_string"><strong>random_string()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#redirect"><strong>redirect() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#reduce_double_slashes"><strong>reduce_double_slashes()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#reduce_multiples"><strong>reduce_multiples()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="dbmgmt/migration.html#Higgs\Database\MigrationRunner::regress"><strong>regress()
+                                                (Higgs\Database\MigrationRunner method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/caching.html#Higgs\Cache\CacheInterface::remember"><strong>remember()
+                                                (Higgs\Cache\CacheInterface method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\CookieStore::remove"><strong>remove()
+                                            (Higgs\Cookie\CookieStore method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#remove_invisible_characters"><strong>remove_invisible_characters()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::removeHeader"><strong>removeHeader()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li><a href="dbmgmt/forge.html#Higgs\Database\Forge::renameTable"><strong>renameTable()
+                                            (Higgs\Database\Forge method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/view_parser.html#Higgs\View\Parser::render"><strong>render()
+                                            (Higgs\View\Parser method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="outgoing/view_renderer.html#Higgs\View\View::render"><strong>(Higgs\View\View
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="outgoing/view_parser.html#Higgs\View\Parser::renderString"><strong>renderString()
+                                            (Higgs\View\Parser method)</strong></a>
+
+                                            <ul>
+                                                <li><a href="outgoing/view_renderer.html#Higgs\View\View::renderString"><strong>(Higgs\View\View
+                                                    method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::replace"><strong>replace()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/request.html#Higgs\HTTP\Request"><strong>Request (class in
+                                            Higgs\HTTP)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#request"><strong>request() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::resetQuery"><strong>resetQuery()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/response.html#Higgs\HTTP\Response"><strong>Response (class
+                                            in Higgs\HTTP)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#response"><strong>response() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#ROOTPATH"><strong>ROOTPATH (global
+                                            constant)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#route_to"><strong>route_to() (global
+                                            function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="S">S</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/url_helper.html#safe_mailto"><strong>safe_mailto() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#same_file"><strong>same_file()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/security_helper.html#sanitize_filename"><strong>sanitize_filename()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/caching.html#Higgs\Cache\CacheInterface::save"><strong>save()
+                                            (Higgs\Cache\CacheInterface method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/html_helper.html#script_tag"><strong>script_tag() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#SECOND"><strong>SECOND (global
+                                            constant)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::select"><strong>select()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="database/query_builder.html#Higgs\Database\BaseBuilder::selectAvg"><strong>selectAvg()
+                                            (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::selectCount"><strong>selectCount()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="database/query_builder.html#Higgs\Database\BaseBuilder::selectMax"><strong>selectMax()
+                                            (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="database/query_builder.html#Higgs\Database\BaseBuilder::selectMin"><strong>selectMin()
+                                            (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::selectSubquery"><strong>selectSubquery()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="database/query_builder.html#Higgs\Database\BaseBuilder::selectSum"><strong>selectSum()
+                                            (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::send"><strong>send()
+                                            (Higgs\Email\Email method)</strong></a>
+
+                                            <ul>
+                                                <li><a href="outgoing/response.html#Higgs\HTTP\Response::send"><strong>(Higgs\HTTP\Response
+                                                    method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="general/common_functions.html#service"><strong>service() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#session"><strong>session() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::set"><strong>set()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#set_checkbox"><strong>set_checkbox()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/cookie_helper.html#set_cookie"><strong>set_cookie() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#set_radio"><strong>set_radio() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#set_realpath"><strong>set_realpath()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#set_select"><strong>set_select() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#set_value"><strong>set_value() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::setAltMessage"><strong>setAltMessage()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::setAttachmentCID"><strong>setAttachmentCID()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::setBCC"><strong>setBCC()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/message.html#Higgs\HTTP\Message::setBody"><strong>setBody()
+                                            (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/response.html#Higgs\HTTP\Response::setCache"><strong>setCache()
+                                            (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/table.html#Higgs\View\Table::setCaption"><strong>setCaption()
+                                            (Higgs\View\Table method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::setCC"><strong>setCC()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="outgoing/view_parser.html#Higgs\View\Parser::setConditionalDelimiters"><strong>setConditionalDelimiters()
+                                                (Higgs\View\Parser method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="outgoing/response.html#Higgs\HTTP\Response::setContentType"><strong>setContentType()
+                                                (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/response.html#Higgs\HTTP\Response::setCookie"><strong>setCookie()
+                                            (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::setData"><strong>setData()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="outgoing/view_parser.html#Higgs\View\Parser::setData"><strong>(Higgs\View\Parser
+                                                        method)</strong></a>
+                                                </li>
+                                                <li>
+                                                    <a href="outgoing/view_renderer.html#Higgs\View\View::setData"><strong>(Higgs\View\View
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="outgoing/response.html#Higgs\HTTP\Response::setDate"><strong>setDate()
+                                            (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::setDefaults"><strong>setDefaults()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="outgoing/view_parser.html#Higgs\View\Parser::setDelimiters"><strong>setDelimiters()
+                                                (Higgs\View\Parser method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/table.html#Higgs\View\Table::setEmpty"><strong>setEmpty()
+                                            (Higgs\View\Table method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/table.html#Higgs\View\Table::setFooting"><strong>setFooting()
+                                            (Higgs\View\Table method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::setFrom"><strong>setFrom()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/request.html#Higgs\HTTP\Request::setGlobal"><strong>setGlobal()
+                                            (Higgs\HTTP\Request method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="dbmgmt/migration.html#Higgs\Database\MigrationRunner::setGroup"><strong>setGroup()
+                                                (Higgs\Database\MigrationRunner method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::setHeader"><strong>setHeader()
+                                            (Higgs\Email\Email method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="incoming/message.html#Higgs\HTTP\Message::setHeader"><strong>(Higgs\HTTP\Message
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="outgoing/table.html#Higgs\View\Table::setHeading"><strong>setHeading()
+                                            (Higgs\View\Table method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::setInsertBatch"><strong>setInsertBatch()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="outgoing/response.html#Higgs\HTTP\Response::setLastModified"><strong>setLastModified()
+                                                (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::setMessage"><strong>setMessage()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/request.html#Higgs\HTTP\Request::setMethod"><strong>setMethod()
+                                            (Higgs\HTTP\Request method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="dbmgmt/migration.html#Higgs\Database\MigrationRunner::setNamespace"><strong>setNamespace()
+                                                (Higgs\Database\MigrationRunner method)</strong></a>
+                                        </li>
+                                        <li><a href="cli/cli_commands.html#Higgs\CLI\BaseCommand::setPad"><strong>setPad()
+                                            (Higgs\CLI\BaseCommand method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/incomingrequest.html#Higgs\HTTP\IncomingRequest::setPath"><strong>setPath()
+                                            (Higgs\HTTP\IncomingRequest method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="incoming/message.html#Higgs\HTTP\Message::setProtocolVersion"><strong>setProtocolVersion()
+                                                (Higgs\HTTP\Message method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::setQueryAsData"><strong>setQueryAsData()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::setReplyTo"><strong>setReplyTo()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li><a href="database/results.html#Higgs\Database\BaseResult::setRow"><strong>setRow()
+                                            (Higgs\Database\BaseResult method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/response.html#Higgs\HTTP\Response::setStatusCode"><strong>setStatusCode()
+                                            (Higgs\HTTP\Response method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::setSubject"><strong>setSubject()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="outgoing/table.html#Higgs\View\Table::setSyncRowsWithHeading"><strong>setSyncRowsWithHeading()
+                                                (Higgs\View\Table method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/table.html#Higgs\View\Table::setTemplate"><strong>setTemplate()
+                                            (Higgs\View\Table method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/email.html#Higgs\Email\Email::setTo"><strong>setTo()
+                                            (Higgs\Email\Email method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::setUpdateBatch"><strong>setUpdateBatch()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="models/model.html#Higgs\Model::setValidationMessage"><strong>setValidationMessage()
+                                            (Higgs\Model method)</strong></a>
+                                        </li>
+                                        <li><a href="models/model.html#Higgs\Model::setValidationMessages"><strong>setValidationMessages()
+                                            (Higgs\Model method)</strong></a>
+                                        </li>
+                                        <li><a href="models/model.html#Higgs\Model::setValidationRule"><strong>setValidationRule()
+                                            (Higgs\Model method)</strong></a>
+                                        </li>
+                                        <li><a href="models/model.html#Higgs\Model::setValidationRules"><strong>setValidationRules()
+                                            (Higgs\Model method)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/view_parser.html#Higgs\View\Parser::setVar"><strong>setVar()
+                                            (Higgs\View\Parser method)</strong></a>
+
+                                            <ul>
+                                                <li>
+                                                    <a href="outgoing/view_renderer.html#Higgs\View\View::setVar"><strong>(Higgs\View\View
+                                                        method)</strong></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="cli/cli_commands.html#Higgs\CLI\BaseCommand::showError"><strong>showError()
+                                            (Higgs\CLI\BaseCommand method)</strong></a>
+                                        </li>
+                                        <li><a href="cli/cli_commands.html#Higgs\CLI\BaseCommand::showHelp"><strong>showHelp()
+                                            (Higgs\CLI\BaseCommand method)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#single_service"><strong>single_service()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#singular"><strong>singular() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#site_url"><strong>site_url() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#slash_item"><strong>slash_item()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/html_helper.html#source"><strong>source() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#stringify_attributes"><strong>stringify_attributes()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/security_helper.html#strip_image_tags"><strong>strip_image_tags()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#strip_quotes"><strong>strip_quotes()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#strip_slashes"><strong>strip_slashes()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#symbolic_permissions"><strong>symbolic_permissions()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#SYSTEMPATH"><strong>SYSTEMPATH
+                                            (global constant)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="T">T</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="outgoing/table.html#Higgs\View\Table"><strong>Table (class in
+                                            Higgs\View)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#timer"><strong>timer() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/date_helper.html#timezone_select"><strong>timezone_select()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::toArray"><strong>toArray()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/cookies.html#Higgs\Cookie\Cookie::toHeaderString"><strong>toHeaderString()
+                                                (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/html_helper.html#track"><strong>track() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::truncate"><strong>truncate()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="U">U</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/html_helper.html#ul"><strong>ul() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/inflector_helper.html#underscore"><strong>underscore()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::union"><strong>union()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::unionAll"><strong>unionAll()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::update"><strong>update()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::updateBatch"><strong>updateBatch()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::updateFields"><strong>updateFields()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::upsert"><strong>upsert()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::upsertBatch"><strong>upsertBatch()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#uri_string"><strong>uri_string() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#url_is"><strong>url_is() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#url_title"><strong>url_title() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/url_helper.html#url_to"><strong>url_to() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/user_agent.html#Higgs\HTTP\UserAgent"><strong>UserAgent
+                                            (class in Higgs\HTTP)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="V">V</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li>
+                                            <a href="libraries/caching.html#Higgs\Cache\CacheInterface::validateKey"><strong>validateKey()
+                                                (Higgs\Cache\CacheInterface method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#validation_errors"><strong>validation_errors()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#validation_list_errors"><strong>validation_list_errors()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/form_helper.html#validation_show_error"><strong>validation_show_error()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/html_helper.html#video"><strong>video() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="outgoing/view_renderer.html#Higgs\View\View"><strong>View (class in
+                                            Higgs\View)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#view"><strong>view() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#view_cell"><strong>view_cell()
+                                            (global function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="W">W</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="general/common_functions.html#WEEK"><strong>WEEK (global
+                                            constant)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::where"><strong>where()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::whereIn"><strong>whereIn()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="database/query_builder.html#Higgs\Database\BaseBuilder::whereNotIn"><strong>whereNotIn()
+                                                (Higgs\Database\BaseBuilder method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withDomain"><strong>withDomain()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withExpired"><strong>withExpired()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withExpires"><strong>withExpires()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withHTTPOnly"><strong>withHTTPOnly()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="incoming/request.html#Higgs\HTTP\Request::withMethod"><strong>withMethod()
+                                            (Higgs\HTTP\Request method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withName"><strong>withName()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li>
+                                            <a href="libraries/cookies.html#Higgs\Cookie\Cookie::withNeverExpiring"><strong>withNeverExpiring()
+                                                (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withPath"><strong>withPath()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withPrefix"><strong>withPrefix()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withRaw"><strong>withRaw()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withSameSite"><strong>withSameSite()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withSecure"><strong>withSecure()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="libraries/cookies.html#Higgs\Cookie\Cookie::withValue"><strong>withValue()
+                                            (Higgs\Cookie\Cookie method)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#word_censor"><strong>word_censor() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#word_limiter"><strong>word_limiter()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/text_helper.html#word_wrap"><strong>word_wrap() (global
+                                            function)</strong></a>
+                                        </li>
+                                        <li><a href="helpers/filesystem_helper.html#write_file"><strong>write_file()
+                                            (global function)</strong></a>
+                                        </li>
+                                        <li><a href="general/common_functions.html#WRITEPATH"><strong>WRITEPATH (global
+                                            constant)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="X">X</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="helpers/xml_helper.html#xml_convert"><strong>xml_convert() (global
+                                            function)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h2 id="Y">Y</h2>
+                        <table class="indextable genindextable" style="width: 100%">
+                            <tr>
+                                <td style="width: 33%; vertical-align: top;">
+                                    <ul>
+                                        <li><a href="general/common_functions.html#YEAR"><strong>YEAR (global
+                                            constant)</strong></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                </div>
+                <footer>
+
+                    <hr/>
+
+                    <div role="contentinfo">
+                        <p>&#169; Copyright 2019-2023 <a href="https://www.linkedin.com/in/jalexiscv" target="_blank">Jose
+                            Alexis Correa Valencia</a>.
+                            <span class="lastupdated">All Rights Reserved.
+      </span></p>
+                    </div>
+
+
+                </footer>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    jQuery(function () {
+        SphinxRtdTheme.Navigation.enable(false);
+    });
+</script>
+
+</body>
+</html>

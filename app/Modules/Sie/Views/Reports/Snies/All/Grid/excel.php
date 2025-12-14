@@ -1,5 +1,5 @@
 <script>
-    document.getElementById('btn-excel').addEventListener('click', function() {
+    document.getElementById('btn-excel').addEventListener('click', function () {
         const table = document.getElementById('grid-table');
         const data = [];
         for (let i = 0; i < table.rows.length; i++) {

@@ -1,0 +1,115 @@
+<?php
+/* Smarty version 3.1.36, created on 2020-08-31 10:04:12
+  from 'C:\xampp\htdocs\Higgs-dominance\app\Views\smarty\default\_head.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.36',
+  'unifunc' => 'content_5f4d116c46b733_65141968',
+  'has_nocache_code' => true,
+  'file_dependency' => 
+  array (
+    '4a70017dade4d100872b1a44d02a3e810241589d' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\Higgs-dominance\\app\\Views\\smarty\\default\\_head.tpl',
+      1 => 1598065613,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5f4d116c46b733_65141968 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '16521153695f4d116c45fd84_59874062';
+?>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+<base href="../" />
+
+<?php if ($_smarty_tpl->tpl_vars['title']->value) {?>
+<title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+</title>
+<meta name="title" content="<?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+"/>
+<?php }?>
+
+<meta name="description" content="<?php echo $_smarty_tpl->tpl_vars['description']->value;?>
+"/>
+<meta name="description" content="<?php echo $_smarty_tpl->tpl_vars['description']->value;?>
+"/>
+<meta property="og:image" content="<?php echo $_smarty_tpl->tpl_vars['image']->value;?>
+" />
+
+<?php echo '<script'; ?>
+ type="text/javascript" src="<?php echo base_url("themes/default/node_modules/jquery/dist/jquery.js");?>
+"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ type="text/javascript" src="<?php echo base_url("themes/assets/javascripts/jquery-ui/jquery-ui.min.js");?>
+" ><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ type="text/javascript" src="<?php echo base_url("themes/default/node_modules/popper.js/dist/umd/popper.js");?>
+"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ type="text/javascript" src="<?php echo base_url("themes/default/node_modules/bootstrap/dist/js/bootstrap.js");?>
+"><?php echo '</script'; ?>
+>
+
+
+<!-- include common vendor stylesheets -->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("themes/default/node_modules/bootstrap/dist/css/bootstrap.css");?>
+"/>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("themes/assets/javascripts/jquery-ui/jquery-ui.min.css");?>
+" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("themes/default/dist/fonts/fontawesome/css/all.min.css");?>
+"/>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("themes/default/dist/css/ace-font.css");?>
+"/>
+<link rel="icon" type="image/png" href="<?php echo base_url("themes/favicon.png");?>
+" />
+
+<?php if ('plugin_tables') {?>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("themes/default/node_modules/bootstrap-table/dist/bootstrap-table.css");?>
+"  />
+<?php }?>
+
+<!-- "Dashboard" page styles specific to this page for demo purposes -->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("themes/default/dist/css/ace.css?v1");?>
+?v=1"  />
+
+
+
+<?php echo '<script'; ?>
+ type="text/javascript" src="<?php echo base_url("themes/default/node_modules/chart.js/dist/chart.js");?>
+"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ type="text/javascript" src="<?php echo base_url("themes/default/node_modules/sortablejs/Sortable.js");?>
+"><?php echo '</script'; ?>
+>
+<!--<?php echo '<script'; ?>
+ type="text/javascript" src="<?php echo base_url("themes/default/dist/js/ace.js");?>
+"><?php echo '</script'; ?>
+>//-->
+<?php echo '<script'; ?>
+ type="text/javascript" src="<?php echo base_url("themes/assets/javascripts/monthpicker/jquery.ui.monthpicker.js");?>
+"><?php echo '</script'; ?>
+>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("themes/assets/javascripts/monthpicker/styles.css");?>
+"/>
+
+
+
+<?php echo '<script'; ?>
+ type="text/javascript" src="<?php echo base_url("themes/default/assets/js/demo.js");?>
+"><?php echo '</script'; ?>
+>
+<style>
+<?php echo '/*%%SmartyNocache:16521153695f4d116c45fd84_59874062%%*/<?php echo $_smarty_tpl->tpl_vars[\'styles\']->value;?>
+/*/%%SmartyNocache:16521153695f4d116c45fd84_59874062%%*/';?>
+
+</style><?php }
+}

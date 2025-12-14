@@ -19,7 +19,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="option" class="form-label">Criterio / Opción</label>
-                            <input id="option" name="option" type="text" class="form-control" value="<?php echo(@$oid) ?>" readonly/>
+                            <input id="option" name="option" type="text" class="form-control"
+                                   value="<?php echo(@$oid) ?>" readonly/>
                         </div>
                         <button type="submit" class="btn btn-primary">Consultar</button>
                     </form>

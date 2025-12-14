@@ -1,41 +1,18 @@
 <?php
 
-/**
- * █ ---------------------------------------------------------------------------------------------------------------------
- * █ ░FRAMEWORK                                  2024-03-15 09:44:30
- * █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Sie\Views\Courses\Editor\form.php]
- * █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
- * █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
- * █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
- * █ ---------------------------------------------------------------------------------------------------------------------
- * █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
- * █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
- * █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
- * █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
- * █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
- * █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
- * █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
- * █ ---------------------------------------------------------------------------------------------------------------------
- * █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
- * █ @link https://www.codehiggs.com
- * █ @Version 1.5.0 @since PHP 7, PHP 8
- * █ ---------------------------------------------------------------------------------------------------------------------
- * █ Datos recibidos desde el controlador - @ModuleController
- * █ ---------------------------------------------------------------------------------------------------------------------
- * █ @var object $parent Trasferido desde el controlador
- * █ @var object $authentication Trasferido desde el controlador
- * █ @var object $request Trasferido desde el controlador
- * █ @var object $dates Trasferido desde el controlador
- * █ @var string $component Trasferido desde el controlador
- * █ @var string $view Trasferido desde el controlador
- * █ @var string $oid Trasferido desde el controlador
- * █ @var string $views Trasferido desde el controlador
- * █ @var string $prefix Trasferido desde el controlador
- * █ @var array $data Trasferido desde el controlador
- * █ @var object $model Modelo de datos utilizado en la vista y trasferido desde el index
- * █ ---------------------------------------------------------------------------------------------------------------------
- **/
-//[Services]-----------------------------------------------------------------------------
+/** @var object $parent Trasferido desde el controlador * */
+/** @var object $authentication Trasferido desde el controlador * */
+/** @var object $request Trasferido desde el controlador * */
+/** @var object $dates Trasferido desde el controlador * */
+/** @var string $component Trasferido desde el controlador * */
+/** @var string $view Trasferido desde el controlador * */
+/** @var string $oid Trasferido desde el controlador * */
+/** @var string $views Trasferido desde el controlador * */
+/** @var string $prefix Trasferido desde el controlador * */
+/** @var array $data Trasferido desde el controlador * */
+/** @var object $model Modelo de datos utilizado en la vista y trasferido desde el index * */
+/** @var array $course Vector con los datos del curso para mostrarlos en la vista * */
+//[Services]------------------------------------------------------------------------------------------------------------
 $request = service('Request');
 $bootstrap = service('Bootstrap');
 $dates = service('Dates');
@@ -50,35 +27,40 @@ $mfields = model("App\Modules\Sie\Models\Sie_Users_Fields");
 $magreements = model("App\Modules\Sie\Models\Sie_Agreements");
 $minstitutions = model("App\Modules\Sie\Models\Sie_Institutions");
 $mgroups = model("App\Modules\Sie\Models\Sie_Groups");
-//[vars]-------------------------------------------------------------------------------------------------------------
+$mversions = model("App\Modules\Sie\Models\Sie_Versions");
+//[vars]----------------------------------------------------------------------------------------------------------------
 $f = service("forms", array("lang" => "Sie_Courses."));
 //[Request]-------------------------------------------------------------------------------------------------------------
-$row = $model->get_Course($oid);
-$program = $mprograms->getProgram(@$row["program"]);
-$grid = $mgrids->get_Grid(@$row["grid"]);
-$pensum = $mpensums->get_Pensum(@$row["pensum"]);
+$program = $mprograms->getProgram(@$course["program"]);
+$grid = $mgrids->get_Grid(@$course["grid"]);
+$pensum = $mpensums->get_Pensum(@$course["pensum"]);
 $module = $mmodules->get_Module(@$pensum["module"]);
-$r["course"] = @$row["course"];
-$r["reference"] = @$row["reference"];
-$r["program"] = @$row["program"] . " - " . @$program['name'];
-$r["pensum"] = @$row["pensum"] . "-" . @$module['name'];// Es el codigo del curso pero dentro de la malla es decir codigo del pensum
-$r["teacher"] = @$row["teacher"];
+$version = $mversions->get_Version(@$course["version"]);
+$r["course"] = @$course["course"];
+$r["reference"] = @$course["reference"];
+
+$r["program"] = @$program['name'];
+$r["grid"] = @$grid['name'];
+$r["version"] = @$version['reference'];
+
+$r["pensum"] = @$course["pensum"] . "-" . @$module['name'];// Es el codigo del curso pero dentro de la malla es decir codigo del pensum
+$r["teacher"] = @$course["teacher"];
 $r["teacher_name"] = $mfields->get_FullName(@$r["teacher"]);
-$r["name"] = @$row["name"];
-$r["description"] = @$row["description"];
-$r["maximum_quota"] = @$row["maximum_quota"];
-$r["start"] = @$row["start"];
-$r["end"] = @$row["end"];
-$r["period"] = @$row["period"];
-$r["space"] = @$row["space"];
-$r["author"] = @$row["author"];
-$r["created_at"] = @$row["created_at"];
-$r["updated_at"] = @$row["updated_at"];
-$r["deleted_at"] = @$row["deleted_at"];
-$r["agreement"] = $f->get_Value("agreement", @$row["agreement"]);
-$r["agreement_institution"] = $f->get_Value("agreement_institution", @$row["agreement_institution"]);
-$r["agreement_group"] = $f->get_Value("agreement_group", @$row["agreement_group"]);
-$r["moodle_course"] = $f->get_Value("moodle_course", @$row["moodle_course"]);
+$r["name"] = @$course["name"];
+$r["description"] = @$course["description"];
+$r["maximum_quota"] = @$course["maximum_quota"];
+$r["start"] = @$course["start"];
+$r["end"] = @$course["end"];
+$r["period"] = @$course["period"];
+$r["space"] = @$course["space"];
+$r["author"] = @$course["author"];
+$r["created_at"] = @$course["created_at"];
+$r["updated_at"] = @$course["updated_at"];
+$r["deleted_at"] = @$course["deleted_at"];
+$r["agreement"] = $f->get_Value("agreement", @$course["agreement"]);
+$r["agreement_institution"] = $f->get_Value("agreement_institution", @$course["agreement_institution"]);
+$r["agreement_group"] = $f->get_Value("agreement_group", @$course["agreement_group"]);
+$r["moodle_course"] = $f->get_Value("moodle_course", @$course["moodle_course"]);
 
 $agreements = [];
 $agreements[] = array("value" => "", "label" => "Seleccione un convenio");
@@ -92,10 +74,18 @@ $group = $mgroups->getGroup(@$r["agreement_group"]);
 $r["agreement_group"] = @$group["reference"];
 
 $back = "/sie/courses/list/" . lpk();
+
+$help_program = "Código del programa: " . @$course["program"];
+$help_gid = "Código de la malla: " . @$course["grid"];
+$help_version = "Código de la versión: " . @$course["version"];
 //[Fields]-----------------------------------------------------------------------------
 $f->fields["course"] = $f->get_FieldView("course", array("value" => $r["course"], "proportion" => "col-md-3 col-sm-12 col-12"));
 $f->fields["reference"] = $f->get_FieldView("reference", array("value" => $r["reference"], "proportion" => "col-md-3 col-sm-12 col-12"));
-$f->fields["program"] = $f->get_FieldView("program", array("value" => $r["program"], "proportion" => "col-md-9 col-sm-12 col-12"));
+
+$f->fields["program"] = $f->get_FieldView("program", array("value" => $r["program"], "help" => $help_program, "proportion" => "col"));
+$f->fields["grid"] = $f->get_FieldView("grid", array("value" => $r["grid"], "help" => $help_gid, "proportion" => "col"));
+$f->fields["version"] = $f->get_FieldView("version", array("value" => $r["version"], "help" => $help_version, "proportion" => "col"));
+
 $f->fields["pensum"] = $f->get_FieldView("pensum", array("value" => $r["pensum"], "proportion" => "col-sm-6 col-12"));
 $f->fields["name"] = $f->get_FieldView("name", array("value" => $r["name"], "proportion" => "col-sm-6 col-12"));
 $f->fields["description"] = $f->get_FieldView("description", array("value" => $r["description"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
@@ -119,27 +109,11 @@ $f->fields["deleted_at"] = $f->get_FieldView("deleted_at", array("value" => $r["
 $f->fields["cancel"] = $f->get_Cancel("cancel", array("href" => $back, "text" => lang("App.Cancel"), "type" => "secondary", "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-right"));
 $f->fields["edit"] = $f->get_Button("edit", array("href" => "/sie/courses/edit/" . $oid, "text" => lang("App.Edit"), "class" => "btn btn-secondary", "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-right"));
 //[Groups]-----------------------------------------------------------------------------
-$f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["course"] . $f->fields["reference"] . $f->fields["start"] . $f->fields["end"])));
-$f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["program"] . $f->fields["period"])));
-$f->groups["g3"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["pensum"] . $f->fields["name"])));
-$f->groups["g4"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["teacher"] . $f->fields["teacher_name"] . $f->fields["space"])));
-$f->groups["g5"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["agreement"] . $f->fields["agreement_institution"] . $f->fields["agreement_group"] . $f->fields["moodle_course"])));
-
+$f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["course"] . $f->fields["reference"] . $f->fields["name"])));
 //[Buttons]-----------------------------------------------------------------------------
 //$f->groups["gy"] = $f->get_GroupSeparator();
 //$f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["edit"] . $f->fields["cancel"]));
 //[build]---------------------------------------------------------------------------------------------------------------
 $bootstrap = service("bootstrap");
-$card = $bootstrap->get_Card2("card-view-service", array(
-    "header-title" => sprintf(lang("Sie_Courses.view-title"), $r['name']),
-    "header-back" => $back,
-    "header-print" => "/sie/courses/print/" . $oid,
-    "content" => $f,
-    "content-class" => "px-2",
-));
-echo($card);
-
-$data = $parent->get_Array();
-$data["status"] = @$row["status"];
-echo(view($component . '\enrrolleds', $data));
+echo($f);
 ?>

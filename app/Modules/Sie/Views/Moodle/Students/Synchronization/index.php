@@ -1,10 +1,10 @@
 <?php
 
-$mregistrations=model("App\Modules\Sie\Models\Sie_Registrations");
+$mregistrations = model("App\Modules\Sie\Models\Sie_Registrations");
 
-$registrations=$mregistrations->findAll();
+$registrations = $mregistrations->findAll();
 
-$code="";
+$code = "";
 $code .= " <table\n";
 $code .= "\t\t id=\"grid-table\"\n";
 $code .= "\t\t class=\"table table-striped table-hover\" \n ";
@@ -20,20 +20,20 @@ $code .= "\t\t\t\t  </tr>\n";
 $code .= "\t\t </thead>";
 $code .= "\t\t <tbody>";
 
-$count=0;
-foreach ($registrations as $registration){
+$count = 0;
+foreach ($registrations as $registration) {
     $count++;
-    $trid=@$registration["registration"];
-    $identification_number=@$registration['identification_number'];
-    $names=@$registration['first_name']."".@$registration['second_name']."".@$registration['first_surname']."".@$registration['second_surname'];
-    $surnames=@$registration['first_surname']."".@$registration['second_surname'];
+    $trid = @$registration["registration"];
+    $identification_number = @$registration['identification_number'];
+    $names = @$registration['first_name'] . "" . @$registration['second_name'] . "" . @$registration['first_surname'] . "" . @$registration['second_surname'];
+    $surnames = @$registration['first_surname'] . "" . @$registration['second_surname'];
     // Fila
-    $code .="\t\t\t\t  <tr id=\"trid-{$trid}\" data-registration=\"{$trid}\" data-status=\"STARTED\" >\n";
-    $code .="\t\t\t\t\t <td class='text-center ' title=\"\" >{$count}</td>\n";
-    $code .="\t\t\t\t\t <td class='text-center ' title=\"\" >{$identification_number}</td>\n";
-    $code .="\t\t\t\t\t <td class='text-center ' title=\"\" >{$names}</td>\n";
-    $code .="\t\t\t\t\t <td class='text-center ' title=\"\" >{$surnames}</td>\n";
-    $code .="\t\t\t\t  </tr>\n";
+    $code .= "\t\t\t\t  <tr id=\"trid-{$trid}\" data-registration=\"{$trid}\" data-status=\"STARTED\" >\n";
+    $code .= "\t\t\t\t\t <td class='text-center ' title=\"\" >{$count}</td>\n";
+    $code .= "\t\t\t\t\t <td class='text-center ' title=\"\" >{$identification_number}</td>\n";
+    $code .= "\t\t\t\t\t <td class='text-center ' title=\"\" >{$names}</td>\n";
+    $code .= "\t\t\t\t\t <td class='text-center ' title=\"\" >{$surnames}</td>\n";
+    $code .= "\t\t\t\t  </tr>\n";
 
 }
 
@@ -65,7 +65,7 @@ echo($code);
             callToApi(registration);
             setTimeout(() => {
                 processRowsSequentially(rows, currentIndex + 1);
-            },1000);
+            }, 1000);
         }
 
         function callToApi(registration) {

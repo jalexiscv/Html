@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="highlightLevel" value="WARNING" />
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpCodeSniffer">
+    <phpcs_settings>
+      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="f67695da-aa1b-4927-bcff-20a03cdec16f" timeout="30000" />
+    </phpcs_settings>
+  </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/public/proxy/vendor/athlon1600/php-proxy-plugin-bundle" />
+      <path value="$PROJECT_DIR$/public/proxy/vendor/athlon1600/youtube-downloader" />
+      <path value="$PROJECT_DIR$/public/proxy/vendor/athlon1600/php-proxy" />
+      <path value="$PROJECT_DIR$/public/proxy/vendor/composer" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/cboden/ratchet" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/ratchet/pawl" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/ratchet/rfc6455" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/evenement/evenement" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/composer" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/thruway/raw-socket-transport" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/voryx/thruway-common" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/thruway/pawl-transport" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/thruway/client" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/thruway/ratchet-transport" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/react/dns" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/react/socket" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/react/promise-timer" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/react/stream" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/react/event-loop" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/react/cache" />
+      <path value="$PROJECT_DIR$/public/tests/websocket/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/ratchet/rfc6455" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpunit/phpunit-mock-objects" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/react/dns" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/react/socket" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/react/promise-timer" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/react/stream" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/react/event-loop" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/react/cache" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/evenement/evenement" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/composer" />
+      <path value="$PROJECT_DIR$/app/Libraries/Ratchet/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/phpmailer/phpmailer" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/evenement/evenement" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/react/dns" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/react/stream" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/react/socket" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/react/cache" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/cboden/ratchet" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/react/promise-timer" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/react/event-loop" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/ratchet/rfc6455" />
+      <path value="$PROJECT_DIR$/public/tests/ratchet/vendor/composer" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.5" />
+  <component name="PhpStan">
+    <PhpStan_settings>
+      <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="f67695da-aa1b-4927-bcff-20a03cdec16f" timeout="60000" />
+    </PhpStan_settings>
+  </component>
+  <component name="PhpStanOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="Psalm">
+    <Psalm_settings>
+      <psalm_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="f67695da-aa1b-4927-bcff-20a03cdec16f" timeout="60000" />
+    </Psalm_settings>
+  </component>
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+</project>

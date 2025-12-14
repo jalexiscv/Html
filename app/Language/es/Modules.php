@@ -63,6 +63,7 @@ return [
     "PROJECT_MODULE_TITLE" => "Proyectos",
     "MAINTENANCE_MODULE_TITLE" => "Mantenimientos",
     "IRIS_MODULE_TITLE" => "IRIS",
+    "NOTIFICATIONS"=>"Notificaciones",
 ];
 
 ?>

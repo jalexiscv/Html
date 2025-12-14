@@ -17,15 +17,15 @@
 /** @var int $offset */
 $dates = service('dates');
 
-$mregistrations=model('App\Modules\Sie\Models\Sie_Registrations');
-$mprograms=model('App\Modules\Sie\Models\Sie_Programs');
+$mregistrations = model('App\Modules\Sie\Models\Sie_Registrations');
+$mprograms = model('App\Modules\Sie\Models\Sie_Programs');
 
 //ABP = Aprobado por psicología
 //ABP-RENEWAL = Aprobado por psicología - Renovación
 //ABP-REENTRY = Aprobado por psicología - Reingreso
 //ABP-HOMOLOG = Aprobado por psicología - Homologación
 
-$references = ["ABP", "ABP-RENEWAL", "ABP-REENTRY","ABP-HOMOLOG"];
+$references = ["ABP", "ABP-RENEWAL", "ABP-REENTRY", "ABP-HOMOLOG"];
 
 if (!empty($program) && $program != "ALL") {
     $statuses = $mstatuses
@@ -42,7 +42,7 @@ if (!empty($program) && $program != "ALL") {
         ->find();
 }
 
-$totalRecords=count($statuses);
+$totalRecords = count($statuses);
 
 //echo($statuses["sql"]);
 
@@ -146,12 +146,12 @@ foreach ($statuses as $status) {
     $year = safe_substr($period, 0, 4);
     $period_literal = safe_substr($period, 4, 1);
     $semester = (($period_literal == "A") ? "1" : "2");
-    $registration=$mregistrations->get_Registration($status['registration']);
+    $registration = $mregistrations->getRegistration($status['registration']);
     $identification_type = @$registration['identification_type'];
     $identification_number = @$registration['identification_number'];
-    $program =$mprograms->getProgram($status['program']);
+    $program = $mprograms->getProgram($status['program']);
     $program_name = safe_strtoupper(@$program['name']);
-    $municipio= "76111";
+    $municipio = "76111";
     // bulding columns
     $program = "";
     $code .= "<td class='text-center'>{$count}</td>\n";

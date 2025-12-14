@@ -45,10 +45,28 @@ $anoexist = "sie/settings-edit-noexist-message.mp3";
 //[build]---------------------------------------------------------------------------------------------------------------
 
 
+$edit0 = $msettings->upsert(array(
+    "setting" => "R-E-D",
+    "name" => "R-E-D",
+    "value" => $f->get_Value("end_registrations_value"),
+    "date" => safe_get_date(),
+    "time" => safe_get_time(),
+    "author" => safe_get_user(),
+));
+
 $edit1 = $msettings->upsert(array(
     "setting" => "R-S",
     "name" => "R-S",
     "value" => $f->get_Value("status_registrations"),
+    "date" => safe_get_date(),
+    "time" => safe_get_time(),
+    "author" => safe_get_user(),
+));
+
+$edit12 = $msettings->upsert(array(
+    "setting" => "R-S-A",
+    "name" => "R-S-A",
+    "value" => $f->get_Value("status_registrations_agreements"),
     "date" => safe_get_date(),
     "time" => safe_get_time(),
     "author" => safe_get_user(),

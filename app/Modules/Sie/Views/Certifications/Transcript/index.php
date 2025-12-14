@@ -32,7 +32,7 @@ $mexecutions = model('App\Modules\Sie\Models\Sie_Executions');
  */
 $enrollment = $menrollments->get_Enrollment($enrollment);
 $program = $mprograms->getProgram($enrollment["program"]);
-$registration = $mregistrations->get_Registration($enrollment["student"]);
+$registration = $mregistrations->getRegistration($enrollment["registration"]);
 $registration_registration = @$registration["registration"];
 $enrollment_enrollment = @$enrollment["enrollment"];
 $fullname = @$registration["first_name"] . " " . @$registration["second_name"] . " " . @$registration["first_surname"] . " " . @$registration["second_surname"];
@@ -367,7 +367,7 @@ try {
         $table->addCell(null, $totalCellStyle)->addText('', $totalFontStyle, $totalParagraphStyle); // UC3 (vacío)
         $table->addCell(null, $totalCellStyle)->addText($promedioGeneral, $totalFontStyle, $totalParagraphStyle); // T (promedio general)
         $table->addCell(null, $totalCellStyle)->addText($totalCreditos, $totalFontStyle, $totalParagraphStyle); // CRÉDITOS (total créditos)
-        
+
         $template->setComplexBlock('table', $table);
 
 // ... resto del código ...

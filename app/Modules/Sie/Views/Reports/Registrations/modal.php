@@ -11,7 +11,11 @@
                     <form method="get">
                         <div class="mb-3">
                             <label for="period" class="form-label">Periodo Académico</label>
-                            <input type="text" name="period" value="2025B" class="form-control" id="period" readonly>
+                            <select class="form-select" id="period" name="period" required>
+                                <?php foreach ($periodos as $p): ?>
+                                    <option value="<?= $p ?>"><?= $p ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="program" class="form-label">Programa Académico</label>

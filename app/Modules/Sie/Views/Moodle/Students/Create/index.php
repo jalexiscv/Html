@@ -2,8 +2,8 @@
 /**********************
  *  Configuración básica
  **********************/
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domain = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domain = service("moodle")::getDomainName();
 $function = 'core_user_create_users';
 $endpoint = "$domain/webservice/rest/server.php";
 
@@ -11,16 +11,16 @@ $createdUserId = null;
 $errorInfo = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username   = trim($_POST['username'] ?? '');
-    $password   = $_POST['password'] ?? '';
-    $firstname  = trim($_POST['firstname'] ?? '');
-    $lastname   = trim($_POST['lastname'] ?? '');
-    $email      = trim($_POST['email'] ?? '');
-    $auth       = $_POST['auth'] ?? 'manual';
-    $lang       = $_POST['lang'] ?? 'es';
-    $city       = $_POST['city'] ?? '';
-    $country    = $_POST['country'] ?? '';
-    $idnumber   = $_POST['idnumber'] ?? '';
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
+    $firstname = trim($_POST['firstname'] ?? '');
+    $lastname = trim($_POST['lastname'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $auth = $_POST['auth'] ?? 'manual';
+    $lang = $_POST['lang'] ?? 'es';
+    $city = $_POST['city'] ?? '';
+    $country = $_POST['country'] ?? '';
+    $idnumber = $_POST['idnumber'] ?? '';
 
     // Sanitizar username
     $username = strtolower(preg_replace('/[^a-z0-9._-]/', '', $username));
@@ -32,16 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errorInfo = 'Todos los campos obligatorios deben ser completados.';
     } else {
         $nuevoUsuario = [
-            'username'  => $username,
-            'password'  => $password,
-            'firstname' => $firstname,
-            'lastname'  => $lastname,
-            'email'     => $email,
-            'auth'      => $auth,
-            'lang'      => $lang,
-            'city'      => $city,
-            'country'   => $country,
-            'idnumber'  => $idnumber
+                'username' => $username,
+                'password' => $password,
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'email' => $email,
+                'auth' => $auth,
+                'lang' => $lang,
+                'city' => $city,
+                'country' => $country,
+                'idnumber' => $idnumber
         ];
 
         $params = http_build_query(['users' => [$nuevoUsuario]]);
@@ -49,9 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $curl = curl_init($url);
         curl_setopt_array($curl, [
-            CURLOPT_POST           => true,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POSTFIELDS     => $params,
+                CURLOPT_POST => true,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POSTFIELDS => $params,
         ]);
 
         $response = curl_exec($curl);
@@ -77,14 +77,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Crear Usuario en Moodle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>body { padding-top: 20px; }</style>
+    <style>body {
+            padding-top: 20px;
+        }</style>
 </head>
 <body>
 <div class="container">
     <h1>Crear Usuario en Moodle</h1>
 
     <?php if ($createdUserId): ?>
-        <div class="alert alert-success">Usuario creado con éxito. ID: <strong><?php echo $createdUserId; ?></strong></div>
+        <div class="alert alert-success">Usuario creado con éxito. ID: <strong><?php echo $createdUserId; ?></strong>
+        </div>
     <?php elseif ($errorInfo): ?>
         <div class="alert alert-danger"><strong>Error:</strong> <?php echo htmlspecialchars($errorInfo); ?></div>
     <?php endif; ?>

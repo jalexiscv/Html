@@ -1,0 +1,59 @@
+{
+  "packages": [
+    {
+      "name": "ayeo/gs1_barcode",
+      "version": "1.0.4",
+      "version_normalized": "1.0.4.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/ayeo/gs1_128.git",
+        "reference": "aef35aea8d01386d60a628357085b3f5eb4e02c6"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/ayeo/gs1_128/zipball/aef35aea8d01386d60a628357085b3f5eb4e02c6",
+        "reference": "aef35aea8d01386d60a628357085b3f5eb4e02c6",
+        "shasum": ""
+      },
+      "require": {
+        "ext-gd": "*",
+        "php": ">=5.4.0"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "~4.8"
+      },
+      "time": "2022-04-07T15:55:44+00:00",
+      "type": "library",
+      "installation-source": "source",
+      "autoload": {
+        "psr-4": {
+          "Ayeo\\Barcode\\": "src//"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "ayeo",
+          "email": "me@ayeo.pl",
+          "homepage": "http://ayeo.pl"
+        }
+      ],
+      "description": "Generate GS1-128 standard barcode",
+      "keywords": [
+        "barcode",
+        "gs1",
+        "gs1-128"
+      ],
+      "support": {
+        "issues": "https://github.com/ayeo/gs1_128/issues",
+        "source": "https://github.com/ayeo/gs1_128/tree/1.0.4"
+      },
+      "install-path": "../ayeo/gs1_barcode"
+    }
+  ],
+  "dev": true,
+  "dev-package-names": []
+}

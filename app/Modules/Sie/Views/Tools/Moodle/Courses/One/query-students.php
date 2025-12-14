@@ -24,7 +24,7 @@ foreach ($executions as $execution) {
 
     $progress = $mprogress->where('progress', $execution['progress'])->first();
     $enrollment = $menrollments->where('enrollment', $progress['enrollment'])->first();
-    $registration = $mregistrations->where('registration', $enrollment['student'])->first();
+    $registration = $mregistrations->where('registration', $enrollment['registration'])->first();
     $fullname = @$registration['first_name'] . " " . @$registration['second_name'] . " " . @$registration['first_surname'] . " " . @$registration['second_surname'];
     $identification_number = @$registration['identification_number'];
     $console[] = "> --- : {$execution_execution}: {$fullname}...";

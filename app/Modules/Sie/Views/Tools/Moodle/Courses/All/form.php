@@ -6,14 +6,14 @@ $f = service("forms", array("lang" => "Versions."));
 $mregistrations = model("App\Modules\Sie\Models\Sie_Registrations");
 $musers = model("App\Modules\Sie\Models\Sie_Users");
 $mfields = model("App\Modules\Sie\Models\Sie_Users_Fields");
-$mcourses = model("App\Modules\Sie\Models\Sie_Courses");
+$mcourses = model('App\Modules\Sie\Models\Sie_Courses');
 $mnrolleds = model("App\Modules\Sie\Models\Sie_Enrolleds");
 $mexecutions = model('App\Modules\Sie\Models\Sie_Executions');
 //$model = model("App\Modules\Sie\Models\Sie_Versions");
 
 //[vars]----------------------------------------------------------------------------------------------------------------
 $back = "/sie/students/view/{$oid}";
-$registration = $mregistrations->get_Registration($oid);
+$registration = $mregistrations->getRegistration($oid);
 
 
 // Obtener parámetros de paginación desde GET

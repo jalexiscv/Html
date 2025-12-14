@@ -1,0 +1,91 @@
+<?php
+/* Smarty version 3.1.36, created on 2020-08-26 09:59:11
+  from 'C:\xampp\htdocs\Higgs-dominance\app\Views\smarty\default\_sidebar.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.36',
+  'unifunc' => 'content_5f4678bf97ec26_50727274',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'ec581b21cf90d7b1a1a01221a58a40fb645fff2f' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\Higgs-dominance\\app\\Views\\smarty\\default\\_sidebar.tpl',
+      1 => 1597172879,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5f4678bf97ec26_50727274 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '3143197195f4678bf976dc6_81427781';
+?>
+ <div id="sidebar" class="sidebar sidebar-fixed expandable sidebar-default d-none d-xl-block">
+        <div class="sidebar-inner">
+            <div class="ace-scroll flex-grow-1" ace-scroll>
+                <!-- [sidebar-section-top-buttons] -->
+                <ul class="nav has-active-border" role="navigation" aria-label="Main">
+                    <li class="nav-item-caption">
+                        <span class="fadeable pl-3">Secciones</span>
+                        <span class="fadeinable mt-n2 text-125">&hellip;</span>
+                    </li>
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['sidebar']->value, 'item', false, 'key');
+$_smarty_tpl->tpl_vars['item']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['key']->value => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->do_else = false;
+?>
+                    <li class="nav-item <?php echo $_smarty_tpl->tpl_vars['item']->value['class'];?>
+">
+                        <a href="<?php echo $_smarty_tpl->tpl_vars['item']->value['href'];?>
+" class="nav-link">
+                            <i class="nav-icon <?php echo $_smarty_tpl->tpl_vars['item']->value['icon'];?>
+"></i>
+                            <span class="nav-text fadeable">
+                                <span><?php echo $_smarty_tpl->tpl_vars['item']->value['text'];?>
+</span>
+                            </span>
+                        </a>
+                        <b class="sub-arrow"></b>
+                    </li>
+                    <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                    <?php if ((isset($_smarty_tpl->tpl_vars['sidebar_modules']->value))) {?>
+                    <li class="nav-item-caption">
+                        <span class="fadeable pl-3">Módulos</span>
+                        <span class="fadeinable mt-n2 text-125">&hellip;</span>
+                    </li>
+                    
+                        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['sidebar_modules']->value, 'item', false, 'key');
+$_smarty_tpl->tpl_vars['item']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['key']->value => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->do_else = false;
+?>
+                        <li class="nav-item <?php echo $_smarty_tpl->tpl_vars['item']->value['class'];?>
+">
+                            <a href="<?php echo $_smarty_tpl->tpl_vars['item']->value['href'];?>
+" class="nav-link">
+                                <i class="nav-icon <?php echo $_smarty_tpl->tpl_vars['item']->value['icon'];?>
+"></i>
+                                <span class="nav-text fadeable">
+                                    <span><?php echo $_smarty_tpl->tpl_vars['item']->value['text'];?>
+</span>
+                                </span>
+                            </a>
+                            <b class="sub-arrow"></b>
+                        </li>
+                        <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                    <?php }?>
+                </ul>
+            </div><!-- /.sidebar scroll -->
+            <!-- [sidebar-section-admin.tpl] -->
+        </div>
+    </div><!-- /#sidebar --><?php }
+}

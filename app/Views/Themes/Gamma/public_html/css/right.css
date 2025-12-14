@@ -1,1 +1,79 @@
-<?php
+.period-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.period-item:hover {
+    background-color: #f8fafc;
+    transform: translateX(5px);
+}
+
+.period-item:last-child {
+    border-bottom: none;
+}
+
+.period-info {
+    display: flex;
+    align-items: center;
+}
+
+.period-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-weight: bold;
+    color: white;
+    font-size: 0.8rem;
+}
+
+.period-2024a .period-icon { background: linear-gradient(135deg, #059669, #047857); }
+.period-2024b .period-icon { background: linear-gradient(135deg, #0891b2, #0e7490); }
+.period-2025a .period-icon { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+.period-2025b .period-icon { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+.period-2026a .period-icon {
+    background: linear-gradient(135deg, #26dc38, #1e8f25);
+}
+.period-2026b .period-icon { background: linear-gradient(135deg, #35aae4, #030d25); }
+
+.period-name {
+    font-weight: 600;
+    color: #374151;
+    font-size: 1rem;
+}
+
+.period-results {
+    text-align: right;
+}
+
+.period-value {
+    font-weight: 700;
+    color: #111827;
+    font-size: 1rem;
+}
+
+.period-change {
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 0.25rem;
+}
+
+.change-positive { color: #059669; }
+.change-negative { color: #dc2626; }
+.change-neutral { color: #6b7280; }
+
+.trend-icon {
+    margin-right: 0.25rem;
+    font-size: 0.7rem;
+}

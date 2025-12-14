@@ -3,11 +3,11 @@
 
 use App\Libraries\Moodle;
 
-$mcourses = model("App\Modules\Sie\Models\Sie_Courses");
+$mcourses = model('App\Modules\Sie\Models\Sie_Courses');
 $mmodules = model("App\Modules\Sie\Models\Sie_Modules");
 $mpensums = model("App\Modules\Sie\Models\Sie_Pensums");
 
-$course = $mcourses->get_Course($_GET["course"]);
+$course = $mcourses->getCourse($_GET["course"]);
 $pensum = $mpensums->get_Pensum($course["pensum"]);
 $module = $mmodules->get_Module($pensum["module"]);
 $red = $module["red"];
@@ -65,8 +65,8 @@ if ($subsector == "SBM") {
 
 //[config]--------------------------------------------------------------------------------------------------------------
 // Configuración de la API
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domain = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domain = service("moodle")::getDomainName();
 $function = 'core_course_duplicate_course';
 $restFormat = 'json';
 

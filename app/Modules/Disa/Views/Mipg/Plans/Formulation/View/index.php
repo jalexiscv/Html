@@ -1,0 +1,107 @@
+<?php
+/*
+* -----------------------------------------------------------------------------
+*  ╔═╗╔╗╔╔═╗╔═╗╦╔╗ ╦  ╔═╗
+*  ╠═╣║║║╚═╗╚═╗║╠╩╗║  ║╣  [FRAMEWORK][App\Modules\Disa\Views\Plans\Editor\index.php]
+*  ╩ ╩╝╚╝╚═╝╚═╝╩╚═╝╩═╝╚═╝
+* -----------------------------------------------------------------------------
+* Copyright 2021 - Higgs Bigdata S.A.S., Inc. <admin@Higgs.com>
+* Este archivo es parte de Higgs Bigdata Framework 7.1
+* Para obtener información completa sobre derechos de autor y licencia, consulte
+* la LICENCIA archivo que se distribuyó con este código fuente.
+* -----------------------------------------------------------------------------
+* EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+* IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+* APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+* LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+* RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+* AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+* O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+* -----------------------------------------------------------------------------
+* @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+* @link https://www.Higgs.com
+* @Version 1.5.0
+* @since PHP 7, PHP 8
+* -----------------------------------------------------------------------------
+* Datos recibidos desde el controlador - @ModuleController
+* -----------------------------------------------------------------------------
+* @Authentication
+* @request
+* @dates
+* @view
+* @oid
+* @component
+* @views
+* @prefix
+* @parent
+* -----------------------------------------------------------------------------
+*/
+/*
+* -----------------------------------------------------------------------------
+* [Vars]
+* -----------------------------------------------------------------------------
+*/
+$mplans = model("App\Modules\Disa\Models\Disa_Plans");
+$mcauses = model("App\Modules\Disa\Models\Disa_Causes");
+$mwhys = model("App\Modules\Disa\Models\Disa_Whys");
+
+$plan = $mplans->find($oid);
+$manager_subprocess = @$plan["manager_subprocess"];
+$manager_position = @$plan["manager_position"];
+
+$mcause = $mcauses->where("plan", $oid)->orderBy("score", "DESC")->first();
+$mscore = @$mcause["score"];
+
+$whys = $mwhys->where("cause", @$mcause["cause"])->orderBy("why", "ASC")->findAll();
+
+$data = $parent->get_Array();
+$data['permissions'] = array('singular' => 'disa-plans-edit', "plural" => 'disa-plans-edit-all');
+$singular = $authentication->has_Permission($data['permissions']['singular']);
+$plural = $authentication->has_Permission($data['permissions']['plural']);
+$author = $mplans->get_Authority($oid, $authentication->get_User());
+$authority = ($singular && $author) ? true : false;
+$submited = $request->getPost("submited");
+$validator = $component . '\View\validator';
+$form = $component . '\View\form';
+$deny = $component . '\View\deny';
+$score = $component . '\View\score';
+$noteam = $component . '\View\noteam';
+$nomcause = $component . '\View\nomcause';
+$nowhy = $component . '\View\nowhy';
+/*
+* -----------------------------------------------------------------------------
+* [Evaluate]
+* -----------------------------------------------------------------------------
+*/
+if ($plural || $authority) {
+    if ($manager_subprocess) {
+        if ($mscore > 0) {
+            if (is_array($whys) && count($whys) > 0) {
+                $c = view($form, $data);
+            } else {
+                $c = view($nowhy, $data);
+            }
+        } else {
+            $c = view($nomcause, $data);
+        }
+    } else {
+        $c = view($noteam, $data);
+    }
+
+} else {
+    $c = view($deny, $data);
+}
+/*
+* -----------------------------------------------------------------------------
+* [Build]
+* -----------------------------------------------------------------------------
+*/
+$header = view($component . '\View\breadcrumb', $data);
+session()->set('page_template', 'page');
+session()->set('page_header', $header);
+session()->set('main_template', 'c8c4');
+session()->set('messenger', true);
+session()->set('main', $c);
+session()->set('right', view($score, $data));
+
+?>

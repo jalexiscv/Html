@@ -12,9 +12,9 @@ $version = round(($server->get_DirectorySize(APPPATH . 'Modules/Sie') / 102400),
 
 if ($authentication->get_LoggedIn()) {
     $shortcuts = $bootstrap->get_Shortcuts(array("id" => "shortcuts-panel"));
-    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/participants/teachers?t=" . lpk(), "icon" => "fa-light fa-person-chalkboard", "value" => "Docentes", "description" => "Participantes 55", "target" => "_blank","class" => "text-success")));
-    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/participants/executives?t=". lpk(), "icon" => "fa-light fa-user-doctor", "value" => "Directivos", "description" => "Participantes 55", "class" => "text-success", "target" => "_blank")));
-    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/participants/authorities?t=".lpk(), "icon" => "fa-light fa-user-doctor", "value" => "Autoridades", "description" => "Participantes 55", "class" => "text-success","target" => "_blank")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/participants/teachers?t=" . lpk(), "icon" => "fa-light fa-person-chalkboard", "value" => "Docentes", "description" => "Participantes 55", "target" => "_blank", "class" => "text-success")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/participants/executives?t=" . lpk(), "icon" => "fa-light fa-user-doctor", "value" => "Directivos", "description" => "Participantes 55", "class" => "text-success", "target" => "_blank")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/sie/reports/participants/authorities?t=" . lpk(), "icon" => "fa-light fa-user-doctor", "value" => "Autoridades", "description" => "Participantes 55", "class" => "text-success", "target" => "_blank")));
     echo($shortcuts);
 } else {
 

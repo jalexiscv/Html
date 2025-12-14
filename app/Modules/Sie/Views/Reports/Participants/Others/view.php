@@ -2,7 +2,7 @@
 $mprograms = model('App\Modules\Sie\Models\Sie_Programs');
 
 
-$periodos =PERIODS;
+$periodos = PERIODS;
 
 $modal = true;
 if (isset($_GET['period'])) {

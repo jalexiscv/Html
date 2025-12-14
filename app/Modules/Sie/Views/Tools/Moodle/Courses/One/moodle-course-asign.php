@@ -2,8 +2,8 @@
 /**********************
  *  Configuración
  **********************/
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domain = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domain = service("moodle")::getDomainName();
 $endpoint = "$domain/webservice/rest/server.php";
 
 $functionGetUser = 'core_user_get_users';
@@ -18,10 +18,10 @@ $successMsg = null;
 
 $username = $identification_number;
 $courseid = (int)$course_moodle_id;
-$role = 'student';
+$role = 'registration';
 
 $roleidMap = [
-    'student' => 5,  // ID por defecto en Moodle para estudiante
+    'registration' => 5,  // ID por defecto en Moodle para estudiante
     'teacher' => 3   // ID por defecto para profesor
 ];
 

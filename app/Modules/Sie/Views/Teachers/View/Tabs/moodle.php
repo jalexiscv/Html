@@ -26,7 +26,7 @@ $user = $r["user"];
 
 // Verificar si el profesor existe en Moodle
 $moodle = new App\Libraries\Moodle();
-$profileResult = $moodle->getUserProfile($user, 'idnumber');
+$profileResult = $moodle->getUserProfile($citizenshipcard, 'idnumber');
 
 ?>
 
@@ -200,7 +200,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'register_moodle_user') {
             'firstname' => $firstname,
             'lastname' => $lastname,
             'email' => $email,
-            'idnumber' => $user
+            'idnumber' => $citizenshipcard
     ];
 
     $result = $moodle->createUser($userData);

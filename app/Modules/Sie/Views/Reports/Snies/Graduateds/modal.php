@@ -29,7 +29,8 @@
                         <div class="mb-3">
                             <div class="mb-3">
                                 <div class="alert alert-primary" role="alert">
-                                    Este reporte solo incluye estudiantes el estado <b>Graduado</b>, en el periodo académico especificado.</b>.
+                                    Este reporte solo incluye estudiantes el estado <b>Graduado</b>, en el periodo
+                                    académico especificado.</b>.
                                 </div>
                             </div>
                         </div>

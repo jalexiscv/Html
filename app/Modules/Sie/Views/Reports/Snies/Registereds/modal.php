@@ -29,8 +29,10 @@
                         <div class="mb-3">
                             <div class="mb-3">
                                 <div class="alert alert-primary" role="alert">
-                                    Este reporte solo incluye estudiantes <b>Aprobado por psicología</b>, <b>Aprobado por psicología - Renovación</b>,
-                                    <b>Aprobado por psicología - Reingreso</b> y <b>Aprobado por psicología - Homologación</b> en el periodo académico indicado, con
+                                    Este reporte solo incluye estudiantes <b>Aprobado por psicología</b>, <b>Aprobado
+                                        por psicología - Renovación</b>,
+                                    <b>Aprobado por psicología - Reingreso</b> y <b>Aprobado por psicología -
+                                        Homologación</b> en el periodo académico indicado, con
                                     el objetivo de hacer seguimiento al proceso.
                                 </div>
                             </div>

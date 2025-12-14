@@ -1,0 +1,403 @@
+<!--
+  ~ /***
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+  ~  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+  ~  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+  ~  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+  ~  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+  ~  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+  ~  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+  ~  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+  ~  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+  ~  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+  ~  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+  ~  ** █ @link https://www.codehiggs.com
+  ~  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ Datos recibidos desde el controlador - @ModuleController
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+  ~  ** █ ---------------------------------------------------------------------------------------------------------------------
+  ~  ***/
+  -->
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Git Installation &mdash; Higgs7 4.0.0-rc.4 documentation</title>
+
+
+    <link href="../_static/ci-icon.ico" rel="shortcut icon"/>
+
+
+    <link href="../_static/css/citheme.css" rel="stylesheet" type="text/css"/>
+
+
+    <link href="../genindex.html" rel="index"
+          title="Index"/>
+    <link href="../search.html" rel="search" title="Search"/>
+    <link href="../index.html" rel="top" title="Higgs7 4.0.0-rc.4 documentation"/>
+    <link href="index.html" rel="up" title="Installation"/>
+    <link href="running.html" rel="next" title="Ejecutando su aplicación"/>
+    <link href="installing_composer.html" rel="prev" title="Instalación del compositor"/>
+
+
+    <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+
+<div class="wy-grid-for-nav">
+
+
+    <nav class="wy-nav-side" data-toggle="wy-nav-shift">
+        <div class="wy-side-scroll">
+            <div class="wy-side-nav-search">
+
+
+                <a class="icon icon-home" href="../index.html"> Higgs7
+
+
+                </a>
+
+
+                <div role="search">
+                    <form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+                        <input name="q" placeholder="Search docs" type="text"/>
+                        <input name="check_keywords" type="hidden" value="yes"/>
+                        <input name="area" type="hidden" value="default"/>
+                    </form>
+                </div>
+
+
+            </div>
+
+            <div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+
+
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Bienvenido a
+                        Higgs7</a></li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal" href="index.html">Instalación</a>
+                        <ul class="current">
+                            <li class="toctree-l2"><a class="reference internal" href="installing_manual.html">Instalación
+                                manual</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="installing_composer.html">Instalación
+                                del compositor</a></li>
+                            <li class="toctree-l2 current"><a class="current reference internal" href="#">Git
+                                Installation</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="running.html">Ejecutando su
+                                aplicación</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="upgrading.html">Actualización
+                                desde una versión anterior</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Solución de
+                                problemas</a></li>
+                            <li class="toctree-l2"><a class="reference internal" href="repositories.html">Repositorios
+                                de Higgs</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Build Your First
+                        Application</a></li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Higgs7
+                        Overview</a></li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../incoming/index.html">Controllers and
+                        Routing</a></li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">Building
+                        Responses</a></li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../database/index.html">Working With
+                        Databases</a></li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../models/index.html">Modeling Data</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">Managing
+                        Databases</a></li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library
+                        Reference</a></li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a></li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cli/index.html">Command Line Usage</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending
+                        Higgs</a></li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../license.html">The MIT License
+                        (MIT)</a></li>
+                    <li class="toctree-l1"><a class="reference internal" href="../changelogs/index.html">Registro de
+                        cambios</a></li>
+                </ul>
+
+
+            </div>
+        </div>
+    </nav>
+
+    <section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+
+
+        <nav aria-label="top navigation" class="wy-nav-top" role="navigation">
+
+            <i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+            <a href="../index.html">Higgs7</a>
+
+        </nav>
+
+
+        <div class="wy-nav-content">
+            <div class="rst-content">
+
+
+                <div aria-label="breadcrumbs navigation" role="navigation">
+
+                    <ul class="wy-breadcrumbs">
+
+                        <li><a href="../index.html">Docs</a> &raquo;</li>
+
+                        <li><a href="index.html">Instalación</a> &raquo;</li>
+
+                        <li>Git Installation</li>
+
+
+                        <li class="wy-breadcrumbs-aside">
+
+
+                        </li>
+
+                    </ul>
+
+
+                    <hr/>
+                </div>
+                <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+                    <div itemprop="articleBody">
+
+                        <div class="section" id="git-installation">
+                            <h1>Git Installation<a class="headerlink" href="#git-installation"
+                                                   title="Permalink to this headline">¶</a></h1>
+                            <p>This would <em>not</em> be suitable for app development, but <em>is</em> suitable
+                                for contributing to the framework.</p>
+                            <div class="section" id="installation">
+                                <h2>Instalación<a class="headerlink" href="#installation"
+                                                  title="Permalink to this headline">¶</a></h2>
+                                <p>Install the latest version of the codebase by</p>
+                                <ul class="simple">
+                                    <li>forking the <a class="reference external"
+                                                       href="https://github.com/higgs/Higgs7">codebase</a> to your
+                                        github account
+                                    </li>
+                                    <li>cloning <strong>your</strong> forked repository locally</li>
+                                </ul>
+                            </div>
+                            <div class="section" id="setting-up">
+                                <h2>Setting Up<a class="headerlink" href="#setting-up"
+                                                 title="Permalink to this headline">¶</a></h2>
+                                <p>The command above will create a “Higgs7” folder.
+                                    Feel free to rename that as you see fit.</p>
+                                <p>You will want to set up a remote repository alias, so you can synchronize
+                                    your repository with the main one:</p>
+                                <div class="highlight-ci notranslate">
+                                    <div class="highlight"><pre><span></span><span class="nx">git</span> <span
+                                            class="nx">remote</span> <span class="nx">add</span> <span class="nx">upstream</span> <span
+                                            class="nx">https</span><span class="o">://</span><span
+                                            class="nx">github</span><span class="o">.</span><span
+                                            class="nx">com</span><span class="o">/</span><span
+                                            class="nx">higgs</span><span class="o">/</span><span
+                                            class="nx">Higgs7</span><span class="o">.</span><span class="nx">git</span>
+</pre>
+                                    </div>
+                                </div>
+                                <p>Copy the provided <code class="docutils literal notranslate"><span
+                                        class="pre">env</span></code> file to <code
+                                        class="docutils literal notranslate"><span class="pre">.env</span></code>, and
+                                    use that for your git-ignored configuration settings,</p>
+                                <p>Copy the provided <code class="docutils literal notranslate"><span class="pre">phpunit.xml.dist</span></code>
+                                    to <code class="docutils literal notranslate"><span
+                                            class="pre">phpunit.xml</span></code> and tailor it as needed,
+                                    if you want custom unit testing for the framework.</p>
+                            </div>
+                            <div class="section" id="upgrading">
+                                <h2>Upgrading<a class="headerlink" href="#upgrading" title="Permalink to this headline">¶</a>
+                                </h2>
+                                <p>Update your code anytime:</p>
+                                <div class="highlight-ci notranslate">
+                                    <div class="highlight"><pre><span></span><span class="nx">git</span> <span
+                                            class="nx">checkout</span> <span class="nx">develop</span>
+<span class="nx">git</span> <span class="nx">pull</span> <span class="nx">upstream</span> <span
+                                                class="nx">develop</span>
+<span class="nx">git</span> <span class="nx">push</span> <span class="nx">origin</span> <span class="nx">develop</span>
+</pre>
+                                    </div>
+                                </div>
+                                <p>Merge conflicts may arise when you pull from “upstream”.
+                                    You will need to resolve them locally.</p>
+                            </div>
+                            <div class="section" id="pros">
+                                <h2>Pros<a class="headerlink" href="#pros" title="Permalink to this headline">¶</a></h2>
+                                <ul class="simple">
+                                    <li>You have the latest version of the codebase (unreleased)</li>
+                                    <li>
+                                        <dl class="first docutils">
+                                            <dt>You can propose contributions to the framework, by creating a</dt>
+                                            <dd>feature branch and submitting a pull request for it to the main repo
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <dl class="first docutils">
+                                            <dt>a pre-commit hook is installed for your repo, that binds it to the</dt>
+                                            <dd>coding-standard we use</dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="section" id="cons">
+                                <h2>Cons<a class="headerlink" href="#cons" title="Permalink to this headline">¶</a></h2>
+                                <p>You need to resolve merge conflicts when you synch with the repo.</p>
+                                <p>You would not use this technique for app development.</p>
+                            </div>
+                            <div class="section" id="structure">
+                                <h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a>
+                                </h2>
+                                <p>Folders in your project after set up:</p>
+                                <ul class="simple">
+                                    <li>app, public, system, tests, user_guide_src, writable</li>
+                                </ul>
+                                <div class="section" id="translations-installation">
+                                    <h3>Translations Installation<a class="headerlink" href="#translations-installation"
+                                                                    title="Permalink to this headline">¶</a></h3>
+                                    <p>If you wish to contribute to the system message translations,
+                                        then fork and clone the <a class="reference external"
+                                                                   href="https://github.com/higgs/translations">translations
+                                            repository</a> separately from the codebase.
+                                        These are two independent repositories!</p>
+                                </div>
+                                <div class="section" id="coding-standards-installation">
+                                    <h3>Coding Standards Installation<a class="headerlink"
+                                                                        href="#coding-standards-installation"
+                                                                        title="Permalink to this headline">¶</a></h3>
+                                    <p>This is bound and installed automatically as part of the
+                                        codebase installation.</p>
+                                    <p>If you wish to use it inside your project too,
+                                        <code class="docutils literal notranslate"><span class="pre">composer</span>
+                                            <span class="pre">require</span> <span class="pre">higgs/translations</span>
+                                            <span class="pre">&#64;beta</span></code></p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="articleComments">
+
+                    </div>
+                </div>
+                <footer>
+
+                    <div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+
+                        <a accesskey="n" class="btn btn-neutral float-right" href="running.html"
+                           rel="next" title="Ejecutando su aplicación">Next <span
+                                class="fa fa-arrow-circle-right"></span></a>
+
+
+                        <a accesskey="p" class="btn btn-neutral" href="installing_composer.html"
+                           rel="prev" title="Instalación del compositor"><span class="fa fa-arrow-circle-left"></span>
+                            Previous</a>
+
+                    </div>
+
+
+                    <hr/>
+
+                    <div role="contentinfo">
+                        <p>
+                            &copy; Copyright 2019-2020 <a href="https://www.linkedin.com/in/jalexiscv" target="_blank">Jose
+                            Alexis Correa Valencia</a>.
+                            Last updated on Feb 09, 2020.
+
+                        </p>
+                    </div>
+                    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a
+                        href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a
+                        href="https://readthedocs.org">Read the Docs</a>.
+
+                </footer>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+
+<script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+        URL_ROOT: '../',
+        VERSION: '4.0.0-rc.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE: false,
+        SOURCELINK_SUFFIX: '.txt'
+    };
+</script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/language_data.js" type="text/javascript"></script>
+
+
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+    jQuery(function () {
+        SphinxRtdTheme.StickyNav.enable();
+    });
+</script>
+
+
+</body>
+</html>

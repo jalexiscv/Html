@@ -1,0 +1,55 @@
+:root {
+    --green: var(--theme-success);
+    --light-green: #e9f5e9;
+    --green-tint: #d4ebd4;
+    --dark-green: var(--theme-success);
+    --dark-green-tint: #1a2c21;
+    --dark-green-shade: #14221a;
+}
+
+/* Success Card */
+.card-success {
+	border: 1px solid var(--green) !important;
+	background-color: var(--light-green) !important;
+}
+
+.card-success .card-header {
+    color: var(--green);
+    font-weight: bold;
+    background-color: var(--light-green);
+    border-bottom: 1px solid var(--green-tint);
+}
+
+/* Dark Mode */
+.dark-mode .card-success {
+    border-left-color: var(--dark-green)  !important;
+    background-color: var(--dark-green-tint)  !important;
+}
+
+.dark-mode .card-success .card-header {
+    color: var(--dark-green);
+    background-color: var(--dark-green-tint);
+    border-bottom-color: var(--dark-green-shade);
+}
+
+/* Style for other elements */
+.card-success .card-body .icon,
+.card-success .card-text b {
+    color: var(--green);
+}
+
+.card-success .card-footer {
+    background-color: var(--light-green);
+    border-top: 1px solid var(--green-tint);
+}
+
+/* Dark Mode for other elements */
+.dark-mode .card-success .card-body .icon,
+.dark-mode .card-success .card-text b {
+    color: var(--dark-green);
+}
+
+.dark-mode .card-success .card-footer {
+    background-color: var(--dark-green-tint);
+    border-top-color: var(--dark-green-shade);
+}

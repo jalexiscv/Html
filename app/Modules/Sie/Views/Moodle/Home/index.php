@@ -33,18 +33,28 @@
 /** @var object $authentication */
 /** @var object $request */
 $data = $parent->get_Array();
-$data['permissions'] = array('singular' => "sie-settings-access");
+$data['permissions'] = array('singular' => "sie-moodle-access");
 $singular = $authentication->has_Permission($data['permissions']['singular']);
 $submited = $request->getPost("submited");
 $breadcrumb = $component . '\breadcrumb';
 $validator = $component . '\validator';
 $home = $component . '\view';
 $deny = $component . '\deny';
+$right = $component . '\right';
 //[build]---------------------------------------------------------------------------------------------------------------
-$json = array(
-    'breadcrumb' => view($breadcrumb, $data),
-    'main' => view($home, $data),
-    'right' => get_sie_count_users() . get_sie_count_teachers(),
-);
+if ($singular) {
+    $json = array(
+        'breadcrumb' => view($breadcrumb, $data),
+        'main' => view($home, $data),
+        //"main_template" => "c12",
+        'right' => view($right, $data),
+    );
+} else {
+    $json = array(
+        'breadcrumb' => view($breadcrumb, $data),
+        'main' => view($deny, $data),
+        'right' => view($right, $data),
+    );
+}
 echo(json_encode($json));
 ?>

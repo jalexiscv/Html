@@ -2,8 +2,8 @@
 /**********************
  *  Configuración básica
  **********************/
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domain = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domain = service("moodle")::getDomainName();
 $function = 'core_user_get_users_by_field'; // Función más eficiente para obtener todos los usuarios
 $endpoint = "$domain/webservice/rest/server.php";
 

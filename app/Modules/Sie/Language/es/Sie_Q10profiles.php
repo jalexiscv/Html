@@ -1,0 +1,225 @@
+<?php
+
+/**
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ ░FRAMEWORK                                  2024-10-15 22:17:35
+ * █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Sie\Views\Q10profiles\Creator\index.php]
+ * █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ * █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+ * █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+ * █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+ * █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+ * █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+ * █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+ * █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+ * █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+ * █ @link https://www.codehiggs.com
+ * █ @Version 1.5.0 @since PHP 7, PHP 8
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ Datos recibidos desde el controlador - @ModuleController
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ @var object $parent Trasferido desde el controlador
+ * █ @var object $authentication Trasferido desde el controlador
+ * █ @var object $request Trasferido desde el controlador
+ * █ @var object $dates Trasferido desde el controlador
+ * █ @var string $component Trasferido desde el controlador
+ * █ @var string $view Trasferido desde el controlador
+ * █ @var string $oid Trasferido desde el controlador
+ * █ @var string $views Trasferido desde el controlador
+ * █ @var string $prefix Trasferido desde el controlador
+ * █ @var array $data Trasferido desde el controlador
+ * █ @var object $model Modelo de datos utilizado en la vista y trasferido desde el index
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ **/
+return [
+    // - Q10profiles fields
+    "label_profile" => "profile",
+    "label_first_name" => "first_name",
+    "label_last_name" => "last_name",
+    "label_id_number" => "id_number",
+    "label_phone" => "phone",
+    "label_mobile_phone" => "mobile_phone",
+    "label_email" => "email",
+    "label_residence_location" => "residence_location",
+    "label_birth_date" => "birth_date",
+    "label_blood_type" => "blood_type",
+    "label_campus_shift" => "campus_shift",
+    "label_address" => "address",
+    "label_neighborhood" => "neighborhood",
+    "label_birth_place" => "birth_place",
+    "label_registration_date" => "registration_date",
+    "label_program" => "program",
+    "label_health_provider" => "health_provider",
+    "label_ars_provider" => "ars_provider",
+    "label_insurance_provider" => "insurance_provider",
+    "label_civil_status" => "civil_status",
+    "label_education_level" => "education_level",
+    "label_institution" => "institution",
+    "label_municipality" => "municipality",
+    "label_academic_level" => "academic_level",
+    "label_graduated" => "graduated",
+    "label_degree_earned" => "degree_earned",
+    "label_graduation_date" => "graduation_date",
+    "label_family_member_full_name" => "family_member_full_name",
+    "label_family_member_id_number" => "family_member_id_number",
+    "label_family_member_phone" => "family_member_phone",
+    "label_family_member_mobile_phone" => "family_member_mobile_phone",
+    "label_family_member_email" => "family_member_email",
+    "label_family_relationship" => "family_relationship",
+    "label_company" => "company",
+    "label_company_municipality" => "company_municipality",
+    "label_job_position" => "job_position",
+    "label_company_phone" => "company_phone",
+    "label_company_address" => "company_address",
+    "label_job_start_date" => "job_start_date",
+    "label_job_end_date" => "job_end_date",
+    "label_source" => "source",
+    "label_print_date" => "print_date",
+    "label_author" => "author",
+    "label_created_at" => "created_at",
+    "label_updated_at" => "updated_at",
+    "label_deleted_at" => "deleted_at",
+    "placeholder_profile" => "profile",
+    "placeholder_first_name" => "first_name",
+    "placeholder_last_name" => "last_name",
+    "placeholder_id_number" => "id_number",
+    "placeholder_phone" => "phone",
+    "placeholder_mobile_phone" => "mobile_phone",
+    "placeholder_email" => "email",
+    "placeholder_residence_location" => "residence_location",
+    "placeholder_birth_date" => "birth_date",
+    "placeholder_blood_type" => "blood_type",
+    "placeholder_campus_shift" => "campus_shift",
+    "placeholder_address" => "address",
+    "placeholder_neighborhood" => "neighborhood",
+    "placeholder_birth_place" => "birth_place",
+    "placeholder_registration_date" => "registration_date",
+    "placeholder_program" => "program",
+    "placeholder_health_provider" => "health_provider",
+    "placeholder_ars_provider" => "ars_provider",
+    "placeholder_insurance_provider" => "insurance_provider",
+    "placeholder_civil_status" => "civil_status",
+    "placeholder_education_level" => "education_level",
+    "placeholder_institution" => "institution",
+    "placeholder_municipality" => "municipality",
+    "placeholder_academic_level" => "academic_level",
+    "placeholder_graduated" => "graduated",
+    "placeholder_degree_earned" => "degree_earned",
+    "placeholder_graduation_date" => "graduation_date",
+    "placeholder_family_member_full_name" => "family_member_full_name",
+    "placeholder_family_member_id_number" => "family_member_id_number",
+    "placeholder_family_member_phone" => "family_member_phone",
+    "placeholder_family_member_mobile_phone" => "family_member_mobile_phone",
+    "placeholder_family_member_email" => "family_member_email",
+    "placeholder_family_relationship" => "family_relationship",
+    "placeholder_company" => "company",
+    "placeholder_company_municipality" => "company_municipality",
+    "placeholder_job_position" => "job_position",
+    "placeholder_company_phone" => "company_phone",
+    "placeholder_company_address" => "company_address",
+    "placeholder_job_start_date" => "job_start_date",
+    "placeholder_job_end_date" => "job_end_date",
+    "placeholder_source" => "source",
+    "placeholder_print_date" => "print_date",
+    "placeholder_author" => "author",
+    "placeholder_created_at" => "created_at",
+    "placeholder_updated_at" => "updated_at",
+    "placeholder_deleted_at" => "deleted_at",
+    "help_profile" => "profile",
+    "help_first_name" => "first_name",
+    "help_last_name" => "last_name",
+    "help_id_number" => "id_number",
+    "help_phone" => "phone",
+    "help_mobile_phone" => "mobile_phone",
+    "help_email" => "email",
+    "help_residence_location" => "residence_location",
+    "help_birth_date" => "birth_date",
+    "help_blood_type" => "blood_type",
+    "help_campus_shift" => "campus_shift",
+    "help_address" => "address",
+    "help_neighborhood" => "neighborhood",
+    "help_birth_place" => "birth_place",
+    "help_registration_date" => "registration_date",
+    "help_program" => "program",
+    "help_health_provider" => "health_provider",
+    "help_ars_provider" => "ars_provider",
+    "help_insurance_provider" => "insurance_provider",
+    "help_civil_status" => "civil_status",
+    "help_education_level" => "education_level",
+    "help_institution" => "institution",
+    "help_municipality" => "municipality",
+    "help_academic_level" => "academic_level",
+    "help_graduated" => "graduated",
+    "help_degree_earned" => "degree_earned",
+    "help_graduation_date" => "graduation_date",
+    "help_family_member_full_name" => "family_member_full_name",
+    "help_family_member_id_number" => "family_member_id_number",
+    "help_family_member_phone" => "family_member_phone",
+    "help_family_member_mobile_phone" => "family_member_mobile_phone",
+    "help_family_member_email" => "family_member_email",
+    "help_family_relationship" => "family_relationship",
+    "help_company" => "company",
+    "help_company_municipality" => "company_municipality",
+    "help_job_position" => "job_position",
+    "help_company_phone" => "company_phone",
+    "help_company_address" => "company_address",
+    "help_job_start_date" => "job_start_date",
+    "help_job_end_date" => "job_end_date",
+    "help_source" => "source",
+    "help_print_date" => "print_date",
+    "help_author" => "author",
+    "help_created_at" => "created_at",
+    "help_updated_at" => "updated_at",
+    "help_deleted_at" => "deleted_at",
+    // - Q10profiles creator
+    "create-denied-title" => "Acceso denegado!",
+    "create-denied-message" => "Su rol en la plataforma no posee los privilegios requeridos para crear nuevos #plural, por favor póngase en contacto con el administrador del sistema o en su efecto contacte al personal de soporte técnico para que estos le sean asignados, según sea el caso. Para continuar presioné la opción correspondiente en la parte inferior de este mensaje.",
+    "create-title" => "Crear nuevo #singular",
+    "create-errors-title" => "¡Advertencia!",
+    "create-errors-message" => "Los datos proporcionados son incorrectos o están incompletos, por favor verifique eh inténtelo nuevamente.",
+    "create-duplicate-title" => "¡#singular existente!",
+    "create-duplicate-message" => "Este #singular ya se había registrado previamente, presioné continuar en la parte inferior de este mensaje para retornar al listado general de #plural.",
+    "create-success-title" => "¡#singular registrada exitosamente!",
+    "create-success-message" => "La #singular se registró exitosamente, para retornar al listado general de #plural presioné continuar en la parte inferior de este mensaje.",
+    // - Q10profiles viewer
+    "view-denied-title" => "¡Acceso denegado!",
+    "view-denied-message" => "Los roles asignados a su perfil, no le conceden los privilegios necesarios para visualizar #plural en esta plataforma. Contacte al departamento de soporte técnico para información adicional, o la asignación de los permisos necesarios si es el caso. Para continuar seleccione la opción correspondiente en la parte inferior de este mensaje.",
+    "view-title" => "Vista",
+    "view-errors-title" => "¡Advertencia!",
+    "view-errors-message" => "Los datos proporcionados son incorrectos o están incompletos, por favor verifique eh inténtelo nuevamente.",
+    "view-noexist-title" => "¡No existe!",
+    "view-noexist-message" => "",
+    "view-success-title" => "",
+    "view-success-message" => "",
+    // - Q10profiles editor
+    "edit-denied-title" => "¡Advertencia!",
+    "edit-denied-message" => "Los roles asignados a su perfil, no le conceden los privilegios necesarios para actualizar #plural en esta plataforma. Contacte al departamento de soporte técnico para información adicional, o la asignación de los permisos necesarios si es el caso. Para continuar seleccione la opción correspondiente en la parte inferior de este mensaje.",
+    "edit-title" => "¡Actualizar #singular!",
+    "edit-errors-title" => "¡Advertencia!",
+    "edit-errors-message" => "Los datos proporcionados son incorrectos o están incompletos, por favor verifique eh inténtelo nuevamente.",
+    "edit-noexist-title" => "¡No existe!",
+    "edit-noexist-message" => "El elemento que actualizar no existe o se elimino previamente, para retornar al listado general de #plural presioné continuar en la parte inferior de este mensaje. ",
+    "edit-success-title" => "¡#singular actualizada!",
+    "edit-success-message" => "Los datos de #singular se <b>actualizaron exitosamente</b>, para retornar al listado general de #plural presioné el botón continuar en la parte inferior del presente mensaje.",
+    // - Q10profiles deleter
+    "delete-denied-title" => "¡Advertencia!",
+    "delete-denied-message" => "Los roles asignados a su perfil, no le conceden los privilegios necesarios para eliminar #plural en esta plataforma. Contacte al departamento de soporte técnico para información adicional, o la asignación de los permisos necesarios si es el caso. Para continuar seleccione la opción correspondiente en la parte inferior de este mensaje.",
+    "delete-title" => "¡Eliminar #singular!",
+    "delete-message" => "Para confirmar la eliminación del #singular <b>%s</b>, presioné eliminar, para retornar al listado general de #plural presioné cancelar.",
+    "delete-errors-title" => "¡Advertencia!",
+    "delete-errors-message" => "Los datos proporcionados son incorrectos o están incompletos, por favor verifique eh inténtelo nuevamente.",
+    "delete-noexist-title" => "¡No existe!",
+    "delete-noexist-message" => "\El elemento que intenta eliminar no existe o se elimino previamente, para retornar al listado general de #plural presioné continuar en la parte inferior de este mensaje.",
+    "delete-success-title" => "¡#Singular eliminad@ exitosamente!",
+    "delete-success-message" => "La #singular se elimino exitosamente, para retornar al listado de general de #plural presioné el botón continuar en la parte inferior de este mensaje.",
+    // - Q10profiles list
+    "list-denied-title" => "¡Advertencia!",
+    "list-denied-message" => "Los roles asignados a su perfil, no le conceden los privilegios necesarios para acceder al listado general de #plural en esta plataforma. Contacte al departamento de soporte técnico para información adicional, o la asignación de los permisos necesarios si es el caso. Para continuar seleccione la opción correspondiente en la parte inferior de este mensaje.",
+    "list-title" => "Listado de #plural",
+];
+
+?>

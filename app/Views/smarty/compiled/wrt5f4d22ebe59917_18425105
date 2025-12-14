@@ -1,0 +1,44 @@
+<?php
+/* Smarty version 3.1.36, created on 2020-08-31 11:18:51
+  from 'C:\xampp\htdocs\Higgs-dominance\app\Views\smarty\default\components\navbar-intro.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.36',
+  'unifunc' => 'content_5f4d22ebe59279_47714990',
+  'has_nocache_code' => true,
+  'file_dependency' => 
+  array (
+    'd88b392333fcd524e125a45709c19641372c4239' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\Higgs-dominance\\app\\Views\\smarty\\default\\components\\navbar-intro.tpl',
+      1 => 1597147166,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5f4d22ebe59279_47714990 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '16314894245f4d22ebe57c32_32035034';
+?>
+<div class="navbar-intro justify-content-xl-between">
+
+            <button type="button" class="btn btn-burger burger-arrowed static collapsed ml-2 d-flex d-xl-none" data-toggle-mobile="sidebar" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
+              <span class="bars"></span>
+            </button><!-- mobile sidebar toggler button -->
+
+            <a class="navbar-brand text-white w-100" href="#">
+                <img class="w-100" src="<?php echo '/*%%SmartyNocache:16314894245f4d22ebe57c32_32035034%%*/<?php echo base_url($_smarty_tpl->tpl_vars[\'logo\']->value);?>
+/*/%%SmartyNocache:16314894245f4d22ebe57c32_32035034%%*/';?>
+" alt=""/>
+            </a>
+
+            <button type="button" class="btn btn-burger mr-2 d-none d-xl-flex" data-toggle="sidebar" data-target="#sidebar" aria-controls="sidebar" aria-expanded="true" aria-label="Toggle sidebar">
+              <span class="bars"></span>
+            </button><!-- sidebar toggler button -->
+
+          </div><!-- /.navbar-intro -->
+          <?php }
+}

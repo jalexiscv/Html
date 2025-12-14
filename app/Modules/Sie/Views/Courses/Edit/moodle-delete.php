@@ -7,7 +7,7 @@ $mfields = model("App\Modules\Sie\Models\Sie_Users_Fields");
 /** @var array $d */
 
 $token = 'd9551c4aa62771d4a38d74b1e885b13d';
-$domain = 'https://campus.utede.edu.co';
+$domain = service("moodle")::getDomainName();
 $restFormat = 'json';
 
 // El ID del profesor anterior se encuentra en $row['teacher'] (datos antes de la actualización)

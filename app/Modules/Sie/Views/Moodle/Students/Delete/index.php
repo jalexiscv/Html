@@ -2,8 +2,8 @@
 /**********************
  *  Configuración para eliminar usuario por username (alias)
  **********************/
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domain = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domain = service("moodle")::getDomainName();
 $endpoint = "$domain/webservice/rest/server.php";
 
 $functionGet = 'core_user_get_users';
@@ -21,16 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // 1. Buscar usuario por username
         $searchParams = http_build_query([
-            'criteria' => [ ['key' => 'username', 'value' => $username] ]
+                'criteria' => [['key' => 'username', 'value' => $username]]
         ]);
 
         $urlGet = "$endpoint?wstoken=$token&wsfunction=$functionGet&moodlewsrestformat=json&$searchParams";
 
         $curl = curl_init($urlGet);
         curl_setopt_array($curl, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
         ]);
 
         $response = curl_exec($curl);
@@ -47,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $curl = curl_init($urlDelete);
             curl_setopt_array($curl, [
-                CURLOPT_POST => true,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_POSTFIELDS => $deleteParams,
-                CURLOPT_SSL_VERIFYPEER => false,
-                CURLOPT_SSL_VERIFYHOST => false,
+                    CURLOPT_POST => true,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POSTFIELDS => $deleteParams,
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_SSL_VERIFYHOST => false,
             ]);
 
             $deleteResponse = curl_exec($curl);
@@ -70,7 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Eliminar Usuario por Alias</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>body { padding-top: 20px; }</style>
+    <style>body {
+            padding-top: 20px;
+        }</style>
 </head>
 <body>
 <div class="container">
@@ -88,7 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <form action="" method="POST">
         <div class="mb-3">
-            <label for="username" class="form-label">Alias del Usuario (username) <span class="text-danger">*</span></label>
+            <label for="username" class="form-label">Alias del Usuario (username) <span
+                        class="text-danger">*</span></label>
             <input type="text" class="form-control" name="username" id="username" required>
         </div>
         <button type="submit" class="btn btn-danger">Eliminar Usuario</button>

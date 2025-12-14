@@ -46,6 +46,19 @@ class Documents extends ResourceController
     }
 
 
+    public function observations(string $options, string $oid)
+    {
+        $this->oid = $oid;
+        if ($options == "individual") {
+            return (view("App\Modules\Sie\Views\Observations\Reports\Individual\docx", $this->get_Array()));
+        } elseif ($options == "grupal") {
+            return (view("App\Modules\Sie\Views\Observations\Reports\Grupal\docx", $this->get_Array()));
+        } else {
+            echo("Seleccione un tipo de documento..");
+        }
+    }
+
+
     /**
      * Devuelve un array asociativo con las propiedades del controlador.
      *

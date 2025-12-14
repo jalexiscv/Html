@@ -56,7 +56,7 @@ foreach ($executions as $execution) {
         $progress = $mprogress->where('progress', $execution['progress'])->first();
         if (!empty($progress['enrollment'])) {
             $enrollment = $menrollments->where('enrollment', $progress['enrollment'])->first();
-            $registration = $mregistrations->where('registration', $enrollment['student'])->first();
+            $registration = $mregistrations->where('registration', $enrollment['registration'])->first();
 
             $linkView = "/sie/executions/edit/{$execution['execution']}?t=" . pk();
 
@@ -72,7 +72,7 @@ foreach ($executions as $execution) {
                     "icon" => ICON_STAR,
                     "title" => lang("App.View"),
                     "href" => $linkView,
-                    "class" => "btn-danger ml-1 {$class_course_status}",)
+                    "class" => "btn-sm btn-danger ml-1 {$class_course_status}",)
             );
 
 

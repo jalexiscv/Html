@@ -89,7 +89,7 @@ $code .= "<tbody>";
 $count = ($page - 1) * $limit;
 foreach ($statuses as $status) {
     $count++;
-    $registration = $mregistrations->get_Registration($status['registration']);
+    $registration = $mregistrations->getRegistration($status['registration']);
     $program = $mprograms->getProgram($status['program']);
     // Vars
     $period = @$status['period'];
@@ -106,19 +106,19 @@ foreach ($statuses as $status) {
     $disability_type = @$registration['disability_type'] == "" ? "0" : (int)($registration['disability_type']);
     $ek = @$registration['ek'];
     // vars
-    $JOURNEY=$status["journey"];
+    $JOURNEY = $status["journey"];
     $ANNO = $year;
     $SEMESTRE = $semester;
     $ID_TIPO_DOCUMENTO = $identification_type;
     $NUM_DOCUMENTO = $identification_number;
     $PRO_CONSECUTIVO = $program_snies;
     $ID_MUNICIPIO = "76111";
-    $ID_MUNICIPIO_ESTUDIO="76111";
-    $EN_LA_NOCHE_ESTUDIO="S";
-    $CICLOS_BASICOS="N";
+    $ID_MUNICIPIO_ESTUDIO = "76111";
+    $EN_LA_NOCHE_ESTUDIO = "S";
+    $CICLOS_BASICOS = "N";
 
     // build
-    $code .= "<tr id=\"trid-".@$registration["registration"]."\" data-registration=\"".@$status["status"]."\" data-status=\"STARTED\">\n";
+    $code .= "<tr id=\"trid-" . @$registration["registration"] . "\" data-registration=\"" . @$status["status"] . "\" data-status=\"STARTED\">\n";
     $code .= "<td class='text-center ' title=\"\" >$count</td>\n";
     //$code .= "<td class='text-center ' title=\"\" >{$JOURNEY}</td>\n";
     $code .= "<td class='text-center ' title=\"\" >{$ANNO}</td>\n";

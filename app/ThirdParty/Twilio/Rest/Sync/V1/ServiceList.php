@@ -1,0 +1,65 @@
+<?php
+
+namespace Twilio\Rest\Sync\V1;
+
+use Twilio\Exceptions\TwilioException;
+use Twilio\ListResource;
+use Twilio\Options;
+use Twilio\Serialize;
+use Twilio\Stream;
+use Twilio\Values;
+use Twilio\Version;
+use function iterator_to_array;
+
+class ServiceList extends ListResource
+{
+    public function __construct(Version $version)
+    {
+        parent::__construct($version);
+        $this->solution = [];
+        $this->uri = '/Services';
+    }
+
+    public function create(array $options = []): ServiceInstance
+    {
+        $options = new Values($options);
+        $data = Values::of(['FriendlyName' => $options['friendlyName'], 'WebhookUrl' => $options['webhookUrl'], 'ReachabilityWebhooksEnabled' => Serialize::booleanToString($options['reachabilityWebhooksEnabled']), 'AclEnabled' => Serialize::booleanToString($options['aclEnabled']), 'ReachabilityDebouncingEnabled' => Serialize::booleanToString($options['reachabilityDebouncingEnabled']), 'ReachabilityDebouncingWindow' => $options['reachabilityDebouncingWindow'], 'WebhooksFromRestEnabled' => Serialize::booleanToString($options['webhooksFromRestEnabled']),]);
+        $payload = $this->version->create('POST', $this->uri, [], $data);
+        return new ServiceInstance($this->version, $payload);
+    }
+
+    public function stream(int $limit = null, $pageSize = null): Stream
+    {
+        $limits = $this->version->readLimits($limit, $pageSize);
+        $page = $this->page($limits['pageSize']);
+        return $this->version->stream($page, $limits['limit'], $limits['pageLimit']);
+    }
+
+    public function read(int $limit = null, $pageSize = null): array
+    {
+        return iterator_to_array($this->stream($limit, $pageSize), false);
+    }
+
+    public function page($pageSize = Values::NONE, string $pageToken = Values::NONE, $pageNumber = Values::NONE): ServicePage
+    {
+        $params = Values::of(['PageToken' => $pageToken, 'Page' => $pageNumber, 'PageSize' => $pageSize,]);
+        $response = $this->version->page('GET', $this->uri, $params);
+        return new ServicePage($this->version, $response, $this->solution);
+    }
+
+    public function getPage(string $targetUrl): ServicePage
+    {
+        $response = $this->version->getDomain()->getClient()->request('GET', $targetUrl);
+        return new ServicePage($this->version, $response, $this->solution);
+    }
+
+    public function getContext(string $sid): ServiceContext
+    {
+        return new ServiceContext($this->version, $sid);
+    }
+
+    public function __toString(): string
+    {
+        return '[Twilio.Sync.V1.ServiceList]';
+    }
+}

@@ -83,7 +83,7 @@ $mprogram = model("App\Modules\Sie\Models\Sie_Programs");
 $mstatuses = model('App\Modules\Sie\Models\Sie_Statuses');
 
 $enrollment = $menrollments->get_Enrollment($oid);
-$registration = $mregistrations->get_Registration($enrollment["student"]);
+$registration = $mregistrations->getRegistration($enrollment["registration"]);
 $status = $mstatuses->get_LastStatusByRegistrationByProgram($registration["registration"], $enrollment["program"]);
 
 $program = $mprogram->getProgram($enrollment["program"]);

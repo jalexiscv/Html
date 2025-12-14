@@ -16,8 +16,8 @@
 /** @var int $limit */
 /** @var int $offset */
 
-$program=!empty($program)?$program:"";
-$statuses=$mstatuses->get_Details($program,$period,$status,$limit, $offset);
+$program = !empty($program) ? $program : "";
+$statuses = $mstatuses->get_Details($program, $period, $status, $limit, $offset);
 
 $code = "";
 
@@ -112,7 +112,7 @@ $class = "";
 foreach ($statuses as $status) {
     $count++;
     $class = ($count % 2 == 0) ? "odd" : "even";
-    $registration = $mregistrations->get_Registration($status['registration']);
+    $registration = $mregistrations->getRegistration($status['registration']);
     //[defaults]--------------------------------------------------------------------------------------------------------
     $agreement_name = "REGULAR";
     $agreement_institucion_name = "PRINCIPAL";
@@ -161,21 +161,21 @@ foreach ($statuses as $status) {
     $previus_period = "2024A";
 
     /**
-    $registration_registration= @$registration['registration'];
-    if(!empty($registration_registration)){
-        $previus_credits_earned = $mexecutions->get_EarnCreditsByPeriodByRegistration($previus_period, $registration_registration);
-        $previus_credits_registred = $mprogress->get_RegistredCreditsByPeriodByRegistration($previus_period, $registration_registration);
-        if (!empty($previus_credits_earned)) {
-            foreach ($previus_credits_earned as $previus_credits) {
-                if ($previus_credits['status'] == "APPROVED") {
-                    $credit_academ_acumu_sem_ante += $previus_credits['credits'];
-                }
-            }
-            foreach ($previus_credits_registred as $previus_credits) {
-                $credit_academ_acumu_sem_ante += $previus_credits['credits'];
-            }
-        }
-    }
+     * $registration_registration= @$registration['registration'];
+     * if(!empty($registration_registration)){
+     * $previus_credits_earned = $mexecutions->get_EarnCreditsByPeriodByRegistration($previus_period, $registration_registration);
+     * $previus_credits_registred = $mprogress->get_RegistredCreditsByPeriodByRegistration($previus_period, $registration_registration);
+     * if (!empty($previus_credits_earned)) {
+     * foreach ($previus_credits_earned as $previus_credits) {
+     * if ($previus_credits['status'] == "APPROVED") {
+     * $credit_academ_acumu_sem_ante += $previus_credits['credits'];
+     * }
+     * }
+     * foreach ($previus_credits_registred as $previus_credits) {
+     * $credit_academ_acumu_sem_ante += $previus_credits['credits'];
+     * }
+     * }
+     * }
      * **/
 
 
@@ -209,7 +209,7 @@ foreach ($statuses as $status) {
     $registration_identification_type_ = @$registration['identification_type'];
     $registration_identification_number = @$registration['identification_number'];
     $registration_snies_id_validation_requisite = @$registration['snies_id_validation_requisite'];
-    if(empty($registration_snies_id_validation_requisite)){
+    if (empty($registration_snies_id_validation_requisite)) {
         $registration_snies_id_validation_requisite = "NA";
     }
 
@@ -235,15 +235,15 @@ foreach ($statuses as $status) {
         ->where("registration", $registration_registration)
         ->where("period", "2025A")
         ->groupStart()
-            ->where("reference", "ENROLLED")
-            ->orWhere("reference", "ENROLLED-OLD")
-            ->orWhere("reference", "ENROLLED-EXT")
+        ->where("reference", "ENROLLED")
+        ->orWhere("reference", "ENROLLED-OLD")
+        ->orWhere("reference", "ENROLLED-EXT")
         ->groupEnd()
         ->first();
     $cycle = @$laststatus['cycle'];
     $moment = @$laststatus['moment'];
-    $agreement= "PRINCIPAL";
-    if(!empty($registration['agreement'])){
+    $agreement = "PRINCIPAL";
+    if (!empty($registration['agreement'])) {
         $qagreement = $magreements->get_Agreement($registration['agreement']);
         $agreement = $qagreement['name'];
     }
@@ -271,9 +271,9 @@ foreach ($statuses as $status) {
     $code .= "    <td class='text-center text-nowrap'>76111</td>";
     $code .= "    <td class='text-center text-nowrap'>{$registration_snies_id_validation_requisite}</td>";
     $code .= "    <td class='text-center text-nowrap'>" . @$program['credits'] . "</td>";
-    if(intval($credit_academ_acumu_sem_ante)!=0){
+    if (intval($credit_academ_acumu_sem_ante) != 0) {
         $code .= "    <td class='text-center text-nowrap bg-gradient-gray-200'><a href=\"/sie/students/view/{$registration_registration}\" target='\_blank\"'>{$credit_academ_acumu_sem_ante}</a></td>";
-    }else {
+    } else {
         $code .= "    <td class='text-center text-nowrap bg-gradient-gray-200'>{$credit_academ_acumu_sem_ante}</td>";
     }
     $code .= "    <td class='text-center text-nowrap'>{$credit_acad_a_matric_regu_sem}</td>";

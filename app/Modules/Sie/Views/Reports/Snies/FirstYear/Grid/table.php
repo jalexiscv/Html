@@ -17,9 +17,9 @@
 /** @var int $offset */
 $dates = service('dates');
 
-$mregistrations=model('App\Modules\Sie\Models\Sie_Registrations');
-$mprograms=model('App\Modules\Sie\Models\Sie_Programs');
-$menrollments=model('App\Modules\Sie\Models\Sie_Enrollments');
+$mregistrations = model('App\Modules\Sie\Models\Sie_Registrations');
+$mprograms = model('App\Modules\Sie\Models\Sie_Programs');
+$menrollments = model('App\Modules\Sie\Models\Sie_Enrollments');
 
 //ENROLLED = Matriculado
 //ENROLLED-OLD = Matriculado - Antiguo
@@ -42,7 +42,7 @@ if (!empty($program) && $program != "ALL") {
         ->find();
 }
 
-$totalRecords=count($statuses);
+$totalRecords = count($statuses);
 //echo($statuses["sql"]);
 
 //AÑO
@@ -88,11 +88,11 @@ $code .= "<tbody>";
 
 $count = ($page - 1) * $limit;
 foreach ($statuses as $status) {
-    if($status['cycle'] == "1"||$status['cycle'] == "5"||$status['cycle'] == "7"){
+    if ($status['cycle'] == "1" || $status['cycle'] == "5" || $status['cycle'] == "7") {
         $count++;
         $code .= "<tr>\n";
         // procesos
-        $registration = $mregistrations->get_Registration($status['registration']);
+        $registration = $mregistrations->getRegistration($status['registration']);
         $period = @$status['period'];
         $year = safe_substr($period, 0, 4);
         $period_literal = safe_substr($period, 4, 1);
@@ -106,7 +106,7 @@ foreach ($statuses as $status) {
         $disability = @$registration['disability'] == "Y" ? "1" : "0";
         $disability_type = @$registration['disability_type'] == "" ? "0" : (int)($registration['disability_type']);
         $ek = @$registration['ek'];
-        $ac=@$registration['ac'];
+        $ac = @$registration['ac'];
         // Matricula
         $enrollment = $menrollments->get_EnrollmentByStudentAndProgram($status['registration'], $status['program']);
         // Variables de salida

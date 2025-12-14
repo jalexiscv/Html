@@ -139,8 +139,9 @@
     });
     
     notificationsBtn.addEventListener('click', () => {
-        alert('Notificaciones - 12 notificaciones nuevas');
+        //alert('Notificaciones - 12 notificaciones nuevas');
         // Aquí puedes agregar la funcionalidad real
+        window.open('/notifications/me/list/123', '_self');
     });
     
 

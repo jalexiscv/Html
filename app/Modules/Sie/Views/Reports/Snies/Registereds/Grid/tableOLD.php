@@ -112,7 +112,7 @@ $class = "";
 foreach ($statuses as $status) {
     $count++;
     $class = ($count % 2 == 0) ? "odd" : "even";
-    $registration = $mregistrations->get_Registration($status['registration']);
+    $registration = $mregistrations->getRegistration($status['registration']);
     //[defaults]--------------------------------------------------------------------------------------------------------
     $agreement_name = "REGULAR";
     $agreement_institucion_name = "PRINCIPAL";

@@ -13,12 +13,42 @@
  * @var string $viewer Complete URI to the view responsible for evaluating each requested view.
  * @var string $views Complete URI to the module views.
  **/
-
+$request=service("request");
 $strings = service("strings");
 //[models]--------------------------------------------------------------------------------------------------------------
 $mplans = model('App\Modules\Plans\Models\Plans_Plans');
+$mobjects = model('App\Modules\Standards\Models\Standards_Objects');
 //[vars]----------------------------------------------------------------------------------------------------------------
-$back = "/plans";
+$object=$mobjects->getObject($oid);
+$parent=@$object["parent"];
+$module=@$object["module"];
+
+//https://intranet.disa-software.com/standards/objects/list/68ACDA4811914?parent=68ACDA4811914
+$back = "/standards/objects/list/{$parent}?parent={$parent}";
+
+
+$add="/plans/plans/create/" .$oid;
+$start="";
+
+
+/**
+if(!empty($module)){
+  if($module=="standards"){
+
+      //$back = "/standards/objects/list/{$parent}?parent={$parent}";
+      $add="/plans/plans/create/" .$oid."?parent={$parent}&module=standards";
+      $start=urlencode("/plans/plans/list/{$oid}?parent={$parent}&module=standards");
+  }else{
+      //$back = "/plans";
+  }
+}
+**/
+
+
+
+
+
+
 $offset = !empty($request->getVar("offset")) ? $request->getVar("offset") : 0;
 $search = !empty($request->getVar("search")) ? $request->getVar("search") : "";
 $field = !empty($request->getVar("field")) ? $request->getVar("field") : "";
@@ -43,7 +73,9 @@ $fields = array(
     //"deleted_at" => lang("App.deleted_at"),
 );
 //[build]--------------------------------------------------------------------------------------------------------------
-$conditions = array();
+$conditions = array(
+    "reference"=>$oid
+);
 //$mplans->clear_AllCache();
 $rows = $mplans->getCachedSearch($conditions, $limit, $offset, "plan DESC");
 $total = $mplans->getCountAllResults($conditions);
@@ -85,9 +117,9 @@ foreach ($rows["data"] as $row) {
     if (!empty($row["plan"])) {
         $count++;
         //[links]-------------------------------------------------------------------------------------------------------
-        $hrefView = "$component/view/{$row["plan"]}";
-        $hrefEdit = "$component/edit/{$row["plan"]}";
-        $hrefDelete = "$component/delete/{$row["plan"]}";
+        $hrefView = "$component/view/{$row["plan"]}?start={$start}";
+        $hrefEdit = "$component/edit/{$row["plan"]}?start={$start}";
+        $hrefDelete = "$component/delete/{$row["plan"]}?start={$start}";
         //[buttons]-----------------------------------------------------------------------------------------------------
         $btnView = $bootstrap->get_Link("btn-view", array("size" => "sm", "icon" => ICON_VIEW, "title" => lang("App.View"), "href" => $hrefView, "class" => "btn-primary ml-1",));
         $btnEdit = $bootstrap->get_Link("btn-edit", array("size" => "sm", "icon" => ICON_EDIT, "title" => lang("App.Edit"), "href" => $hrefEdit, "class" => "btn-warning ml-1",));
@@ -125,10 +157,13 @@ foreach ($rows["data"] as $row) {
     }
 }
 //[build]---------------------------------------------------------------------------------------------------------------
+
+
+
 $card = $bootstrap->get_Card2("card-grid", array(
     "header-title" => lang('Plans.list-title'),
     "header-back" => $back,
-    "header-add" => "/plans/plans/create/" . lpk(),
+    "header-add" => $add,
     "alert" => array(
         "icon" => ICON_INFO,
         "type" => "info",

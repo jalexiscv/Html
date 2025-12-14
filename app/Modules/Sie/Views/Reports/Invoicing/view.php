@@ -1,0 +1,23 @@
+<?php
+$mprograms = model('App\Modules\Sie\Models\Sie_Programs');
+
+
+$periodos = PERIODS;
+
+$modal = true;
+if (isset($_GET['period'])) {
+    //$option = $_GET['option'];
+    $modal = false;
+}
+if (!$modal) {
+    include("grid.php");
+} else {
+    include("modal.php");
+}
+
+?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+    myModal.show();
+</script>

@@ -1,0 +1,15 @@
+{
+  "name": "Beta Dashboard",
+  "version": "1.0.0",
+  "template_name": "Beta",
+  "deploy": {
+    "auto_copy": true,
+    "destination": "../../../../public_html/themes/Beta"
+  },
+  "colors": {
+    "primary": "#0d6efd",
+    "secondary": "#6c757d",
+    "background": "#f8f9fa",
+    "card": "#fff"
+  }
+}

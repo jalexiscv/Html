@@ -1,0 +1,56 @@
+<?php
+
+namespace Twilio\Rest\Verify\V2;
+
+use Twilio\Exceptions\TwilioException;
+use Twilio\InstanceResource;
+use Twilio\Values;
+use Twilio\Version;
+use function array_key_exists;
+use function implode;
+use function property_exists;
+use function ucfirst;
+
+class FormInstance extends InstanceResource
+{
+    public function __construct(Version $version, array $payload, string $formType = null)
+    {
+        parent::__construct($version);
+        $this->properties = ['formType' => Values::array_get($payload, 'form_type'), 'forms' => Values::array_get($payload, 'forms'), 'formMeta' => Values::array_get($payload, 'form_meta'), 'url' => Values::array_get($payload, 'url'),];
+        $this->solution = ['formType' => $formType ?: $this->properties['formType'],];
+    }
+
+    protected function proxy(): FormContext
+    {
+        if (!$this->context) {
+            $this->context = new FormContext($this->version, $this->solution['formType']);
+        }
+        return $this->context;
+    }
+
+    public function fetch(): FormInstance
+    {
+        return $this->proxy()->fetch();
+    }
+
+    public function __get(string $name)
+    {
+        if (array_key_exists($name, $this->properties)) {
+            return $this->properties[$name];
+        }
+        if (property_exists($this, '_' . $name)) {
+            $method = 'get' . ucfirst($name);
+            return $this->$method();
+        }
+        throw new TwilioException('Unknown property: ' . $name);
+    }
+
+    public function __toString(): string
+    {
+        $context = [];
+        foreach ($this->solution as $key => $value) {
+            $context[] = "$key=$value";
+        }
+        return '[Twilio.Verify.V2.FormInstance ' . implode(' ', $context) . ']';
+    }
+}

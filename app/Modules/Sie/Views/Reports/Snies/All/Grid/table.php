@@ -15,12 +15,12 @@
 /** @var string $status */
 /** @var int $limit */
 /** @var int $offset */
-$dates=service('dates');
+$dates = service('dates');
 
-$program=!empty($program)?$program:"";
+$program = !empty($program) ? $program : "";
 
-$statuses=$mstatuses->get_Details($program,$period,$status,$limit, $offset);
-$totalRecords=$statuses["total"];
+$statuses = $mstatuses->get_Details($program, $period, $status, $limit, $offset);
+$totalRecords = $statuses["total"];
 
 //echo($statuses["sql"]);
 
@@ -115,39 +115,39 @@ foreach ($statuses["data"] as $status) {
     $code .= "<tr>\n";
 
     // columnas
-    $registration_registration=@$status['registration_registration'];
-    $period=@$status['status_period'];
+    $registration_registration = @$status['registration_registration'];
+    $period = @$status['status_period'];
     $year = safe_substr($period, 0, 4);
     $period_literal = safe_substr($period, 4, 1);
-    $semester=(($period_literal == "A") ? "1" : "2");
+    $semester = (($period_literal == "A") ? "1" : "2");
     $journey = get_sie_textual_journey(@$status['registration_journey']);
-    $identification_type=@$status['identification_type'];
-    $identification_number=@$status['identification_number'];
+    $identification_type = @$status['identification_type'];
+    $identification_number = @$status['identification_number'];
     $registration_name = @$status['first_name'] . " " . @$status['second_name'];
     $registration_lastname = @$status['first_surname'] . " " . @$status['second_surname'];
-    $sex=@$status['gender'];
-    $birth_date=@$status['birth_date'];
+    $sex = @$status['gender'];
+    $birth_date = @$status['birth_date'];
     $age = $dates->get_Age($birth_date);
-    $stratum=@$status['stratum'];
-    $email_address=safe_strtoupper(@$status['email_address']);
-    $email_institutional=safe_strtoupper(@$status['email_institutional']);
-    $phone=!empty(@$status['phone'])?@$status['phone']:@$status['mobile'];
-    $program_name=safe_strtoupper(@$status['program_name']);
+    $stratum = @$status['stratum'];
+    $email_address = safe_strtoupper(@$status['email_address']);
+    $email_institutional = safe_strtoupper(@$status['email_institutional']);
+    $phone = !empty(@$status['phone']) ? @$status['phone'] : @$status['mobile'];
+    $program_name = safe_strtoupper(@$status['program_name']);
 
-    $status_details="<a href=\"/sie/students/view/{$registration_registration}\" target='_blank'><i class=\"fa-regular fa-user\"></i></a> | ";
-    $status_details.="<a href=\"/sie/statuses/edit/{$status['status']}\" target='_blank'><i class=\"fa-regular fa-bolt-lightning\"></i></a>";
+    $status_details = "<a href=\"/sie/students/view/{$registration_registration}\" target='_blank'><i class=\"fa-regular fa-user\"></i></a> | ";
+    $status_details .= "<a href=\"/sie/statuses/edit/{$status['status']}\" target='_blank'><i class=\"fa-regular fa-bolt-lightning\"></i></a>";
 
-    $cycle=@$status['cycle'];
-    $moment=@$status['moment'];
+    $cycle = @$status['cycle'];
+    $moment = @$status['moment'];
 
 
-    $agreement=!empty(@$status['agreement_name'])?safe_strtoupper(@$status['agreement_name']):"PRINCIPAL";
-    $snies=@$status['program_snies'];
-    $municipio="76111";
-    $registration_snies_id_validation_requisite=!empty(@$status['snies_id_validation_requisite'])?@$status['snies_id_validation_requisite']:"NA";
-    $cred_acad_programa_rc=@$status['program_credits'];
+    $agreement = !empty(@$status['agreement_name']) ? safe_strtoupper(@$status['agreement_name']) : "PRINCIPAL";
+    $snies = @$status['program_snies'];
+    $municipio = "76111";
+    $registration_snies_id_validation_requisite = !empty(@$status['snies_id_validation_requisite']) ? @$status['snies_id_validation_requisite'] : "NA";
+    $cred_acad_programa_rc = @$status['program_credits'];
     $credit_academ_acumu_sem_ante = 0;
-    $credit_acad_a_matric_regu_sem=0;
+    $credit_acad_a_matric_regu_sem = 0;
     $credit_acad_a_matric_regu_sem = 17;
     $discounteds = $mdiscounteds->where('object', @$status['registration_registration'])->findAll();// necesario para apoyo_gob_nac_descuento_votac.php y descuent_recurrentes_de_la_ies.php
     $valor_bruto_derechos_matricula = 0;

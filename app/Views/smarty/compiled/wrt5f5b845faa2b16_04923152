@@ -1,0 +1,82 @@
+<?php
+/* Smarty version 3.1.36, created on 2020-09-11 09:06:23
+  from 'C:\xampp\htdocs\Higgs-dominance\app\Views\smarty\default\main.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.36',
+  'unifunc' => 'content_5f5b845faa22e9_06035648',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'dba66155f94114f2a08b10a7d368a511ecd2a83e' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\Higgs-dominance\\app\\Views\\smarty\\default\\main.tpl',
+      1 => 1596606664,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:_sidebar.tpl' => 1,
+    'file:_c8c4.tpl' => 1,
+    'file:_c10c2.tpl' => 1,
+    'file:_c9c3.tpl' => 1,
+    'file:_c12.tpl' => 1,
+    'file:_c0c0.tpl' => 1,
+    'file:footers.tpl' => 1,
+  ),
+),false)) {
+function content_5f5b845faa22e9_06035648 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '18497340555f5b845fa9c865_69490322';
+?>
+<div class="main-container">
+   <?php $_smarty_tpl->_subTemplateRender("file:_sidebar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 9999, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+    <div role="main" class="main-content">
+        <div class="d-none content-nav mb-1 bgc-grey-l4">
+            <div class="d-flex justify-content-between align-items-center">
+                <ol class="breadcrumb pl-2">
+                    <li class="breadcrumb-item active text-grey">
+                        <i class="fa fa-home text-dark-m3 mr-1"></i>
+                        <a class="text-blue" href="#">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item active text-grey-d1">Dashboard</li>
+                </ol>
+
+                <div class="nav-search">
+                    <form class="form-search">
+                        <span class="d-inline-flex align-items-center">
+                            <input type="text" placeholder="Search ..." class="form-control pr-4 form-control-sm radius-1 brc-info-m2 text-grey" autocomplete="off" />
+                            <i class="fa fa-search text-info-m1 ml-n4"></i>
+                        </span>
+                    </form>
+                </div><!-- /.nav-search -->
+            </div>
+        </div><!-- breadcrumbs -->
+        <?php if ($_smarty_tpl->tpl_vars['main_template']->value == "c8c4") {?>
+            <?php $_smarty_tpl->_subTemplateRender("file:_c8c4.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 9999, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+        <?php } elseif ($_smarty_tpl->tpl_vars['main_template']->value == "c10c2") {?>
+            <?php $_smarty_tpl->_subTemplateRender("file:_c10c2.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 9999, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+        <?php } elseif ($_smarty_tpl->tpl_vars['main_template']->value == "c9c3") {?>
+            <?php $_smarty_tpl->_subTemplateRender("file:_c9c3.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 9999, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+        <?php } elseif ($_smarty_tpl->tpl_vars['main_template']->value == "c12") {?>
+            <?php $_smarty_tpl->_subTemplateRender("file:_c12.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 9999, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+        <?php } else { ?>
+            <?php $_smarty_tpl->_subTemplateRender("file:_c0c0.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 9999, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+        <?php }?>
+        <?php $_smarty_tpl->_subTemplateRender("file:footers.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 9999, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+    </div><!-- /main -->
+    <!-- app-modal-settings.tpl -->
+</div><!-- /.main-container //-->
+<?php }
+}

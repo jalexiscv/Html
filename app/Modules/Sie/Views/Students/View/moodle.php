@@ -1,6 +1,6 @@
 <?php
 $mregistrations = model("App\Modules\Sie\Models\Sie_Registrations");
-$registration = $mregistrations->get_Registration($oid);
+$registration = $mregistrations->getRegistration($oid);
 
 $moodle_student_id = "SIN REGISTRO EN MOODLE";
 

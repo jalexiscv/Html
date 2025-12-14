@@ -89,9 +89,9 @@ foreach ($rows["data"] as $row) {
         $hrefEdit = "$component/edit/{$row["module"]}";
         $hrefDelete = "$component/delete/{$row["module"]}";
         //[buttons]-----------------------------------------------------------------------------------------------------
-        $btnView = $bootstrap->get_Link("btn-view", array("size" => "sm", "icon" => ICON_VIEW, "title" => lang("App.View"), "href" => $hrefView, "class" => "btn-primary ml-1",));
-        $btnEdit = $bootstrap->get_Link("btn-edit", array("size" => "sm", "icon" => ICON_EDIT, "title" => lang("App.Edit"), "href" => $hrefEdit, "class" => "btn-warning ml-1",));
-        $btnDelete = $bootstrap->get_Link("btn-delete", array("size" => "sm", "icon" => ICON_DELETE, "title" => lang("App.Delete"), "href" => $hrefDelete, "class" => "btn-danger ml-1",));
+        $btnView = $bootstrap->get_Link("btn-view", array("size" => "sm", "icon" => ICON_VIEW, "title" => lang("App.View"), "href" => $hrefView, "class" => "btn-sm btn-primary ml-1",));
+        $btnEdit = $bootstrap->get_Link("btn-edit", array("size" => "sm", "icon" => ICON_EDIT, "title" => lang("App.Edit"), "href" => $hrefEdit, "class" => "btn-sm btn-warning ml-1",));
+        $btnDelete = $bootstrap->get_Link("btn-delete", array("size" => "sm", "icon" => ICON_DELETE, "title" => lang("App.Delete"), "href" => $hrefDelete, "class" => "btn-sm btn-danger ml-1",));
         $options = $bootstrap->get_BtnGroup("btn-group", array("content" => $btnView . $btnEdit . $btnDelete));
         //[etc]---------------------------------------------------------------------------------------------------------
         $pensums = $mpensums->getCountByModule($row['module']);
@@ -119,7 +119,7 @@ foreach ($rows["data"] as $row) {
 $card = $bootstrap->get_Card2("card-grid", array(
     "header-title" => lang('Sie_Modules.list-title'),
     "header-back" => $back,
-    "header-add" => "/sie/q10files/import/" . lpk(),
+    "header-add" => "/sie/modules/create/" . lpk(),
     "alert" => array(
         "icon" => ICON_INFO,
         "type" => "info",

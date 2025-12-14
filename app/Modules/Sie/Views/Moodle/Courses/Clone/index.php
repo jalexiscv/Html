@@ -1,7 +1,7 @@
 <?php
 // Configuración inicial para la API de Moodle
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domainName = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domainName = service("moodle")::getDomainName();
 $restFormat = 'json';
 $functionName = 'core_course_duplicate_course';
 
@@ -30,24 +30,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $originalCourseId) {
         $errorInfo = ['message' => 'Nombre completo, nombre corto y ID de categoría son obligatorios para el clon.'];
     } else {
         $params = [
-            'courseid' => $originalCourseId,
-            'fullname' => $fullname,
-            'shortname' => $shortname,
-            'categoryid' => $categoryid,
-            'visible' => $visible,
-            'options' => [
-                [
-                    'name' => 'users',
-                    'value' => $includeUsers
+                'courseid' => $originalCourseId,
+                'fullname' => $fullname,
+                'shortname' => $shortname,
+                'categoryid' => $categoryid,
+                'visible' => $visible,
+                'options' => [
+                        [
+                                'name' => 'users',
+                                'value' => $includeUsers
+                        ]
                 ]
-            ]
         ];
 
         $serverUrl = $domainName . '/webservice/rest/server.php'
-            . '?wstoken=' . $token
-            . '&wsfunction=' . $functionName
-            . '&moodlewsrestformat=' . $restFormat
-            . '&' . http_build_query($params);
+                . '?wstoken=' . $token
+                . '&wsfunction=' . $functionName
+                . '&moodlewsrestformat=' . $restFormat
+                . '&' . http_build_query($params);
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $serverUrl);
@@ -66,10 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $originalCourseId) {
 
             if (isset($result['exception'])) {
                 $errorInfo = [
-                    'message' => 'Error al clonar el curso: ' . ($result['message'] ?? 'Error desconocido.'),
-                    'exception' => $result['exception'] ?? 'N/A',
-                    'errorcode' => $result['errorcode'] ?? 'N/A',
-                    'debuginfo' => $result['debuginfo'] ?? 'No debug info'
+                        'message' => 'Error al clonar el curso: ' . ($result['message'] ?? 'Error desconocido.'),
+                        'exception' => $result['exception'] ?? 'N/A',
+                        'errorcode' => $result['errorcode'] ?? 'N/A',
+                        'debuginfo' => $result['debuginfo'] ?? 'No debug info'
                 ];
             } elseif (!empty($result) && isset($result['id']) && isset($result['shortname'])) {
                 $courseCloned = true;
@@ -89,7 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $originalCourseId) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clonar Curso en Moodle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>body { padding-top: 20px; }</style>
+    <style>body {
+            padding-top: 20px;
+        }</style>
 </head>
 <body>
 <div class="container">
@@ -123,26 +125,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $originalCourseId) {
     <?php if (!$courseCloned): ?>
         <form action="/sie/moodle/courses/clone" method="POST">
             <div class="mb-3">
-                <label for="original_course_id" class="form-label">ID del Curso Original a Clonar <span class="text-danger">*</span></label>
+                <label for="original_course_id" class="form-label">ID del Curso Original a Clonar <span
+                            class="text-danger">*</span></label>
                 <input type="number" class="form-control" id="original_course_id" name="original_course_id" required
                        value="<?php echo htmlspecialchars($_POST['original_course_id'] ?? $originalCourseId ?? ''); ?>">
             </div>
 
             <div class="mb-3">
-                <label for="fullname" class="form-label">Nuevo Nombre Completo del Curso <span class="text-danger">*</span></label>
+                <label for="fullname" class="form-label">Nuevo Nombre Completo del Curso <span
+                            class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="fullname" name="fullname" required
                        value="<?php echo htmlspecialchars($_POST['fullname'] ?? 'Copia de '); ?>">
             </div>
 
             <div class="mb-3">
-                <label for="shortname" class="form-label">Nuevo Nombre Corto del Curso <span class="text-danger">*</span></label>
+                <label for="shortname" class="form-label">Nuevo Nombre Corto del Curso <span
+                            class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="shortname" name="shortname" required
                        value="<?php echo htmlspecialchars($_POST['shortname'] ?? 'copia_'); ?>">
                 <div class="form-text">Debe ser único.</div>
             </div>
 
             <div class="mb-3">
-                <label for="categoryid" class="form-label">ID de Categoría Destino <span class="text-danger">*</span></label>
+                <label for="categoryid" class="form-label">ID de Categoría Destino <span
+                            class="text-danger">*</span></label>
                 <input type="number" class="form-control" id="categoryid" name="categoryid" required
                        value="<?php echo htmlspecialchars($_POST['categoryid'] ?? 1); ?>">
             </div>

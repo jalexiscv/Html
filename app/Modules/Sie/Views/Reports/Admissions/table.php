@@ -127,7 +127,7 @@ $code .= "</thead>";
 $count = 0;
 $class = "";
 foreach ($statuses as $status) {
-    $registration = $mregistrations->get_Registration($status['registration']);
+    $registration = $mregistrations->getRegistration($status['registration']);
     if (!empty($registration["registration"])) {
         $count++;
         $class = ($count % 2 == 0) ? "odd" : "even";

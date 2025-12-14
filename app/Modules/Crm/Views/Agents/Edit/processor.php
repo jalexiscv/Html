@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ ░FRAMEWORK                                  2024-01-18 01:20:03
+ * █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Crm\Views\Agents\Editor\processor.php]
+ * █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ * █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+ * █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+ * █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+ * █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+ * █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+ * █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+ * █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+ * █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+ * █ @link https://www.codehiggs.com
+ * █ @Version 1.5.0 @since PHP 7, PHP 8
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ Datos recibidos desde el controlador - @ModuleController
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ **/
+//[Services]-----------------------------------------------------------------------------
+$request = service('request');
+$bootstrap = service('bootstrap');
+$dates = service('dates');
+$strings = service('strings');
+$authentication = service('authentication');
+//[services]------------------------------------------------------------------------------------------------------------
+//$model = model("App\Modules\Crm\Models\Crm_Agents");
+//[Process]-----------------------------------------------------------------------------
+$f = service("forms", array("lang" => "Agents."));
+$d = array(
+    "agent" => $f->get_Value("agent"),
+    "reference" => $f->get_Value("reference"),
+    "name" => $f->get_Value("name"),
+    "description" => $f->get_Value("description"),
+    "image" => $f->get_Value("image"),
+    "capacity" => $f->get_Value("capacity"),
+    "morning_shift_start" => $f->get_Value("morning_shift_start"),
+    "morning_shift_end" => $f->get_Value("morning_shift_end"),
+    "afternoon_shift_start" => $f->get_Value("afternoon_shift_start"),
+    "afternoon_shift_end" => $f->get_Value("afternoon_shift_end"),
+    "author" => safe_get_user(),
+);
+//[Elements]-----------------------------------------------------------------------------
+$row = $model->find($d["agent"]);
+$l["back"] = "/crm/agents/list/" . lpk();
+$l["edit"] = "/crm/agents/edit/{$d["agent"]}";
+$asuccess = "crm/agents-edit-success-message.mp3";
+$anoexist = "crm/agents-edit-noexist-message.mp3";
+//[build]---------------------------------------------------------------------------------------------------------------
+if (is_array($row)) {
+    $edit = $model->update($d['agent'], $d);
+    $c = $bootstrap->get_Card("success", array(
+        "class" => "card-success",
+        "icon" => "fa-duotone fa-triangle-exclamation",
+        "title" => lang("Agents.edit-success-title"),
+        "text-class" => "text-center",
+        "text" => lang("Agents.edit-success-message"),
+        "footer-continue" => $l["back"],
+        "footer-class" => "text-center",
+        "voice" => $asuccess,
+    ));
+} else {
+    $create = $model->insert($d);
+    //echo($model->getLastQuery()->getQuery());
+    $c = $bootstrap->get_Card("warning", array(
+        "class" => "card-warning",
+        "icon" => "fa-duotone fa-triangle-exclamation",
+        "title" => lang("Agents.edit-noexist-title"),
+        "text-class" => "text-center",
+        "text" => sprintf(lang("Agents.edit-noexist-message"), $d['agent']),
+        "footer-continue" => $l["back"],
+        "footer-class" => "text-center",
+        "voice" => $anoexist,
+    ));
+}
+echo($c);
+?>

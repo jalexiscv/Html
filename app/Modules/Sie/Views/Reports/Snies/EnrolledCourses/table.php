@@ -88,7 +88,7 @@ $code .= "<tbody>";
 $count = ($page - 1) * $limit;
 foreach ($statuses as $status) {
     $count++;
-    $registration = $mregistrations->get_Registration($status['registration']);
+    $registration = $mregistrations->getRegistration($status['registration']);
     $program = $mprograms->getProgram($status['program']);
     // Vars
     $period = @$status['period'];

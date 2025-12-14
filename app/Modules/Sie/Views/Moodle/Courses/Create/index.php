@@ -1,7 +1,7 @@
 <?php
 // Configuración inicial para la API de Moodle
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4'; // Deberías gestionar esto de forma más segura
-$domainName = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken(); // Deberías gestionar esto de forma más segura
+$domainName = service("moodle")::getDomainName();
 $functionName = 'core_course_create_courses';
 $restformat = 'json';
 
@@ -28,19 +28,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Preparar los parámetros para la creación del curso
         $params = [
-            'courses' => [
-                [
-                    'fullname' => $fullname,
-                    'shortname' => $shortname,
-                    'categoryid' => $categoryid,
-                    'summary' => $summary,
-                    'summaryformat' => 1, // 1 para FORMAT_HTML
-                    'format' => $format,
-                    'startdate' => $startdate,
-                    'numsections' => $numsections,
-                    'visible' => $visible,
+                'courses' => [
+                        [
+                                'fullname' => $fullname,
+                                'shortname' => $shortname,
+                                'categoryid' => $categoryid,
+                                'summary' => $summary,
+                                'summaryformat' => 1, // 1 para FORMAT_HTML
+                                'format' => $format,
+                                'startdate' => $startdate,
+                                'numsections' => $numsections,
+                                'visible' => $visible,
+                        ]
                 ]
-            ]
         ];
         // Añadir idnumber si se proporcionó
         if (!empty($idnumber)) {
@@ -49,9 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Montar la URL de llamada REST
         $serverUrl = $domainName . '/webservice/rest/server.php'
-            . '?wstoken=' . $token
-            . '&wsfunction=' . $functionName
-            . '&moodlewsrestformat=' . $restformat;
+                . '?wstoken=' . $token
+                . '&wsfunction=' . $functionName
+                . '&moodlewsrestformat=' . $restformat;
 
         // Inicializar cURL y configurar la petición
         $curl = curl_init();
@@ -79,9 +79,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (isset($result['exception'])) {
                 $errorInfo = [
-                    'message' => 'Error al crear el curso: ' . $result['message'],
-                    'exception' => $result['exception'],
-                    'debuginfo' => $result['debuginfo'] ?? 'No debug info'
+                        'message' => 'Error al crear el curso: ' . $result['message'],
+                        'exception' => $result['exception'],
+                        'debuginfo' => $result['debuginfo'] ?? 'No debug info'
                 ];
             } elseif (!empty($result) && isset($result[0]['id'])) {
                 $courseCreated = true;

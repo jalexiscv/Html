@@ -4,11 +4,11 @@ use App\Libraries\Moodle;
 
 $moodle = new Moodle();
 
-$mcourses=model("App\Modules\Sie\Models\Sie_Courses");
+$mcourses = model("App\Modules\Sie\Models\Sie_Courses");
 
-$courses=$mcourses->where('status',"ACTIVE")->findAll();
+$courses = $mcourses->where('status', "ACTIVE")->findAll();
 
-$code="";
+$code = "";
 $code .= " <table\n";
 $code .= "\t\t id=\"grid-table\"\n";
 $code .= "\t\t class=\"table table-striped table-hover\" \n ";
@@ -24,19 +24,19 @@ $code .= "\t\t\t\t  </tr>\n";
 $code .= "\t\t </thead>";
 $code .= "\t\t <tbody>";
 
-$count=0;
-foreach ($courses as $course){
+$count = 0;
+foreach ($courses as $course) {
     $count++;
-    $trid=@$course["course"];
-    $name=@$course['name'];
+    $trid = @$course["course"];
+    $name = @$course['name'];
     $courseid = $moodle->getCourse(@$course["course"]);
     // Fila
-    $code .="\t\t\t\t  <tr id=\"trid-{$trid}\" data-registration=\"{$trid}\" data-status=\"STARTED\" >\n";
-    $code .="\t\t\t\t\t <td class='text-center ' title=\"\" >{$count}</td>\n";
-    $code .="\t\t\t\t\t <td class='text-center ' title=\"\" >{$course["course"]}</td>\n";
-    $code .="\t\t\t\t\t <td class='text-center ' title=\"\" >{$name}</td>\n";
+    $code .= "\t\t\t\t  <tr id=\"trid-{$trid}\" data-registration=\"{$trid}\" data-status=\"STARTED\" >\n";
+    $code .= "\t\t\t\t\t <td class='text-center ' title=\"\" >{$count}</td>\n";
+    $code .= "\t\t\t\t\t <td class='text-center ' title=\"\" >{$course["course"]}</td>\n";
+    $code .= "\t\t\t\t\t <td class='text-center ' title=\"\" >{$name}</td>\n";
     $code .= "\t\t\t\t\t <td class='text-center ' title=\"\" >{$courseid}</td>\n";
-    $code .="\t\t\t\t  </tr>\n";
+    $code .= "\t\t\t\t  </tr>\n";
 
 }
 
@@ -68,7 +68,7 @@ echo($code);
             callToApi(registration);
             setTimeout(() => {
                 processRowsSequentially(rows, currentIndex + 1);
-            },1000);
+            }, 1000);
         }
 
         function callToApi(registration) {

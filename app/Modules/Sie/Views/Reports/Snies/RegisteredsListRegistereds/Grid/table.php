@@ -189,7 +189,6 @@ foreach ($statuses["data"] as $status) {
     $code .= "<td class='text-end'><a href=\"/sie/students/view/{$registration_registration}\" target=\"_blank\">{$identification_number}</a></td>\n";
 
 
-
     $code .= "<td class='text-left text-nowrap'>" . @$name[0] . "</td>\n";
     $code .= "<td class='text-left text-nowrap'>" . @$name[1] . "</td>\n";
     $code .= "<td class='text-left text-nowrap'>" . @$lastname[0] . "</td>\n";

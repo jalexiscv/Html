@@ -88,7 +88,7 @@ foreach ($statuses as $status) {
     $count++;
     $code .= "<tr>\n";
     // procesos
-    $registration = $mregistrations->get_Registration($status['registration']);
+    $registration = $mregistrations->getRegistration($status['registration']);
     $period = @$status['period'];
     $year = safe_substr($period, 0, 4);
     $period_literal = safe_substr($period, 4, 1);
@@ -116,7 +116,7 @@ foreach ($statuses as $status) {
     $SNP_SABER_PRO = @$registration['ek'];
     $NUM_ACTA_GRADO = safe_strtoupper(@$status["degree_certificate"]);
     $FECHA_GRADO = @$status["degree_date"];
-    $NUM_FOLIO =  safe_strtoupper(@$status["degree_folio"]);
+    $NUM_FOLIO = safe_strtoupper(@$status["degree_folio"]);
 
 
     // bulding columns

@@ -1,0 +1,38 @@
+name: Test Suite
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ "8.0", "8.1", "8.2", "8.3" ]
+        extensions: [ "" ]
+        tools: [ "" ]
+        include:
+          - php: "8.0"
+            extensions: "protobuf-3.12.2,grpc"
+            tools: "pecl"
+          - php: "8.3"
+            extensions: "protobuf-3.12.2,grpc"
+            tools: "pecl"
+    name: "PHP ${{ matrix.php }} Unit Test ${{ matrix.extensions }}"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: codecov/codecov-action@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: ${{ matrix.tools }}
+          extensions: ${{ matrix.extensions }}
+      - name: Install composer dependencies
+        uses: nick-invision/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: composer install
+      - name: Run script
+        run: vendor/bin/phpunit

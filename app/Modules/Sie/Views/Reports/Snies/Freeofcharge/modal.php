@@ -29,7 +29,8 @@
                         <div class="mb-3">
                             <div class="mb-3">
                                 <div class="alert alert-primary" role="alert">
-                                    Este reporte solo incluye estudiantes <b>matriculados</b>, <b>matriculados antiguos</b>, en el periodo académico indicado.
+                                    Este reporte solo incluye estudiantes <b>matriculados</b>, <b>matriculados
+                                        antiguos</b>, en el periodo académico indicado.
                                 </div>
                             </div>
                         </div>

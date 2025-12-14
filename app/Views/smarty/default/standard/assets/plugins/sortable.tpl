@@ -1,0 +1,1 @@
+<script type="text/javascript" src="{base_url("themes/default/node_modules/sortablejs/Sortable.js")}"></script>

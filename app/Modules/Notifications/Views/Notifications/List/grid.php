@@ -83,19 +83,19 @@ $bgrid->set_Class("P-0 m-0");
 $bgrid->set_Limits(array(10, 20, 40, 80, 160, 320, 640, 1200, 2400));
 $bgrid->set_Headers(array(
     array("content" => "#", "class" => "text-center	align-middle"),
-    //array("content" => lang("App.notification"), "class" => "text-center	align-middle"),
-    //array("content" => lang("App.user"), "class" => "text-center	align-middle"),
-    //array("content" => lang("App.recipient_email"), "class" => "text-center	align-middle"),
-    //array("content" => lang("App.recipient_phone"), "class" => "text-center	align-middle"),
+    array("content" => lang("App.Notification"), "class" => "text-center	align-middle"),
+    array("content" => lang("App.User"), "class" => "text-center	align-middle"),
+    array("content" => lang("App.Email"), "class" => "text-center	align-middle"),
+    array("content" => lang("App.Phone"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.type"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.category"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.priority"), "class" => "text-center	align-middle"),
-    //array("content" => lang("App.subject"), "class" => "text-center	align-middle"),
+    array("content" => lang("App.Subject"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.message"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.data"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.is_read"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.read_at"), "class" => "text-center	align-middle"),
-    //array("content" => lang("App.email_sent"), "class" => "text-center	align-middle"),
+    //array("content" => lang("App.Email"), "class" => "text-start	align-middle"),
     //array("content" => lang("App.email_sent_at"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.email_error"), "class" => "text-center	align-middle"),
     //array("content" => lang("App.sms_sent"), "class" => "text-center	align-middle"),
@@ -121,21 +121,23 @@ foreach ($rows["data"] as $row) {
         $hrefDelete = "$component/delete/{$row["notification"]}";
         //[buttons]-----------------------------------------------------------------------------------------------------
         $btnView = $bootstrap->get_Link("btn-view", array("size" => "sm", "icon" => ICON_VIEW, "title" => lang("App.View"), "href" => $hrefView, "class" => "btn-primary ml-1",));
+        $btnSend= $bootstrap->get_Link("btn-send", array("size" => "sm", "icon" => ICON_SEND, "title" => lang("App.View"), "href" => $hrefView, "class" => "btn-secondary ml-1",));
+
         $btnEdit = $bootstrap->get_Link("btn-edit", array("size" => "sm", "icon" => ICON_EDIT, "title" => lang("App.Edit"), "href" => $hrefEdit, "class" => "btn-warning ml-1",));
         $btnDelete = $bootstrap->get_Link("btn-delete", array("size" => "sm", "icon" => ICON_DELETE, "title" => lang("App.Delete"), "href" => $hrefDelete, "class" => "btn-danger ml-1",));
-        $options = $bootstrap->get_BtnGroup("btn-group", array("content" => $btnView . $btnEdit . $btnDelete));
+        $options = $bootstrap->get_BtnGroup("btn-group", array("content" => $btnView.$btnSend));
         //[etc]---------------------------------------------------------------------------------------------------------
         $bgrid->add_Row(
             array(
                 array("content" => $count, "class" => "text-center align-middle"),
-                //array("content" => $row['notification'], "class" => "text-left align-middle"),
-                //array("content" => $row['user'], "class" => "text-left align-middle"),
-                //array("content" => $row['recipient_email'], "class" => "text-left align-middle"),
-                //array("content" => $row['recipient_phone'], "class" => "text-left align-middle"),
+                array("content" => $row['notification'], "class" => "text-left align-middle"),
+                array("content" => $row['user'], "class" => "text-left align-middle"),
+                array("content" => $row['recipient_email'], "class" => "text-left align-middle"),
+                array("content" => $row['recipient_phone'], "class" => "text-left align-middle"),
                 //array("content" => $row['type'], "class" => "text-left align-middle"),
                 //array("content" => $row['category'], "class" => "text-left align-middle"),
                 //array("content" => $row['priority'], "class" => "text-left align-middle"),
-                //array("content" => $row['subject'], "class" => "text-left align-middle"),
+                array("content" => $row['subject'], "class" => "text-left align-middle"),
                 //array("content" => $row['message'], "class" => "text-left align-middle"),
                 //array("content" => $row['data'], "class" => "text-left align-middle"),
                 //array("content" => $row['is_read'], "class" => "text-left align-middle"),
@@ -159,10 +161,15 @@ foreach ($rows["data"] as $row) {
 }
 //[build]---------------------------------------------------------------------------------------------------------------
 $card = $bootstrap->get_Card2("card-grid", array(
-    "header-title" => lang('Notifications.list-title'),
+    "header-title" => lang('Notifications_Notifications.list-title'),
     "header-back" => $back,
-    "header-add" => "/notifications/notifications/create/" . lpk(),
-    "alert" => array("icon" => ICON_INFO, "type" => "info", "title" => lang('Notifications.list-title'), "message" => lang('Notifications.list-description')),
+    "header-add" => "/notifications/me/create/" . lpk(),
+    "alert" => array(
+        "icon" => ICON_INFO,
+        "type" => "info",
+        "title" => lang('Notifications_Notifications.list-title'),
+        "message" => lang('Notifications_Notifications.list-description')
+    ),
     "content" => $bgrid,
 ));
 echo($card);

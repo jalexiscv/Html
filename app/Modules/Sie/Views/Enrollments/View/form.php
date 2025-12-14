@@ -51,12 +51,12 @@ $mversions = model("App\Modules\Sie\Models\Sie_Versions");
 $mheadquarters = model("App\Modules\Sie\Models\Sie_Headquarters");
 //[vars]----------------------------------------------------------------------------------------------------------------
 $row = $menrollments->get_Enrollment($oid);
-$registration = $mregistrations->get_Registration($row["student"]);
+$registration = $mregistrations->getRegistration($row["registration"]);
 $program = $mprograms->getProgram($registration["program"]);
 $grid = $mgrids->get_GridByProgram(@$program["program"]);
 $version = $mversions->get_Active(@$grid["grid"]);
 $r["enrollment"] = $f->get_Value("enrollment", @$row["enrollment"]);
-$r["student"] = $f->get_Value("student", $row["student"]);
+$r["registration"] = $f->get_Value("registration", $row["registration"]);
 $r["student_name"] = $f->get_Value("student_name", $registration["first_name"] . " " . $registration["second_name"] . " " . $registration["first_surname"] . " " . $registration["second_surname"]);
 $r["program"] = $f->get_Value("program", $row["program"]);
 $r["program_name"] = $f->get_Value("program_name", @$program["name"]);
@@ -81,13 +81,13 @@ $r["deleted_at"] = $f->get_Value("deleted_at", $row["deleted_at"]);
 $grids = $mgrids->get_SelectData($r["program"]);
 $versions = $mversions->get_SelectData($r["grid"]);
 $headquarters = $mheadquarters->get_SelectData();
-$back ="/sie/students/view/{$r['student']}#enrollments";
+$back = "/sie/students/view/{$r['registration']}#enrollments";
 
 $r['renewal'] = empty($r['renewal']) ? service("dates")::get_Date() : $r['renewal'];
 //[fields]----------------------------------------------------------------------------------------------------------------
 $f->add_HiddenField("back", $back);
 $f->fields["enrollment"] = $f->get_FieldText("enrollment", array("value" => $r["enrollment"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
-$f->fields["student"] = $f->get_FieldText("student", array("value" => $r["student"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
+$f->fields["registration"] = $f->get_FieldText("registration", array("value" => $r["registration"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
 $f->fields["student_name"] = $f->get_FieldText("student_name", array("value" => $r["student_name"], "proportion" => "col-12", "readonly" => true));
 $f->fields["program"] = $f->get_FieldText("program", array("value" => $r["program"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
 $f->fields["program_name"] = $f->get_FieldText("program_name", array("value" => $r["program_name"], "proportion" => "col-12 disabled", "readonly" => true));
@@ -100,7 +100,7 @@ $f->fields["observation"] = $f->get_FieldTextArea("observation", array("value" =
 $f->fields["headquarter"] = $f->get_FieldSelect("headquarter", array("selected" => $r["headquarter"], "data" => $headquarters, "proportion" => "col-md-6 col-sm-12 col-12", "readonly" => true));
 $f->fields["journey"] = $f->get_FieldSelect("journey", array("selected" => $r["journey"], "data" => LIST_JOURNEYS, "proportion" => "col-md-6 col-sm-12 col-12", "readonly" => true));
 $f->fields["linkage_type"] = $f->get_FieldSelect("linkage_type", array("selected" => $r["linkage_type"], "data" => LIST_LINKAGE_TYPES, "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
-$f->fields["date"] = $f->get_FieldText("date", array("value" => $r["date"], "proportion" => "col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12","readonly"=>true));
+$f->fields["date"] = $f->get_FieldText("date", array("value" => $r["date"], "proportion" => "col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12", "readonly" => true));
 $f->fields["renewal"] = $f->get_FieldDate("renewal", array("value" => $r["renewal"], "proportion" => "col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12", "readonly" => true));
 $f->fields["time"] = $f->get_FieldText("time", array("value" => $r["time"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
 $f->fields["period"] = $f->get_FieldSelect("period", array("selected" => $r["period"], "data" => LIST_PERIODS, "proportion" => "col-md-3 col-sm-12 col-12", "readonly" => true));
@@ -114,24 +114,24 @@ $f->fields["deleted_at"] = $f->get_FieldText("deleted_at", array("value" => $r["
 $f->fields["cancel"] = $f->get_Cancel("cancel", array("href" => $back, "text" => lang("App.Cancel"), "type" => "secondary", "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-right"));
 $f->fields["submit"] = $f->get_Submit("submit", array("value" => lang("App.Enroll"), "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-left"));
 //[groups]----------------------------------------------------------------------------------------------------------------
-$f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["enrollment"] . $f->fields["student"] . $f->fields["program"])));
+$f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["enrollment"] . $f->fields["registration"] . $f->fields["program"])));
 $f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["student_name"])));
 $f->groups["g3"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["program_name"])));
 $f->groups["g4"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["grid"] . $f->fields["version"])));
 $f->groups["g5"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["linkage_type"] . $f->fields["cycle"] . $f->fields["moment"])));
 $f->groups["g6"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["headquarter"] . $f->fields["journey"])));
-$f->groups["g8"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["date"] . $f->fields["renewal"] . $f->fields["period"]).$f->fields["status"]));
+$f->groups["g8"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["date"] . $f->fields["renewal"] . $f->fields["period"]) . $f->fields["status"]));
 $f->groups["g9"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["observation"])));
 //[buttons]-------------------------------------------------------------------------------------------------------------
 //$f->groups["gy"] = $f->get_GroupSeparator();
 //$f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["submit"] . $f->fields["cancel"]));
 //[build]---------------------------------------------------------------------------------------------------------------
 $card = $bootstrap->get_Card2("create", array(
-    "header-title" => sprintf(lang("Sie_Enrollments.view-title"),$oid),
-    "content" => $f,
-    "header-back" => $back,
-    "header-edit" => "/sie/enrollments/edit/{$oid}",
-    "header-delete" => "/sie/enrollments/delete/{$oid}",
+        "header-title" => sprintf(lang("Sie_Enrollments.view-title"), $oid),
+        "content" => $f,
+        "header-back" => $back,
+        "header-edit" => "/sie/enrollments/edit/{$oid}",
+        "header-delete" => "/sie/enrollments/delete/{$oid}",
 ));
 echo($card);
 $fidgrid = $f->get_FieldId("grid");

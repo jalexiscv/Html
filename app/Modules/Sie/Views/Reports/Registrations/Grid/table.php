@@ -28,7 +28,7 @@ $status = "REGISTERED";
 
 if (!empty($program) && $program != "ALL") {
     $statuses = $mstatuses
-        ->select('sie_statuses.*, sie_registrations.*, sie_registrations.created_at AS created')
+        ->select('sie_statuses.*,sie_statuses.period AS status_period, sie_registrations.*, sie_registrations.created_at AS created')
         ->join('sie_registrations', 'sie_statuses.registration = sie_registrations.registration')
         ->where('sie_statuses.period', $period)
         ->where('sie_statuses.reference', $status)
@@ -38,7 +38,7 @@ if (!empty($program) && $program != "ALL") {
         ->findAll();
 } else {
     $statuses = $mstatuses
-        ->select('sie_statuses.*, sie_registrations.*, sie_registrations.created_at AS created')
+        ->select('sie_statuses.*,,sie_statuses.period AS status_period, sie_registrations.*, sie_registrations.created_at AS created')
         ->join('sie_registrations', 'sie_statuses.registration = sie_registrations.registration')
         ->where('sie_statuses.period', $period)
         ->where('sie_statuses.reference', $status)
@@ -134,7 +134,7 @@ foreach ($statuses as $status) {
     }
     $program = $mprograms->getProgram($status['program']);
     $age = $dates->get_Age(@$status['birth_date']);
-    $year = safe_substr(@$status['period'], 0, 4);
+    $year = safe_substr(@$status['status_period'], 0, 4);
     $period = safe_substr(@$status['period'], 4, 1);
 
     $eps = @$status['eps'];

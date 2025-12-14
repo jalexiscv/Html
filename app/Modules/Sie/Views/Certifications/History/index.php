@@ -22,13 +22,13 @@ $mprograms = model('App\Modules\Sie\Models\Sie_Programs');
 $mprogress = model('App\Modules\Sie\Models\Sie_Progress');
 $mregistrations = model('App\Modules\Sie\Models\Sie_Registrations');
 $mexecutions = model('App\Modules\Sie\Models\Sie_Executions');
-
+//[vars]----------------------------------------------------------------------------------------------------------------
 $periodo_actual = date("Y") . (date("n") <= 6 ? "A" : "B");
 
 // Obtener datos de matrícula y estudiante
 $enrollment_data = $menrollments->get_Enrollment($enrollment);
 $program = $mprograms->getProgram($enrollment_data["program"]);
-$registration = $mregistrations->get_Registration($enrollment_data["student"]);
+$registration = $mregistrations->getRegistration($enrollment_data["registration"]);
 $registration_registration = @$registration["registration"];
 $enrollment_enrollment = @$enrollment_data["enrollment"];
 $fullname = @$registration["first_name"] . " " . @$registration["second_name"] . " " . @$registration["first_surname"] . " " . @$registration["second_surname"];
@@ -36,11 +36,16 @@ $identification_number = @$registration["identification_number"];
 $program_name = $program["name"];
 
 // Obtener todos los períodos para esta matrícula
-$periods = $mexecutions->getPeriodsByEnrollment($enrollment);
+$periods = $mexecutions->getPeriodsByEnrollment2($enrollment);
 
 if (empty($periods)) {
     die("Error: No se encontraron períodos para esta matrícula");
 }
+//echo(safe_dump($periods));
+//exit();
+
+
+
 
 try {
     // Datos del estudiante para el template
@@ -63,7 +68,7 @@ try {
         $period = $period_info["period_curso"];
 
         // Obtener las ejecuciones para este período
-        $executions = $mexecutions->get_ExecutionsByPeriodByEnrollment($registration_registration, $period, $enrollment_enrollment);
+        $executions = $mexecutions->get_ExecutionsByPeriodByEnrollment5($registration_registration, $period, $enrollment_enrollment);
 
         if (empty($executions)) {
             continue; // Saltar períodos sin ejecuciones
@@ -82,7 +87,9 @@ try {
 
             // Lógica de estado: Aprobado si nota final >= 80.0 (base 100)
             // Si es el período actual y la nota es < 80.0, marcar como "En Curso" en lugar de "Reprobado"
-            if ($total >= 80.0) {
+            if($execution['status']=="HOMOLOGATION"){
+                $estado = 'Homologado';
+            }elseif ($total >= 80.0) {
                 $estado = 'Aprobado';
             } elseif ($period === $periodo_actual) {
                 $estado = 'En Curso';
@@ -97,9 +104,11 @@ try {
             $definitiva = $total > 0 ? number_format($total, 1) : '0.0';
             $credits = intval($execution['credits'] ?? 3);
 
+            $type = ($execution['type'] == "imported") ? " - Importado" : "";
+
             $gradeData = [
                 'execution' => $execution['execution'], // Código de la ejecución
-                'modulo' => $execution['name_module'], // Nombre del módulo
+                'modulo' => $execution['name_module'] . " {$type} ", // Nombre del módulo
                 'nivel' => 'Ciclo ' . $execution['cycle'], // Ciclo real desde pensum
                 'estado' => $estado,
                 'primera' => $primera,
@@ -139,7 +148,7 @@ try {
     }
 
     // Ruta de la plantilla (usar la misma que certificado de notas)
-    $templatePath = PUBLICPATH . 'formats/certificado-historial-academico.docx';
+    $templatePath = PUBLICPATH . 'formats/certificado-historial-academico-v2.docx';
 
     // Verificar que la plantilla existe
     if (!file_exists($templatePath)) {
@@ -561,6 +570,10 @@ try {
                     $estadoFontStyle['color'] = '008000'; // Verde
                     $estadoFontStyle['bold'] = true;
                     $periodApprovedCredits += (float)$grade['creditos'];
+                }elseif(strtolower($grade['estado']) == 'homologado') {
+                    $estadoFontStyle['color'] = '008000'; // Verde
+                    $estadoFontStyle['bold'] = true;
+                    $periodApprovedCredits += (float)$grade['creditos'];
                 } elseif (strtolower($grade['estado']) == 'reprobado') {
                     $estadoFontStyle['color'] = 'CC0000'; // Rojo
                     $estadoFontStyle['bold'] = true;
@@ -792,6 +805,7 @@ if (!file_exists($outputPath)) {
 }
 
 // Configurar headers para descarga
+
 header('Content-Description: File Transfer');
 header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 header('Content-Disposition: attachment; filename="' . $filename . '"');

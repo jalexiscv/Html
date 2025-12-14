@@ -1,0 +1,307 @@
+<?php
+
+namespace Higgs\Debug;
+
+use Higgs\API\ResponseTrait;
+use Higgs\Exceptions\HasExitCodeInterface;
+use Higgs\Exceptions\HTTPExceptionInterface;
+use Higgs\Exceptions\PageNotFoundException;
+use Higgs\HTTP\CLIRequest;
+use Higgs\HTTP\Exceptions\HTTPException;
+use Higgs\HTTP\IncomingRequest;
+use Higgs\HTTP\ResponseInterface;
+use Config\Exceptions as ExceptionsConfig;
+use Config\Paths;
+use ErrorException;
+use Psr\Log\LogLevel;
+use Throwable;
+
+#[AllowDynamicProperties] class Exceptions
+{
+    use ResponseTrait;
+
+    public $ob_level;
+    protected $viewPath;
+    protected $config;
+    protected $request;
+    protected $response;
+
+    public function __construct(ExceptionsConfig $config, $request, ResponseInterface $response)
+    {
+        $this->ob_level = ob_get_level();
+        $this->viewPath = rtrim($config->errorViewPath, '\\/ ') . DIRECTORY_SEPARATOR;
+        $this->config = $config;
+        $this->request = $request;
+        $this->response = $response;
+        if (!isset($this->config->sensitiveDataInTrace)) {
+            $this->config->sensitiveDataInTrace = [];
+        }
+        if (!isset($this->config->logDeprecations, $this->config->deprecationLogLevel)) {
+        }
+    }
+
+    public static function cleanPath(string $file): string
+    {
+        switch (true) {
+            case strpos($file, APPPATH) === 0:
+                $file = 'APPPATH' . DIRECTORY_SEPARATOR . substr($file, strlen(APPPATH));
+                break;
+            case strpos($file, SYSTEMPATH) === 0:
+                $file = 'SYSTEMPATH' . DIRECTORY_SEPARATOR . substr($file, strlen(SYSTEMPATH));
+                break;
+            case strpos($file, FCPATH) === 0:
+                $file = 'FCPATH' . DIRECTORY_SEPARATOR . substr($file, strlen(FCPATH));
+                break;
+            case defined('VENDORPATH') && strpos($file, VENDORPATH) === 0:
+                $file = 'VENDORPATH' . DIRECTORY_SEPARATOR . substr($file, strlen(VENDORPATH));
+                break;
+        }
+        return $file;
+    }
+
+    public static function describeMemory(int $bytes): string
+    {
+        if ($bytes < 1024) {
+            return $bytes . 'B';
+        }
+        if ($bytes < 1_048_576) {
+            return round($bytes / 1024, 2) . 'KB';
+        }
+        return round($bytes / 1_048_576, 2) . 'MB';
+    }
+
+    public static function highlightFile(string $file, int $lineNumber, int $lines = 15)
+    {
+        if (empty($file) || !is_readable($file)) {
+            return false;
+        }
+        if (function_exists('ini_set')) {
+            ini_set('highlight.comment', '#767a7e; font-style: italic');
+            ini_set('highlight.default', '#c7c7c7');
+            ini_set('highlight.html', '#06B');
+            ini_set('highlight.keyword', '#f1ce61;');
+            ini_set('highlight.string', '#869d6a');
+        }
+        try {
+            $source = file_get_contents($file);
+        } catch (Throwable $e) {
+            return false;
+        }
+        $source = str_replace(["\r\n", "\r"], "\n", $source);
+        $source = explode("\n", highlight_string($source, true));
+        $source = str_replace('<br />', "\n", $source[1]);
+        $source = explode("\n", str_replace("\r\n", "\n", $source));
+        $start = max($lineNumber - (int)round($lines / 2), 0);
+        $source = array_splice($source, $start, $lines, true);
+        $format = '% ' . strlen((string)($start + $lines)) . 'd';
+        $out = '';
+        $spans = 1;
+        foreach ($source as $n => $row) {
+            $spans += substr_count($row, '<span') - substr_count($row, '</span');
+            $row = str_replace(["\r", "\n"], ['', ''], $row);
+            if (($n + $start + 1) === $lineNumber) {
+                preg_match_all('#<[^>]+>#', $row, $tags);
+                $out .= sprintf("<span class='line highlight'><span class='number'>{$format}</span> %s\n</span>%s", $n + $start + 1, strip_tags($row), implode('', $tags[0]));
+            } else {
+                $out .= sprintf('<span class="line"><span class="number">' . $format . '</span> %s', $n + $start + 1, $row) . "\n";
+            }
+        }
+        if ($spans > 0) {
+            $out .= str_repeat('</span>', $spans);
+        }
+        return '<pre><code>' . $out . '</code></pre>';
+    }
+
+    public function initialize()
+    {
+        set_exception_handler([$this, 'exceptionHandler']);
+        set_error_handler([$this, 'errorHandler']);
+        register_shutdown_function([$this, 'shutdownHandler']);
+    }
+
+    public function errorHandler(int $severity, string $message, ?string $file = null, ?int $line = null)
+    {
+        if ($this->isDeprecationError($severity)) {
+            if (!$this->config->logDeprecations || (bool)env('Anssible_SCREAM_DEPRECATIONS')) {
+                throw new ErrorException($message, 0, $severity, $file, $line);
+            }
+            return $this->handleDeprecationError($message, $file, $line);
+        }
+        if (error_reporting() & $severity) {
+            throw new ErrorException($message, 0, $severity, $file, $line);
+        }
+        return false;
+    }
+
+    private function isDeprecationError(int $error): bool
+    {
+        $deprecations = E_DEPRECATED | E_USER_DEPRECATED;
+        return ($error & $deprecations) !== 0;
+    }
+
+    private function handleDeprecationError(string $message, ?string $file = null, ?int $line = null): bool
+    {
+        $trace = array_slice(debug_backtrace(), 2);
+        log_message($this->config->deprecationLogLevel, "[DEPRECATED] {message} in {errFile} on line {errLine}.\n{trace}", ['message' => $message, 'errFile' => clean_path($file ?? ''), 'errLine' => $line ?? 0, 'trace' => self::renderBacktrace($trace),]);
+        return true;
+    }
+
+    private static function renderBacktrace(array $backtrace): string
+    {
+        $backtraces = [];
+        foreach ($backtrace as $index => $trace) {
+            $frame = $trace + ['file' => '[internal function]', 'line' => '', 'class' => '', 'type' => '', 'args' => []];
+            if ($frame['file'] !== '[internal function]') {
+                $frame['file'] = sprintf('%s(%s)', $frame['file'], $frame['line']);
+            }
+            unset($frame['line']);
+            $idx = $index;
+            $idx = str_pad((string)++$idx, 2, ' ', STR_PAD_LEFT);
+            $args = implode(', ', array_map(static function ($value): string {
+                switch (true) {
+                    case is_object($value):
+                        return sprintf('Object(%s)', get_class($value));
+                    case is_array($value):
+                        return $value !== [] ? '[...]' : '[]';
+                    case $value === null:
+                        return 'null';
+                    case is_resource($value):
+                        return sprintf('resource (%s)', get_resource_type($value));
+                    case is_string($value):
+                        return var_export(clean_path($value), true);
+                    default:
+                        return var_export($value, true);
+                }
+            }, $frame['args']));
+            $backtraces[] = sprintf('%s %s: %s%s%s(%s)', $idx, clean_path($frame['file']), $frame['class'], $frame['type'], $frame['function'], $args);
+        }
+        return implode("\n", $backtraces);
+    }
+
+    public function shutdownHandler()
+    {
+        $error = error_get_last();
+        if ($error === null) {
+            return;
+        }
+        ['type' => $type, 'message' => $message, 'file' => $file, 'line' => $line] = $error;
+        if (in_array($type, [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE], true)) {
+            $this->exceptionHandler(new ErrorException($message, 0, $type, $file, $line));
+        }
+    }
+
+    public function exceptionHandler(Throwable $exception)
+    {
+        [$statusCode, $exitCode] = $this->determineCodes($exception);
+        if ($this->config->log === true && !in_array($statusCode, $this->config->ignoreCodes, true)) {
+            log_message('critical', "{message}\nin {exFile} on line {exLine}.\n{trace}", ['message' => $exception->getMessage(), 'exFile' => clean_path($exception->getFile()), 'exLine' => $exception->getLine(), 'trace' => self::renderBacktrace($exception->getTrace()),]);
+        }
+        if (!is_cli()) {
+            try {
+                $this->response->setStatusCode($statusCode);
+            } catch (HTTPException $e) {
+                $statusCode = 500;
+                $this->response->setStatusCode($statusCode);
+            }
+            if (!headers_sent()) {
+                header(sprintf('HTTP/%s %s %s', $this->request->getProtocolVersion(), $this->response->getStatusCode(), $this->response->getReasonPhrase()), true, $statusCode);
+            }
+            if (strpos($this->request->getHeaderLine('accept'), 'text/html') === false) {
+                $this->respond(ENVIRONMENT === 'development' ? $this->collectVars($exception, $statusCode) : '', $statusCode)->send();
+                exit($exitCode);
+            }
+        }
+        $this->render($exception, $statusCode);
+        exit($exitCode);
+    }
+
+    protected function determineCodes(Throwable $exception): array
+    {
+        $statusCode = 500;
+        $exitStatus = EXIT_ERROR;
+        if ($exception instanceof HTTPExceptionInterface) {
+            $statusCode = $exception->getCode();
+        }
+        if ($exception instanceof HasExitCodeInterface) {
+            $exitStatus = $exception->getExitCode();
+        }
+        return [$statusCode, $exitStatus];
+    }
+
+    protected function collectVars(Throwable $exception, int $statusCode): array
+    {
+        $trace = $exception->getTrace();
+        if ($this->config->sensitiveDataInTrace !== []) {
+            $this->maskSensitiveData($trace, $this->config->sensitiveDataInTrace);
+        }
+        return ['title' => get_class($exception), 'type' => get_class($exception), 'code' => $statusCode, 'message' => $exception->getMessage(), 'file' => $exception->getFile(), 'line' => $exception->getLine(), 'trace' => $trace,];
+    }
+
+    protected function maskSensitiveData(&$trace, array $keysToMask, string $path = '')
+    {
+        foreach ($keysToMask as $keyToMask) {
+            $explode = explode('/', $keyToMask);
+            $index = end($explode);
+            if (strpos(strrev($path . '/' . $index), strrev($keyToMask)) === 0) {
+                if (is_array($trace) && array_key_exists($index, $trace)) {
+                    $trace[$index] = '******************';
+                } elseif (is_object($trace) && property_exists($trace, $index) && isset($trace->{$index})) {
+                    $trace->{$index} = '******************';
+                }
+            }
+        }
+        if (is_object($trace)) {
+            $trace = get_object_vars($trace);
+        }
+        if (is_array($trace)) {
+            foreach ($trace as $pathKey => $subarray) {
+                $this->maskSensitiveData($subarray, $keysToMask, $path . '/' . $pathKey);
+            }
+        }
+    }
+
+    protected function render(Throwable $exception, int $statusCode)
+    {
+        $path = $this->viewPath;
+        $altPath = rtrim((new Paths())->viewDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'errors' . DIRECTORY_SEPARATOR;
+        $path .= (is_cli() ? 'cli' : 'html') . DIRECTORY_SEPARATOR;
+        $altPath .= (is_cli() ? 'cli' : 'html') . DIRECTORY_SEPARATOR;
+        $view = $this->determineView($exception, $path);
+        $altView = $this->determineView($exception, $altPath);
+        if (is_file($path . $view)) {
+            $viewFile = $path . $view;
+        } elseif (is_file($altPath . $altView)) {
+            $viewFile = $altPath . $altView;
+        }
+        if (!isset($viewFile)) {
+            echo 'The error view files were not found. Cannot render exception trace.';
+            exit(1);
+        }
+        if (ob_get_level() > $this->ob_level + 1) {
+            ob_end_clean();
+        }
+        echo (function () use ($exception, $statusCode, $viewFile): string {
+            $vars = $this->collectVars($exception, $statusCode);
+            extract($vars, EXTR_SKIP);
+            ob_start();
+            include $viewFile;
+            return ob_get_clean();
+        })();
+    }
+
+    protected function determineView(Throwable $exception, string $templatePath): string
+    {
+        $view = 'production.php';
+        $templatePath = rtrim($templatePath, '\\/ ') . DIRECTORY_SEPARATOR;
+        if (str_ireplace(['off', 'none', 'no', 'false', 'null'], '', ini_get('display_errors'))) {
+            $view = 'error_exception.php';
+        }
+        if ($exception instanceof PageNotFoundException) {
+            return 'error_404.php';
+        }
+        if (is_file($templatePath . 'error_' . $exception->getCode() . '.php')) {
+            return 'error_' . $exception->getCode() . '.php';
+        }
+        return $view;
+    }
+}

@@ -26,7 +26,7 @@ if (!function_exists("generate_notifications_permissions")) {
 }
 
 if (!function_exists("get_notifications_sidebar")) {
-    function get_notifications_sidebar($active_url = false): string
+    function get_notifications_sidebar($active_url = false)
     {
         $bootstrap = service("bootstrap");
         $lpk = safe_strtolower(pk());
@@ -35,7 +35,7 @@ if (!function_exists("get_notifications_sidebar")) {
             "settings" => array("text" => lang("App.Settings"), "href" => "/notifications/settings/home/" . lpk(), "icon" => ICON_TOOLS, "permission" => "notifications-access"),
         );
         $o = get_application_custom_sidebar($options, $active_url);
-        $return = $bootstrap->get_NavPills($o, $active_url);
+        $return = $bootstrap->get_NavPillsGamma($o, $active_url);
         return ($return);
     }
 }

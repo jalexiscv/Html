@@ -35,9 +35,9 @@ generate_notifications_permissions($module);
 $bootstrap = service("bootstrap");
 $server = service("server");
 $version = round(($server->get_DirectorySize(APPPATH . 'Modules/Notifications') / 102400), 6);
-$card = $bootstrap->get_Card("card-view-Notifications", array(
+$card = $bootstrap->get_Card2("card-view-Notifications", array(
     "class" => "mb-3",
-    "title" => lang("Notifications.module") . "<span class='text-muted'>v{$version}</span>",
+    "header-title" => lang("Notifications.module") . " <span class='text-muted'>v{$version}</span>",
     "header-back" => "/",
     "image" => "/themes/assets/images/header/module-notifications.png",
     "image-class" => "img-fluid p-3",
@@ -47,8 +47,8 @@ echo($card);
 
 if ($authentication->get_LoggedIn() && $authentication->has_Permission("notifications-access")) {
     $shortcuts = $bootstrap->get_Shortcuts(array("id" => "shortcuts-panel"));
-    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/#" . lpk(), "icon" => ICON_TOOLS, "value" => "Tool #1", "description" => "Herramienta")));
-    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/#" . lpk(), "icon" => ICON_TOOLS, "value" => "Tool #2", "description" => "Herramienta")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/notifications/me/list/".lpk() . lpk(), "icon" => ICON_TOOLS, "value" => "Personales", "description" => "Listado")));
+    $shortcuts->add($bootstrap->get_Shortcut(array("href" => "/notifications/global/list/" . lpk(), "icon" => ICON_TOOLS, "value" => "Globales", "description" => "Listado")));
     echo($shortcuts);
 }
 ?>

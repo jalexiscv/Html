@@ -1,0 +1,212 @@
+/**
+ * Clase Excel
+ *
+ * Esta clase proporciona funcionalidades para convertir una tabla HTML en un archivo de Excel y descargarlo.
+ *
+ * Métodos:
+ * - Convert: Convierte una tabla HTML en un archivo de Excel y lo descarga.
+ * - Exec: Registra la ejecución con una marca de tiempo en la consola.
+ *
+ * @example
+ * const excel = new Excel();
+ * excel.Convert('tableId');
+ * excel.Exec(new Date().getTime());
+ */
+export function Excel() {
+
+    /**
+     * Convierte una tabla HTML en un archivo de Excel y lo descarga.
+     * Muestra un modal de Bootstrap con mensaje de espera durante el proceso.
+     *
+     * @param {string} element - El ID del elemento de la tabla HTML.
+     * @param {string} filename - El nombre del archivo a descargar sin extensión.
+     */
+    function Convert(element, filename = 'excel-download') {
+        let loadingElement = null;
+        let bootstrapModal = null;
+
+        // Verificar si Bootstrap está disponible
+        const bootstrapObj = (typeof bootstrap !== 'undefined') ? bootstrap : (window.bootstrap || null);
+        let useBootstrap = bootstrapObj !== null;
+
+        // Crear elemento de carga (modal o div simple)
+        if (useBootstrap) {
+            // Crear id único para el modal
+            const modalId = 'excelLoadingModal_' + new Date().getTime();
+
+            // Usar Bootstrap modal
+            const modalHTML = `
+            <div class="modal fade" id="${modalId}" tabindex="-1" aria-labelledby="${modalId}Label" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body text-center p-4">
+                            <div class="spinner-border text-primary mb-3" role="status">
+                                <span class="visually-hidden">Cargando...</span>
+                            </div>
+                            <p class="mb-0">Preparando el archivo Excel para descargar...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+            // Agregar el modal al DOM
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            loadingElement = document.getElementById(modalId);
+
+            // Esperar un momento para que el DOM se actualice antes de inicializar el modal
+            setTimeout(() => {
+                try {
+                    bootstrapModal = new bootstrapObj.Modal(loadingElement);
+                    bootstrapModal.show();
+                } catch (err) {
+                    console.warn('Error al inicializar modal Bootstrap:', err);
+                    useBootstrap = false;
+
+                    // Si falla Bootstrap, mostrar mensaje fallback
+                    if (!useBootstrap) {
+                        showFallbackMessage();
+                    }
+                }
+            }, 50);
+        } else {
+            showFallbackMessage();
+        }
+
+        // Función para mostrar mensaje de carga alternativo
+        function showFallbackMessage() {
+            // Eliminar modal Bootstrap si existe
+            if (loadingElement) {
+                document.body.removeChild(loadingElement);
+            }
+
+            loadingElement = document.createElement('div');
+            loadingElement.id = 'excel-loading-message';
+            loadingElement.style.position = 'fixed';
+            loadingElement.style.top = '50%';
+            loadingElement.style.left = '50%';
+            loadingElement.style.transform = 'translate(-50%, -50%)';
+            loadingElement.style.padding = '20px';
+            loadingElement.style.backgroundColor = '#ffffff';
+            loadingElement.style.border = '1px solid #cccccc';
+            loadingElement.style.borderRadius = '5px';
+            loadingElement.style.boxShadow = '0 0 10px rgba(0,0,0,0.2)';
+            loadingElement.style.zIndex = '9999';
+            loadingElement.innerHTML = '<div style="text-align:center;"><div class="spinner-border" style="width: 3rem; height: 3rem;"></div><p>Preparando el archivo Excel para descargar...</p></div>';
+            document.body.appendChild(loadingElement);
+        }
+
+        // Procesar la tabla
+        const table = document.getElementById(element);
+        const data = [];
+        for (let i = 0; i < table.rows.length; i++) {
+            const row = [];
+            for (let j = 0; j < table.rows[i].cells.length; j++) {
+                row.push(table.rows[i].cells[j].innerText);
+            }
+            data.push(row);
+        }
+
+        // Función para quitar el mensaje de carga
+        const removeLoadingMessage = () => {
+            if (useBootstrap && bootstrapModal) {
+                try {
+                    bootstrapModal.hide();
+                    setTimeout(() => {
+                        if (loadingElement && loadingElement.parentNode) {
+                            document.body.removeChild(loadingElement);
+                        }
+
+                        const backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop && backdrop.parentNode) {
+                            backdrop.parentNode.removeChild(backdrop);
+                        }
+
+                        document.body.classList.remove('modal-open');
+                    }, 300);
+                } catch (err) {
+                    console.warn('Error al ocultar modal:', err);
+                    if (loadingElement && document.body.contains(loadingElement)) {
+                        document.body.removeChild(loadingElement);
+                    }
+                }
+            } else if (loadingElement && document.body.contains(loadingElement)) {
+                document.body.removeChild(loadingElement);
+            }
+        };
+
+        fetch('/storage/api/excel/xls/download/test', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.blob())
+            .then(blob => {
+                // Quitar el mensaje de carga
+                removeLoadingMessage();
+
+                // Descargar el archivo
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename + '.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                removeLoadingMessage();
+            });
+    }
+
+
+    function ConvertOLD(element, filename) {
+        const table = document.getElementById(element);
+        const data = [];
+        for (let i = 0; i < table.rows.length; i++) {
+            const row = [];
+            for (let j = 0; j < table.rows[i].cells.length; j++) {
+                row.push(table.rows[i].cells[j].innerText);
+            }
+            data.push(row);
+        }
+
+        fetch('/sie/api/excel/xls/download/test', { // Cambia a la URL de tu script PHP
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.blob()) // Obtener la respuesta como un blob
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename + '.xlsx'; // Nombre del archivo
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    /**
+     * Registra la ejecución con una marca de tiempo en la consola.
+     *
+     * @param {number} timestamp - La marca de tiempo de la ejecución.
+     */
+    function Exec(timestamp) {
+        console.log('Excel Executed at: ' + timestamp);
+    }
+
+    return {
+        Convert: Convert,
+        Exec: Exec,
+    };
+}

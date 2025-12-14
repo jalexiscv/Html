@@ -85,7 +85,7 @@ class Moodle extends ModuleController
             echo(view('App\Modules\Sie\Views\Moodle\Courses\Clone\index'));
         } elseif ($option == "delete") {
             echo(view('App\Modules\Sie\Views\Moodle\Courses\Delete\index'));
-        }elseif($option=="synchronization"){
+        } elseif ($option == "synchronization") {
             echo(view('App\Modules\Sie\Views\Moodle\Courses\Synchronization\index'));
         } else {
             echo("Opcion de cursos no valida");
@@ -104,7 +104,7 @@ class Moodle extends ModuleController
             echo(view('App\Modules\Sie\Views\Moodle\Students\Delete\index'));
         } elseif ($option == "asign") {
             echo(view('App\Modules\Sie\Views\Moodle\Students\Asign\index'));
-        }elseif($option=="synchronization"){
+        } elseif ($option == "synchronization") {
             echo(view('App\Modules\Sie\Views\Moodle\Students\Synchronization\index'));
         } else {
             echo("Opcion de cursos no valida");
@@ -144,8 +144,6 @@ class Moodle extends ModuleController
     }
 
 
-
-
     public function synchronization(string $oid)
     {
         $this->oid = $oid;
@@ -153,9 +151,6 @@ class Moodle extends ModuleController
         $this->component = $this->views . '\Moodle\Users\Synchronization';
         return (view($this->viewer, $this->get_Array()));
     }
-
-
-
 
 
 }

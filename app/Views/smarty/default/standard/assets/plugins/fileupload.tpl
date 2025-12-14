@@ -1,0 +1,2 @@
+<script src="{base_url("themes/assets/javascripts/upload/js/jquery.fileupload.js")}" type="text/javascript"></script>
+<link href="{base_url("themes/assets/javascripts/upload/css/jquery.fileupload.css")}" rel="stylesheet" type="text/css"/>

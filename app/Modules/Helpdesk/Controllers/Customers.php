@@ -1,0 +1,150 @@
+<?php
+/*
+ * **
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ ░FRAMEWORK                                  2023-12-01 23:19:27
+ *  ** █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Account\Views\Processes\Creator\deny.php]
+ *  ** █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ *  ** █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+ *  ** █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+ *  ** █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+ *  ** █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+ *  ** █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+ *  ** █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+ *  ** █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+ *  ** █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+ *  ** █ @link https://www.codehiggs.com
+ *  ** █ @Version 1.5.0 @since PHP 7, PHP 8
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ Datos recibidos desde el controlador - @ModuleController
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  ** █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+ *  ** █ ---------------------------------------------------------------------------------------------------------------------
+ *  **
+ */
+
+namespace App\Modules\Helpdesk\Controllers;
+
+/**
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ ░FRAMEWORK                                  2023-10-09 15:33:43
+ * █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Helpdesk\Controllers\_Customers.php]
+ * █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ * █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+ * █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+ * █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+ * █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+ * █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+ * █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+ * █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+ * █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+ * █ @link https://www.codehiggs.com
+ * █ @Version 1.5.0 @since PHP 7, PHP 8
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ Datos recibidos desde el controlador - @ModuleController
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ **/
+
+use App\Controllers\ModuleController;
+
+class Customers extends ModuleController
+{
+
+    //[Helpdesk/Config/Routes]
+    //[Customers]
+    //$subroutes->add('customers', 'Customers::index');
+    //$subroutes->add('customers/home/(:any)', 'Customers::home/$1');
+    //$subroutes->add('customers/list/(:any)', 'Customers::list/$1');
+    //$subroutes->add('customers/create/(:any)', 'Customers::create/$1');
+    //$subroutes->add('customers/view/(:any)/', 'Customers::view/$1');
+    //$subroutes->add('customers/edit/(:any)/', 'Customers::edit/$1');
+    //$subroutes->add('customers/delete/(:any)/', 'Customers::delete/$1');
+    //$subroutes->add('api/customers/(:any)/(:any)/(:any)', 'Api::Customers/$1/$2/$3');
+    //[Helpdesk/Views/index]
+    //[Customers]
+    //"helpdesk-customers-home"=>component("{$views}\Customers\Home\index",$data),
+    //"helpdesk-customers-list"=>component("{$views}\Customers\List\index",$data),
+    //"helpdesk-customers-view"=>component("{$views}\Customers\View\index",$data),
+    //"helpdesk-customers-create"=>component("{$views}\Customers\Create\index",$data),
+    //"helpdesk-customers-edit"=>component("{$views}\Customers\Edit\index",$data),
+    //"helpdesk-customers-delete"=>component("{$views}\Customers\Delete\index",$data),
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->prefix = 'helpdesk-customers';
+        $this->module = 'App\Modules\Helpdesk';
+        $this->views = $this->module . '\Views';
+        $this->viewer = $this->views . '\index';
+        helper($this->module . '\Helpers\Helpdesk');
+    }
+
+    public function index()
+    {
+        $url = base_url('helpdesk/customers/home/' . lpk());
+        return (redirect()->to($url));
+    }
+
+
+    public function home(string $rnd)
+    {
+        $this->oid = $rnd;
+        $this->prefix = "{$this->prefix}-home";
+        $this->component = $this->views . '\Customers\Home';
+        return (view($this->viewer, $this->get_Array()));
+    }
+
+    public function view(string $oid)
+    {
+        $this->oid = $oid;
+        $this->prefix = "{$this->prefix}-view";
+        $this->component = $this->views . '\Customers\View';
+        return (view($this->viewer, $this->get_Array()));
+    }
+
+    public function list(string $rnd)
+    {
+        $this->oid = $rnd;
+        $this->prefix = "{$this->prefix}-list";
+        $this->component = $this->views . '\Customers\List';
+        return (view($this->viewer, $this->get_Array()));
+    }
+
+    public function create(string $rnd)
+    {
+        $this->oid = $rnd;
+        $this->prefix = "{$this->prefix}-create";
+        $this->component = $this->views . '\Customers\Create';
+        return (view($this->viewer, $this->get_Array()));
+    }
+
+    public function edit(string $oid)
+    {
+        $this->oid = $oid;
+        $this->prefix = "{$this->prefix}-edit";
+        $this->component = $this->views . '\Customers\Edit';
+        return (view($this->viewer, $this->get_Array()));
+    }
+
+    public function delete(string $oid)
+    {
+        $this->oid = $oid;
+        $this->prefix = "{$this->prefix}-delete";
+        $this->component = $this->views . '\Customers\Delete';
+        return (view($this->viewer, $this->get_Array()));
+    }
+
+
+}
+
+?>

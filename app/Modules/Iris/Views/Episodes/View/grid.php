@@ -36,6 +36,7 @@
  **/
 //[models]--------------------------------------------------------------------------------------------------------------
 $mstudies = model('App\Modules\Iris\Models\Iris_Studies');
+$mmstudies = model('App\Modules\Iris\Models\Iris_Mstudies');
 //[vars]----------------------------------------------------------------------------------------------------------------
 $back = "/iris";
 $offset = !empty($request->getVar("offset")) ? $request->getVar("offset") : 0;
@@ -98,6 +99,16 @@ foreach ($rows["data"] as $row) {
         $btnEdit = $bootstrap->get_Link("btn-edit", array("size" => "sm", "icon" => ICON_EDIT, "title" => lang("App.Edit"), "href" => $hrefEdit, "class" => "btn-warning ml-1",));
         $btnDelete = $bootstrap->get_Link("btn-delete", array("size" => "sm", "icon" => ICON_DELETE, "title" => lang("App.Delete"), "href" => $hrefDelete, "class" => "btn-danger ml-1",));
         $options = $bootstrap->get_BtnGroup("btn-group", array("content" => $btnView . $btnEdit . $btnDelete));
+
+        $study_type = $row['study_type'];
+        $mstudy_type = $mmstudies->getMstudy($study_type);
+        if (is_array($mstudy_type)) {
+            $study_type = $mstudy_type['short_name'];
+        }
+
+
+
+
         //[etc]---------------------------------------------------------------------------------------------------------
         $bgrid->add_Row(
             array(
@@ -105,7 +116,7 @@ foreach ($rows["data"] as $row) {
                 array("content" => $row['study'], "class" => "text-left align-middle"),
                 //array("content" => $row['episode'], "class" => "text-left align-middle"),
                 array("content" => $row['study_date'], "class" => "text-left align-middle"),
-                array("content" => lang("Iris.{$row['study_type']}"), "class" => "text-left align-middle"),
+                array("content" => $study_type, "class" => "text-left align-middle"),
                 array("content" => lang("Iris.{$row['status']}"), "class" => "text-left align-middle"),
                 //array("content" => $row['observations'], "class" => "text-left align-middle"),
                 //array("content" => $row['author'], "class" => "text-left align-middle"),

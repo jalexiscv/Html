@@ -64,8 +64,7 @@ $f->fields["cancel"] = $f->get_Cancel("cancel", array("href" => $back, "text" =>
 $f->fields["submit"] = $f->get_Submit("submit", array("value" => lang("App.Create"), "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-left"));
 //[groups]----------------------------------------------------------------------------------------------------------------
 $f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["sync"] . $f->fields["type"] . $f->fields["payload"])));
-$f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["status"] . $f->fields["result"] .)));
-$f->groups["g3"] = $f->get_Group(array("legend" => "", "fields" => ()));
+$f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["status"] . $f->fields["result"])));
 //[buttons]-------------------------------------------------------------------------------------------------------------
 $f->groups["gy"] = $f->get_GroupSeparator();
 $f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["submit"] . $f->fields["cancel"]));

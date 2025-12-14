@@ -3,7 +3,7 @@
 $strings = service("strings");
 // Configuración inicial para la API de Moodle
 $token = 'a99cf98a32a7bc899e0e9c45e4f50b8f'; // Deberías gestionar esto de forma más segura
-$domainName = 'https://campus.utede.edu.co';
+$domainName = service("moodle")::getDomainName();
 $functionName = 'core_user_create_users';
 $restformat = 'json';
 

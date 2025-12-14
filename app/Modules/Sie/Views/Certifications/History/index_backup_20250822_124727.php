@@ -26,7 +26,7 @@ $mexecutions = model('App\Modules\Sie\Models\Sie_Executions');
 // Obtener datos de matrícula y estudiante
 $enrollment_data = $menrollments->get_Enrollment($enrollment);
 $program = $mprograms->getProgram($enrollment_data["program"]);
-$registration = $mregistrations->get_Registration($enrollment_data["student"]);
+$registration = $mregistrations->getRegistration($enrollment_data["registration"]);
 $registration_registration = @$registration["registration"];
 $enrollment_enrollment = @$enrollment_data["enrollment"];
 $fullname = @$registration["first_name"] . " " . @$registration["second_name"] . " " . @$registration["first_surname"] . " " . @$registration["second_surname"];

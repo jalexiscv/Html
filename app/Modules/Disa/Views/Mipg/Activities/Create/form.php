@@ -1,0 +1,98 @@
+<?php
+/*
+* -----------------------------------------------------------------------------
+*  ╔═╗╔╗╔╔═╗╔═╗╦╔╗ ╦  ╔═╗
+*  ╠═╣║║║╚═╗╚═╗║╠╩╗║  ║╣  [FRAMEWORK][App\Modules\Disa\Views\Activities\Creator\form.php]
+*  ╩ ╩╝╚╝╚═╝╚═╝╩╚═╝╩═╝╚═╝
+* -----------------------------------------------------------------------------
+* Copyright 2021 - Higgs Bigdata S.A.S., Inc. <admin@Higgs.com>
+* Este archivo es parte de Higgs Bigdata Framework 7.1
+* Para obtener información completa sobre derechos de autor y licencia, consulte
+* la LICENCIA archivo que se distribuyó con este código fuente.
+* -----------------------------------------------------------------------------
+* EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+* IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+* APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+* LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+* RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+* AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+* O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+* -----------------------------------------------------------------------------
+* @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+* @link https://www.Higgs.com
+* @Version 1.5.0
+* @since PHP 7, PHP 8
+* -----------------------------------------------------------------------------
+* Datos recibidos desde el controlador - @ModuleController
+* -----------------------------------------------------------------------------
+* @Authentication
+* @request
+* @dates
+* @view
+* @oid
+* @component
+* @views
+* @prefix
+* @parent
+* -----------------------------------------------------------------------------
+*/
+$mactivities = model("\App\Modules\Disa\Models\Disa_Activities", true);
+$order = $mactivities->get_CountByCategory($oid) + 1;
+
+$f = service("forms", array("lang" => "Disa.activities-"));
+/*
+* -----------------------------------------------------------------------------
+* [Requests]
+* -----------------------------------------------------------------------------
+*/
+$r["activity"] = $f->get_Value("activity", pk());
+$r["category"] = $f->get_Value("category", $oid);
+$r["criteria"] = $f->get_Value("criteria");
+$r["order"] = $f->get_Value("order", $order);
+$r["description"] = $f->get_Value("description");
+$r["evaluation"] = $f->get_Value("evaluation");
+$r["period"] = $f->get_Value("period", "Al día");
+$r["score"] = $f->get_Value("score", "0");
+$r["author"] = $f->get_Value("author", $authentication->get_User());
+$r["crated_at"] = $f->get_Value("crated_at");
+$r["updated_at"] = $f->get_Value("updated_at");
+$r["deleted_at"] = $f->get_Value("deleted_at");
+/** fields * */
+$f->add_HiddenField("author", $r["author"]);
+$f->fields["activity"] = $f->get_FieldText("activity", array("value" => $r["activity"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
+$f->fields["category"] = $f->get_FieldText("category", array("value" => $r["category"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12", "readonly" => true));
+$f->fields["order"] = $f->get_FieldText("order", array("value" => $r["order"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
+$f->fields["criteria"] = $f->get_FieldCKEditor("criteria", array("value" => $r["criteria"], "proportion" => "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"));
+$f->fields["description"] = $f->get_FieldCKEditor("description", array("value" => $r["description"], "proportion" => "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"));
+$f->fields["evaluation"] = $f->get_FieldCKEditor("evaluation", array("value" => $r["evaluation"], "proportion" => "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"));
+$f->fields["period"] = $f->get_FieldText("period", array("value" => $r["period"], "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"));
+$f->fields["score"] = $f->get_FieldText("score", array("value" => $r["score"], "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12", "readonly" => true));
+$f->fields["crated_at"] = $f->get_FieldText("crated_at", array("value" => $r["crated_at"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
+$f->fields["updated_at"] = $f->get_FieldText("updated_at", array("value" => $r["updated_at"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
+$f->fields["deleted_at"] = $f->get_FieldText("deleted_at", array("value" => $r["deleted_at"], "proportion" => "col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"));
+$f->fields["cancel"] = $f->get_Cancel("cancel", array("href" => "/disa/mipg/activities/list/{$oid}", "text" => lang("App.Cancel"), "type" => "secondary", "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-right"));
+$f->fields["submit"] = $f->get_Submit("submit", array("value" => lang("App.Create"), "proportion" => "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 padding-left"));
+/** groups * */
+$f->groups["g1"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["category"] . $f->fields["activity"] . $f->fields["order"])));
+$f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["description"])));
+$f->groups["g3"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["criteria"])));
+$f->groups["g4"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["evaluation"])));
+$f->groups["g5"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["period"] . $f->fields["score"])));
+/** buttons * */
+$f->groups["gy"] = $f->get_GroupSeparator();
+$f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["submit"] . $f->fields["cancel"]));
+/*
+* -----------------------------------------------------------------------------
+* [Build]
+* -----------------------------------------------------------------------------
+*/
+$smarty = service("smarty");
+$smarty->set_Mode("bs5x");
+$smarty->assign("type", "normal");
+$smarty->assign("header", lang("Disa.activities-create-title"));
+$smarty->assign("body", $f);
+$smarty->assign("footer", null);
+$smarty->assign("file", __FILE__);
+echo($smarty->view('components/cards/index.tpl'));
+
+?>

@@ -72,7 +72,7 @@ foreach ($rows as $row) {
         $count++;
         $category = $mcategories->getCategory($row["category"]);
         //[links]-------------------------------------------------------------------------------------------------------
-        $hrefView = "/plans/plans/list/{$row["object"]}?parent={$row["object"]}";
+        $hrefView = "/plans/plans/list/{$row["object"]}?parent={$oid}&module=standards";
         $hrefEdit = "$component/edit/{$row["object"]}";
         $hrefDelete = "$component/delete/{$row["object"]}";
         //[buttons]-----------------------------------------------------------------------------------------------------

@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ ░FRAMEWORK                                  2025-01-09 06:32:18
+ * █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Sie\Views\Orders\Creator\deny.php]
+ * █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ * █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+ * █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+ * █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+ * █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+ * █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+ * █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+ * █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+ * █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+ * █ @link https://www.higgs.com.co
+ * █ @Version 1.5.1 @since PHP 8,PHP 9
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ **/
+$b = service("bootstrap");
+$morders = model("App\Modules\Sie\Models\Sie_Orders");
+$mfields = model("App\Modules\Sie\Models\Sie_Users_Fields");
+
+$order = $morders->get_Order($oid);
+$name = $mfields->get_AliasByUser($order['user']);
+
+$menu = array(
+    array("href" => "/sie/", "text" => "SIE", "class" => false),
+    array("href" => "/sie/students/list/" . lpk(), "text" => lang("App.Students"), "class" => false),
+    array("href" => "/sie/students/view/{$order['user']}", "text" => lang("App.Student"), "class" => false),
+    array("href" => "/sie/orders/view/{$order['order']}", "text" => lang("App.Order"), "class" => "active"),
+);
+echo($b->get_Breadcrumb($menu));
+?>

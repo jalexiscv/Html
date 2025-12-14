@@ -1,0 +1,6 @@
+{
+  "cert_provider_command": [
+    "echo",
+    "foo"
+  ]
+}

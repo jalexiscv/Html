@@ -18,7 +18,7 @@ if (isset($_GET['period']) && isset($_GET['program'])) {
 //if (!$modal) {
 //    include("grid.php");
 //} else {
-    include("modal.php");
+include("modal.php");
 //}
 ?>
 

@@ -10,7 +10,7 @@ class Me extends ModuleController
     public function __construct()
     {
         parent::__construct();
-        $this->prefix = 'notifications-notifications';
+        $this->prefix = 'me-notifications';
         $this->module = 'App\Modules\Notifications';
         $this->views = $this->module . '\Views';
         $this->viewer = $this->views . '\index';

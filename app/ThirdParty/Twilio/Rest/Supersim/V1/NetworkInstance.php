@@ -1,0 +1,56 @@
+<?php
+
+namespace Twilio\Rest\Supersim\V1;
+
+use Twilio\Exceptions\TwilioException;
+use Twilio\InstanceResource;
+use Twilio\Values;
+use Twilio\Version;
+use function array_key_exists;
+use function implode;
+use function property_exists;
+use function ucfirst;
+
+class NetworkInstance extends InstanceResource
+{
+    public function __construct(Version $version, array $payload, string $sid = null)
+    {
+        parent::__construct($version);
+        $this->properties = ['sid' => Values::array_get($payload, 'sid'), 'friendlyName' => Values::array_get($payload, 'friendly_name'), 'url' => Values::array_get($payload, 'url'), 'isoCountry' => Values::array_get($payload, 'iso_country'), 'identifiers' => Values::array_get($payload, 'identifiers'),];
+        $this->solution = ['sid' => $sid ?: $this->properties['sid'],];
+    }
+
+    protected function proxy(): NetworkContext
+    {
+        if (!$this->context) {
+            $this->context = new NetworkContext($this->version, $this->solution['sid']);
+        }
+        return $this->context;
+    }
+
+    public function fetch(): NetworkInstance
+    {
+        return $this->proxy()->fetch();
+    }
+
+    public function __get(string $name)
+    {
+        if (array_key_exists($name, $this->properties)) {
+            return $this->properties[$name];
+        }
+        if (property_exists($this, '_' . $name)) {
+            $method = 'get' . ucfirst($name);
+            return $this->$method();
+        }
+        throw new TwilioException('Unknown property: ' . $name);
+    }
+
+    public function __toString(): string
+    {
+        $context = [];
+        foreach ($this->solution as $key => $value) {
+            $context[] = "$key=$value";
+        }
+        return '[Twilio.Supersim.V1.NetworkInstance ' . implode(' ', $context) . ']';
+    }
+}

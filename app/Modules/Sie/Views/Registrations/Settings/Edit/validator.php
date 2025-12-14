@@ -3,6 +3,7 @@
 $bootstrap = service('bootstrap');
 $f = service("forms", array("lang" => "Sie_Settings."));
 //[Request]-----------------------------------------------------------------------------
+$f->set_ValidationRule("end_registrations_value", "trim|required");
 $f->set_ValidationRule("status_registrations", "trim|required");
 $f->set_ValidationRule("registrations_message_enabled_value", "trim|required");
 $f->set_ValidationRule("registrations_message_disabled_value", "trim|required");

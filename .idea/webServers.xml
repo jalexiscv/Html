@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2a5c591b-e0f1-49ff-9349-88c33357f1e0" name="DISA-SOFTWARE" url="http://34.133.165.149">
+        <fileTransfer host="34.133.165.149" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="de32c849-e1df-4215-8597-99196527279e" name="HOST-DEVELOPMENT" url="http://31.97.135.67">
+        <fileTransfer host="31.97.135.67" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

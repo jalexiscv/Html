@@ -42,13 +42,13 @@ $d = array(
     "identification_number" => $f->get_Value("identification_number"),
 );
 
-$registration = $mregistrations->get_RegistrationByIdentification($d['identification_number']);
+$registration = $mregistrations->getRegistrationByIdentification($d['identification_number']);
 
 
 if (is_array($registration) && isset($registration['registration'])) {
     $order = $morders->getLastByUser($registration["registration"]);
 
-    $href = "/sie/orders/print/".@$order['order']."?origin=registrations";
+    $href = "/sie/orders/print/" . @$order['order'] . "?origin=registrations";
     $print = "<a id=\"btn-print\" class=\"btn btn btn-danger mx-1\" href=\"{$href}\" target=\"_blank\"><i class=\"fa-regular fa-print\"></i> Imprimir recibo</a>";
 
     $card = $bootstrap->get_Card("delete-{$oid}", array(
@@ -80,7 +80,7 @@ if (is_array($registration) && isset($registration['registration'])) {
         "footer-cancel" => "/sie/registrations/updates/" . lpk(),
         "footer-continue" => array(
             "text" => "Acepto",
-            "href" => "/sie/registrations/create/" . $newTicket."?option=agreements"
+            "href" => "/sie/registrations/create/" . $newTicket . "?option=agreements"
         ),
     ));
 }

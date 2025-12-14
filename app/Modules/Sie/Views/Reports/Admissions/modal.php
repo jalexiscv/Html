@@ -27,12 +27,14 @@
                         </div>
                         <div class="mb-3">
                             <label for="status" class="form-label">Estado</label>
-                            <input type="text" name="statusX" value="Admitidos / Admitidos por Reingreso / Admitidos por Homologación"
+                            <input type="text" name="statusX"
+                                   value="Admitidos / Admitidos por Reingreso / Admitidos por Homologación"
                                    class="form-control" id="statusX" readonly>
                         </div>
                         <div class="mb-3">
                             <div class="alert alert-primary" role="alert">
-                                Este reporte solo incluye estudiantes admitidos, admitidos por reingreso y admitidos por homologación en el periodo académico
+                                Este reporte solo incluye estudiantes admitidos, admitidos por reingreso y admitidos por
+                                homologación en el periodo académico
                                 indicado, con
                                 el objetivo de hacer seguimiento al proceso.
                             </div>

@@ -1,0 +1,176 @@
+<?php
+
+/**
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ ░FRAMEWORK                                  2024-01-15 00:09:57
+ * █ ░█▀▀█ █▀▀█ █▀▀▄ █▀▀ ░█─░█ ─▀─ █▀▀▀ █▀▀▀ █▀▀ [App\Modules\Publisher\Views\Sites\Creator\index.php]
+ * █ ░█─── █──█ █──█ █▀▀ ░█▀▀█ ▀█▀ █─▀█ █─▀█ ▀▀█ Copyright 2023 - CloudEngine S.A.S., Inc. <admin@cgine.com>
+ * █ ░█▄▄█ ▀▀▀▀ ▀▀▀─ ▀▀▀ ░█─░█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ Para obtener información completa sobre derechos de autor y licencia,
+ * █                                             consulte la LICENCIA archivo que se distribuyó con este código fuente.
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ EL SOFTWARE SE PROPORCIONA -TAL CUAL-, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+ * █ IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD,
+ * █ APTITUD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO SERÁ
+ * █ LOS AUTORES O TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE CUALQUIER
+ * █ RECLAMO, DAÑOS U OTROS RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO,
+ * █ AGRAVIO O DE OTRO MODO, QUE SURJA DESDE, FUERA O EN RELACIÓN CON EL SOFTWARE
+ * █ O EL USO U OTROS NEGOCIACIONES EN EL SOFTWARE.
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ @Author Jose Alexis Correa Valencia <jalexiscv@gmail.com>
+ * █ @link https://www.codehiggs.com
+ * █ @Version 1.5.0 @since PHP 7, PHP 8
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ Datos recibidos desde el controlador - @ModuleController
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ * █ @authentication, @request, @dates, @parent, @component, @view, @oid, @views, @prefix
+ * █ ---------------------------------------------------------------------------------------------------------------------
+ **/
+return [
+    // - Sites fields
+    "label_site" => "Código del sitio",
+    "label_image" => "Imagen",
+    "label_url" => "URL",
+    "label_created" => "Fecha de creación",
+    "label_name" => "Nombre",
+    "label_description" => "Descripción",
+    "label_max_links" => "Numero máximo de enlaces",
+    "label_links_type" => "Tipo de enlaces",
+    "label_sponsored" => "Indica si es patrocinado",
+    "label_post_cover" => "Sale en portada",
+    "label_categories" => "Esta categorizado",
+    "label_min_traffic" => "Mínimo de trafico",
+    "label_max_traffic" => "Máximo de trafico",
+    "label_type" => "Tipo de sitio",
+    "label_themes" => "Temáticas",
+    "label_moz_da" => "moz_da",
+    "label_moz_pa" => "moz_pa",
+    "label_moz_links" => "moz_links",
+    "label_moz_rank" => "moz_rank",
+    "label_majestic_cf" => "majestic_cf",
+    "label_majestic_tf" => "majestic_tf",
+    "label_majestic_links" => "majestic_links",
+    "label_majestic_rd" => "majestic_rd",
+    "label_ahrefs_dr" => "ahrefs_dr",
+    "label_ahrefs_bl" => "ahrefs_bl",
+    "label_ahrefs_rd" => "ahrefs_rd",
+    "label_ahrefs_obl" => "ahrefs_obl",
+    "label_ahrefs_otm" => "ahrefs_otm",
+    "label_sistrix" => "sistrix",
+    "label_price" => "price",
+    "label_author" => "author",
+    "label_created_at" => "created_at",
+    "label_updated_at" => "updated_at",
+    "label_deleted_at" => "deleted_at",
+    "placeholder_site" => "",
+    "placeholder_image" => "image",
+    "placeholder_url" => "Ej: www.periodico.com",
+    "placeholder_name" => "name",
+    "placeholder_description" => "description",
+    "placeholder_max_links" => "max_links",
+    "placeholder_links_type" => "links_type",
+    "placeholder_sponsored" => "sponsored",
+    "placeholder_post_cover" => "post_cover",
+    "placeholder_categories" => "categories",
+    "placeholder_min_traffic" => "min_traffic",
+    "placeholder_max_traffic" => "max_traffic",
+    "placeholder_type" => "type",
+    "placeholder_themes" => "themes",
+    "placeholder_moz_da" => "moz_da",
+    "placeholder_moz_pa" => "moz_pa",
+    "placeholder_moz_links" => "moz_links",
+    "placeholder_moz_rank" => "moz_rank",
+    "placeholder_majestic_cf" => "majestic_cf",
+    "placeholder_majestic_tf" => "majestic_tf",
+    "placeholder_majestic_links" => "majestic_links",
+    "placeholder_majestic_rd" => "majestic_rd",
+    "placeholder_ahrefs_dr" => "ahrefs_dr",
+    "placeholder_ahrefs_bl" => "ahrefs_bl",
+    "placeholder_ahrefs_rd" => "ahrefs_rd",
+    "placeholder_ahrefs_obl" => "ahrefs_obl",
+    "placeholder_ahrefs_otm" => "ahrefs_otm",
+    "placeholder_sistrix" => "sistrix",
+    "placeholder_price" => "price",
+    "placeholder_author" => "author",
+    "placeholder_created_at" => "created_at",
+    "placeholder_updated_at" => "updated_at",
+    "placeholder_deleted_at" => "deleted_at",
+    "help_site" => "Código automático",
+    "help_image" => "image",
+    "help_name" => "name",
+    "help_description" => "description",
+    "help_max_links" => "max_links",
+    "help_links_type" => "links_type",
+    "help_sponsored" => "sponsored",
+    "help_post_cover" => "post_cover",
+    "help_categories" => "categories",
+    "help_min_traffic" => "min_traffic",
+    "help_max_traffic" => "max_traffic",
+    "help_type" => "type",
+    "help_themes" => "themes",
+    "help_moz_da" => "moz_da",
+    "help_moz_pa" => "moz_pa",
+    "help_moz_links" => "moz_links",
+    "help_moz_rank" => "moz_rank",
+    "help_majestic_cf" => "majestic_cf",
+    "help_majestic_tf" => "majestic_tf",
+    "help_majestic_links" => "majestic_links",
+    "help_majestic_rd" => "majestic_rd",
+    "help_ahrefs_dr" => "ahrefs_dr",
+    "help_ahrefs_bl" => "ahrefs_bl",
+    "help_ahrefs_rd" => "ahrefs_rd",
+    "help_ahrefs_obl" => "ahrefs_obl",
+    "help_ahrefs_otm" => "ahrefs_otm",
+    "help_sistrix" => "sistrix",
+    "help_price" => "price",
+    "help_author" => "author",
+    "help_created_at" => "created_at",
+    "help_updated_at" => "updated_at",
+    "help_deleted_at" => "deleted_at",
+    // - Sites creator
+    "create-denied-title" => "Acceso denegado!",
+    "create-denied-message" => "Su rol en la plataforma no posee los privilegios requeridos para crear nuevos sitios, por favor póngase en contacto con el administrador del sistema o en su efecto contacte al personal de soporte técnico para que estos le sean asignados, según sea el caso. Para continuar presioné la opción correspondiente en la parte inferior de este mensaje.",
+    "create-title" => "Crear nuevo sitio web",
+    "create-errors-title" => "¡Advertencia!",
+    "create-errors-message" => "Los datos proporcionados son incorrectos o están incompletos, por favor verifique eh inténtelo nuevamente.",
+    "create-duplicate-title" => "¡sitio web existente!",
+    "create-duplicate-message" => "Este sitio web ya se había registrado previamente, presioné continuar en la parte inferior de este mensaje para retornar al listado general de sitios.",
+    "create-success-title" => "¡sitio web registrada exitosamente!",
+    "create-success-message" => "La sitio web se registró exitosamente, para retornar al listado general de sitios presioné continuar en la parte inferior de este mensaje.",
+    // - Sites viewer
+    "view-denied-title" => "¡Acceso denegado!",
+    "view-denied-message" => "Los roles asignados a su perfil, no le conceden los privilegios necesarios para visualizar sitios en esta plataforma. Contacte al departamento de soporte técnico para información adicional, o la asignación de los permisos necesarios si es el caso. Para continuar seleccione la opción correspondiente en la parte inferior de este mensaje.",
+    "view-title" => "Vista",
+    "view-errors-title" => "¡Advertencia!",
+    "view-errors-message" => "Los datos proporcionados son incorrectos o están incompletos, por favor verifique eh inténtelo nuevamente.",
+    "view-noexist-title" => "¡No existe!",
+    "view-noexist-message" => "",
+    "view-success-title" => "",
+    "view-success-message" => "",
+    // - Sites editor
+    "edit-denied-title" => "¡Advertencia!",
+    "edit-denied-message" => "Los roles asignados a su perfil, no le conceden los privilegios necesarios para actualizar sitios en esta plataforma. Contacte al departamento de soporte técnico para información adicional, o la asignación de los permisos necesarios si es el caso. Para continuar seleccione la opción correspondiente en la parte inferior de este mensaje.",
+    "edit-title" => "¡Actualizar sitio web!",
+    "edit-errors-title" => "¡Advertencia!",
+    "edit-errors-message" => "Los datos proporcionados son incorrectos o están incompletos, por favor verifique eh inténtelo nuevamente.",
+    "edit-noexist-title" => "¡No existe!",
+    "edit-noexist-message" => "El elemento que actualizar no existe o se elimino previamente, para retornar al listado general de sitios presioné continuar en la parte inferior de este mensaje. ",
+    "edit-success-title" => "¡sitio web actualizada!",
+    "edit-success-message" => "Los datos de sitio web se <b>actualizaron exitosamente</b>, para retornar al listado general de sitios presioné el botón continuar en la parte inferior del presente mensaje.",
+    // - Sites deleter
+    "delete-denied-title" => "¡Advertencia!",
+    "delete-denied-message" => "Los roles asignados a su perfil, no le conceden los privilegios necesarios para eliminar sitios en esta plataforma. Contacte al departamento de soporte técnico para información adicional, o la asignación de los permisos necesarios si es el caso. Para continuar seleccione la opción correspondiente en la parte inferior de este mensaje.",
+    "delete-title" => "¡Eliminar sitio web!",
+    "delete-message" => "Para confirmar la eliminación del sitio web <b>%s</b>, presioné eliminar, para retornar al listado general de sitios presioné cancelar.",
+    "delete-errors-title" => "¡Advertencia!",
+    "delete-errors-message" => "Los datos proporcionados son incorrectos o están incompletos, por favor verifique eh inténtelo nuevamente.",
+    "delete-noexist-title" => "¡No existe!",
+    "delete-noexist-message" => "\El elemento que intenta eliminar no existe o se elimino previamente, para retornar al listado general de sitios presioné continuar en la parte inferior de este mensaje.",
+    "delete-success-title" => "¡sitio web eliminad@ exitosamente!",
+    "delete-success-message" => "La sitio web se elimino exitosamente, para retornar al listado de general de sitios presioné el botón continuar en la parte inferior de este mensaje.",
+    // - Sites list
+    "list-denied-title" => "¡Advertencia!",
+    "list-denied-message" => "Los roles asignados a su perfil, no le conceden los privilegios necesarios para acceder al listado general de sitios en esta plataforma. Contacte al departamento de soporte técnico para información adicional, o la asignación de los permisos necesarios si es el caso. Para continuar seleccione la opción correspondiente en la parte inferior de este mensaje.",
+    "list-title" => "Listado de sitios",
+];
+
+?>

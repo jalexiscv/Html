@@ -36,15 +36,16 @@
  * @var string $views Complete URI to the module views.
  **/
 $data = $parent->get_Array();
-$data['permissions'] = array('singular' => false, "plural" => 'notifications-notifications-view-all');
+$data['permissions'] = array('singular' => "NOTIFICATIONS-NOTIFICATIONS-VIEW", "plural" => 'NOTIFICATIONS-NOTIFICATIONS-VIEW-ALL');
 $plural = $authentication->has_Permission($data['permissions']['plural']);
+$singular=$authentication->has_Permission($data['permissions']['singular']);
 $submited = $request->getPost("submited");
 $breadcrumb = $component . '\breadcrumb';
 $validator = $component . '\validator';
 $table = $component . '\grid';
 $deny = $component . '\deny';
 //[build]---------------------------------------------------------------------------------------------------------------
-if ($plural) {
+if ($plural||$singular) {
     if (!empty($submited)) {
         $json = array('breadcrumb' => view($breadcrumb, $data), 'main' => view($validator, $data), 'right' => "");
     } else {

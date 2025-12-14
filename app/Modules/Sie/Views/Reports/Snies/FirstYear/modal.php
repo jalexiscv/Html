@@ -29,8 +29,9 @@
                         <div class="mb-3">
                             <div class="mb-3">
                                 <div class="alert alert-primary" role="alert">
-                                    Este reporte solo incluye estudiantes en los estados <b>Matriculado</b> y <b>Matriculado Antigulo</b>,
-                                        que esten en <b>I Ciclo</b>, <b>V Ciclo</b> y <b>VII Ciclo</b>.
+                                    Este reporte solo incluye estudiantes en los estados <b>Matriculado</b> y <b>Matriculado
+                                        Antigulo</b>,
+                                    que esten en <b>I Ciclo</b>, <b>V Ciclo</b> y <b>VII Ciclo</b>.
                                 </div>
                             </div>
                         </div>

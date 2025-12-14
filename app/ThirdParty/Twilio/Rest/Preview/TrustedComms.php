@@ -1,0 +1,86 @@
+<?php
+
+namespace Twilio\Rest\Preview;
+
+use Twilio\Domain;
+use Twilio\Exceptions\TwilioException;
+use Twilio\InstanceContext;
+use Twilio\ListResource;
+use Twilio\Rest\Preview\TrustedComms\BrandedChannelContext;
+use Twilio\Rest\Preview\TrustedComms\BrandedChannelList;
+use Twilio\Rest\Preview\TrustedComms\BrandsInformationList;
+use Twilio\Rest\Preview\TrustedComms\CpsList;
+use Twilio\Rest\Preview\TrustedComms\CurrentCallList;
+use Twilio\Version;
+use function call_user_func_array;
+use function method_exists;
+use function ucfirst;
+
+class TrustedComms extends Version
+{
+    protected $_brandedChannels;
+    protected $_brandsInformation;
+    protected $_cps;
+    protected $_currentCalls;
+
+    public function __construct(Domain $domain)
+    {
+        parent::__construct($domain);
+        $this->version = 'TrustedComms';
+    }
+
+    protected function getBrandedChannels(): BrandedChannelList
+    {
+        if (!$this->_brandedChannels) {
+            $this->_brandedChannels = new BrandedChannelList($this);
+        }
+        return $this->_brandedChannels;
+    }
+
+    protected function getBrandsInformation(): BrandsInformationList
+    {
+        if (!$this->_brandsInformation) {
+            $this->_brandsInformation = new BrandsInformationList($this);
+        }
+        return $this->_brandsInformation;
+    }
+
+    protected function getCps(): CpsList
+    {
+        if (!$this->_cps) {
+            $this->_cps = new CpsList($this);
+        }
+        return $this->_cps;
+    }
+
+    protected function getCurrentCalls(): CurrentCallList
+    {
+        if (!$this->_currentCalls) {
+            $this->_currentCalls = new CurrentCallList($this);
+        }
+        return $this->_currentCalls;
+    }
+
+    public function __get(string $name)
+    {
+        $method = 'get' . ucfirst($name);
+        if (method_exists($this, $method)) {
+            return $this->$method();
+        }
+        throw new TwilioException('Unknown resource ' . $name);
+    }
+
+    public function __call(string $name, array $arguments): InstanceContext
+    {
+        $property = $this->$name;
+        if (method_exists($property, 'getContext')) {
+            return call_user_func_array(array($property, 'getContext'), $arguments);
+        }
+        throw new TwilioException('Resource does not have a context');
+    }
+
+    public function __toString(): string
+    {
+        return '[Twilio.Preview.TrustedComms]';
+    }
+}

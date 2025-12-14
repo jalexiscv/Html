@@ -40,7 +40,8 @@
 $b = service("bootstrap");
 $f = service("forms", array("lang" => "Plans_Causes."));
 //[models]--------------------------------------------------------------------------------------------------------------
-//$model = model("App\Modules\Plans\Models\Plans_Causes");
+$mcuses = model("App\Modules\Plans\Models\Plans_Causes");
+$mplans = model("App\Modules\Plans\Models\Plans_Plans");
 //[vars]----------------------------------------------------------------------------------------------------------------
 $r["cause"] = $f->get_Value("cause", pk());
 $r["plan"] = $f->get_Value("plan", $oid);
@@ -69,10 +70,18 @@ $f->groups["g2"] = $f->get_Group(array("legend" => "", "fields" => ($f->fields["
 $f->groups["gy"] = $f->get_GroupSeparator();
 $f->groups["gz"] = $f->get_Buttons(array("fields" => $f->fields["submit"] . $f->fields["cancel"]));
 //[build]---------------------------------------------------------------------------------------------------------------
-$card = $b->get_Card("create", array(
-    "title" => lang("Plans_Causes.create-title"),
+$card = $b->get_Card2("create", array(
+    "header-title" => lang("Plans_Causes.create-title"),
     "content" => $f,
     "header-back" => $back
+));
+echo($card);
+
+$plan=$mplans->getPlan($oid);
+
+$card = $b->get_Card2("create", array(
+    "header-title" => "Descripción detallada dle plan",
+    "content" => $plan["description"],
 ));
 echo($card);
 ?>

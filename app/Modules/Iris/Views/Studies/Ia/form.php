@@ -29,6 +29,7 @@ $strings = service('strings');
 $authentication = service('authentication');
 
 $fileUrl = $request->getVar("file");
+$attachment = $request->getVar("attachment");
 
 
 /** @var TYPE_NAME $oid */
@@ -42,9 +43,7 @@ $code="<div class=\"alert alert-info\">
         </div>";
 
 
-
-
-$analisisUrl = 'https://oftalmologia.xn--cm-fka.co/tests/gpt/analisis-oftalmologico.php';
+$analisisUrl = 'https://iris.edux.com.co/tests/gpt/analisis-oftalmologico.php';
 
 $curl = curl_init();
 curl_setopt_array($curl, [
@@ -87,39 +86,18 @@ $card = $bootstrap->get_Card2("card-view-service", array(
     "content" => $code,
 ));
 echo($card);
+
+//[almacenamiento]--------------------------------------------------------------
+$mdiagnostics = model('App\Modules\Iris\Models\Iris_Diagnostics');
+$d = array(
+    "diagnostic" => pk(),
+    "study" => $oid,
+    "attachment" => $attachment,
+    "result_ia" => $code,
+    "result" => "",
+    "created_by" => safe_get_user(),
+    "updated_by" => safe_get_user(),
+);
+$create = $mdiagnostics->insert($d);
+cache()->clean();
 ?>
-<style>
-    analysis {
-        font-size: 1rem;
-    }
-
-    analysis h1 {
-        font-size: 1.2rem;
-        background-color: #182a84;
-        margin: 10px 0px 10px 0px;
-        padding: 5px;
-        border-width: 1px;
-        border-color: #192c84;
-        border-style: solid;
-        border-radius: 5px;
-        color: #ffffff;
-    }
-
-    analysis h2 {
-        font-size: 1.2rem;
-        background-color: #CCCCCC;
-        margin: 10px 0px 10px 0px;
-        padding: 5px;
-        border-width: 1px;
-        border-color: #192c84;
-        border-style: solid;
-        border-radius: 5px;
-        color: #182a84;
-    }
-
-    analysis p{
-        font-size: 1rem;
-        line-height: 1.1rem;
-    }
-
-</style>

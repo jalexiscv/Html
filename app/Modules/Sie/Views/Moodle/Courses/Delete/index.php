@@ -1,7 +1,7 @@
 <?php
 // Configuración inicial para la API de Moodle
-$token = 'ce890746630ebf2c6b7baf4dde8f41b4';
-$domainName = 'https://campus.utede.edu.co';
+$token = service("moodle")::getToken();
+$domainName = service("moodle")::getDomainName();
 $functionName = 'core_course_delete_courses';
 $restFormat = 'json';
 
@@ -14,14 +14,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($courseIdToDelete) {
         $params = [
-            'courseids' => [$courseIdToDelete]
+                'courseids' => [$courseIdToDelete]
         ];
 
         $serverUrl = $domainName . '/webservice/rest/server.php'
-            . '?wstoken=' . $token
-            . '&wsfunction=' . $functionName
-            . '&moodlewsrestformat=' . $restFormat
-            . '&' . http_build_query($params);
+                . '?wstoken=' . $token
+                . '&wsfunction=' . $functionName
+                . '&moodlewsrestformat=' . $restFormat
+                . '&' . http_build_query($params);
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $serverUrl);
@@ -39,10 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = json_decode($response, true);
             if (isset($result['exception'])) {
                 $errorInfo = [
-                    'message' => 'Error al eliminar el curso: ' . ($result['message'] ?? 'Error desconocido.'),
-                    'exception' => $result['exception'] ?? 'N/A',
-                    'errorcode' => $result['errorcode'] ?? 'N/A',
-                    'debuginfo' => $result['debuginfo'] ?? 'No debug info'
+                        'message' => 'Error al eliminar el curso: ' . ($result['message'] ?? 'Error desconocido.'),
+                        'exception' => $result['exception'] ?? 'N/A',
+                        'errorcode' => $result['errorcode'] ?? 'N/A',
+                        'debuginfo' => $result['debuginfo'] ?? 'No debug info'
                 ];
             } else {
                 $courseDeleted = true;
@@ -61,7 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Curso en Moodle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>body { padding-top: 20px; }</style>
+    <style>body {
+            padding-top: 20px;
+        }</style>
 </head>
 <body>
 <div class="container">

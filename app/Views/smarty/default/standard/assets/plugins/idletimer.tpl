@@ -1,0 +1,1 @@
+<script src="/themes/assets/javascripts/idle-timer.min.js" type="text/javascript"></script>

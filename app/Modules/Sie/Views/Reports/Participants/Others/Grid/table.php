@@ -5,26 +5,26 @@
 
 
 /**
-ID_TIPO_DOCUMENTO
-NUM_DOCUMENTO
-FECHA_EXPEDICION
-PRIMER_NOMBRE
-SEGUNDO_NOMBRE
-PRIMER_APELLIDO
-SEGUNDO_APELLIDO
-ID_SEXO_BIOLOGICO
-ID_ESTADO_CIVIL
-FECHA_NACIMIENTO
-ID_PAIS
-ID_MUNICIPIO
-TELEFONO_CONTACTO
-EMAIL_PERSONAL
-EMAIL_INSTITUCIONAL
-DIRECCION_INSTITUCIONAL
+ * ID_TIPO_DOCUMENTO
+ * NUM_DOCUMENTO
+ * FECHA_EXPEDICION
+ * PRIMER_NOMBRE
+ * SEGUNDO_NOMBRE
+ * PRIMER_APELLIDO
+ * SEGUNDO_APELLIDO
+ * ID_SEXO_BIOLOGICO
+ * ID_ESTADO_CIVIL
+ * FECHA_NACIMIENTO
+ * ID_PAIS
+ * ID_MUNICIPIO
+ * TELEFONO_CONTACTO
+ * EMAIL_PERSONAL
+ * EMAIL_INSTITUCIONAL
+ * DIRECCION_INSTITUCIONAL
  **/
 $request = service('request');
 
-$option=$request->getVar("option");
+$option = $request->getVar("option");
 
 
 $offset = !empty($request->getVar("offset")) ? $request->getVar("offset") : 0;
@@ -68,22 +68,22 @@ $code .= "<th class='text-center' title=\"\">DIRECCION_INSTITUCIONAL</th>\n";
 $code .= "</tr>\n";
 $code .= "</thead>";
 
-$count=0;
+$count = 0;
 foreach ($rows as $row) {
     $count++;
-    $show="N";
+    $show = "N";
 
-    if(!empty($option)) {
+    if (!empty($option)) {
         if ($option == "teachers") {
             $show = $row["participant_teacher"];
         } elseif ($option == "executives") {
             $show = $row["participant_executive"];
-        }elseif ($option == "authorities") {
-            $show =$row["participant_authority"];
+        } elseif ($option == "authorities") {
+            $show = $row["participant_authority"];
         }
     }
 
-    if($show=="Y") {
+    if ($show == "Y") {
         $names = explode(" ", @$row["firstname"]);
         $surnames = explode(" ", @$row["lastname"]);
 
@@ -102,7 +102,7 @@ foreach ($rows as $row) {
         $ID_MUNICIPIO = @$row["birth_city"];
         $TELEFONO_CONTACTO = @$row["phone"];
 
-        $EMAIL_PERSONAL =safe_strtoupper( @$row["email_personal"]);
+        $EMAIL_PERSONAL = safe_strtoupper(@$row["email_personal"]);
         $EMAIL_INSTITUCIONAL = safe_strtoupper(@$row["email"]);
 
         $DIRECCION_INSTITUCIONAL = safe_strtoupper(@$row["institutional_address"]);
