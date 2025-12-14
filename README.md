@@ -21,6 +21,14 @@ Biblioteca PHP moderna, ligera y agnóstica para la generación de HTML puro. Di
 
 * PHP 8.2 o superior
 
+## Documentación y Ejemplos
+
+Consulte el directorio `examples/` para ver scripts funcionales:
+- [01-basics.php](examples/01-basics.php): Uso básico de `Html::div`, `Html::button` y encadenamiento.
+- [02-forms.php](examples/02-forms.php): Creación de formularios HTML5 completos.
+
+Para entender la estructura del proyecto (PSR-4), consulte [docs/structure.md](docs/structure.md).
+
 ## Instalación
 
 ```bash

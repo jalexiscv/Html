@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2025-12-14
+
+### Refactor
+- **Source Code**: Moved all source files to `src/` directory to follow standard PSR-4 project structure. Updated `composer.json` autoload accordingly.
+
+### Documentation
+- **New Structure**: Added `docs/structure.md` explaining the project layout.
+- **Examples**: Added `examples/` directory with functional scripts (`01-basics.php`, `02-forms.php`).
+- **README**: Updated with links to examples and documentation.
+
 ## [2.3.4] - 2025-12-14
 
 ### Infrastructure
