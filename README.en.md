@@ -159,7 +159,34 @@ Html::macro('alert', function($msg, $type = 'info') {
 echo Html::alert('Operation successful!', 'success');
 ```
 
-### 7. Web Components (Custom HTML)
+### 7. Smart Conditional Classes (v2.6)
+Stop concatenating ternaries for CSS classes.
+
+```php
+$isActive = true;
+echo Html::div(['class' => [
+    'btn',
+    'btn-primary', 
+    'active' => $isActive,    // Added only if true
+    'disabled' => !$isActive  // Clean conditional logic
+]]);
+```
+
+### 8. Multimedia (v2.6)
+Native support for audio and video.
+
+```php
+// Simple audio
+echo Html::audio('song.mp3', ['controls' => true]);
+
+// Video with multiple sources
+echo Html::video([
+    ['src' => 'video.mp4', 'type' => 'video/mp4'],
+    ['src' => 'video.webm', 'type' => 'video/webm']
+], 'poster.jpg', ['controls' => true]);
+```
+
+### 9. Web Components (Custom HTML)
 For modern applications using Custom Elements (JS), `Higgs\Html` validates and supports custom tags.
 
 ```php

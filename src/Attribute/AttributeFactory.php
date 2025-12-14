@@ -16,6 +16,7 @@ class AttributeFactory implements AttributeFactoryInterface
      * @var array<string, string>
      */
     public static $registry = [
+        'class' => ClassAttribute::class,
         '*' => Attribute::class,
     ];
 

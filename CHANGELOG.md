@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2025-12-14
+
+### Features
+- **Smart Legacy Classes**: Added dictionary syntax support for the `class` attribute (`['active' => true]`), improving DX.
+- **Multimedia Support**: Added `HtmlMediaTrait` with helpers for `audio()`, `video()`, `source()`, and `track()`.
+
 ## [2.5.0] - 2025-12-14
 
 ### Features

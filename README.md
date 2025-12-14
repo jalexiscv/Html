@@ -159,7 +159,34 @@ Html::macro('alert', function($msg, $type = 'info') {
 echo Html::alert('¡Operación exitosa!', 'success');
 ```
 
-### 7. Web Components (HTML Personalizado)
+### 7. Clases Condicionales (Smart Classes) (v2.6)
+Olvídate de concatenar ternarios para tus clases CSS.
+
+```php
+$isActive = true;
+echo Html::div(['class' => [
+    'btn',
+    'btn-primary', 
+    'active' => $isActive,    // Se agrega solo si es true
+    'disabled' => !$isActive  // Lógica condicional limpia
+]]);
+```
+
+### 8. Multimedia (v2.6)
+Soporte nativo para audio y video.
+
+```php
+// Audio simple
+echo Html::audio('song.mp3', ['controls' => true]);
+
+// Video con múltiples fuentes
+echo Html::video([
+    ['src' => 'video.mp4', 'type' => 'video/mp4'],
+    ['src' => 'video.webm', 'type' => 'video/webm']
+], 'poster.jpg', ['controls' => true]);
+```
+
+### 9. Web Components (HTML Personalizado)
 Para aplicaciones modernas que usan Custom Elements (JS), `Higgs\Html` valida y soporta etiquetas personalizadas.
 
 ```php

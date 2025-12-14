@@ -18,7 +18,7 @@ use RuntimeException;
  */
 final class Html implements HtmlTagInterface
 {
-    use HtmlElementsTrait, Traits\Macroable, Traits\HtmlFormTrait, Traits\HtmlTableTrait {
+    use HtmlElementsTrait, Traits\Macroable, Traits\HtmlFormTrait, Traits\HtmlTableTrait, Traits\HtmlMediaTrait {
         Traits\HtmlFormTrait::input insteadof HtmlElementsTrait;
     }
 
