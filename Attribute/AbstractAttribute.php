@@ -17,19 +17,8 @@ use const ENT_SUBSTITUTE;
  */
 abstract class AbstractAttribute extends AbstractBaseHtmlTagObject implements AttributeInterface
 {
-    /**
-     * Constructor de Atributo.
-     *
-     * @param string $name
-     *   El nombre del atributo.
-     * @param mixed[]|string|string[] ...$values
-     *   Los valores del atributo.
-     */
     public function __construct(
-        /**
-         * Almacena el nombre del atributo.
-         */
-        private string $name,
+        private readonly string $name,
         ...$values
     ) {
         if (1 === preg_match('/[\t\n\f \/>"\'=]+/', $name)) {
@@ -119,11 +108,10 @@ abstract class AbstractAttribute extends AbstractBaseHtmlTagObject implements At
     }
 
     /**
-     * @param int $offset
+     * @param mixed $offset
      *
      * @return bool
      */
-
     public function offsetExists($offset): bool
     {
         return ($this->contains((string)$offset));
@@ -146,22 +134,20 @@ abstract class AbstractAttribute extends AbstractBaseHtmlTagObject implements At
     }
 
     /**
-     * @param int $offset
-     * @return void
+     * @param mixed $offset
+     * @return mixed
      */
-
     public function offsetGet($offset): mixed
     {
         throw new BadMethodCallException('Unsupported method.');
     }
 
     /**
-     * @param int $offset
+     * @param mixed $offset
      * @param mixed $value
      *
      * @return void
      */
-
     public function offsetSet($offset, $value): void
     {
         $this->append($value);
@@ -175,11 +161,10 @@ abstract class AbstractAttribute extends AbstractBaseHtmlTagObject implements At
     }
 
     /**
-     * @param int $offset
+     * @param mixed $offset
      *
      * @return void
      */
-
     public function offsetUnset($offset): void
     {
         $this->remove((string)$offset);
@@ -214,12 +199,12 @@ abstract class AbstractAttribute extends AbstractBaseHtmlTagObject implements At
         return $this;
     }
 
-    public function serialize()
+    public function __serialize(): array
     {
-        return serialize([
+        return [
             'name' => $this->name,
             'values' => $this->getValuesAsArray(),
-        ]);
+        ];
     }
 
     public function setBoolean($boolean = true): AttributeInterface
@@ -229,11 +214,9 @@ abstract class AbstractAttribute extends AbstractBaseHtmlTagObject implements At
             $this->append('');
     }
 
-    public function unserialize($serialized)
+    public function __unserialize(array $data): void
     {
-        $unserialized = unserialize($serialized);
-
-        $this->name = $unserialized['name'];
-        $this->values = $unserialized['values'];
+        $this->name = $data['name'];
+        $this->values = $data['values'];
     }
 }

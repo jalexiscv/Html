@@ -38,6 +38,10 @@ class AttributesFactory implements AttributesFactoryInterface
 
         $attributes_classname = static::$registry['*'];
 
+        if ($attributes_classname === Attributes::class) {
+            return new Attributes($attribute_factory_classname, $attributes);
+        }
+
         /** @var AttributesInterface $attributes */
         $attributes = (new ReflectionClass($attributes_classname))
             ->newInstanceArgs([

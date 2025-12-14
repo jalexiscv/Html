@@ -13,30 +13,16 @@ use function array_key_exists;
 abstract class AbstractAttributes extends AbstractBaseHtmlTagObject implements AttributesInterface
 {
     /**
-     * La fábrica de atributos.
+     * El almacenamiento de atributos.
      *
-     * @var \drupol\htmltag\Attribute\AttributeFactoryInterface
+     * @var array
      */
-    private $attributeFactory;
+    protected array $storage = [];
 
-    /**
-     * Almacena los datos de los atributos.
-     *
-     * @var array<string, AttributesInterface>
-     */
-    private $storage = [];
-
-    /**
-     * Constructor de Attributes.
-     *
-     * @param \drupol\htmltag\Attribute\AttributeFactoryInterface $attributeFactory
-     *   La fábrica de atributos.
-     * @param mixed[] $data
-     *   Los atributos de entrada.
-     */
-    public function __construct(AttributeFactoryInterface $attributeFactory, array $data = [])
-    {
-        $this->attributeFactory = $attributeFactory;
+    public function __construct(
+        private readonly AttributeFactoryInterface $attributeFactory,
+        array $data = []
+    ) {
         $this->import($data);
     }
 
@@ -75,14 +61,12 @@ abstract class AbstractAttributes extends AbstractBaseHtmlTagObject implements A
         return $values;
     }
 
-    #[ReturnTypeWillChange]
-    public function count()
+    public function count(): int
     {
         return $this->getStorage()->count();
     }
 
-    #[ReturnTypeWillChange]
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return $this->getStorage();
     }
@@ -110,23 +94,20 @@ abstract class AbstractAttributes extends AbstractBaseHtmlTagObject implements A
     }
 
     /**
-     * @param int $key
+     * @param mixed $key
      *
      * @return bool
      */
-    #[ReturnTypeWillChange]
-    public function offsetExists($key)
+    public function offsetExists($key): bool
     {
         return isset($this->storage[$key]);
     }
 
     /**
-     * @param int $key
+     * @param mixed $key
      *
      * @return mixed
      */
-
-
     public function offsetGet($key): mixed
     {
         $this->storage += [
@@ -136,25 +117,22 @@ abstract class AbstractAttributes extends AbstractBaseHtmlTagObject implements A
     }
 
     /**
-     * @param int $key
+     * @param mixed $key
      * @param mixed $value
      *
      * @return void
      */
-
-    #[ReturnTypeWillChange]
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value): void
     {
         $this->storage[$key] = $this->attributeFactory->getInstance((string)$key, $value);
     }
 
     /**
-     * @param int $key
+     * @param mixed $key
      *
      * @return void
      */
-    #[ReturnTypeWillChange]
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         unset($this->storage[$key]);
     }
@@ -195,11 +173,11 @@ abstract class AbstractAttributes extends AbstractBaseHtmlTagObject implements A
             $this->contains($key, $values);
     }
 
-    public function serialize()
+    public function __serialize(): array
     {
-        return serialize([
+        return [
             'storage' => $this->getValuesAsArray(),
-        ]);
+        ];
     }
 
     public function getValuesAsArray(): array
@@ -220,17 +198,20 @@ abstract class AbstractAttributes extends AbstractBaseHtmlTagObject implements A
         return $this;
     }
 
-    public function unserialize($serialized)
+    public function __unserialize(array $data): void
     {
-        $unserialize = unserialize($serialized);
+        if (!isset($this->attributeFactory)) {
+             $this->attributeFactory = new \Higgs\Html\Attribute\AttributeFactory();
+        }
+        
         $attributeFactory = $this->attributeFactory;
 
         $this->storage = array_map(
-            static function ($key, $values) use ($attributeFactory) {
-                return $attributeFactory::build((string)$key, $values);
-            },
-            array_keys($unserialize['storage']),
-            array_values($unserialize['storage'])
+             static function ($key, $values) use ($attributeFactory) {
+                 return $attributeFactory->getInstance((string)$key, $values);
+             },
+             array_keys($data['storage']),
+             array_values($data['storage'])
         );
     }
 

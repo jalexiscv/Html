@@ -55,6 +55,10 @@ class TagFactory implements TagFactoryInterface
             );
         }
 
+        if ($tag_classname === Tag::class) {
+            return new Tag($attributes, $name, $content);
+        }
+
         /** @var TagInterface $tag */
         $tag = (new ReflectionClass($tag_classname))
             ->newInstanceArgs([

@@ -38,6 +38,10 @@ class AttributeFactory implements AttributeFactoryInterface
             );
         }
 
+        if ($attribute_classname === Attribute::class) {
+            return new Attribute($name, $value);
+        }
+
         /** @var AttributeInterface $attribute */
         $attribute = (new ReflectionClass($attribute_classname))
             ->newInstanceArgs([

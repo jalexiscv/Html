@@ -6,10 +6,18 @@ namespace Higgs\Html\Tag;
 
 use Higgs\Html\AbstractBaseHtmlTagObject;
 use Higgs\Html\Attributes\AttributesInterface;
+use Higgs\Html\Attributes\AttributesFactory;
 use Higgs\Html\StringableInterface;
 
 abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInterface
 {
+    /**
+     * El contenido de la etiqueta.
+     *
+     * @var mixed
+     */
+    protected mixed $content = null;
+
     /**
      * Constructor de la Etiqueta.
      *
@@ -21,19 +29,37 @@ abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInter
      *   El contenido.
      */
     public function __construct(
-        /**
-         * Los atributos de la etiqueta.
-         */
-        private AttributesInterface $attributes,
-        /**
-         * El nombre de la etiqueta.
-         */
-        private ?string $tag = null,
+        private readonly AttributesInterface $attributes,
+        private readonly ?string $tag = null,
         mixed $content = null
     ) {
         $this->content($content);
     }
 
+    // ... existing content methods ...
+
+    public function __serialize(): array
+    {
+        return [
+            'tag' => $this->tag,
+            'attributes' => $this->attributes->getValuesAsArray(),
+            'content' => $this->renderContent(),
+        ];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->tag = $data['tag'];
+        $this->attributes = AttributesFactory::build($data['attributes']);
+        $this->content = $data['content'];
+    }
+
+    /**
+     * Establece el contenido de la etiqueta.
+     *
+     * @param mixed ...$data Contenido variable. Puede ser string, array, u otros objetos convertibles.
+     * @return string|null El contenido renderizado o null si está vacío.
+     */
     public function content(...$data): ?string
     {
         if ([] !== $data) {
@@ -165,24 +191,8 @@ abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInter
         }
 
         //return null === $return ?$return :htmlentities($return);
-        return null === $return ? $return : $return;
+        return null === $return ? $return : htmlspecialchars($return, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
 
-    public function serialize()
-    {
-        return serialize([
-            'tag' => $this->tag,
-            'attributes' => $this->attributes->getValuesAsArray(),
-            'content' => $this->renderContent(),
-        ]);
-    }
 
-    public function unserialize($serialized)
-    {
-        $unserialize = unserialize($serialized);
-
-        $this->tag = $unserialize['tag'];
-        $this->attributes = $this->attributes->import($unserialize['attributes']);
-        $this->content = $unserialize['content'];
-    }
 }

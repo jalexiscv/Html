@@ -7,7 +7,7 @@ namespace Higgs\Html;
 /**
  * Interfaz StringableInterface.
  */
-interface StringableInterface
+interface StringableInterface extends \Stringable
 {
     /**
      * Obtiene una representación en cadena del objeto.

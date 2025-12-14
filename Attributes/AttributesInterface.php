@@ -163,4 +163,38 @@ interface AttributesInterface extends
      *   Los atributos.
      */
     public function without(string ...$keys): AttributesInterface;
+    /**
+     * @param mixed $offset
+     * @return bool
+     */
+    public function offsetExists($offset): bool;
+
+    /**
+     * @param mixed $offset
+     * @return mixed
+     */
+    public function offsetGet($offset): mixed;
+
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     * @return void
+     */
+    public function offsetSet($offset, $value): void;
+
+    /**
+     * @param mixed $offset
+     * @return void
+     */
+    public function offsetUnset($offset): void;
+
+    /**
+     * @return int
+     */
+    public function count(): int;
+
+    /**
+     * @return \Traversable
+     */
+    public function getIterator(): \Traversable;
 }

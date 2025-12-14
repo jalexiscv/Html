@@ -25,8 +25,9 @@ final class Html implements HtmlTagInterface
 
     /**
      * Crea una instancia de atributo.
+     *
      * @param string $name El nombre del atributo.
-     * @param mixed $value El valor del atributo.
+     * @param mixed $value El valor del atributo (será convertido a string).
      * @return AttributeInterface La instancia del atributo.
      */
     public static function attribute(string $name, mixed $value): AttributeInterface
@@ -36,7 +37,8 @@ final class Html implements HtmlTagInterface
 
     /**
      * Crea una colección de atributos.
-     * @param array $attributes Array de atributos clave-valor.
+     *
+     * @param array $attributes Array asociativo de atributos (clave => valor).
      * @return AttributesInterface La colección de atributos.
      */
     public static function attributes(array $attributes = []): AttributesInterface
@@ -45,7 +47,13 @@ final class Html implements HtmlTagInterface
     }
 
     /**
-     * Crea una etiqueta HTML con caché opcional
+     * Crea una etiqueta HTML genérica con caché opcional.
+     *
+     * @param string $name Nombre de la etiqueta HTML (div, span, custom-element, etc).
+     * @param array $attributes Atributos de la etiqueta.
+     * @param mixed $content Contenido de la etiqueta.
+     * @param bool $useCache Si es true, devolverá una copia clonada de una instancia previa si existe.
+     * @return TagInterface La instancia de la etiqueta.
      */
     public static function tag(string $name, array $attributes = [], mixed $content = null, bool $useCache = false): TagInterface
     {

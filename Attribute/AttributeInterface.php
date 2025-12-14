@@ -137,4 +137,28 @@ interface AttributeInterface extends
      *   El atributo.
      */
     public function setBoolean($boolean = true): AttributeInterface;
+    /**
+     * @param int $offset
+     * @return bool
+     */
+    public function offsetExists($offset): bool;
+
+    /**
+     * @param int $offset
+     * @return mixed
+     */
+    public function offsetGet($offset): mixed;
+
+    /**
+     * @param int $offset
+     * @param mixed $value
+     * @return void
+     */
+    public function offsetSet($offset, $value): void;
+
+    /**
+     * @param int $offset
+     * @return void
+     */
+    public function offsetUnset($offset): void;
 }
