@@ -4,6 +4,8 @@
 
 # Higgs HTML: Generador de HTML Puro y Agnóstico
 
+> **[Leer en Español](README.md)** | **[Read in English](README.en.md)**
+
 > **"La pureza del código comienza con la independencia de las herramientas."**
 
 **Higgs HTML** es una biblioteca de ingeniería de software para PHP diseñada para la generación programática de marcado HTML. A diferencia de otros helpers o builders que acoplan la lógica a frameworks CSS específicos (como Bootstrap o Tailwind), Higgs HTML se adhiere estrictamente a una filosofía **agnóstica**, ofreciendo una capa de abstracción pura, segura y de alto rendimiento.
@@ -155,3 +157,35 @@ Distribuido bajo la Licencia **MIT**. Ver [LICENSE](LICENSE) para más informaci
 
 ---
 *Desarrollado con ❤️ para la comunidad PHP por José Alexis Correa Valencia.*
+
+---
+
+## 🤝 Soporte y Contribuciones
+
+¡Damos la bienvenida a las contribuciones para mejorar Higgs Html!
+
+Si encuentras algún problema, por favor abre un issue en GitHub.
+
+---
+
+## 👨‍💻 Autor
+
+**Jose Alexis Correa Valencia**
+*Full Stack Developer & Software Architect*
+
+*   **GitHub**: [@jalexiscv](https://github.com/jalexiscv)
+*   **Email**: jalexiscv@gmail.com
+*   **Ubicación**: Colombia
+
+---
+
+## ❤️ Donaciones
+
+Si esta librería te ha ayudado a ti o a tu negocio, por favor considera hacer una pequeña donación para apoyar su desarrollo continuo y mantenimiento.
+
+| Método | Detalles |
+| :--- | :--- |
+| **PayPal** | [jalexiscv@gmail.com](https://www.paypal.com/paypalme/anssible) |
+| **Nequi (Colombia)** | `3117977281` |
+
+*¡Gracias por tu apoyo!*

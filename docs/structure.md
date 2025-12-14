@@ -1,5 +1,7 @@
 # Estructura del Proyecto
 
+> **[Leer en Español](structure.md)** | **[Read in English](structure.en.md)**
+
 A partir de la versión 2.4.0, **Higgs HTML** adopta una estructura de directorios moderna y compatible con PSR-4 estándar en la comunidad PHP.
 
 ## Directorios
