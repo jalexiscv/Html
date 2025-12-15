@@ -3,6 +3,7 @@
 namespace App\Libraries;
 
 use App\Libraries\Html\Bootstrap\Alert;
+use App\Libraries\Html\Bootstrap\Cards;
 use App\Libraries\Html\Bootstrap\Evolution;
 use App\Libraries\Html\Bootstrap\ListGroup;
 use App\Libraries\Html\Bootstrap\ListGroupItem;
@@ -15,8 +16,9 @@ use App\Libraries\Html\Bootstrap\Shortcuts;
 use App\Libraries\Html\Bootstrap\Table;
 use App\Libraries\Html\Bootstrap\Tree;
 use App\Libraries\Html\Bootstrap\TreeNode;
-use App\Libraries\Html\HtmlTag;
-use App\Libraries\Html\Tag\Tag;
+use Exception;
+use Higgs\Html\HtmlTag;
+use Higgs\Html\Tag\Tag;
 
 class Bootstrap
 {
@@ -112,7 +114,7 @@ class Bootstrap
                 return ($default);
             }
         } else {
-            throw new \Exception('Attributes debe ser un vector.');
+            throw new Exception('Attributes debe ser un vector.');
         }
     }
 
@@ -209,7 +211,7 @@ class Bootstrap
             $ht->content($content);
             return ($ht->render());
         } else {
-            throw new \Exception('Args debe ser un vector.');
+            throw new Exception('Args debe ser un vector.');
         }
 
     }
@@ -284,7 +286,7 @@ class Bootstrap
      */
     public static function get_ListGroup(array $attributes = array()): ListGroup
     {
-        $listgroup = new \App\Libraries\Html\Bootstrap\ListGroup($attributes);
+        $listgroup = new ListGroup($attributes);
         return ($listgroup);
     }
 
@@ -294,7 +296,7 @@ class Bootstrap
      */
     public static function get_ListGroupItem($attributes = array()): ListGroupItem
     {
-        $listgroupitem = new \App\Libraries\Html\Bootstrap\ListGroupItem($attributes);
+        $listgroupitem = new ListGroupItem($attributes);
         return ($listgroupitem);
     }
 
@@ -380,7 +382,7 @@ class Bootstrap
             $script->content($content);
             return ($script->render());
         } else {
-            throw new \Exception('Attributes debe ser un vector.');
+            throw new Exception('Attributes debe ser un vector.');
         }
     }
 
@@ -421,13 +423,13 @@ class Bootstrap
                     $input .= '</select>';
                     return ($input);
                 } else {
-                    throw new \Exception('Data debe ser un vector.');
+                    throw new Exception('Data debe ser un vector.');
                 }
             } else {
-                throw new \Exception('El ID del Switch no puede estar vacio.');
+                throw new Exception('El ID del Switch no puede estar vacio.');
             }
         } else {
-            throw new \Exception('Attributes debe ser un vector.');
+            throw new Exception('Attributes debe ser un vector.');
         }
     }
 
@@ -474,10 +476,10 @@ class Bootstrap
                 $js .= "</script>";
                 return ($html . $js);
             } else {
-                throw new \Exception('El ID de la firma no puede estar vacio.');
+                throw new Exception('El ID de la firma no puede estar vacio.');
             }
         } else {
-            throw new \Exception('Attributes debe ser un vector.');
+            throw new Exception('Attributes debe ser un vector.');
         }
     }
 
@@ -539,10 +541,10 @@ class Bootstrap
                 $status->content(array($input, $span));
                 return ($status->render());
             } else {
-                throw new \Exception('El ID del Switch no puede estar vacio.');
+                throw new Exception('El ID del Switch no puede estar vacio.');
             }
         } else {
-            throw new \Exception('Attributes debe ser un vector.');
+            throw new Exception('Attributes debe ser un vector.');
         }
     }
 
@@ -593,7 +595,7 @@ class Bootstrap
     function get_Card2($id, $args = array())
     {
         // Crear instancia de Cards
-        $card = new \App\Libraries\Html\Bootstrap\Cards([
+        $card = new Cards([
             'id' => $id,
             'class' => isset($args["class"]) ? "card {$args["class"]} mb-2" : "card mb-2"
         ]);
@@ -1312,7 +1314,7 @@ class Bootstrap
      * @param $id
      * @param $attributes
      * @return ProgressBar
-     * @throws \Exception
+     * @throws Exception
      */
     public static function get_Progress($id, $attributes = array())
     {
