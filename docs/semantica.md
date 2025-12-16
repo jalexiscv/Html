@@ -2,6 +2,33 @@
 
 Esta guía lista todos los métodos estáticos disponibles en la clase `Html` (vía `HtmlElementsTrait`, `HtmlTableTrait`, `HtmlFormTrait`, etc.) para generar etiquetas HTML5 semánticas.
 
+
+## Manipulación de Atributos e Interfaz Fluida
+
+Todos los objetos retornados por la librería implementan una **interfaz fluida** (method chaining). Esto significa que puedes encadenar métodos para modificar la etiqueta después de crearla.
+
+Esto es especialmente útil para agregar atributos como `class`, `id`, `style` de forma limpia.
+
+```php
+// Método 1: Pasando atributos en el constructor (array)
+echo Html::a('#', 'Click aquí', ['class' => 'btn btn-primary']);
+
+// Método 2: Usando la interfaz fluida
+echo Html::a('#', 'Click aquí')
+    ->attr('class', 'text-danger bold')
+    ->attr('id', 'mi-enlace')
+    ->attr('data-toggle', 'modal');
+```
+
+También puedes usar método mágicos para atributos comunes (aunque `attr()` es el estándar más robusto):
+```php
+echo Html::div("Contenido")
+    ->id("main-container")
+    ->class("p-4 bg-light"); 
+```
+
+---
+
 ## Estructura del Documento y Metadatos
 
 Helpers para el `head` y la configuración del documento.
