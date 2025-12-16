@@ -203,7 +203,14 @@ Hemos preparado una suite de ejemplos prácticos en el directorio `examples/` pa
 - **[01-basics.php](examples/01-basics.php)**: Fundamentos de creación, atributos y renderizado.
 - **[02-forms.php](examples/02-forms.php)**: Construcción avanzada de formularios validados.
 
-Para entender la estructura de archivos PSR-4 del proyecto, consulta **[docs/structure.md](docs/structure.md)**.
+## 📚 Documentación
+
+La documentación completa está disponible en el directorio [docs/](docs/).
+
+*   [**Guía Arquitectónica**](ARCHITECTURE.md): Entiende la estructura y diseño de la librería.
+*   [**Referencia Semántica**](docs/semantica.md): Lista completa de todos los helpers HTML5 (Text, Forms, Tables, Media, etc).
+*   [**Estructura del Proyecto**](docs/structure.md): Explicación detallada de ficheros y directorios.
+*   [**Ejemplos**](examples/): Scripts funcionales para copiar y pegar.
 
 ---
 
