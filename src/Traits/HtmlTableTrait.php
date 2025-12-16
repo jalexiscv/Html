@@ -48,4 +48,78 @@ trait HtmlTableTrait
 
         return $table;
     }
+
+    // --- Constructor de Tablas Atómico ---
+
+    /**
+     * Crea un elemento caption (título de tabla).
+     */
+    public static function caption(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('caption', $attributes, $content);
+    }
+
+    /**
+     * Crea un elemento colgroup (grupo de columnas).
+     */
+    public static function colgroup(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('colgroup', $attributes, $content);
+    }
+
+    /**
+     * Crea un elemento col (columna).
+     */
+    public static function col(array $attributes = []): TagInterface
+    {
+        return self::tag('col', $attributes);
+    }
+
+    /**
+     * Crea un elemento thead (encabezado de tabla).
+     */
+    public static function thead(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('thead', $attributes, $content);
+    }
+
+    /**
+     * Crea un elemento tbody (cuerpo de tabla).
+     */
+    public static function tbody(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('tbody', $attributes, $content);
+    }
+
+    /**
+     * Crea un elemento tfoot (pie de tabla).
+     */
+    public static function tfoot(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('tfoot', $attributes, $content);
+    }
+
+    /**
+     * Crea un elemento tr (fila de tabla).
+     */
+    public static function tr(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('tr', $attributes, $content);
+    }
+
+    /**
+     * Crea un elemento th (celda de encabezado).
+     */
+    public static function th(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('th', $attributes, $content);
+    }
+
+    /**
+     * Crea un elemento td (celda de datos).
+     */
+    public static function td(mixed $content = null, array $attributes = []): TagInterface
+    {
+        return self::tag('td', $attributes, $content);
+    }
 }

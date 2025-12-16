@@ -142,6 +142,47 @@ trait HtmlFormTrait
         return self::tag('label', $attributes, $text);
     }
 
+    /**
+     * Crea un elemento datalist (lista de opciones predefinidas).
+     * @param string $id ID para vincular con input[list].
+     */
+    public static function datalist(string $id, mixed $content = null, array $attributes = []): TagInterface
+    {
+        $attributes['id'] = $id;
+        return self::tag('datalist', $attributes, $content);
+    }
+
+    /**
+     * Crea un elemento output (resultado de cálculo).
+     * @param string $for IDs de los elementos que contribuyen.
+     */
+    public static function output(string $for, mixed $content = null, array $attributes = []): TagInterface
+    {
+        $attributes['for'] = $for;
+        return self::tag('output', $attributes, $content);
+    }
+
+    /**
+     * Crea un elemento option (opción de select/datalist).
+     */
+    public static function option(mixed $content, string $value, bool $selected = false, array $attributes = []): TagInterface
+    {
+        $attributes['value'] = $value;
+        if ($selected) {
+            $attributes['selected'] = 'selected';
+        }
+        return self::tag('option', $attributes, $content);
+    }
+
+    /**
+     * Crea un elemento optgroup (grupo de opciones).
+     */
+    public static function optgroup(string $label, mixed $content = null, array $attributes = []): TagInterface
+    {
+        $attributes['label'] = $label;
+        return self::tag('optgroup', $attributes, $content);
+    }
+
     // --- Extended Inputs ---
 
     public static function file(string $name, array $attributes = []): TagInterface

@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2025-12-16
+
+### Features
+- **100% HTML5 Support**: Implemented over 40 missing HTML5 tags including `picture`, `audio`, `video`, `dialog`, `details`, `time`, `ruby`, `template`, `slot` and more.
+- **Atomic Table Builder**: Added `caption()`, `colgroup()`, `col()`, `thead()`, `tbody()`, `tfoot()`, `tr()`, `th()`, `td()` to `HtmlTableTrait` for granular table construction.
+- **Advanced Forms**: Added `datalist()`, `output()`, `optgroup()`, `option()` to `HtmlFormTrait`.
+- **System Tags**: Added `noscript()`, `address()`, `hgroup()`, `menu()`.
+- **Tree Construction**: Added `addChild()` method to `TagInterface` and `AbstractTag` to allow fluent nesting of elements (e.g. `$table->addChild($tbody)`).
+
+### Changed
+- **Conflict Resolution**: `Html::time()` now generates the `<time>` semantic tag. The previous form helper for input type time is now aliased as `Html::inputTime()` (or via `Html::input('time')`).
+
 ## [2.6.1] - 2025-12-14
 
 ### Documentation

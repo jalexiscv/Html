@@ -4,204 +4,254 @@ declare(strict_types=1);
 
 namespace Higgs\Html\Tag;
 
-use Higgs\Html\AbstractBaseHtmlTagObject;
+use Higgs\Html\Attribute\AttributeInterface;
 use Higgs\Html\Attributes\AttributesInterface;
-use Higgs\Html\Attributes\AttributesFactory;
+use Higgs\Html\Html;
 use Higgs\Html\StringableInterface;
 
-abstract class AbstractTag extends AbstractBaseHtmlTagObject implements TagInterface
+/**
+ * Class AbstractTag
+ * Proporciona la funcionalidad base para todas las etiquetas HTML.
+ */
+abstract class AbstractTag implements TagInterface
 {
+    protected string $name;
+    protected AttributesInterface $attributes;
+    protected array $content = [];
+    protected array $preprocessCallbacks = [];
+    protected bool $escapeContent = true; // Por defecto, el contenido se escapa
+
     /**
-     * El contenido de la etiqueta.
+     * Constructor de AbstractTag.
      *
-     * @var mixed
+     * @param string $name El nombre de la etiqueta.
+     * @param AttributesInterface $attributes Los atributos de la etiqueta.
+     * @param mixed ...$content El contenido inicial.
      */
-    protected mixed $content = null;
+    public function __construct(string $name, AttributesInterface $attributes, ...$content)
+    {
+        $this->name = $name;
+        $this->attributes = $attributes;
+        $this->content(...$content);
+    }
 
     /**
-     * Constructor de la Etiqueta.
+     * Clona el objeto, asegurando una copia profunda de los atributos.
+     */
+    public function __clone()
+    {
+        $this->attributes = clone $this->attributes;
+    }
+
+    /**
+     * Convierte la etiqueta a su representación de cadena.
      *
-     * @param AttributesInterface $attributes
-     *   El objeto de atributos.
-     * @param string|null $tag
-     *   El nombre de la etiqueta.
-     * @param mixed $content
-     *   El contenido.
+     * @return string La etiqueta HTML renderizada.
      */
-    public function __construct(
-        private readonly AttributesInterface $attributes,
-        private readonly ?string $tag = null,
-        mixed $content = null
-    ) {
-        $this->content($content);
-    }
-
-    // ... existing content methods ...
-
-    public function __serialize(): array
-    {
-        return [
-            'tag' => $this->tag,
-            'attributes' => $this->attributes->getValuesAsArray(),
-            'content' => $this->renderContent(),
-        ];
-    }
-
-    public function __unserialize(array $data): void
-    {
-        $this->tag = $data['tag'];
-        $this->attributes = AttributesFactory::build($data['attributes']);
-        $this->content = $data['content'];
-    }
-
-    /**
-     * Establece el contenido de la etiqueta.
-     *
-     * @param mixed ...$data Contenido variable. Puede ser string, array, u otros objetos convertibles.
-     * @return string|null El contenido renderizado o null si está vacío.
-     */
-    public function content(...$data): ?string
-    {
-        if ([] !== $data) {
-            if (null === reset($data)) {
-                $data = null;
-            }
-
-            $this->content = $data;
-        }
-
-        return $this->renderContent();
-    }
-
-    /**
-     * Renderiza el contenido de la etiqueta.
-     */
-    protected function renderContent(): ?string
-    {
-        return [] === ($items = array_map([$this, 'escape'], $this->getContentAsArray())) ?
-            null :
-            implode('', $items);
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    public function getContentAsArray(): array
-    {
-        return $this->preprocess(
-            $this->ensureFlatArray((array)$this->content)
-        );
-    }
-
-    public function preprocess(array $values, array $context = []): array
-    {
-        return ($values);
-    }
-
-    /**
-     * @param array<string> $arguments
-     *
-     * @return TagInterface
-     */
-    public static function __callStatic(string $name, array $arguments = [])
-    {
-        return new static($arguments[0], $name);
-    }
-
     public function __toString(): string
     {
         return $this->render();
     }
 
     /**
-     * Lista de elementos vacíos de HTML5.
+     * Gestiona los atributos de la etiqueta.
      *
-     * @var array<string>
+     * @param string|null $name El nombre del atributo a obtener o establecer.
+     * @param mixed ...$value El valor a establecer para el atributo.
+     * @return AttributeInterface|string|self
      */
-    private const VOID_ELEMENTS = [
-        'area',
-        'base',
-        'br',
-        'col',
-        'embed',
-        'hr',
-        'img',
-        'input',
-        'link',
-        'meta',
-        'param',
-        'source',
-        'track',
-        'wbr'
-    ];
-
-    public function render(): string
+    public function attr(?string $name = null, ...$value)
     {
-        $content = $this->renderContent();
-        $isVoid = in_array(strtolower($this->tag), self::VOID_ELEMENTS, true);
-
-        if ($isVoid) {
-            // Los elementos vacíos no pueden tener contenido.
-            return sprintf('<%s%s>', $this->tag, $this->attributes->render());
+        if (null === $name) {
+            return $this->attributes->render();
         }
 
-        // Los elementos no vacíos deben tener estrictamente una etiqueta de cierre, incluso si el contenido es nulo/vacío.
-        return sprintf('<%s%s>%s</%s>', $this->tag, $this->attributes->render(), $content ?? '', $this->tag);
+        if (empty($value)) {
+            return $this->attributes->get($name);
+        }
+
+        $this->attributes->set($name, ...$value);
+
+        return $this;
     }
 
-    public function alter(callable ...$closures): TagInterface
+    /**
+     * Gestiona el contenido de la etiqueta.
+     *
+     * @param mixed ...$data El contenido a establecer.
+     * @return string|null El contenido actual como cadena.
+     */
+    public function content(...$data): ?string
+    {
+        if (empty($data)) {
+            return $this->renderContent();
+        }
+
+        $this->content = [];
+        $this->addContent(...$data);
+
+        return null;
+    }
+
+    /**
+     * Agrega contenido a la etiqueta.
+     *
+     * @param mixed ...$data El contenido a agregar.
+     */
+    protected function addContent(...$data): void
+    {
+        foreach ($data as $item) {
+            if (is_array($item)) {
+                $this->addContent(...$item);
+            } elseif (null !== $item) {
+                $this->content[] = $item;
+            }
+        }
+    }
+
+    /**
+     * Obtiene el contenido como un array.
+     *
+     * @return array El contenido.
+     */
+    public function getContentAsArray(): array
+    {
+        return $this->content;
+    }
+
+    /**
+     * Renderiza la etiqueta completa.
+     *
+     * @return string La etiqueta HTML.
+     */
+    public function render(): string
+    {
+        $attributes = $this->attributes->render();
+        $content = $this->renderContent();
+
+        return "<{$this->name}{$attributes}>{$content}</{$this->name}>";
+    }
+
+    /**
+     * Renderiza solo el contenido de la etiqueta.
+     *
+     * @return string El contenido renderizado.
+     */
+    protected function renderContent(): string
+    {
+        $content = '';
+        $processedContent = $this->preprocess($this->content);
+        foreach ($processedContent as $item) {
+            $string = $this->ensureString($item);
+            if ($this->escapeContent && !$item instanceof TagInterface && !$item instanceof StringableInterface) {
+                $string = $this->escape($string);
+            }
+            $content .= $string;
+        }
+
+        return $content;
+    }
+
+    /**
+     * Habilita o deshabilita el escapado del contenido de la etiqueta.
+     *
+     * @param bool $enable Si es true (por defecto), el contenido se escapará; si es false, no.
+     * @return self
+     */
+    public function setEscape(bool $enable = true): self
+    {
+        $this->escapeContent = $enable;
+        return $this;
+    }
+
+    /**
+     * Escapa un valor, cumpliendo con la EscapableInterface.
+     *
+     * @param mixed $value El valor a escapar.
+     * @return string|null El valor escapado.
+     */
+    public function escape($value): ?string
+    {
+        $string = $this->ensureString($value);
+        if (null === $string) {
+            return null;
+        }
+        return htmlspecialchars($string, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    }
+
+    /**
+     * Agrega funciones de preprocesamiento.
+     *
+     * @param callable ...$callback Las funciones a agregar.
+     * @return self
+     */
+    public function addPreprocess(callable ...$callback): self
+    {
+        $this->preprocessCallbacks = array_merge($this->preprocessCallbacks, $callback);
+        return $this;
+    }
+
+    /**
+     * Preprocesa los valores de un objeto, cumpliendo con la PreprocessableInterface.
+     *
+     * @param array $values Los valores a preprocesar.
+     * @param array $context El contexto (no utilizado actualmente).
+     * @return array Los valores procesados.
+     */
+    public function preprocess(array $values, array $context = []): array
+    {
+        foreach ($this->preprocessCallbacks as $callback) {
+            $values = array_map($callback, $values);
+        }
+        return $values;
+    }
+
+    /**
+     * Altera el objeto de la etiqueta aplicando uno o más closures.
+     *
+     * @param callable ...$closures Los closures a aplicar. Cada uno recibe la instancia de la etiqueta.
+     * @return self
+     */
+    public function alter(callable ...$closures): self
     {
         foreach ($closures as $closure) {
-            $this->content = $closure(
-                $this->ensureFlatArray((array)$this->content)
-            );
+            $closure($this);
         }
 
         return $this;
     }
 
     /**
-     * Maneja el establecimiento dinámico de atributos vía llamadas a métodos.
-     * Ejemplo: $tag->id('my-id') se convierte en $tag->attr('id', 'my-id')
+     * Asegura que un valor sea una cadena.
      *
-     * @param string $name
-     * @param array $arguments
-     * @return $this|mixed
+     * @param mixed $value El valor a convertir.
+     * @return string|null La representación de cadena del valor.
      */
-    public function __call(string $name, array $arguments)
+    protected function ensureString($value): ?string
     {
-        if (empty($arguments)) {
-            // Get attribute value if no arguments
-            return $this->attributes[$name] ?? null;
+        if (is_string($value)) {
+            return $value;
         }
+        if (is_numeric($value) || (is_object($value) && method_exists($value, '__toString'))) {
+            return (string) $value;
+        }
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+        // Para otros tipos como array o resource, devuelve una representación o null
+        return null;
+    }
 
-        // Set attribute value
-        $this->attr($name, ...$arguments);
+
+    /**
+     * Agrega contenido hijo a la etiqueta.
+     * 
+     * @param mixed ...$content El contenido a agregar.
+     * @return self
+     */
+    public function addChild(...$content)
+    {
+        $this->addContent(...$content);
         return $this;
-    }
-
-    public function attr(?string $name = null, ...$value)
-    {
-        if (null === $name) {
-            return ($this->attributes->render());
-        }
-
-        if ([] === $value) {
-            return ($this->attributes[$name]);
-        }
-
-        return $this->attributes[$name]->set($value);
-    }
-
-    public function escape($value): ?string
-    {
-        $return = $this->ensureString($value);
-
-        if ($value instanceof StringableInterface) {
-            return ($return);
-        }
-
-        //return null === $return ?$return :htmlentities($return);
-        return null === $return ? $return : htmlspecialchars($return, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
 }

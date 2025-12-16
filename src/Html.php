@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Higgs\Html;
@@ -20,6 +21,8 @@ final class Html implements HtmlTagInterface
 {
     use HtmlElementsTrait, Traits\Macroable, Traits\HtmlFormTrait, Traits\HtmlTableTrait, Traits\HtmlMediaTrait {
         Traits\HtmlFormTrait::input insteadof HtmlElementsTrait;
+        HtmlElementsTrait::time insteadof Traits\HtmlFormTrait;
+        Traits\HtmlFormTrait::time as inputTime;
     }
 
     private static array $cache = [];
@@ -66,13 +69,13 @@ final class Html implements HtmlTagInterface
     public static function tag(string $name, array $attributes = [], mixed $content = null, bool $useCache = false): TagInterface
     {
         $cacheKey = $useCache ? self::generateCacheKey($name, $attributes, $content) : null;
-        
+
         if ($useCache && isset(self::$cache[$cacheKey])) {
             return clone self::$cache[$cacheKey];
         }
 
         $tag = TagFactory::build($name, $attributes, $content);
-        
+
         if ($useCache) {
             self::$cache[$cacheKey] = clone $tag;
         }
@@ -103,10 +106,10 @@ final class Html implements HtmlTagInterface
         $attributes['type'] = $type;
         $attributes['name'] = $name;
         $attributes['id'] = $attributes['id'] ?? "field-{$name}";
-        
+
         $field = self::tag('input', $attributes);
         $field->attr('aria-label', $attributes['label'] ?? $name);
-        
+
         if (isset($attributes['required']) && $attributes['required']) {
             $field->attr('aria-required', 'true');
         }
@@ -158,6 +161,3 @@ final class Html implements HtmlTagInterface
         self::$cache = [];
     }
 }
-
-
-?>

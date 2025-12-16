@@ -50,4 +50,14 @@ interface TagInterface extends
      *   El contenido como un array.
      */
     public function getContentAsArray(): array;
+
+    /**
+     * Agrega contenido hijo a la etiqueta.
+     * 
+     * @param mixed ...$content
+     *   El contenido a agregar.
+     * 
+     * @return self
+     */
+    public function addChild(...$content);
 }

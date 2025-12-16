@@ -56,7 +56,8 @@ class TagFactory implements TagFactoryInterface
         }
 
         if ($tag_classname === Tag::class) {
-            return new Tag($attributes, $name, $content);
+            // Corregido el orden de los argumentos para que coincida con el constructor.
+            return new Tag($name, $attributes, $content);
         }
 
         /** @var TagInterface $tag */
