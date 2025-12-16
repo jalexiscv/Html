@@ -80,6 +80,80 @@ Elementos de bloque para estructurar texto.
 | `Html::figure($content)` | `<figure>` | `Html::figure(Html::img(...))` |
 | `Html::figcaption($text)` | `<figcaption>` | `Html::figcaption("Leyenda")` |
 
+### Ejemplo Detallado: `Html::div`
+
+Aunque `<div>` es un contenedor genérico, su uso junto con la interfaz fluida permite construir layouts complejos.
+
+```php
+<?php
+
+use Higgs\Html\Html;
+
+// 1. Uso Básico: Un contenedor simple con texto
+echo Html::div([], "Este es un contenedor simple.");
+// Salida: <div>Este es un contenedor simple.</div>
+
+// 2. Uso con Atributos (Array)
+echo Html::div(['id' => 'main-box', 'class' => 'container p-4'], "Contenido con atributos.");
+// Salida: <div id='main-box' class='container p-4'>Contenido con atributos.</div>
+
+// 3. Uso de la Interfaz Fluida (Method Chaining)
+// Esta es la forma más potente, permitiendo configurar el elemento paso a paso.
+echo Html::div()
+    ->id('user-profile')
+    ->class('card shadow-sm')
+    ->data('user-id', '12345') // Atributo data-user-id
+    ->style('background-color: #f8f9fa;')
+    ->addChild(
+        Html::h2("Perfil de Usuario")
+    )
+    ->addChild(
+        Html::p("Detalles del usuario aquí...")
+    );
+
+/* Salida (formateada):
+<div id="user-profile" class="card shadow-sm" data-user-id="12345" style="background-color: #f8f9fa;">
+    <h2>Perfil de Usuario</h2>
+    <p>Detalles del usuario aquí...</p>
+</div>
+*/
+
+// 4. Creación de una Estructura de Grid (Anidamiento)
+// Ejemplo de una fila con dos columnas usando clases tipo Bootstrap
+echo Html::div(['class' => 'row'])
+    ->addChild(
+        Html::div(['class' => 'col-md-6'], "Columna Izquierda")
+    )
+    ->addChild(
+        Html::div(['class' => 'col-md-6'], "Columna Derecha")
+    );
+
+/* Salida:
+<div class="row">
+    <div class="col-md-6">Columna Izquierda</div>
+    <div class="col-md-6">Columna Derecha</div>
+</div>
+*/
+
+// 5. Ejemplo Avanzado: Componente "Card"
+// Construyendo un componente visual completo solo con helpers
+$card = Html::div(['class' => 'card'])
+    ->addChild(
+        Html::div(['class' => 'card-header'], "Título de la Tarjeta")
+    )
+    ->addChild(
+        Html::div(['class' => 'card-body'])
+            ->addChild(Html::h5("Subtítulo", ['class' => 'card-title']))
+            ->addChild(Html::p("Texto de ejemplo para el cuerpo de la tarjeta.", ['class' => 'card-text']))
+            ->addChild(Html::a('#', "Ir a algún lugar", ['class' => 'btn btn-primary']))
+    )
+    ->addChild(
+        Html::div(['class' => 'card-footer text-muted'], "Hace 2 días")
+    );
+
+echo $card;
+```
+
 ## Semántica en Línea (Inline)
 
 Elementos para dar significado a partes del texto.
