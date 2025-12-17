@@ -2,97 +2,267 @@
 [![Say Thanks!](https://img.shields.io/badge/Say-thanks-brightgreen.svg?style=flat-square)](https://saythanks.io/to/jalexiscv)
 [![Donate!](https://img.shields.io/badge/Donate-Paypal-brightgreen.svg?style=flat-square)](https://paypal.me/jalexiscv)
 
-# Higgs HTML
+# Higgs HTML: Generador de HTML Puro y Agnóstico
 
-## Descripción
+> **[Leer en Español](README.md)** | **[Read in English](README.en.md)**
 
-Biblioteca PHP moderna, ligera y agnóstica para la generación de HTML puro. Diseñada con un enfoque en la seguridad, rendimiento y flexibilidad, sin dependencias de frameworks CSS específicos.
+> **"La pureza del código comienza con la independencia de las herramientas."**
 
-## Características Principales
+**Higgs HTML** es una biblioteca de ingeniería de software para PHP diseñada para la generación programática de marcado HTML. A diferencia de otros helpers o builders que acoplan la lógica a frameworks CSS específicos (como Bootstrap o Tailwind), Higgs HTML se adhiere estrictamente a una filosofía **agnóstica**, ofreciendo una capa de abstracción pura, segura y de alto rendimiento.
 
-- **Agnóstico**: Genera HTML limpio sin ataduras a Bootstrap, Tailwind ni otros frameworks.
-- **Tipado Estricto**: Compatible con PHP 8.0+.
-- **Fluido**: API encadenable para una escritura de código limpia y legible.
-- **Seguro**: Escape automático de contenido para prevenir XSS.
-- **Extensible**: Fácil de extender para crear tus propios sistemas de componentes.
-- **Caché**: Sistema de caché integrado para rendimiento.
 
-## Requisitos
+[![Ver Video](https://img.youtube.com/vi/utLU07rgD2s/hqdefault.jpg)](https://www.youtube.com/watch?v=utLU07rgD2s)
 
-* PHP 8.0 o superior
+---
 
-## Instalación
+## 💡 Filosofía y Diseño
 
+La librería fue concebida bajo tres pilares fundamentales que guían su arquitectura interna:
+
+### 1. Agnosticismo Estructural
+El HTML generado no debe suponer clases, estructuras o jerarquías impuestas por una librería de estilos visuales. `Higgs\Html` genera **HTML Semántico Estándar (W3C)**. Esto garantiza:
+- **Longevidad:** Tu código PHP no se rompe cuando cambias de Bootstrap 4 a 5, o de Tailwind a Bulma.
+- **Flexibilidad:** Tú tienes el control total de los atributos `class`, `id` y `data-*`.
+
+### 2. Rendimiento (Memory & CPU)
+Bajo el capó, la librería implementa patrones de optimización agresivos:
+- **Singleton de Instancias (Caché):** Cuando solicitas una etiqueta común repetidamente, la librería puede clonar una instancia `prototype` previamente almacenada en memoria en lugar de reconstruir el objeto desde cero.
+- **Lazy Rendering:** La cadena de texto HTML solo se ensambla en el último milisegundo posible (`__toString()`).
+
+### 3. Seguridad por Defecto
+La inyección de código (XSS) es mitigada activamente.
+- **Validación de Atributos:** Todos los valores de atributos son escapados automáticamente (`htmlspecialchars`).
+- **Control de Contenido:** El contenido inseguro insertado via métodos estándar es tratado como texto plano.
+
+---
+
+## 🏗️ Arquitectura Técnica
+
+La librería sigue los estándares **PSR-4** y **PSR-12**, utilizando características modernas de PHP 8.2+:
+
+- **Fluent Interface (Builder Pattern):** Permite encadenar métodos para configurar el objeto de manera legible y compacta.
+- **Factory Pattern:** El núcleo `Html::tag()` actúa como una fábrica inteligente que decide si instanciar un nuevo objeto o clonar uno de la caché.
+- **Traits de Composición:** `HtmlElementsTrait` inyecta capacidades semánticas (métodos como `div()`, `span()`) sin herencia rígida, permitiendo que la clase `Html` permanezca ligera (`final class`).
+
+---
+
+## 📋 Requisitos del Sistema
+
+- **PHP**: 8.2 o superior.
+- **Extensiones**: `json` (opcional, para atributos de datos complejos).
+
+---
+
+## 🚀 Instalación
+
+### Opción A: Composer (Recomendada)
+Para proyectos profesionales con gestión de dependencias:
 ```bash
 composer require Higgs/Html
 ```
 
-## Uso Básico
-
+### Opción B: Manual (Stand-alone)
+Si no utilizas Composer, puedes integrar la librería directamente gracias a nuestro autoloader nativo:
+1. Descarga/Clona este repositorio en tu carpeta de librerías (ej. `system/Html`).
+2. Requiere el archivo de carga:
 ```php
-<?php
-declare(strict_types=1);
-
-use Higgs\Html\Html;
-
-// Crear elementos HTML básicos
-$div = Html::div(['class' => 'container'], 'Hola Mundo');
-
-// Encadenamiento fluido
-$button = Html::button('Click me')
-    ->attr('class', 'btn btn-primary')
-    ->attr('data-id', '123')
-    ->id('my-button');
-
-echo $button; 
-// <button type="button" class="btn btn-primary" data-id="123" id="my-button">Click me</button>
-
-// Listas
-$list = Html::ul(['class' => 'list-group'])
-    ->child(Html::li(['class' => 'list-item'], 'Item 1'))
-    ->child(Html::li(['class' => 'list-item'], 'Item 2'));
-
-// Imágenes
-$img = Html::img('path/to/image.jpg', 'Descripción');
-
-// Componentes Web Personalizados
-$custom = Html::webComponent('user-card', ['user-id' => '42']);
+require_once '/path/to/system/Html/autoload.php';
+// La librería está lista para usar.
 ```
 
-## API
+---
 
-### Métodos Estáticos (Html)
+## 📖 Guía de Uso
 
-La clase `Higgs\Html\Html` provee helpers estáticos para las etiquetas más comunes:
+### 1. La Interfaz Fluida
+Olvídate de concatenar strings y abrir/cerrar etiquetas manualmente.
 
-- `Html::div(array $attributes = [], mixed $content = null)`
-- `Html::span(...)`
-- `Html::p(...)`
-- `Html::a(string $href, ...)`
-- `Html::img(string $src, string $alt, ...)`
-- `Html::button(...)`
-- `Html::input(...)`
-- `Html::tag(string $name, ...)` - Para cualquier otra etiqueta.
+```php
+use Higgs\Html\Html;
 
-### Métodos de Instancia (TagInterface)
+// Generación limpia y legible
+echo Html::button('Guardar Cambios')
+    ->type('submit')
+    ->addClass('btn btn-primary shadow-sm')
+    ->attr('data-action', 'save')
+    ->attr('onclick', 'validate()');
+```
 
-Todos los objetos retornados implementan `TagInterface` y soportan encadenamiento:
+**Salida:**
+```html
+<button type="submit" class="btn btn-primary shadow-sm" data-action="save" onclick="validate()">Guardar Cambios</button>
+```
 
-- `->attr(string $name, string $value)`: Establece un atributo.
-- `->addClass(string $class)`: Agrega una clase CSS.
-- `->id(string $id)`: Establece el ID.
-- `->content(mixed $content)`: Establece el contenido.
-- `->child(TagInterface $child)`: Agrega un elemento hijo.
-- `->render()`: Retorna el string HTML final.
+### 2. Estructuras Anidadas (Árboles DOM)
+Puedes construir estructuras complejas anidando elementos.
 
-## Contribuir
+```php
+$card = Html::div(['class' => 'card'])
+    ->child(
+        Html::div(['class' => 'card-header'], 'Título del Panel')
+    )
+    ->child(
+        Html::div(['class' => 'card-body'])
+            ->child(Html::p([], 'Contenido dinámico...'))
+            ->child(Html::a('/more', 'Leer más', ['class' => 'btn-link']))
+    );
 
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+echo $card;
+```
 
-## Licencia
+### 3. Helpers Semánticos
+La librería provee métodos estáticos para la mayoría de etiquetas HTML5 estándar, mejorando el autocompletado del IDE y la legibilidad.
 
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+| Método | HTML Generado | Uso Típico |
+|--------|---------------|------------|
+| `Html::div()` | `<div>` | Contenedores genéricos |
+| `Html::img()` | `<img>` | Imágenes con alt text |
+| `Html::a()` | `<a>` | Enlaces e hipervínculos |
+| `Html::ul()`, `Html::li()` | `<ul>`, `<li>` | Listas |
+| `Html::input()` | `<input>` | Campos de formulario |
+| `Html::meta()` | `<meta>` | SEO y cabeceras |
+
+### 4. Helpers de Formularios Avanzados (v2.5)
+Olvida el HTML manual para inputs complejos.
+
+```php
+// Select con opciones
+echo Html::select('country', ['CO' => 'Colombia', 'US' => 'USA'], 'CO', ['class' => 'form-select']);
+
+// Checkbox con label
+echo Html::checkbox('subscribe', 1, true); 
+
+// Inputs específicos
+echo Html::email('user_email');
+echo Html::password('user_password');
+```
+
+### 5. Generador de Tablas (v2.5)
+Renderiza tablas de datos en una sola línea.
+
+```php
+$headers = ['ID', 'Nombre', 'Rol'];
+$rows = [
+    ['1', 'Ana', 'Admin'],
+    ['2', 'Carlos', 'User'],
+];
+
+echo Html::table($headers, $rows, ['class' => 'table table-striped']);
+```
+
+### 6. Sistema de Macros (Extensibilidad)
+¿Necesitas un componente personalizado? Registra tu propia macro.
+
+```php
+Html::macro('alert', function($msg, $type = 'info') {
+    return Html::div(['class' => "alert alert-$type"], $msg);
+});
+
+// Uso
+echo Html::alert('¡Operación exitosa!', 'success');
+```
+
+### 7. Clases Condicionales (Smart Classes) (v2.6)
+Olvídate de concatenar ternarios para tus clases CSS.
+
+```php
+$isActive = true;
+echo Html::div(['class' => [
+    'btn',
+    'btn-primary', 
+    'active' => $isActive,    // Se agrega solo si es true
+    'disabled' => !$isActive  // Lógica condicional limpia
+]]);
+```
+
+### 8. Multimedia (v2.6)
+Soporte nativo para audio y video.
+
+```php
+// Audio simple
+echo Html::audio('song.mp3', ['controls' => true]);
+
+// Video con múltiples fuentes
+echo Html::video([
+    ['src' => 'video.mp4', 'type' => 'video/mp4'],
+    ['src' => 'video.webm', 'type' => 'video/webm']
+], 'poster.jpg', ['controls' => true]);
+```
+
+### 9. Web Components (HTML Personalizado)
+Para aplicaciones modernas que usan Custom Elements (JS), `Higgs\Html` valida y soporta etiquetas personalizadas.
+
+```php
+// Validado automáticamente: debe contener un guión '-'
+echo Html::webComponent('user-avatar', ['src' => 'profile.jpg', 'size' => 'lg']);
+```
+
+---
+
+## 📂 Ejemplos Ejecutables
+
+Hemos preparado una suite de ejemplos prácticos en el directorio `examples/` para acelerar tu integración:
+
+- **[01-basics.php](examples/01-basics.php)**: Fundamentos de creación, atributos y renderizado.
+- **[02-forms.php](examples/02-forms.php)**: Construcción avanzada de formularios validados.
+
+## 📚 Documentación
+
+La documentación completa está disponible en el directorio [docs/](docs/).
+
+*   [**Guía Arquitectónica**](ARCHITECTURE.md): Entiende la estructura y diseño de la librería.
+*   [**Referencia Semántica**](docs/semantica.md): Lista completa de todos los helpers HTML5 (Text, Forms, Tables, Media, etc).
+*   [**Estructura del Proyecto**](docs/structure.md): Explicación detallada de ficheros y directorios.
+*   [**Ejemplos**](examples/): Scripts funcionales para copiar y pegar.
+
+---
+
+## 🤝 Contribución
+
+Este proyecto es Open Source y vive gracias a la comunidad.
+1. Haz Fork del repositorio.
+2. Crea tu rama (`git checkout -b feature/AmazingFeature`).
+3. Asegúrate de ejecutar los tests (`composer test`).
+4. Haz Commit (`git commit -m 'Add: New global helper'`).
+5. Abre un Pull Request.
+
+---
+
+## 📜 Licencia
+
+Distribuido bajo la Licencia **MIT**. Ver [LICENSE](LICENSE) para más información.
+
+---
+*Desarrollado con ❤️ para la comunidad PHP por José Alexis Correa Valencia.*
+
+---
+
+## 🤝 Soporte y Contribuciones
+
+¡Damos la bienvenida a las contribuciones para mejorar Higgs Html!
+
+Si encuentras algún problema, por favor abre un issue en GitHub.
+
+---
+
+## 👨‍💻 Autor
+
+**Jose Alexis Correa Valencia**
+*Full Stack Developer & Software Architect*
+
+*   **GitHub**: [@jalexiscv](https://github.com/jalexiscv)
+*   **Email**: jalexiscv@gmail.com
+*   **Ubicación**: Colombia
+
+---
+
+## ❤️ Donaciones
+
+Si esta librería te ha ayudado a ti o a tu negocio, por favor considera hacer una pequeña donación para apoyar su desarrollo continuo y mantenimiento.
+
+| Método | Detalles |
+| :--- | :--- |
+| **PayPal** | [jalexiscv@gmail.com](https://www.paypal.com/paypalme/anssible) |
+| **Nequi (Colombia)** | `3117977281` |
+
+*¡Gracias por tu apoyo!*
